@@ -1,0 +1,26 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: monospace;
+}
+
+header {
+  background-color: rgb(10, 189, 189);
+  padding: 10px;
+}
+
+body {
+  background-color: lightsalmon;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  margin-bottom: 10px;
+}
