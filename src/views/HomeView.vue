@@ -1,4 +1,10 @@
 <template>
   <h2>Startseite</h2>
-  <RouterLink to="/createPoi">Erstelle einen neuen Poi</RouterLink>
+  <ul>
+    <li><RouterLink to="/createPoi">Erstelle einen neuen Poi</RouterLink></li>
+    <li><RouterLink to="/favoritePois">Hier findest du deine Favoriten</RouterLink></li>
+    <li><RouterLink to="/account">Alles rund um deinen Account</RouterLink></li>
+    <li><RouterLink to="/searchpois">Finde deinen Weg!</RouterLink></li>
+    <li><RouterLink to="/ownpois">geteilte Orte</RouterLink></li>
+  </ul>
 </template>
