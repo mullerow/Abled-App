@@ -1,3 +1,11 @@
+<template>
+  <header>
+    <h1>Accsessibility App For ALL!</h1>
+  </header>
+
+  <RouterView />
+</template>
+
 <script>
 //import { RouterView } from 'vue-router'
 
@@ -7,7 +15,7 @@ export default {
       poiList: [
         {
           id: 1,
-          categorie: 'elevator',
+          category: 'elevator',
           'detail-categories': { 'elevator-size': 'large' },
           xCoordinates: 52.55347266835718,
           yCoordinates: 13.412074165422549,
@@ -15,14 +23,14 @@ export default {
         },
         {
           id: 2,
-          categorie: 'toilet',
+          category: 'toilet',
           'detail-categories': {
             'handicapped-accessible': true,
             'changing station': true,
             'free-of-charge': false
           },
-          xCoordinates: 52.55347266835718,
-          yCoordinates: 13.412074165422549,
+          xCoordinates: 52.55347266835722,
+          yCoordinates: 13.412074165422512,
           minWidth: 1.22
         }
       ]
@@ -30,13 +38,5 @@ export default {
   }
 }
 </script>
-
-<template>
-  <header>
-    <h1>Accsessibility App For ALL!</h1>
-  </header>
-
-  <RouterView />
-</template>
 
 <style scoped></style>
