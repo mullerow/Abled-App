@@ -1,6 +1,9 @@
 <template>
   <div class="info">
-    <h2>Kategorie</h2>
+    <div class="container">
+      <h2>Kategorie</h2>
+      <img src="@/assets/icons/star.png" class="star" />
+    </div>
     <h3>Koordinaten</h3>
     <p>34,342424 , 34,5335253 (lat. Ing)</p>
     <h3>Adresse</h3>
@@ -22,5 +25,16 @@
   margin-top: 1rem;
   display: grid;
   margin: 2rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.star {
+  object-fit: contain;
+  width: 8%;
+  margin: 1rem;
 }
 </style>
