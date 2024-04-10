@@ -3,6 +3,15 @@ import { storeData } from '@/stores/store.js'
 
 const store = storeData()
 </script>
+<script>
+export default {
+  methods: {
+    toggleState(poi) {
+      poi.isFavorite = !poi.isFavorite
+    }
+  }
+}
+</script>
 
 <template>
   <h2>Startseite</h2>
@@ -13,6 +22,7 @@ const store = storeData()
     <li><RouterLink to="/searchpois">Finde deinen Weg!</RouterLink></li>
     <li><RouterLink to="/ownpois">geteilte Orte</RouterLink></li>
   </ul>
+
   <p>{{ store.info }}</p>
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
@@ -34,7 +44,9 @@ const store = storeData()
         <li>X-Koordinate: {{ poi.xCoordinates }}</li>
         <li>Y-Koordinate: {{ poi.yCoordinates }}</li>
         <li>Mindestbreite: {{ poi.minWidth }} Zentimeter</li>
+        <li>Favorit: {{ poi.isFavorite }}</li>
         <li>Details: {{ poi.detailCategories }}</li>
+        <button @click.prevent="toggleState(poi)">Favorit hinzufügen</button>
       </ul>
     </li>
   </ul>

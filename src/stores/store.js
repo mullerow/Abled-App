@@ -27,7 +27,8 @@ export const storeData = defineStore('poiStore', {
         detailCategories: { 'elevator-size': 'large' },
         xCoordinates: 52.55347266835718,
         yCoordinates: 13.412074165422549,
-        minWidth: 92
+        minWidth: 92,
+        isFavorite: true
       },
       {
         id: 202,
@@ -39,7 +40,8 @@ export const storeData = defineStore('poiStore', {
         },
         xCoordinates: 52.55347266835722,
         yCoordinates: 13.412074165422512,
-        minWidth: 122
+        minWidth: 122,
+        isFavorite: false
       },
       {
         id: 203,
@@ -47,7 +49,8 @@ export const storeData = defineStore('poiStore', {
         detailCategories: {},
         xCoordinates: 52.55347266835722,
         yCoordinates: 13.412074165422512,
-        minWidth: 122
+        minWidth: 122,
+        isFavorite: true
       }
     ]
   })
