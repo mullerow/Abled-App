@@ -2,13 +2,17 @@
   <header>
     <h1>Accessibility App For ALL!</h1>
   </header>
-
+  <CategorieButton />
+  <RangeSlider />
   <RouterView />
 </template>
 
 <script>
+import CategorieButton from './components/CategorieButton.vue'
+import RangeSlider from './components/RangeSlider.vue'
+
 export default {
-  components: {},
+  components: { CategorieButton, RangeSlider },
 
   data() {
     return {

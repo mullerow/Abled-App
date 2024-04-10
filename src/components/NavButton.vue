@@ -4,11 +4,12 @@
 
 <script></script>
 
-<style>
+<style scoped>
 #NavButton {
   padding: 1rem;
-  background-color: #3d405b;
-  color: #f4f1de;
+  background-color: var(--black);
+  color: var(--white);
   border-radius: 1rem;
+  margin: 2rem;
 }
 </style>
