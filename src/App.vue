@@ -1,19 +1,8 @@
 <script>
 //import { RouterView } from 'vue-router'
-import NavButton from './components/NavButton.vue'
-import InputField from './components/InputField.vue'
-import PriorityButton from './components/PriorityButton.vue'
-import HeadLine from './components/HeadLine.vue'
-import LandingButton from './components/LandingButton.vue'
 
 export default {
-  components: {
-    NavButton,
-    InputField,
-    PriorityButton,
-    HeadLine,
-    LandingButton
-  },
+  components: {},
 
   data() {
     return {
@@ -47,11 +36,6 @@ export default {
 <template>
   <header>
     <h1>Accsessibility App For ALL!</h1>
-    <NavButton />
-    <InputField />
-    <PriorityButton />
-    <HeadLine />
-    <LandingButton />
   </header>
 
   <RouterView />
