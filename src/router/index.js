@@ -42,6 +42,7 @@ const router = createRouter({
   ]
 })
 
+// verwende die namen der Views für die title anzeige im browser
 router.beforeEach((to, from, next) => {
   console.log(from)
   document.title = to.name

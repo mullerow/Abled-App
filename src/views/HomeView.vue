@@ -1,5 +1,4 @@
 <script setup>
-//import { useStore } from 'pinia'
 import { storeData } from '@/stores/store.js'
 
 const store = storeData()
@@ -15,4 +14,28 @@ const store = storeData()
     <li><RouterLink to="/ownpois">geteilte Orte</RouterLink></li>
   </ul>
   <p>{{ store.info }}</p>
+  <h3>Liste aller User aus der Pinia Datenbank</h3>
+  <ul v-for="user of store.userData" :key="user.id">
+    <li>
+      <b style="font-size: 16px">{{ user.id }}</b>
+      <ul>
+        <li>Kategorie: {{ user.userName }}</li>
+        <li>E-Mail Adresse: {{ user.eMailAddress }}</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Liste aller POIs aus der Pinia Datenbank</h3>
+  <ul v-for="poi of store.poiData" :key="poi.id">
+    <li>
+      <b style="font-size: 16px">{{ poi.id }}</b>
+      <ul>
+        <li>Kategorie: {{ poi.category }}</li>
+        <li>X-Koordinate: {{ poi.xCoordinates }}</li>
+        <li>Y-Koordinate: {{ poi.yCoordinates }}</li>
+        <li>Mindestbreite: {{ poi.minWidth }} Zentimeter</li>
+        <li>Details: {{ poi.detailCategories }}</li>
+      </ul>
+    </li>
+  </ul>
 </template>

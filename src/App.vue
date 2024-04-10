@@ -1,14 +1,12 @@
 <template>
   <header>
-    <h1>Accsessibility App For ALL!</h1>
+    <h1>Accessibility App For ALL!</h1>
   </header>
 
   <RouterView />
 </template>
 
 <script>
-//import { RouterView } from 'vue-router'
-
 export default {
   data() {
     return {
