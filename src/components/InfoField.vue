@@ -13,8 +13,6 @@
 </template>
 
 <style scoped>
-@import url('@/assets/main.css');
-
 .info {
   padding: 1rem;
   background-color: var(--white);
@@ -23,5 +21,6 @@
   width: 70%;
   margin-top: 1rem;
   display: grid;
+  margin: 2rem;
 }
 </style>

@@ -3,8 +3,6 @@
 </template>
 
 <style scoped>
-@import url('@/assets/main.css');
-
 .categorie-button {
   padding: 1rem;
   background-color: var(--white);
@@ -13,5 +11,6 @@
   width: 70%;
   margin-top: 1rem;
   font-weight: bold;
+  margin: 2rem;
 }
 </style>
