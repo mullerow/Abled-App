@@ -2,13 +2,17 @@
   <header>
     <h1>Accessibility App For ALL!</h1>
   </header>
-
+  <CategorieButton />
+  <InfoField />
   <RouterView />
 </template>
 
 <script>
+import CategorieButton from './components/CategorieButton.vue'
+import InfoField from './components/InfoField.vue'
+
 export default {
-  components: {},
+  components: { CategorieButton, InfoField },
 
   data() {
     return {

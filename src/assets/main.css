@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+:root {
+  --red: tomato;
+  --white: #f4f1de;
+  --black: #3d405b;
+}
+
 html {
   font-family: monospace;
 }
