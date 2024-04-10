@@ -1,0 +1,16 @@
+<template>
+  <button class="categorie-button"><img src="" alt="" /> Kategorie</button>
+</template>
+
+<style>
+.categorie-button {
+  padding: 1rem;
+  background-color: #f4f1de;
+  color: #3d405b;
+  border-radius: 1rem;
+  width: 70%;
+  display: grid;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+</style>
