@@ -3,15 +3,12 @@
     <h1>Accessibility App For ALL!</h1>
   </header>
 
-  <InfoField />
   <RouterView />
 </template>
 
 <script>
-import InfoField from './components/InfoField.vue'
-
 export default {
-  components: { InfoField },
+  components: {},
 
   data() {
     return {
