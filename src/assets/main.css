@@ -5,7 +5,7 @@
 }
 
 :root {
-  --red: tomato;
+  --red: #e07a5f;
   --white: #f4f1de;
   --black: #3d405b;
 }
@@ -13,6 +13,7 @@
 html {
   font-family: monospace;
   background-color: lightgray;
+  color: var(--black);
 }
 
 body {
@@ -32,6 +33,8 @@ main {
 
 a {
   text-decoration: none;
+  color: var(--black);
+  font-weight: bold;
 }
 
 li {
