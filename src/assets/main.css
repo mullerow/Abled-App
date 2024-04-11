@@ -5,26 +5,36 @@
 }
 
 :root {
-  --red: tomato;
+  --red: #e07a5f;
   --white: #f4f1de;
   --black: #3d405b;
 }
 
 html {
   font-family: monospace;
-}
-
-header {
-  background-color: rgb(10, 189, 189);
-  padding: 10px;
+  background-color: lightgray;
+  color: var(--black);
 }
 
 body {
-  background-color: lightsalmon;
+  padding-top: 20px;
+  padding-left: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--red);
+  width: 360px;
+  height: 760px;
+  border-radius: 20px;
+}
+
+main {
+  margin-left: 5px;
 }
 
 a {
   text-decoration: none;
+  color: var(--black);
+  font-weight: bold;
 }
 
 li {
