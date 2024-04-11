@@ -53,5 +53,10 @@ export const storeData = defineStore('poiStore', {
         isFavorite: true
       }
     ]
-  })
+  }),
+  actions: {
+    changeFavorite() {
+      this.poiData.isFavorite = !this.poiData.isFavorite
+    }
+  }
 })

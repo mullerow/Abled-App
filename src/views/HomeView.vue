@@ -3,15 +3,6 @@ import { storeData } from '@/stores/store.js'
 
 const store = storeData()
 </script>
-<script>
-export default {
-  methods: {
-    toggleState(poi) {
-      poi.isFavorite = !poi.isFavorite
-    }
-  }
-}
-</script>
 
 <template>
   <h2>Startseite</h2>
@@ -46,7 +37,7 @@ export default {
         <li>Mindestbreite: {{ poi.minWidth }} Zentimeter</li>
         <li>Favorit: {{ poi.isFavorite }}</li>
         <li>Details: {{ poi.detailCategories }}</li>
-        <button @click.prevent="toggleState(poi)">Favorit hinzufügen</button>
+        <button @click.prevent="store.changeFavorite(poi)">Favorit hinzufügen</button>
       </ul>
     </li>
   </ul>
