@@ -7,7 +7,8 @@
 <style>
 #input {
   padding: 0.5rem;
-  background-color: #f4f1de;
+  background-color: var(--white);
   border-radius: 0.5rem;
+  margin: 2rem;
 }
 </style>

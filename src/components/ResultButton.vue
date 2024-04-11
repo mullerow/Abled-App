@@ -1,9 +1,9 @@
 <template>
-  <button class="categorie-button"><img src="" alt="" /> Kategorie</button>
+  <button class="result-button">Resultat Entfernung <img src="" alt="" /></button>
 </template>
 
 <style scoped>
-.categorie-button {
+.result-button {
   padding: 1rem;
   background-color: var(--white);
   color: var(--black);
