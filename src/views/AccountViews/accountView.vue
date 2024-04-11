@@ -1,6 +1,6 @@
 <template>
+  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
   <h2>Verwalte deine Account-Daten</h2>
-  <RouterLink to="/">Gehe zurück zur Startseite</RouterLink>
 </template>
 
 <script>

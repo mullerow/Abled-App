@@ -7,11 +7,13 @@ const store = storeData()
 <template>
   <h2>Startseite</h2>
   <ul>
-    <li><RouterLink to="/createPoi">Erstelle einen neuen Poi</RouterLink></li>
-    <li><RouterLink to="/favoritePois">Hier findest du deine Favoriten</RouterLink></li>
-    <li><RouterLink to="/account">Alles rund um deinen Account</RouterLink></li>
-    <li><RouterLink to="/searchpois">Finde deinen Weg!</RouterLink></li>
-    <li><RouterLink to="/ownpois">geteilte Orte</RouterLink></li>
+    <li><RouterLink :to="{ name: 'newpoicategorie' }">Erstelle einen neuen Poi</RouterLink></li>
+    <li>
+      <RouterLink :to="{ name: 'favoritepoi' }">Hier findest du deine Favoriten</RouterLink>
+    </li>
+    <li><RouterLink :to="{ name: 'account' }">Alles rund um deinen Account</RouterLink></li>
+    <li><RouterLink :to="{ name: 'searchpoi' }">Finde deinen Weg!</RouterLink></li>
+    <li><RouterLink :to="{ name: 'ownpoi' }">geteilte Orte</RouterLink></li>
   </ul>
   <p>{{ store.info }}</p>
   <h3>Liste aller User aus der Pinia Datenbank</h3>
