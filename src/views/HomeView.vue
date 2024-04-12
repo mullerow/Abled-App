@@ -15,7 +15,6 @@ const store = storeData()
     <li><RouterLink :to="{ name: 'searchpoi' }">Finde deinen Weg!</RouterLink></li>
     <li><RouterLink :to="{ name: 'ownpoi' }">geteilte Orte</RouterLink></li>
   </ul>
-  <p>{{ store.info }}</p>
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
     <li>
@@ -36,7 +35,9 @@ const store = storeData()
         <li>X-Koordinate: {{ poi.xCoordinates }}</li>
         <li>Y-Koordinate: {{ poi.yCoordinates }}</li>
         <li>Mindestbreite: {{ poi.minWidth }} Zentimeter</li>
+        <li>Favorit: {{ poi.isFavorite }}</li>
         <li>Details: {{ poi.detailCategories }}</li>
+        <button @click.prevent="store.changeFavorite(poi)">Favorit hinzufügen</button>
       </ul>
     </li>
   </ul>
