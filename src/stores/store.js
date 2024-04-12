@@ -49,7 +49,7 @@ export const storeData = defineStore('poiStore', {
     poiData: [
       {
         id: 201,
-        category: 'Fahrstuhl',
+        categoryId: '30',
         detailCategories: { 'elevator-size': 'large' },
         xCoordinates: 52.55347266835718,
         yCoordinates: 13.412074165422549,
@@ -78,7 +78,49 @@ export const storeData = defineStore('poiStore', {
         minWidth: 122,
         isFavorite: true
       }
-    ]
+    ],
+    localData: {
+      mobilityAssistanceClasses: [
+        'Rollstuhl',
+        'Kinderwagen',
+        'Zwillingskinderwagen',
+        'Rentnermobil',
+        'Rollator',
+        'Lastenrad'
+      ],
+      categories: [
+        {
+          id: 301,
+          categoryName: 'Rampe',
+          detailCategorys: ['flach', 'mäßig Steil', 'steil', 'Geländer']
+        },
+        {
+          id: 302,
+          categoryName: 'Fahrstuhl',
+          detailCategorys: ['groß', 'mittel', 'klein']
+        },
+        {
+          id: 303,
+          categoryName: 'Zugang',
+          detailCategorys: ['maximale breite (nicht zuende gedacht!)', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
+        },
+        {
+          id: 304,
+          categoryName: 'Toilette',
+          detailCategorys: ['Wickelplatz', 'Behindertengerecht', 'Kostenfrei']
+        },
+        {
+          id: 305,
+          categoryName: 'Gastronomie',
+          detailCategorys: [
+            'Wickelplatz',
+            'Behindertengerechte Toiletten',
+            'Rollstuhl/Kinderwagen geeignet',
+            'Kinderstühle'
+          ]
+        }
+      ]
+    }
   }),
   actions: {
     changeFavorite() {
