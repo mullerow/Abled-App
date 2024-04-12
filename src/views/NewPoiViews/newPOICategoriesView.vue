@@ -2,10 +2,22 @@
   <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
   <h2>Erstelle einen neuen Point of Interrest (POI) hier!</h2>
   <HeadLine />
-  <CategorieButton id="kategorie" @click="saveButtonValue" />
-  <NavButton />
-  <RouterLink :to="{ name: 'newpoioptionalcategorie' }">Weiter</RouterLink>
+  <CategorieButton
+    v-for="categorie of store.localData.categories"
+    :key="categorie.id"
+    :Kategorie="categorie.categoryName"
+    @click="saveButtonValue(categorie)"
+    :id="categorie.id"
+  />
+  <NavButton Navigation="Weiter" @click="navigateToLastLink" />
+  <RouterLink ref="lastLink" :to="{ name: 'newpoioptionalcategorie' }"></RouterLink>
 </template>
+
+<script setup>
+import { storeData } from '@/stores/store.js'
+
+const store = storeData()
+</script>
 
 <script>
 import HeadLine from '@/components/HeadLine.vue'
@@ -16,9 +28,12 @@ export default {
   components: { HeadLine, CategorieButton, NavButton },
 
   methods: {
-    saveButtonValue() {
-      const buttonValue = document.getElementById('kategorie').textContent
+    saveButtonValue(categorie) {
+      const buttonValue = document.getElementById(categorie.id).textContent
       localStorage.setItem('buttonValue', buttonValue)
+    },
+    navigateToLastLink() {
+      this.$refs.lastLink.$el.click()
     }
   }
 }
