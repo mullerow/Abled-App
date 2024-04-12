@@ -2,22 +2,48 @@ import { defineStore } from 'pinia'
 
 export const storeData = defineStore('poiStore', {
   state: () => ({
-    info: '🍍PINIA is running🍍!',
     userData: [
       {
         id: 101,
         userName: 'Karl Otto',
-        eMailAddress: 'karl@otto.de'
+        eMailAddress: 'karl@otto.de',
+        address: {
+          city: 'Eisenhüttenstadt',
+          street: 'Juri Gagarin Ring 12',
+          zipCode: '12983'
+        },
+        mobilityAssistance: 'Rollstuhl',
+        mobilityAssistanceWidth: '72',
+        authorizationPositonQuery: 'true',
+        ownPois: ['20292', '2091']
       },
       {
         id: 102,
         userName: 'Sven Marquardt',
-        eMailAddress: 'sven@marquardt.de'
+        eMailAddress: 'sven@marquardt.de',
+        address: {
+          city: 'Schwedt',
+          street: 'Otto Braun Straße 122',
+          zipCode: '11113'
+        },
+        mobilityAssistance: 'Zwillingskinderwagen',
+        mobilityAssistanceWidth: '92',
+        authorizationPositonQuery: 'true',
+        ownPois: ['20232', '20911']
       },
       {
         id: 103,
         userName: 'Ringo Bingo',
-        eMailAddress: 'ringo@bingo.de'
+        eMailAddress: 'ringo@bingo.de',
+        address: {
+          city: 'Finsterwalde',
+          street: 'Apfelweg 2',
+          zipCode: '01123'
+        },
+        mobilityAssistance: 'Rentnermobil',
+        mobilityAssistanceWidth: '100',
+        authorizationPositonQuery: 'true',
+        ownPois: ['2012', '2034', '20191']
       }
     ],
     poiData: [
