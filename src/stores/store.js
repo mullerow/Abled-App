@@ -55,33 +55,45 @@ export const storeData = defineStore('poiStore', {
     poiData: [
       {
         id: 201,
-        detailCategories: { 'elevator-size': 'large' },
+        categoryId: '301',
+        detailCategories: ['steil', 'Geländer'],
         xCoordinates: 52.55347266835718,
         yCoordinates: 13.412074165422549,
+        status: true,
         minWidth: 92,
-        isFavorite: true
+        isFavorite: false,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102
       },
       {
         id: 202,
-        category: 'Toilette',
-        detailCategories: {
-          'handicapped-accessible': true,
-          'changing station': true,
-          'free-of-charge': false
-        },
+        categoryId: '304',
+        detailCategories: ['Wickelplatz', 'Behindertengerecht'],
         xCoordinates: 52.55347266835722,
         yCoordinates: 13.412074165422512,
+        status: true,
         minWidth: 122,
-        isFavorite: false
+        isFavorite: false,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 102,
+        creationDate: '13.12.23',
+        createdBy: 102
       },
       {
         id: 203,
-        category: 'Türbreite',
-        detailCategories: {},
+        categoryId: '304',
+        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Kinderstühle'],
         xCoordinates: 52.55347266835722,
         yCoordinates: 13.412074165422512,
+        status: true,
         minWidth: 122,
-        isFavorite: true
+        isFavorite: true,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 86,
+        creationDate: '19.01.24',
+        createdBy: 101
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
