@@ -1,7 +1,11 @@
-<script setup>
+<script>
 import { storeData } from '@/stores/store.js'
 
-const store = storeData()
+export default {
+  data() {
+    return { store: storeData() }
+  }
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ const store = storeData()
         <li>Mindestbreite: {{ poi.minWidth }} Zentimeter</li>
         <li>Favorit: {{ poi.isFavorite }}</li>
         <li>Details: {{ poi.detailCategories }}</li>
-        <button @click.prevent="store.changeFavorite(poi)">Favorit hinzufügen</button>
+        <button @click="store.changeFavorite(poi)">Favorit hinzufügen</button>
       </ul>
     </li>
   </ul>
