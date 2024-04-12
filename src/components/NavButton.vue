@@ -1,8 +1,12 @@
 <template>
-  <button id="NavButton">Registrieren</button>
+  <button id="NavButton">{{ Navigation }}</button>
 </template>
 
-<script></script>
+<script>
+export default {
+  props: ['Navigation']
+}
+</script>
 
 <style scoped>
 #NavButton {

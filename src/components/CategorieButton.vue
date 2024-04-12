@@ -1,6 +1,12 @@
 <template>
-  <button class="categorie-button"><img src="" alt="" /> Kategorie</button>
+  <button class="categorie-button"><img src="" alt="" /> {{ Kategorie }}</button>
 </template>
+
+<script>
+export default {
+  props: ['Kategorie']
+}
+</script>
 
 <style scoped>
 .categorie-button {
@@ -11,6 +17,6 @@
   width: 70%;
   margin-top: 1rem;
   font-weight: bold;
-  margin: 2rem;
+  margin: 1rem;
 }
 </style>
