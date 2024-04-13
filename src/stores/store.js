@@ -11,7 +11,7 @@ export const storeData = defineStore('poiStore', {
       ylengthDifference: 0,
       straightLineToAim: 0, // Luftline bis zum Ziel
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
-      lengthlongitude: 68710 // 68,71 km lang ist der durchschnittliche Länge der Längengrade (mittlerer Grad über DEutschland)
+      lengthlongitude: 68710 // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,13 +161,13 @@ export const storeData = defineStore('poiStore', {
     changeFavorite(poi) {
       poi.isFavorite = !poi.isFavorite
     },
-    calcDistance(poi, testX, testY) {
-      this.xCoordinateDifference = Math.abs(testX - poi.xCoordinates)
-      this.yCoordinateDifference = Math.abs(testY - poi.yCoordinates)
+    calcDistance(poi, xCoordinatePosition, yCoordinatePosition) {
+      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poi.xCoordinates)
+      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poi.yCoordinates)
       this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
       this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
 
-      // Trigonometrische Funtkion
+      // Trigonometrische Funktion
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
@@ -176,5 +176,6 @@ export const storeData = defineStore('poiStore', {
 })
 
 // https://www.gpskoordinaten.de/entfernung
-// 2.test Ergebnis: 22,21 km --> ergebnis kalkulation: 22,26km SUPER!!
-// 3. Test Ergbebnis: 1,38 km --> ergebnis kalkulation:   1,39km SUPER!!
+// 1.test Ergebnis: 22,21 km --> ergebnis kalkulation: 22,26km SUPER!!
+// 2. Test Ergbebnis: 1,38 km --> ergebnis kalkulation:   1,39km SUPER!!
+// 3. Test Ergbebnis: 0,64 km --> ergebnis kalkulation:   0,64km PERFEKT!!!

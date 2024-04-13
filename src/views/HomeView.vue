@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       store: storeData(),
-      testX: 52.549442668351,
-      testY: 13.4312751654221
+      testX: 52.554442668351,
+      testY: 13.4212751654221
     }
   }
 }
@@ -32,11 +32,17 @@ export default {
   <p>X-Koordinaten: {{ testX }}</p>
   <p>Y-Koordinaten: {{ testY }}</p>
   <button @click="store.calcDistance(store.poiData[0], testX, testY)">Berechne Distanz</button>
+  <h3>Differenzen der Koordinaten</h3>
   <p>Ergebnis X: {{ store.xCoordinateDifference }}</p>
   <p>Ergebnis Y: {{ store.yCoordinateDifference }}</p>
+  <h3>Differenzen der Länegn in X und Y Richtung</h3>
   <p>Distanz X: {{ store.xlengthDifference }} Meter</p>
   <p>Distanz Y: {{ store.ylengthDifference }} Meter</p>
-  <p>Luftlinie zum Ziel: {{ store.straightLineToAim }} Meter</p>
+  <h2>
+    Luftlinie zum Ziel:
+    <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
+    Meter
+  </h2>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
