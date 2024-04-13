@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-
 export const storeData = defineStore('poiStore', {
   state: () => ({
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -11,8 +10,8 @@ export const storeData = defineStore('poiStore', {
       xlengthDifference: 0,
       ylengthDifference: 0,
 
-      lengthLatitude51: 111000, // 111 km lang
-      lengthlongitude10: 7500000 // 7500 km lang
+      lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
+      lengthlongitude: 68710 // 68,71 km lang ist der 51 Längengrad (mittlerer Grad über DEutschland)
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,13 +161,12 @@ export const storeData = defineStore('poiStore', {
     changeFavorite(poi) {
       poi.isFavorite = !poi.isFavorite
     },
-    calcDistance({ state }, poi, testX, testY) {
-      state.xCoordinateDifference = Math.abs(testX - poi.xCoordinates)
-      state.yCoordinateDifference = Math.abs(poi.yCoordinates - testY)
-      console.log('xCoordinateDifference', state.xCoordinateDifference)
-      console.log('yCoordinateDifference', state.yCoordinateDifference)
-
-      state.xlengthDifference = state.xCoordinateDifference * state.lengthLatitude51
+    calcDistance(poi, testX, testY) {
+      this.xCoordinateDifference = Math.abs(testX - poi.xCoordinates)
+      this.yCoordinateDifference = Math.abs(testY - poi.yCoordinates)
+      this.xlengthDifference = (
+        this.xCoordinateDifference * this.temporaryData.lengthlongitude
+      ).toFixed(2)
 
       // Pythagoras
     }

@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       store: storeData(),
-      testX: 52.553472668351,
-      testY: 13.4120741654221
+      testX: 52.553442668351,
+      testY: 13.4112751654221
     }
   }
 }
