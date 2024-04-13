@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bignumber.js": "^9.1.2",
+    "node-geocoder": "^4.3.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
