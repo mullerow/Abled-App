@@ -9,9 +9,9 @@ export const storeData = defineStore('poiStore', {
       yCoordinateDifference: 0,
       xlengthDifference: 0,
       ylengthDifference: 0,
-
+      straightLineToAim: 0, // Luftline bis zum Ziel
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
-      lengthlongitude: 68710 // 68,71 km lang ist der 51 Längengrad (mittlerer Grad über DEutschland)
+      lengthlongitude: 68710 // 68,71 km lang ist der durchschnittliche Länge der Längengrade (mittlerer Grad über DEutschland)
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,11 +164,17 @@ export const storeData = defineStore('poiStore', {
     calcDistance(poi, testX, testY) {
       this.xCoordinateDifference = Math.abs(testX - poi.xCoordinates)
       this.yCoordinateDifference = Math.abs(testY - poi.yCoordinates)
-      this.xlengthDifference = (
-        this.xCoordinateDifference * this.temporaryData.lengthlongitude
-      ).toFixed(2)
+      this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
+      this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
 
-      // Pythagoras
+      // Trigonometrische Funtkion
+      this.straightLineToAim = Math.sqrt(
+        Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
+      ).toFixed(0)
     }
   }
 })
+
+// https://www.gpskoordinaten.de/entfernung
+// 2.test Ergebnis: 22,21 km --> ergebnis kalkulation: 22,26km SUPER!!
+// 3. Test Ergbebnis: 1,38 km --> ergebnis kalkulation:   1,39km SUPER!!
