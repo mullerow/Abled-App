@@ -5,13 +5,16 @@ export const storeData = defineStore('poiStore', {
     /////////////////////// TEMPORÄRE DATEN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     temporaryData: {
+      // temporäre Daten für die Koordinatenberechnung
       xCoordinateDifference: 0,
       yCoordinateDifference: 0,
       xlengthDifference: 0,
       ylengthDifference: 0,
       straightLineToAim: 0, // Luftline bis zum Ziel
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
-      lengthlongitude: 68710 // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
+      lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
+      // temporäre Daten für die Suchfunktion
+      searchDistance: 500
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
