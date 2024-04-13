@@ -1,7 +1,19 @@
 import { defineStore } from 'pinia'
-
 export const storeData = defineStore('poiStore', {
   state: () => ({
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////// TEMPORÄRE DATEN //////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    temporaryData: {
+      xCoordinateDifference: 0,
+      yCoordinateDifference: 0,
+      xlengthDifference: 0,
+      ylengthDifference: 0,
+      straightLineToAim: 0, // Luftline bis zum Ziel
+      lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
+      lengthlongitude: 68710 // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
+    },
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// DATEN VON DEN USERN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,11 +155,27 @@ export const storeData = defineStore('poiStore', {
     }
   }),
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////// GLOBALE FUNKTIONEN //////////////////////////////////////////////////////////////////////////////////
+  //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   actions: {
     changeFavorite(poi) {
       poi.isFavorite = !poi.isFavorite
+    },
+    calcDistance(poi, xCoordinatePosition, yCoordinatePosition) {
+      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poi.xCoordinates)
+      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poi.yCoordinates)
+      this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
+      this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
+
+      // Trigonometrische Funktion
+      this.straightLineToAim = Math.sqrt(
+        Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
+      ).toFixed(0)
     }
   }
 })
+
+// https://www.gpskoordinaten.de/entfernung
+// 1.test Ergebnis: 22,21 km --> ergebnis kalkulation: 22,26km SUPER!!
+// 2. Test Ergbebnis: 1,38 km --> ergebnis kalkulation:   1,39km SUPER!!
+// 3. Test Ergbebnis: 0,64 km --> ergebnis kalkulation:   0,64km PERFEKT!!!
