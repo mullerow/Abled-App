@@ -1,30 +1,35 @@
 <template>
   <h1>Willkomen bei xyz</h1>
   <InputField
-    label="Benutzername"
-    v-model="username"
+    :value="username"
+    @input="updateUsername($event.target.value)"
     placeholder="Benutzername eingeben"
-  ></InputField>
+    label
+  >
+    ></InputField
+  >
   <InputField
-    label="Mailadresse"
-    v-model="email"
+    :value="email"
+    @input="updateEmail($event.target.value)"
     placeholder="E-Mail-Adresse eingeben"
-  ></InputField>
+  >
+    ></InputField
+  >
   <InputField
-    label="Passwort"
-    v-model="password"
+    :value="password"
+    @input="updatePassword($event.target.value)"
     type="password"
     placeholder="Passwort eingeben"
-  ></InputField>
+  >
+    ></InputField
+  >
   <NavButton @click="registerUser"></NavButton>
-  <!--<RouterLink :to="{ name: 'home' }">register</RouterLink>-->
 </template>
 
 <script>
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
-import { useRouter } from 'vue-router'
 
 export default {
   components: {
@@ -39,11 +44,37 @@ export default {
     }
   },
   methods: {
-    registerUser() {
-      //PINIA Anbindung erstellen
+    updateUsername(value) {
+      this.username = value
+    },
+    updateEmail(value) {
+      this.email = value
+    },
+    updatePassword(value) {
+      this.password = value
+    },
 
-      const router = useRouter()
-      router.push({ name: 'register' })
+    registerUser() {
+      console.log('Username:', this.username)
+      console.log('Email:', this.email)
+      console.log('Password:', this.password)
+
+      if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
+        console.error('Bitte füllen Sie alle Felder aus.')
+        return
+      }
+
+      const userData = {
+        username: this.username,
+        email: this.email,
+        password: this.password
+      }
+
+      localStorage.setItem('userData', JSON.stringify(userData))
+      this.goToHome()
+    },
+    goToHome() {
+      this.$router.push({ name: 'home' })
     }
   }
 }
