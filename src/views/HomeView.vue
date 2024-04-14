@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       store: storeData(),
-      testX: 52.485385,
-      testY: 13.42165
+      testX: 52.48847,
+      testY: 13.425161
     }
   }
 }
@@ -49,6 +49,8 @@ export default {
   <p>Stadteil: {{ store.district }}</p>
   <p>Straße: {{ store.street }}</p>
   <p>Postleitzahl: {{ store.zipCode }}</p>
+  <p v-show="store.houseNumber">Hausnummer: {{ store.houseNumber }}</p>
+  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten zu ungenau)</p>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">

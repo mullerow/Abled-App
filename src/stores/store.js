@@ -18,6 +18,7 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die Addressenbestimmung aus Koorinaten
       district: 0,
       street: '',
+      houseNumber: null,
       city: '',
       ZipCode: 0
     },
@@ -195,6 +196,7 @@ export const storeData = defineStore('poiStore', {
           this.city = data.address.city
           this.zipCode = data.address.postcode
           this.district = data.address.suburb
+          this.houseNumber = data.address.house_number
         })
         .catch((error) => {
           console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
