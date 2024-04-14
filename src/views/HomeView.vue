@@ -43,6 +43,16 @@ export default {
     <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
     Meter
   </h2>
+  <button
+    @click="
+      store.getAddressbyCoordinates(store.poiData[0].xCoordinates, store.poiData[0].yCoordinates)
+    "
+  >
+    ermittle die Addresse
+  </button>
+  <h3>Addresse des Ziels:</h3>
+  <p>Hausnummer: {{ store.houseNumber }}</p>
+  <p>Straße: {{ store.street }}</p>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">

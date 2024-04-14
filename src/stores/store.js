@@ -14,7 +14,12 @@ export const storeData = defineStore('poiStore', {
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
-      searchDistance: 500
+      searchDistance: 500,
+      // temporäre Daten für die Addressenbestimmung aus Koorinaten
+      houseNumber: 0,
+      street: '',
+      city: '',
+      Zip: 0
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,6 +179,18 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
+    },
+    getAddressbyCoordinates(latitude, longitude) {
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.address.city)
+        })
+        .catch((error) => {
+          console.error('Fehler beim Abrufen der Adresse:', error)
+        })
     }
   }
 })
