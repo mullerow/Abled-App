@@ -16,10 +16,10 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die Suchfunktion
       searchDistance: 500,
       // temporäre Daten für die Addressenbestimmung aus Koorinaten
-      houseNumber: 0,
+      district: 0,
       street: '',
       city: '',
-      Zip: 0
+      ZipCode: 0
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,8 +77,8 @@ export const storeData = defineStore('poiStore', {
         id: 201,
         categoryId: '301',
         detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.55347266835718,
-        yCoordinates: 13.412074165422549,
+        xCoordinates: 52.554242,
+        yCoordinates: 13.412132,
         status: true,
         minWidth: 92,
         isFavorite: false,
@@ -186,10 +186,18 @@ export const storeData = defineStore('poiStore', {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log(data)
           console.log(data.address.city)
+          console.log(data.address.postcode)
+          console.log(data.address.road)
+          console.log(data.address.suburb)
+          this.street = data.address.road
+          this.city = data.address.city
+          this.zipCode = data.address.postcode
+          this.district = data.address.suburb
         })
         .catch((error) => {
-          console.error('Fehler beim Abrufen der Adresse:', error)
+          console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
         })
     }
   }

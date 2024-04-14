@@ -43,7 +43,7 @@ body {
   margin-right: auto;
   background-color: var(--red);
   width: 360px;
-  height: 760px;
+  min-height: 760px;
   border-radius: 20px;
 }
 
