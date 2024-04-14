@@ -14,7 +14,13 @@ export const storeData = defineStore('poiStore', {
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
-      searchDistance: 500
+      searchDistance: 500,
+      // temporäre Daten für die Addressenbestimmung aus Koorinaten
+      district: 0,
+      street: '',
+      houseNumber: null,
+      city: '',
+      ZipCode: 0
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,8 +78,8 @@ export const storeData = defineStore('poiStore', {
         id: 201,
         categoryId: '301',
         detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.55347266835718,
-        yCoordinates: 13.412074165422549,
+        xCoordinates: 52.554242,
+        yCoordinates: 13.412132,
         status: true,
         minWidth: 92,
         isFavorite: false,
@@ -174,6 +180,27 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
+    },
+    getAddressbyCoordinates(latitude, longitude) {
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          console.log(data.address.city)
+          console.log(data.address.postcode)
+          console.log(data.address.road)
+          console.log(data.address.suburb)
+          this.street = data.address.road
+          this.city = data.address.city
+          this.zipCode = data.address.postcode
+          this.district = data.address.suburb
+          this.houseNumber = data.address.house_number
+        })
+        .catch((error) => {
+          console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
+        })
     }
   }
 })

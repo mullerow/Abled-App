@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       store: storeData(),
-      testX: 52.554442668351,
-      testY: 13.4212751654221
+      testX: 52.48847,
+      testY: 13.425161
     }
   }
 }
@@ -43,6 +43,14 @@ export default {
     <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
     Meter
   </h2>
+  <button @click="store.getAddressbyCoordinates(testX, testY)">ermittle die Addresse</button>
+  <h3>Addresse des Ziels:</h3>
+  <p>Stadt: {{ store.city }}</p>
+  <p>Stadteil: {{ store.district }}</p>
+  <p>Straße: {{ store.street }}</p>
+  <p>Postleitzahl: {{ store.zipCode }}</p>
+  <p v-show="store.houseNumber">Hausnummer: {{ store.houseNumber }}</p>
+  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten zu ungenau)</p>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
