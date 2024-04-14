@@ -23,7 +23,7 @@
   >
     ></InputField
   >
-  <NavButton @click="registerUser"></NavButton>
+  <NavButton @click="registerUser">Registrieren</NavButton>
 </template>
 
 <script>
@@ -53,6 +53,10 @@ export default {
     updatePassword(value) {
       this.password = value
     },
+    validateEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return regex.test(email)
+    },
 
     registerUser() {
       console.log('Username:', this.username)
@@ -63,6 +67,10 @@ export default {
         console.error('Bitte füllen Sie alle Felder aus.')
         return
       }
+      if (!this.validateEmail(this.email)) {
+        alert('Ungültige E-Mail-Adresse.')
+        return
+      }
 
       const userData = {
         username: this.username,
@@ -71,10 +79,10 @@ export default {
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
-      this.goToHome()
+      this.goToPrio()
     },
-    goToHome() {
-      this.$router.push({ name: 'home' })
+    goToPrio() {
+      this.$router.push({ name: 'prio' })
     }
   }
 }
