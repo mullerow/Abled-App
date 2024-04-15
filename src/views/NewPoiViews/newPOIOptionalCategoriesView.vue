@@ -1,6 +1,9 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'newpoicategorie' }">Zurück</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
+  </div>
+
   <h2>Zusatzkategorien New POI</h2>
   <HeadLine />
   <div v-for="categorie in store.localData.categories" :key="categorie.id">
@@ -25,12 +28,14 @@ const store = storeData()
 </script>
 
 <script>
+import HomeButton from '@/components/HomeButton.vue'
+import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
 
 export default {
-  components: { HeadLine, CategorieButton, NavButton },
+  components: { HeadLine, CategorieButton, NavButton, HomeButton, BackArrow },
 
   data() {
     return {
