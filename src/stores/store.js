@@ -55,7 +55,8 @@ export const storeData = defineStore('poiStore', {
         mobilityAssistance: 'Zwillingskinderwagen',
         mobilityAssistanceWidth: '92',
         authorizationPositonQuery: 'true',
-        ownPois: ['20232', '20911']
+        ownPois: ['20232', '20911'],
+        password: '12345'
       },
       {
         id: 103,
@@ -69,7 +70,8 @@ export const storeData = defineStore('poiStore', {
         mobilityAssistance: 'Rentnermobil',
         mobilityAssistanceWidth: '100',
         authorizationPositonQuery: 'true',
-        ownPois: ['2012', '2034', '20191']
+        ownPois: ['2012', '2034', '20191'],
+        password: 'AbX6!sawxf'
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +90,8 @@ export const storeData = defineStore('poiStore', {
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 122,
         creationDate: '12.09.24',
-        createdBy: 102
+        createdBy: 102,
+        password: 'mamaisthebest'
       },
       {
         id: 202,
@@ -184,7 +187,6 @@ export const storeData = defineStore('poiStore', {
       ).toFixed(0)
     },
     getAddressbyCoordinates(latitude, longitude) {
-      console.log('location', latitude, longitude)
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
@@ -210,8 +212,3 @@ export const storeData = defineStore('poiStore', {
     }
   }
 })
-
-// https://www.gpskoordinaten.de/entfernung
-// 1.test Ergebnis: 22,21 km --> ergebnis kalkulation: 22,26km SUPER!!
-// 2. Test Ergbebnis: 1,38 km --> ergebnis kalkulation:   1,39km SUPER!!
-// 3. Test Ergbebnis: 0,64 km --> ergebnis kalkulation:   0,64km PERFEKT!!!

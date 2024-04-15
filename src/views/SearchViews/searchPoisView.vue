@@ -15,26 +15,6 @@
     id="idRangeInput"
   />
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
-  <!--
-  <h3>Berechnungsbeispiel Koordinaten Distanz</h3>
-  <h4>Poi Koordinaten:</h4>
-  <p>X-Koordinaten: {{ store.poiData[0].xCoordinates }}</p>
-  <p>Y-Koordinaten: {{ store.poiData[0].yCoordinates }}</p>
-
-  <h3>Eigenen Standort ermitteln</h3>
-  <button @click="store.getOwnPosition">Eigener Standort</button>
-  <p>X-Koordinaten: {{ store.ownXCoordinate }}</p>
-  <p>Y-Koordinaten: {{ store.ownYCoordinate }}</p>
-
-  
-  <h3>Differenzen der Koordinaten</h3>
-  <p>Ergebnis X: {{ store.xCoordinateDifference }}</p>
-  <p>Ergebnis Y: {{ store.yCoordinateDifference }}</p>
-  <h3>Differenzen der Längen in X und Y Richtung</h3>
-  <p>Distanz X: {{ store.xlengthDifference }} Meter</p>
-  <p>Distanz Y: {{ store.ylengthDifference }} Meter</p>
-  
--->
   <button @click="store.getOwnPosition">Eigener Standort</button>
   <br />
   <button @click="store.calcDistance(store.poiData[0], store.ownXCoordinate, store.ownYCoordinate)">
