@@ -23,7 +23,7 @@
   >
     ></InputField
   >
-  <NavButton @click="registerUser">Registrieren</NavButton>
+  <NavButton :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 </template>
 
 <script>
@@ -59,10 +59,6 @@ export default {
     },
 
     registerUser() {
-      console.log('Username:', this.username)
-      console.log('Email:', this.email)
-      console.log('Password:', this.password)
-
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
         console.error('Bitte füllen Sie alle Felder aus.')
         return
