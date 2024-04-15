@@ -4,12 +4,12 @@
   <h2>Zusatzkategorien New POI</h2>
   <HeadLine />
   <div v-for="categorie in store.localData.categories" :key="categorie.id">
-    <div v-if="buttonValue === 'Rampe'">
+    <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
       <CategorieButton
         v-for="detailCategorie in categorie.detailCategorys"
         :key="detailCategorie"
         :Kategorie="detailCategorie"
-        @click="saveButtonValue(categorie)"
+        @click="saveButtonValue(detailCategorie)"
         :id="detailCategorie"
       />
     </div>
@@ -32,20 +32,31 @@ import NavButton from '@/components/NavButton.vue'
 export default {
   components: { HeadLine, CategorieButton, NavButton },
 
-  methods: {
-    saveButtonValue(categorie) {
-      const OptionalCategories = []
-      const detailCategory = document.getElementById(categorie.id).textContent
-      OptionalCategories.push(detailCategory)
-      localStorage.setItem('OptionalCategories', OptionalCategories)
-    },
-    navigateToLastLink() {
-      this.$refs.lastLink.$el.click()
+  data() {
+    return {
+      buttonValue: ''
     }
   },
-  computed: {
-    buttonValue() {
-      return localStorage.getItem('buttonValue')
+  created() {
+    this.buttonValue = localStorage.getItem('buttonValue')
+    console.log(this.buttonValue)
+  },
+
+  methods: {
+    saveButtonValue(detailCategorie) {
+      let OptionalCategories = localStorage.getItem('OptionalCategories')
+      OptionalCategories = OptionalCategories ? JSON.parse(OptionalCategories) : []
+      const index = OptionalCategories.indexOf(detailCategorie)
+      if (index !== -1) {
+        OptionalCategories.splice(index, 1)
+      } else {
+        OptionalCategories.push(detailCategorie)
+      }
+      localStorage.setItem('OptionalCategories', JSON.stringify(OptionalCategories))
+    },
+
+    navigateToLastLink() {
+      this.$refs.lastLink.$el.click()
     }
   }
 }
