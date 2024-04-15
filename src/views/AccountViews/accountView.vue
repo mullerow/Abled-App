@@ -1,9 +1,18 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
+  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite </RouterLink>
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
   <h2>Verwalte deine Account-Daten</h2>
 </template>
 
 <script>
-export default {}
+import HomeButton from '@/components/HomeButton.vue'
+
+export default {
+  components: {
+    HomeButton
+  }
+}
 </script>

@@ -1,4 +1,7 @@
 <template>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
   <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
   <h2>Suche einen POI Start</h2>
   <RouterLink :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
@@ -18,8 +21,12 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
+import HomeButton from '@/components/HomeButton.vue'
 
 export default {
+  components: {
+    HomeButton
+  },
   data() {
     return {
       store: storeData()

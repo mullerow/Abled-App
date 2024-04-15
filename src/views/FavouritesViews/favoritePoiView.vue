@@ -1,4 +1,7 @@
 <template>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
   <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
   <!--<RouterLink :to="{ name: 'favoritemap' }">ICON Karte</RouterLink>-->
   <h2>Hier findest du alle deine favorisierten Orte</h2>
@@ -7,5 +10,10 @@
 </template>
 
 <script>
-export default {}
+import HomeButton from '@/components/HomeButton.vue'
+export default {
+  components: {
+    HomeButton
+  }
+}
 </script>
