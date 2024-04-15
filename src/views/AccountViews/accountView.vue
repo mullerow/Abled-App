@@ -1,6 +1,12 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
+
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
+  
+
   <h2>Verwalte deine Account-Daten</h2>
   <InputField
     label="Username"
@@ -39,13 +45,15 @@
 </template>
 
 <script>
+
 import { storeData } from '@/stores/store.js'
 
 import InputField from '@/components/InputField.vue'
 import NavButton from '@/components/NavButton.vue'
+import HomeButton from '@/components/HomeButton.vue'
 
 export default {
-  components: { InputField, NavButton },
+  components: { InputField, NavButton, HomeButton },
   data() {
     return {
       store: storeData()

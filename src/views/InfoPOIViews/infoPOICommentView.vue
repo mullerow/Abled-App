@@ -1,9 +1,19 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'infopoi' }"> zurück zur Info</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'infopoi' }"> <BackArrow /></RouterLink>
+  </div>
+
   <h2>Comments</h2>
 </template>
 
 <script>
-export default {}
+import HomeButton from '@/components/HomeButton.vue'
+import BackArrow from '@/components/BackArrow.vue'
+export default {
+  components: {
+    HomeButton,
+    BackArrow
+  }
+}
 </script>

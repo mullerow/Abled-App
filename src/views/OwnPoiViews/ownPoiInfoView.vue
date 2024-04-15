@@ -1,5 +1,8 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
+
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>
@@ -8,5 +11,10 @@
 </template>
 
 <script>
-export default {}
+import HomeButton from '@/components/HomeButton.vue'
+export default {
+  components: {
+    HomeButton
+  }
+}
 </script>

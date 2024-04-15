@@ -1,6 +1,9 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'searchpoi' }">Gehe eine Seite zurück</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'searchpoi' }"> <BackArrow /></RouterLink>
+  </div>
+
   <h2>Search Kategorien</h2>
   <CategorieButton id="kategorie" @click="saveButtonValue" />
   <NavButton />
@@ -10,9 +13,11 @@
 <script>
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
+import HomeButton from '@/components/HomeButton.vue'
+import BackArrow from '@/components/BackArrow.vue'
 
 export default {
-  components: { CategorieButton, NavButton },
+  components: { CategorieButton, NavButton, HomeButton, BackArrow },
 
   methods: {
     saveButtonValue() {

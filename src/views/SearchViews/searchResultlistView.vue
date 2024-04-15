@@ -1,6 +1,10 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'searchoptionalcategorie' }">Gehe eine Seite zurück</RouterLink>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
+    <RouterLink :to="{ name: 'searchoptionalcategorie' }"> <BackArrow /></RouterLink>
+  </div>
+
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
   <h2>Ergebnisliste</h2>
@@ -9,5 +13,14 @@
 </template>
 
 <script>
-export default {}
+import HomeButton from '@/components/HomeButton.vue'
+import EarthMap from '@/components/EarthMap.vue'
+import BackArrow from '@/components/BackArrow.vue'
+export default {
+  components: {
+    HomeButton,
+    EarthMap,
+    BackArrow
+  }
+}
 </script>

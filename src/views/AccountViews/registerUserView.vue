@@ -1,30 +1,35 @@
 <template>
   <h1>Willkomen bei xyz</h1>
   <InputField
-    label="Benutzername"
-    v-model="username"
+    :value="username"
+    @input="updateUsername($event.target.value)"
     placeholder="Benutzername eingeben"
-  ></InputField>
+    label
+  >
+    ></InputField
+  >
   <InputField
-    label="Mailadresse"
-    v-model="email"
+    :value="email"
+    @input="updateEmail($event.target.value)"
     placeholder="E-Mail-Adresse eingeben"
-  ></InputField>
+  >
+    ></InputField
+  >
   <InputField
-    label="Passwort"
-    v-model="password"
+    :value="password"
+    @input="updatePassword($event.target.value)"
     type="password"
     placeholder="Passwort eingeben"
-  ></InputField>
-  <NavButton @click="registerUser"></NavButton>
-  <!--<RouterLink :to="{ name: 'home' }">register</RouterLink>-->
+  >
+    ></InputField
+  >
+  <NavButton :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 </template>
 
 <script>
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
-import { useRouter } from 'vue-router'
 
 export default {
   components: {
@@ -39,11 +44,41 @@ export default {
     }
   },
   methods: {
-    registerUser() {
-      //PINIA Anbindung erstellen
+    updateUsername(value) {
+      this.username = value
+    },
+    updateEmail(value) {
+      this.email = value
+    },
+    updatePassword(value) {
+      this.password = value
+    },
+    validateEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return regex.test(email)
+    },
 
-      const router = useRouter()
-      router.push({ name: 'register' })
+    registerUser() {
+      if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
+        console.error('Bitte füllen Sie alle Felder aus.')
+        return
+      }
+      if (!this.validateEmail(this.email)) {
+        alert('Ungültige E-Mail-Adresse.')
+        return
+      }
+
+      const userData = {
+        username: this.username,
+        email: this.email,
+        password: this.password
+      }
+
+      localStorage.setItem('userData', JSON.stringify(userData))
+      this.goToPrio()
+    },
+    goToPrio() {
+      this.$router.push({ name: 'prio' })
     }
   }
 }
