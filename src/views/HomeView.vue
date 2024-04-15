@@ -28,14 +28,18 @@ export default {
   <p>X-Koordinaten: {{ store.poiData[0].xCoordinates }}</p>
   <p>Y-Koordinaten: {{ store.poiData[0].yCoordinates }}</p>
 
-  <h4>Koordinaten fikitver Ort:</h4>
-  <p>X-Koordinaten: {{ testX }}</p>
-  <p>Y-Koordinaten: {{ testY }}</p>
-  <button @click="store.calcDistance(store.poiData[0], testX, testY)">Berechne Distanz</button>
+  <h3>Eigenen Standort ermitteln</h3>
+  <button @click="store.getOwnPosition">Eigener Standort</button>
+  <p>X-Koordinaten: {{ store.ownXCoordinate }}</p>
+  <p>Y-Koordinaten: {{ store.ownYCoordinate }}</p>
+
+  <button @click="store.calcDistance(store.poiData[0], store.ownXCoordinate, store.ownYCoordinate)">
+    Berechne Distanz
+  </button>
   <h3>Differenzen der Koordinaten</h3>
   <p>Ergebnis X: {{ store.xCoordinateDifference }}</p>
   <p>Ergebnis Y: {{ store.yCoordinateDifference }}</p>
-  <h3>Differenzen der Länegn in X und Y Richtung</h3>
+  <h3>Differenzen der Längen in X und Y Richtung</h3>
   <p>Distanz X: {{ store.xlengthDifference }} Meter</p>
   <p>Distanz Y: {{ store.ylengthDifference }} Meter</p>
   <h2>
@@ -43,14 +47,16 @@ export default {
     <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
     Meter
   </h2>
-  <button @click="store.getAddressbyCoordinates(testX, testY)">ermittle die Addresse</button>
+  <button @click="store.getAddressbyCoordinates(store.ownXCoordinate, store.ownYCoordinate)">
+    ermittle die Addresse
+  </button>
   <h3>Addresse des Ziels:</h3>
   <p>Stadt: {{ store.city }}</p>
   <p>Stadteil: {{ store.district }}</p>
   <p>Straße: {{ store.street }}</p>
   <p>Postleitzahl: {{ store.zipCode }}</p>
   <p v-show="store.houseNumber">Hausnummer: {{ store.houseNumber }}</p>
-  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten zu ungenau)</p>
+  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten nicht genau zuweisbar)</p>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">

@@ -15,6 +15,8 @@ export const storeData = defineStore('poiStore', {
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
       searchDistance: 500,
+      ownXCoordinate: 0,
+      ownYCoordinate: 0,
       // temporäre Daten für die Addressenbestimmung aus Koorinaten
       district: 0,
       street: '',
@@ -78,8 +80,8 @@ export const storeData = defineStore('poiStore', {
         id: 201,
         categoryId: '301',
         detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.554242,
-        yCoordinates: 13.412132,
+        xCoordinates: 52.554228,
+        yCoordinates: 13.412095,
         status: true,
         minWidth: 92,
         isFavorite: false,
@@ -187,11 +189,6 @@ export const storeData = defineStore('poiStore', {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          console.log(data.address.city)
-          console.log(data.address.postcode)
-          console.log(data.address.road)
-          console.log(data.address.suburb)
           this.street = data.address.road
           this.city = data.address.city
           this.zipCode = data.address.postcode
@@ -201,6 +198,13 @@ export const storeData = defineStore('poiStore', {
         .catch((error) => {
           console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
         })
+    },
+    getOwnPosition() {
+      const saveOwnPositon = (position) => {
+        this.ownXCoordinate = position.coords.latitude
+        this.ownYCoordinate = position.coords.longitude
+      }
+      navigator.geolocation.getCurrentPosition(saveOwnPositon)
     }
   }
 })
