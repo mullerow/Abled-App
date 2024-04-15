@@ -8,6 +8,7 @@
   <InputField value="Gib Öffnungszeiten ein" />
   <InputField value="Gib eine Zugangsbreite ein" />
   <InputField value="Füge einen Kommentar hinzu" />
+  <LöschenButton Löschen="Nicht nutzbar" />
   <categorie-button Kategorie="Abbrechen" />
   <NavButton Navigation="Erstellen" />
 </template>
@@ -18,13 +19,15 @@ import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import InputField from '@/components/InputField.vue'
+import LöschenButton from '@/components/LöschenButton.vue'
 export default {
   components: {
     HomeButton,
     BackArrow,
     NavButton,
     CategorieButton,
-    InputField
+    InputField,
+    LöschenButton
   }
 }
 </script>
