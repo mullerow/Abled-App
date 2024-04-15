@@ -28,7 +28,7 @@ export default {
   <p>X-Koordinaten: {{ store.poiData[0].xCoordinates }}</p>
   <p>Y-Koordinaten: {{ store.poiData[0].yCoordinates }}</p>
 
-  <h3>EIgenen Standort ermitteln</h3>
+  <h3>Eigenen Standort ermitteln</h3>
   <button @click="store.getOwnPosition">Eigener Standort</button>
   <p>X-Koordinaten: {{ store.ownXCoordinate }}</p>
   <p>Y-Koordinaten: {{ store.ownYCoordinate }}</p>
@@ -39,7 +39,7 @@ export default {
   <h3>Differenzen der Koordinaten</h3>
   <p>Ergebnis X: {{ store.xCoordinateDifference }}</p>
   <p>Ergebnis Y: {{ store.yCoordinateDifference }}</p>
-  <h3>Differenzen der Länegn in X und Y Richtung</h3>
+  <h3>Differenzen der Längen in X und Y Richtung</h3>
   <p>Distanz X: {{ store.xlengthDifference }} Meter</p>
   <p>Distanz Y: {{ store.ylengthDifference }} Meter</p>
   <h2>
@@ -56,7 +56,7 @@ export default {
   <p>Straße: {{ store.street }}</p>
   <p>Postleitzahl: {{ store.zipCode }}</p>
   <p v-show="store.houseNumber">Hausnummer: {{ store.houseNumber }}</p>
-  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten zu ungenau)</p>
+  <p v-show="!store.houseNumber">Hausnummer: nicht vorhanden (Daten nicht genau zuweisbar)</p>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">

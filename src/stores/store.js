@@ -189,11 +189,6 @@ export const storeData = defineStore('poiStore', {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          console.log(data.address.city)
-          console.log(data.address.postcode)
-          console.log(data.address.road)
-          console.log(data.address.suburb)
           this.street = data.address.road
           this.city = data.address.city
           this.zipCode = data.address.postcode
@@ -206,8 +201,6 @@ export const storeData = defineStore('poiStore', {
     },
     getOwnPosition() {
       const saveOwnPositon = (position) => {
-        console.log(position.coords.latitude)
-        console.log(position.coords.longitude)
         this.ownXCoordinate = position.coords.latitude
         this.ownYCoordinate = position.coords.longitude
       }
