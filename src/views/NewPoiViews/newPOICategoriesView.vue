@@ -1,4 +1,7 @@
 <template>
+  <div class="header-buttons">
+    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+  </div>
   <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
   <h2>Erstelle einen neuen Point of Interrest (POI) hier!</h2>
   <HeadLine />
@@ -23,9 +26,10 @@ const store = storeData()
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
+import HomeButton from '@/components/HomeButton.vue'
 
 export default {
-  components: { HeadLine, CategorieButton, NavButton },
+  components: { HeadLine, CategorieButton, NavButton, HomeButton },
 
   methods: {
     saveButtonValue(categorie) {
