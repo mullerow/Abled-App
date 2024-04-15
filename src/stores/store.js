@@ -17,7 +17,7 @@ export const storeData = defineStore('poiStore', {
       searchDistance: 500,
       ownXCoordinate: 0,
       ownYCoordinate: 0,
-      // temporäre Daten für die Addressenbestimmung aus Koorinaten
+      // temporäre Daten für die Addressenbestimmung aus Koordinaten
       district: 0,
       street: '',
       houseNumber: null,
@@ -184,6 +184,7 @@ export const storeData = defineStore('poiStore', {
       ).toFixed(0)
     },
     getAddressbyCoordinates(latitude, longitude) {
+      console.log('location', latitude, longitude)
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
@@ -203,6 +204,7 @@ export const storeData = defineStore('poiStore', {
       const saveOwnPositon = (position) => {
         this.ownXCoordinate = position.coords.latitude
         this.ownYCoordinate = position.coords.longitude
+        this.getAddressbyCoordinates(this.ownXCoordinate, this.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     }

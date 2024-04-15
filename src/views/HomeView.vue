@@ -4,9 +4,7 @@ import { storeData } from '@/stores/store.js'
 export default {
   data() {
     return {
-      store: storeData(),
-      testX: 52.48847,
-      testY: 13.425161
+      store: storeData()
     }
   }
 }
