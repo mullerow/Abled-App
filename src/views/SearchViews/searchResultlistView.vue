@@ -4,8 +4,7 @@
     <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
     <RouterLink :to="{ name: 'searchoptionalcategorie' }"> <BackArrow /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'searchoptionalcategorie' }">Gehe eine Seite zurück</RouterLink>
+
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
   <h2>Ergebnisliste</h2>

@@ -3,7 +3,7 @@
     <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+
   <!--hier ggf
   <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <h2>Hier findest du alle Orte die du erstellt hast</h2>

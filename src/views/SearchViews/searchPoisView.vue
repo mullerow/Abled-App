@@ -2,7 +2,7 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+
   <h2>Suche einen POI Start</h2>
   <RouterLink :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
   <br />

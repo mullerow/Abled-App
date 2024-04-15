@@ -2,7 +2,7 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
+
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>

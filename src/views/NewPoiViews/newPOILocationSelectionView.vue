@@ -3,8 +3,7 @@
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoioptionalcategorie' }"> <BackArrow /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'newpoioptionalcategorie' }">Zurück</RouterLink>
+
   <h2>Location Selection</h2>
 
   <RouterLink :to="{ name: 'newpoiaddressinput' }">Weiter</RouterLink>

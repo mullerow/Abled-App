@@ -3,8 +3,7 @@
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'infopoi' }"> <BackArrow /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'infopoi' }"> zurück zur Info</RouterLink>
+
   <h2>Comments</h2>
 </template>
 

@@ -3,8 +3,7 @@
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
   </div>
-  <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-  <RouterLink :to="{ name: 'newpoicategorie' }">Zurück</RouterLink>
+
   <h2>Zusatzkategorien New POI</h2>
   <HeadLine />
   <CategorieButton id="kategorie" @click="saveButtonValue" />
