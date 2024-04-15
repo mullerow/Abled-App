@@ -1,14 +1,22 @@
 <template>
-  <input type="text" id="input" value="" />
+  <input type="text" name="input" class="input" :value="value" />
 </template>
 
-<script></script>
+<script>
+export default {
+  props: {
+    value: String
+  }
+}
+</script>
 
 <style>
-#input {
+.input {
   padding: 0.5rem;
+  width: 80%;
   background-color: var(--white);
   border-radius: 0.5rem;
   margin: 2rem;
+  color: darkgray;
 }
 </style>
