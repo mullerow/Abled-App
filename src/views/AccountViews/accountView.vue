@@ -88,6 +88,16 @@ export default {
     this.loadUserDataFromStoreAndSaveToLocal(id)
   },
   //Watcher
+  watch: {
+    userData: {
+      deep: true,
+      handler(newValue) {
+        console.log('Watcher getriggert.')
+        console.log('New value for userData:', newValue)
+        this.updateLocalStorage()
+      }
+    }
+  },
 
   methods: {
     loadUserDataFromStoreAndSaveToLocal(id) {
