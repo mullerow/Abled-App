@@ -83,6 +83,7 @@ export default {
       }
     }
   },
+  //Änderung auf local Storage abruf oder Datenbank abruf eingeloggter User
   created() {
     const id = '101'
     this.loadUserDataFromStoreAndSaveToLocal(id)
