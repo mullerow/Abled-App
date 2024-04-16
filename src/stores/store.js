@@ -24,7 +24,7 @@ export const storeData = defineStore('poiStore', {
       city: '',
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
-      filteredPois: [201, 203]
+      filteredPois: []
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -217,19 +217,29 @@ export const storeData = defineStore('poiStore', {
     filterPoisforSearch() {},
 
     renderFilteredPois() {
-      console.log('DATEN', this.ownXCoordinate, this.ownYCoordinate)
+      this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
-        console.log(this.poiData[i].xCoordinates)
-        console.log(this.poiData[i].yCoordinates)
-        console.log(this.ownXCoordinate)
-        console.log(this.ownYCoordinate)
-
         this.poiData[i].currentSearchDistance = this.calcDistance(
           this.poiData[i].xCoordinates,
           this.poiData[i].yCoordinates,
           this.ownXCoordinate,
           this.ownYCoordinate
         )
+        console.log('this.temporaryData.searchDistance', this.temporaryData.searchDistance)
+        console.log('this.poiData[i].currentSearchDistance', this.poiData[i].currentSearchDistance)
+        if (this.poiData[i].currentSearchDistance <= this.temporaryData.searchDistance) {
+          console.log('filteredPoisID', this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].id)
+        }
+      }
+      console.log('filteredPois', this.temporaryData.filteredPois)
+    },
+    checkForFilterOptions(poi) {
+      console.log('bis hier hin!')
+      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
+        if (poi.id === this.temporaryData.filteredPois[i]) {
+          return true
+        }
       }
     }
   }

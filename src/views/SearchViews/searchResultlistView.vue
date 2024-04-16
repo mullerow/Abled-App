@@ -12,7 +12,7 @@
   <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
   <ul>
     <li v-for="poi in store.poiData" :key="poi.id">
-      <button class="searchlist-button">
+      <button class="searchlist-button" v-if="store.checkForFilterOptions(poi)">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
         <div
           class="searchlist-detailcategories"
