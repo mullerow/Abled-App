@@ -18,6 +18,7 @@ export default {
 <template>
   <h2>Startseite</h2>
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
+
   <ul class="menu">
     <li class="search">
       <RouterLink :to="{ name: 'searchpoi' }">
@@ -45,8 +46,8 @@ export default {
     </li>
     <li class="account">
       <RouterLink :to="{ name: 'account' }">
-        <span class="icon"><img src="@/assets/icons/user.png" alt="account Icon" /></span>Deinen
-        Account</RouterLink
+        <span class="icon"><img src="@/assets/icons/user-account.png" alt="account Icon" /></span
+        >Deinen Account</RouterLink
       >
     </li>
   </ul>
@@ -97,13 +98,13 @@ export default {
 
 .menu .icon {
   position: absolute;
-  left: 50%; /* Position des Icons anpassen */
+  left: 50%;
   transform: translateX(-50%);
-  top: 0; /* Position des Icons anpassen */
+  top: 0;
 }
 
 .menu .search .icon {
-  top: 20%; /* Position des Icons anpassen */
+  top: 20%;
   transform: translate(-50%, -50%);
 }
 
