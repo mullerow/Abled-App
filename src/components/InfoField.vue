@@ -5,15 +5,20 @@
       <img src="@/assets/icons/star.png" class="star" />
     </div>
     <h3>Koordinaten</h3>
-    <p>34,342424 , 34,5335253 (lat. Ing)</p>
+    <p>{{ xCoordinates }} , {{ yCoordinates }} (lat. Ing)</p>
     <h3>Adresse</h3>
     <p>Lange Straße 29, 18055 Rostock</p>
     <h3>Öffnungszeiten</h3>
     <p>Mo - Sa 09:30 - 20:00</p>
-    <h3>Wickelplatz</h3>
-    <h3>Barrierefrei</h3>
+    <h3>{{ detailCategories }}</h3>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['xCoordinates', 'yCoordinates', 'detailCategories']
+}
+</script>
 
 <style scoped>
 .info {

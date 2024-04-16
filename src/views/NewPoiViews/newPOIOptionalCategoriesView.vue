@@ -3,9 +3,7 @@
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
   </div>
-
-  <h2>Zusatzkategorien New POI</h2>
-  <HeadLine />
+  <HeadLine :Headline="'Zusatz'" />
   <div v-for="categorie in store.localData.categories" :key="categorie.id">
     <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
       <CategorieButton
@@ -17,8 +15,9 @@
       />
     </div>
   </div>
-  <NavButton Navigation="Weiter" @click="navigateToLastLink" />
-  <RouterLink ref="lastLink" :to="{ name: 'newpoilocationselection' }"></RouterLink>
+  <RouterLink ref="lastLink" :to="{ name: 'newpoilocationselection' }"
+    ><NavButton Navigation="Weiter"
+  /></RouterLink>
 </template>
 
 <script setup>
@@ -58,10 +57,6 @@ export default {
         OptionalCategories.push(detailCategorie)
       }
       localStorage.setItem('OptionalCategories', JSON.stringify(OptionalCategories))
-    },
-
-    navigateToLastLink() {
-      this.$refs.lastLink.$el.click()
     }
   }
 }
