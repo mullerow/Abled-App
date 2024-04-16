@@ -227,9 +227,12 @@ export const storeData = defineStore('poiStore', {
         )
         console.log('this.temporaryData.searchDistance', this.temporaryData.searchDistance)
         console.log('this.poiData[i].currentSearchDistance', this.poiData[i].currentSearchDistance)
-        if (this.poiData[i].currentSearchDistance <= this.temporaryData.searchDistance) {
+        if (
+          Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
+        ) {
           console.log('filteredPoisID', this.poiData[i].id)
           this.temporaryData.filteredPois.push(this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
         }
       }
       console.log('filteredPois', this.temporaryData.filteredPois)
