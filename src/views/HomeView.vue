@@ -1,7 +1,12 @@
 <script>
 import { storeData } from '@/stores/store.js'
 
+import LandingPageTitle from '@/components/LandingPageTitle.vue'
+
 export default {
+  components: {
+    LandingPageTitle
+  },
   data() {
     return {
       store: storeData()
@@ -21,7 +26,7 @@ export default {
     <li><RouterLink :to="{ name: 'searchpoi' }">Suche</RouterLink></li>
     <li><RouterLink :to="{ name: 'ownpoi' }">geteilte Orte</RouterLink></li>
   </ul>
-
+  <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
@@ -49,3 +54,12 @@ export default {
   </ul>
   -->
 </template>
+<style scoped>
+h1 {
+  height: 500px;
+  width: 20rem;
+  margin-left: 2%;
+  margin-right: 5%;
+  margin-top: 30%;
+}
+</style>
