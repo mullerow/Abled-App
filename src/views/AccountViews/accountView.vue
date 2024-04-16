@@ -109,6 +109,10 @@ export default {
       } catch (error) {
         console.error('Fehler beim Laden der Benutzerdaten aus dem Store:', error)
       }
+    },
+    updateLocalStorage() {
+      console.log('Update Local Storage ausgeführt.')
+      localStorage.setItem('userData', JSON.stringify(this.userData))
     }
 
     //saveUserData(id) {},
