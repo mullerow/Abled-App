@@ -1,8 +1,8 @@
 <template>
   <div class="imgcover">
-    <h3>Welcome {{ username }}</h3>
     <img src="../assets/images/Werbebild_ABLED_APP.png" alt="" />
     <h1 class="animated-text"><b>ABLED</b> APP</h1>
+    <h3>Welcome {{ username }}</h3>
   </div>
 </template>
 
