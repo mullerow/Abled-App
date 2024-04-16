@@ -130,3 +130,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.input {
+  padding: 0.5rem;
+  width: 80%;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  margin: 2rem;
+  color: darkgray;
+}
+label {
+  display: none;
+}
+</style>
