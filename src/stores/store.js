@@ -87,7 +87,8 @@ export const storeData = defineStore('poiStore', {
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 122,
         creationDate: '12.09.24',
-        createdBy: 102
+        createdBy: 102,
+        currentSearchDistance: 0
       },
       {
         id: 202,
@@ -101,21 +102,23 @@ export const storeData = defineStore('poiStore', {
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 102,
         creationDate: '13.12.23',
-        createdBy: 102
+        createdBy: 102,
+        currentSearchDistance: 0
       },
       {
         id: 203,
         poiName: 'Toilette',
         detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Kinderstühle'],
-        xCoordinates: 52.55347266835722,
-        yCoordinates: 13.412074165422512,
+        xCoordinates: 52.556657,
+        yCoordinates: 13.37754,
         status: true,
         minWidth: 122,
         isFavorite: true,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 86,
         creationDate: '19.01.24',
-        createdBy: 101
+        createdBy: 101,
+        currentSearchDistance: 0
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -171,9 +174,10 @@ export const storeData = defineStore('poiStore', {
     changeFavorite(poi) {
       poi.isFavorite = !poi.isFavorite
     },
-    calcDistance(poi, xCoordinatePosition, yCoordinatePosition) {
-      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poi.xCoordinates)
-      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poi.yCoordinates)
+
+    calcDistance(poiXcoordinate, poiYcoordinate, xCoordinatePosition, yCoordinatePosition) {
+      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
+      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
       this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
       this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
 
@@ -181,7 +185,9 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
+      return this.straightLineToAim
     },
+
     getAddressbyCoordinates(latitude, longitude) {
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
@@ -198,6 +204,7 @@ export const storeData = defineStore('poiStore', {
           console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
         })
     },
+
     getOwnPosition() {
       const saveOwnPositon = (position) => {
         this.ownXCoordinate = position.coords.latitude
@@ -206,7 +213,24 @@ export const storeData = defineStore('poiStore', {
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
+
     filterPoisforSearch() {},
-    renderFilteredPois() {}
+
+    renderFilteredPois() {
+      console.log('DATEN', this.ownXCoordinate, this.ownYCoordinate)
+      for (let i = 0; i < this.poiData.length; i++) {
+        console.log(this.poiData[i].xCoordinates)
+        console.log(this.poiData[i].yCoordinates)
+        console.log(this.ownXCoordinate)
+        console.log(this.ownYCoordinate)
+
+        this.poiData[i].currentSearchDistance = this.calcDistance(
+          this.poiData[i].xCoordinates,
+          this.poiData[i].yCoordinates,
+          this.ownXCoordinate,
+          this.ownYCoordinate
+        )
+      }
+    }
   }
 })

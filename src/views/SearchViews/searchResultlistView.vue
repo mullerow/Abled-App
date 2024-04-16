@@ -12,13 +12,19 @@
   <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
   <ul>
     <li v-for="poi in store.poiData" :key="poi.id">
-      {{ poi.poiName }}
-      <div
-        v-for="detailcategorie of poi.detailCategories"
-        :key="'detail-' + poi.id + '-' + detailcategorie"
-      >
-        {{ detailcategorie }}
-      </div>
+      <button class="searchlist-button">
+        <div class="searchlist-poiname">{{ poi.poiName }}</div>
+        <div
+          class="searchlist-detailcategories"
+          v-for="detailcategorie of poi.detailCategories"
+          :key="'detail-' + poi.id + '-' + detailcategorie"
+        >
+          ✅ {{ detailcategorie }}
+        </div>
+        <div class="searchlist-distance">
+          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+        </div>
+      </button>
     </li>
   </ul>
 </template>
@@ -38,6 +44,41 @@ export default {
     return {
       store: storeData()
     }
+  },
+  created() {
+    this.store.renderFilteredPois()
   }
 }
 </script>
+
+<style scoped>
+.searchlist-button {
+  width: 330px;
+  background-color: var(--white);
+  color: var(--red);
+}
+.searchlist-button:hover {
+  background-color: rgb(252, 220, 180);
+}
+li {
+  list-style-type: none;
+}
+ul {
+  padding-left: 0;
+}
+b {
+  color: var(--black);
+}
+
+.searchlist-poiname {
+  font-size: 20px;
+  font-weight: bold;
+}
+.searchlist-detailcategories {
+  text-align: start;
+  font-size: 14px;
+}
+.searchlist-distance {
+  text-align: end;
+}
+</style>
