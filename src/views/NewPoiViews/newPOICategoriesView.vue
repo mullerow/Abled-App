@@ -4,7 +4,7 @@
   </div>
 
   <h2>Erstelle einen neuen Point of Interrest (POI) hier!</h2>
-  <HeadLine />
+  <HeadLine :Headline="'Kategorien'" />
   <CategorieButton
     v-for="categorie of store.localData.categories"
     :key="categorie.id"

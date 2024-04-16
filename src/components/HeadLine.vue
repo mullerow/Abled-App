@@ -1,6 +1,12 @@
 <template>
-  <h1 id="Headline">Headline</h1>
+  <h1 id="Headline">{{ Headline }}</h1>
 </template>
+
+<script>
+export default {
+  props: ['Headline']
+}
+</script>
 
 <style scoped>
 #Headline {
