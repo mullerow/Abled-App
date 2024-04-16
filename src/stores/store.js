@@ -15,14 +15,16 @@ export const storeData = defineStore('poiStore', {
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
       searchDistance: 500,
-      ownXCoordinate: 0,
-      ownYCoordinate: 0,
+      ownXCoordinate: 52.554228,
+      ownYCoordinate: 13.412095,
       // temporäre Daten für die Addressenbestimmung aus Koordinaten
       district: 0,
       street: '',
       houseNumber: null,
       city: '',
-      ZipCode: 0
+      ZipCode: 0,
+      // temporäre Daten für die gefilterte Poi-Liste zum Rendern
+      filteredPois: []
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +42,6 @@ export const storeData = defineStore('poiStore', {
         },
         mobilityAssistance: 'Rollstuhl',
         mobilityAssistanceWidth: '72',
-        authorizationPositonQuery: 'true',
         ownPois: ['20292', '2091']
       },
       {
@@ -54,9 +55,7 @@ export const storeData = defineStore('poiStore', {
         },
         mobilityAssistance: 'Zwillingskinderwagen',
         mobilityAssistanceWidth: '92',
-        authorizationPositonQuery: 'true',
-        ownPois: ['20232', '20911'],
-        password: '12345'
+        ownPois: ['20232', '20911']
       },
       {
         id: 103,
@@ -69,9 +68,7 @@ export const storeData = defineStore('poiStore', {
         },
         mobilityAssistance: 'Rentnermobil',
         mobilityAssistanceWidth: '100',
-        authorizationPositonQuery: 'true',
-        ownPois: ['2012', '2034', '20191'],
-        password: 'AbX6!sawxf'
+        ownPois: ['2012', '2034', '20191']
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +77,7 @@ export const storeData = defineStore('poiStore', {
     poiData: [
       {
         id: 201,
-        categoryId: '301',
+        poiName: 'Rampe',
         detailCategories: ['steil', 'Geländer'],
         xCoordinates: 52.554228,
         yCoordinates: 13.412095,
@@ -91,11 +88,11 @@ export const storeData = defineStore('poiStore', {
         prioWidth: 122,
         creationDate: '12.09.24',
         createdBy: 102,
-        password: 'mamaisthebest'
+        currentSearchDistance: 0
       },
       {
         id: 202,
-        categoryId: '304',
+        poiName: 'Toilette',
         detailCategories: ['Wickelplatz', 'Behindertengerecht'],
         xCoordinates: 52.55347266835722,
         yCoordinates: 13.412074165422512,
@@ -105,21 +102,23 @@ export const storeData = defineStore('poiStore', {
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 102,
         creationDate: '13.12.23',
-        createdBy: 102
+        createdBy: 102,
+        currentSearchDistance: 0
       },
       {
         id: 203,
-        categoryId: '304',
+        poiName: 'Toilette',
         detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Kinderstühle'],
-        xCoordinates: 52.55347266835722,
-        yCoordinates: 13.412074165422512,
+        xCoordinates: 52.556657,
+        yCoordinates: 13.37754,
         status: true,
         minWidth: 122,
         isFavorite: true,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 86,
         creationDate: '19.01.24',
-        createdBy: 101
+        createdBy: 101,
+        currentSearchDistance: 0
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,9 +174,10 @@ export const storeData = defineStore('poiStore', {
     changeFavorite(poi) {
       poi.isFavorite = !poi.isFavorite
     },
-    calcDistance(poi, xCoordinatePosition, yCoordinatePosition) {
-      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poi.xCoordinates)
-      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poi.yCoordinates)
+
+    calcDistance(poiXcoordinate, poiYcoordinate, xCoordinatePosition, yCoordinatePosition) {
+      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
+      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
       this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
       this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
 
@@ -185,7 +185,9 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
+      return this.straightLineToAim
     },
+
     getAddressbyCoordinates(latitude, longitude) {
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
@@ -202,6 +204,7 @@ export const storeData = defineStore('poiStore', {
           console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
         })
     },
+
     getOwnPosition() {
       const saveOwnPositon = (position) => {
         this.ownXCoordinate = position.coords.latitude
@@ -209,6 +212,38 @@ export const storeData = defineStore('poiStore', {
         this.getAddressbyCoordinates(this.ownXCoordinate, this.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
+    },
+
+    filterPoisforSearch() {},
+
+    renderFilteredPois() {
+      this.temporaryData.filteredPois = []
+      for (let i = 0; i < this.poiData.length; i++) {
+        this.poiData[i].currentSearchDistance = this.calcDistance(
+          this.poiData[i].xCoordinates,
+          this.poiData[i].yCoordinates,
+          this.ownXCoordinate,
+          this.ownYCoordinate
+        )
+        console.log('this.temporaryData.searchDistance', this.temporaryData.searchDistance)
+        console.log('this.poiData[i].currentSearchDistance', this.poiData[i].currentSearchDistance)
+        if (
+          Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
+        ) {
+          console.log('filteredPoisID', this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
+        }
+      }
+      console.log('filteredPois', this.temporaryData.filteredPois)
+    },
+    checkForFilterOptions(poi) {
+      console.log('bis hier hin!')
+      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
+        if (poi.id === this.temporaryData.filteredPois[i]) {
+          return true
+        }
+      }
     }
   }
 })

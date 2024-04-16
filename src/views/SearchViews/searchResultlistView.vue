@@ -10,9 +10,27 @@
   <h2>Ergebnisliste</h2>
 
   <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
+  <ul>
+    <li v-for="poi in store.poiData" :key="poi.id">
+      <button class="searchlist-button" v-if="store.checkForFilterOptions(poi)">
+        <div class="searchlist-poiname">{{ poi.poiName }}</div>
+        <div
+          class="searchlist-detailcategories"
+          v-for="detailcategorie of poi.detailCategories"
+          :key="'detail-' + poi.id + '-' + detailcategorie"
+        >
+          ✅ {{ detailcategorie }}
+        </div>
+        <div class="searchlist-distance">
+          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+        </div>
+      </button>
+    </li>
+  </ul>
 </template>
 
 <script>
+import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
@@ -21,6 +39,46 @@ export default {
     HomeButton,
     EarthMap,
     BackArrow
+  },
+  data() {
+    return {
+      store: storeData()
+    }
+  },
+  created() {
+    this.store.renderFilteredPois()
   }
 }
 </script>
+
+<style scoped>
+.searchlist-button {
+  width: 330px;
+  background-color: var(--white);
+  color: var(--red);
+}
+.searchlist-button:hover {
+  background-color: rgb(252, 220, 180);
+}
+li {
+  list-style-type: none;
+}
+ul {
+  padding-left: 0;
+}
+b {
+  color: var(--black);
+}
+
+.searchlist-poiname {
+  font-size: 20px;
+  font-weight: bold;
+}
+.searchlist-detailcategories {
+  text-align: start;
+  font-size: 14px;
+}
+.searchlist-distance {
+  text-align: end;
+}
+</style>

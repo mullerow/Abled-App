@@ -8,7 +8,7 @@
   <input
     type="range"
     min="50"
-    max="5000"
+    max="3000"
     step="50"
     value="500"
     name="rangeInput"
@@ -17,7 +17,16 @@
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
   <button @click="store.getOwnPosition">Eigener Standort</button>
   <br />
-  <button @click="store.calcDistance(store.poiData[0], store.ownXCoordinate, store.ownYCoordinate)">
+  <button
+    @click="
+      store.calcDistance(
+        store.poiData[0].xCoordinates,
+        store.poiData[0].yCoordinates,
+        store.ownXCoordinate,
+        store.ownYCoordinate
+      )
+    "
+  >
     Berechne Distanz
   </button>
   <h3>Ermittelter Standort:</h3>
