@@ -85,7 +85,7 @@ export default {
   },
 
   created() {
-    const id = '101'
+    const id = '102'
     this.loadUserDataFromStoreAndSaveToLocal(id)
   },
   //Watcher
@@ -125,6 +125,28 @@ export default {
       console.log('Update Local Storage ausgeführt.')
       localStorage.setItem('userData', JSON.stringify(this.userData))
     },
+
+    saveUserDataToStore(userData) {
+      try {
+        const store = storeData()
+        const userIndex = store.userData.findIndex((user) => user.id === userData.id)
+        console.log('userIndex', userIndex)
+        if (userIndex === -1) {
+          console.error(`Benutzer mit der ID ${userData.id} wurde nicht gefunden.`)
+          return
+        }
+
+        // im Store aktualisieren
+        store.userData[userIndex] = { ...store.userData[userIndex], ...userData }
+
+        console.log(
+          `Benutzerdaten des Benutzers mit der ID ${userData.id} wurden erfolgreich aktualisiert.`
+        )
+        console.log('TEST Aktualisierte Benutzerdaten:', store.userData[userIndex])
+      } catch (error) {
+        console.error('Fehler beim Aktualisieren der Benutzerdaten im Store:', error)
+      }
+    },
     saveUserData() {
       try {
         const storedUserData = JSON.parse(localStorage.getItem('userData'))
@@ -134,28 +156,14 @@ export default {
           return
         }
 
-        const id = storedUserData.id
+        this.saveUserDataToStore(storedUserData)
+        console.log('TEST StoredUserData', storedUserData)
 
-        const user = this.store.userData.find((user) => user.id === parseInt(id))
-
-        if (!user) {
-          console.error(`Benutzer mit der ID ${id} wurde nicht gefunden.`)
-          return
-        }
-
-        // Aktualisiere die Benutzerdaten im Store.
-        Object.assign(user, this.userData)
-
-        localStorage.setItem('userData', JSON.stringify(this.store.userData))
-
-        console.log(`Benutzerdaten des Benutzers mit der ID ${id} wurden erfolgreich aktualisiert.`)
+        console.log('Benutzerdaten erfolgreich gespeichert.')
       } catch (error) {
         console.error('Fehler beim Speichern der Benutzerdaten:', error)
       }
-      console.log(this.userData)
     }
-
-    //deleteUserData(id) {}
   }
 }
 </script>
