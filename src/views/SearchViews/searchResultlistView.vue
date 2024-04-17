@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.searchlist-button {
+li > .searchlist-button {
   width: 330px;
   background-color: var(--white);
   color: var(--red);

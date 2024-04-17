@@ -24,7 +24,9 @@ export const storeData = defineStore('poiStore', {
       city: '',
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
-      filteredPois: []
+      filteredPois: [],
+      choosenCategory: 'Rampe',
+      choosenDetailCategories: ['Geländer']
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +85,6 @@ export const storeData = defineStore('poiStore', {
         yCoordinates: 13.412095,
         status: true,
         minWidth: 92,
-        isFavorite: false,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 122,
         creationDate: '12.09.24',
@@ -98,7 +99,6 @@ export const storeData = defineStore('poiStore', {
         yCoordinates: 13.412074165422512,
         status: true,
         minWidth: 122,
-        isFavorite: false,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 102,
         creationDate: '13.12.23',
@@ -108,16 +108,29 @@ export const storeData = defineStore('poiStore', {
       {
         id: 203,
         poiName: 'Toilette',
-        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Kinderstühle'],
+        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Wickelplatz', 'kostenfrei'],
         xCoordinates: 52.556657,
         yCoordinates: 13.37754,
         status: true,
         minWidth: 122,
-        isFavorite: true,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 86,
         creationDate: '19.01.24',
         createdBy: 101,
+        currentSearchDistance: 0
+      },
+      {
+        id: 204,
+        poiName: 'Rampe',
+        detailCategories: ['flach', 'Geländer'],
+        xCoordinates: 52.556351,
+        yCoordinates: 13.37712,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
         currentSearchDistance: 0
       }
     ],
@@ -147,7 +160,7 @@ export const storeData = defineStore('poiStore', {
         {
           id: 303,
           categoryName: 'Zugang',
-          detailCategorys: ['maximale breite (nicht zuende gedacht!)', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
+          detailCategorys: ['maximale breite', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
         },
         {
           id: 304,
@@ -214,8 +227,6 @@ export const storeData = defineStore('poiStore', {
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
 
-    filterPoisforSearch() {},
-
     renderFilteredPois() {
       this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
@@ -237,10 +248,15 @@ export const storeData = defineStore('poiStore', {
       }
       console.log('filteredPois', this.temporaryData.filteredPois)
     },
+
     checkForFilterOptions(poi) {
-      console.log('bis hier hin!')
+      console.log(poi.poiName)
+      console.log(this.temporaryData.choosenCategory)
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
-        if (poi.id === this.temporaryData.filteredPois[i]) {
+        if (
+          poi.id === this.temporaryData.filteredPois[i] &&
+          poi.poiName == this.temporaryData.choosenCategory
+        ) {
           return true
         }
       }
