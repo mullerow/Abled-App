@@ -26,7 +26,7 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: 'Rampe',
-      choosenDetailCategories: ['Geländer', 'steil']
+      choosenDetailCategories: ['Geländer', 'steil', 'extra breit']
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,6 +125,34 @@ export const storeData = defineStore('poiStore', {
         detailCategories: ['flach', 'Geländer'],
         xCoordinates: 52.556351,
         yCoordinates: 13.37712,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
+      },
+      {
+        id: 205,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer'],
+        xCoordinates: 52.554248,
+        yCoordinates: 13.412295,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
+      },
+      {
+        id: 206,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer', 'extra breit'],
+        xCoordinates: 52.554348,
+        yCoordinates: 13.412995,
         status: true,
         minWidth: 92,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
