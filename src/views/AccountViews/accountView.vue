@@ -83,7 +83,7 @@ export default {
       }
     }
   },
-  //Änderung auf local Storage abruf oder Datenbank abruf eingeloggter User
+
   created() {
     const id = '101'
     this.loadUserDataFromStoreAndSaveToLocal(id)
@@ -124,9 +124,37 @@ export default {
     updateLocalStorage() {
       console.log('Update Local Storage ausgeführt.')
       localStorage.setItem('userData', JSON.stringify(this.userData))
+    },
+    saveUserData() {
+      try {
+        const storedUserData = JSON.parse(localStorage.getItem('userData'))
+
+        if (!storedUserData) {
+          console.error('Keine Benutzerdaten im lokalen Speicher gefunden.')
+          return
+        }
+
+        const id = storedUserData.id
+
+        const user = this.store.userData.find((user) => user.id === parseInt(id))
+
+        if (!user) {
+          console.error(`Benutzer mit der ID ${id} wurde nicht gefunden.`)
+          return
+        }
+
+        // Aktualisiere die Benutzerdaten im Store.
+        Object.assign(user, this.userData)
+
+        localStorage.setItem('userData', JSON.stringify(this.store.userData))
+
+        console.log(`Benutzerdaten des Benutzers mit der ID ${id} wurden erfolgreich aktualisiert.`)
+      } catch (error) {
+        console.error('Fehler beim Speichern der Benutzerdaten:', error)
+      }
+      console.log(this.userData)
     }
 
-    //saveUserData(id) {},
     //deleteUserData(id) {}
   }
 }
