@@ -227,7 +227,8 @@ export const storeData = defineStore('poiStore', {
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
 
-    renderFilteredPois() {
+    checkForFilterOptions() {
+      // renderFilteredPois
       this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
         this.poiData[i].currentSearchDistance = this.calcDistance(
@@ -262,7 +263,8 @@ export const storeData = defineStore('poiStore', {
       } else return false
     },
 
-    checkForFilterOptions(poi) {
+    renderFilteredPois(poi) {
+      // checkForFilterOptions
       console.log(poi.poiName)
       console.log(this.temporaryData.choosenDetailCategories)
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {

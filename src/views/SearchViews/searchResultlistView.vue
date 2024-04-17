@@ -12,7 +12,8 @@
   <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
   <ul>
     <li v-for="poi in store.poiData" :key="poi.id">
-      <button class="searchlist-button" v-if="store.checkForFilterOptions(poi)">
+      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+        <!--checkForFilterOptions -->
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
         <div
           class="searchlist-detailcategories"
@@ -46,7 +47,7 @@ export default {
     }
   },
   created() {
-    this.store.renderFilteredPois()
+    this.store.checkForFilterOptions() // renderFilteredPois
   }
 }
 </script>
