@@ -97,7 +97,6 @@ export default {
     const id = '102'
     this.loadUserDataFromStoreAndSaveToLocal(id)
   },
-  //Watcher
   watch: {
     userData: {
       deep: true,
@@ -111,7 +110,6 @@ export default {
 
   methods: {
     loadUserDataFromStoreAndSaveToLocal(id) {
-      //lädt User in local Storage
       try {
         const user = this.store.userData.find((user) => user.id === parseInt(id))
 
@@ -131,7 +129,6 @@ export default {
       }
     },
     updateLocalStorage() {
-      console.log('Update Local Storage ausgeführt.')
       localStorage.setItem('userData', JSON.stringify(this.userData))
     },
 
@@ -139,19 +136,12 @@ export default {
       try {
         const store = storeData()
         const userIndex = store.userData.findIndex((user) => user.id === userData.id)
-        console.log('userIndex', userIndex)
         if (userIndex === -1) {
           console.error(`Benutzer mit der ID ${userData.id} wurde nicht gefunden.`)
           return
         }
 
-        // im Store aktualisieren
         store.userData[userIndex] = { ...store.userData[userIndex], ...userData }
-
-        console.log(
-          `Benutzerdaten des Benutzers mit der ID ${userData.id} wurden erfolgreich aktualisiert.`
-        )
-        console.log('TEST Aktualisierte Benutzerdaten:', store.userData[userIndex])
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Benutzerdaten im Store:', error)
       }
@@ -166,9 +156,6 @@ export default {
         }
 
         this.saveUserDataToStore(storedUserData)
-        console.log('TEST StoredUserData', storedUserData)
-
-        console.log('Benutzerdaten erfolgreich gespeichert.')
       } catch (error) {
         console.error('Fehler beim Speichern der Benutzerdaten:', error)
       }
@@ -182,7 +169,6 @@ export default {
         const userIndex = this.store.userData.findIndex((user) => user.id === userId)
         if (userIndex !== -1) {
           this.store.userData.splice(userIndex, 1)
-          console.log('Benutzer erfolgreich gelöscht.')
 
           const isUserDeleted = this.store.userData.findIndex((user) => user.id === userId) === -1
           if (isUserDeleted) {
