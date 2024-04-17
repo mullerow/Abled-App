@@ -101,7 +101,7 @@ const router = createRouter({
       component: ownPoiMapView
     },
     {
-      path: '/ownpoiinfo',
+      path: '/ownpoi/:id',
       name: 'ownpoiinfo',
       component: ownPoiInfoView
     },
