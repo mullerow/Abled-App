@@ -52,8 +52,16 @@
         : 'mobilityAssistance width'
     "
   />
-  <LöschenButton :Löschen="'Account-Löschen'" @click="deleteUserData"></LöschenButton>
+  <LöschenButton :Löschen="'Account-Löschen'" @click="confirmDelete"></LöschenButton>
   <NavButton :Navigation="'Speichern'" @click="saveUserData"></NavButton>
+
+  <div v-if="showConfirmation" class="confirmation-popup">
+    <div class="confirmation-message">
+      <p>Sind Sie sicher, dass Sie den Account dauerhaft löschen möchten?</p>
+      <button @click="deleteUser">Ja</button>
+      <button @click="cancelDelete">Nein</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -80,7 +88,8 @@ export default {
         passWord: '',
         mobilityAssistance: '',
         mobilityAssistanceWidth: ''
-      }
+      },
+      showConfirmation: false
     }
   },
 
@@ -163,12 +172,26 @@ export default {
       } catch (error) {
         console.error('Fehler beim Speichern der Benutzerdaten:', error)
       }
+    },
+    confirmDelete() {
+      this.showConfirmation = true
     }
   }
 }
 </script>
 
 <style>
+.confirmation-popup {
+  position: fixed;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 20px;
+  border: 4px solid var(--black);
+  z-index: 9999;
+}
 .input {
   padding: 0.5rem;
   width: 80%;
