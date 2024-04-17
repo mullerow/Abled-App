@@ -175,6 +175,29 @@ export default {
     },
     confirmDelete() {
       this.showConfirmation = true
+    },
+    deleteUser() {
+      const userId = this.userData.id
+      try {
+        const userIndex = this.store.userData.findIndex((user) => user.id === userId)
+        if (userIndex !== -1) {
+          this.store.userData.splice(userIndex, 1)
+          console.log('Benutzer erfolgreich gelöscht.')
+
+          const isUserDeleted = this.store.userData.findIndex((user) => user.id === userId) === -1
+          if (isUserDeleted) {
+            console.log('Benutzer erfolgreich gelöscht.')
+          } else {
+            console.error('Fehler: Benutzer wurde nicht gelöscht.')
+          }
+        } else {
+          console.error('Benutzer nicht gefunden.')
+        }
+      } catch (error) {
+        console.error('Fehler beim Löschen des Benutzers:', error)
+      }
+
+      this.showConfirmation = false
     }
   }
 }
