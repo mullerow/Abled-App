@@ -17,7 +17,7 @@ export const storeData = defineStore('poiStore', {
       searchDistance: 500,
       ownXCoordinate: 52.554228,
       ownYCoordinate: 13.412095,
-      // temporäre Daten für die Addressenbestimmung aus Koordinaten
+      // temporäre Daten für die Adressbestimmung aus Koordinaten
       district: 0,
       street: '',
       houseNumber: null,
@@ -26,7 +26,7 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: 'Rampe',
-      choosenDetailCategories: ['Geländer']
+      choosenDetailCategories: ['Geländer', 'steil']
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,13 +249,27 @@ export const storeData = defineStore('poiStore', {
       console.log('filteredPois', this.temporaryData.filteredPois)
     },
 
+    compareDetailCategories(poi) {
+      let counter = 0
+      for (let entry of this.temporaryData.choosenDetailCategories) {
+        if (poi.detailCategories.includes(entry)) {
+          console.log('entry gefunden!!')
+          counter++
+        }
+      }
+      if (this.temporaryData.choosenDetailCategories.length === counter) {
+        return true
+      } else return false
+    },
+
     checkForFilterOptions(poi) {
       console.log(poi.poiName)
-      console.log(this.temporaryData.choosenCategory)
+      console.log(this.temporaryData.choosenDetailCategories)
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
         if (
           poi.id === this.temporaryData.filteredPois[i] &&
-          poi.poiName == this.temporaryData.choosenCategory
+          poi.poiName == this.temporaryData.choosenCategory &&
+          this.compareDetailCategories(poi)
         ) {
           return true
         }
