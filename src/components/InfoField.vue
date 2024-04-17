@@ -1,22 +1,32 @@
 <template>
   <div class="info">
     <div class="container">
-      <h2>Kategorie</h2>
+      <h2>{{ Headline }}</h2>
       <img src="@/assets/icons/star.png" class="star" />
     </div>
     <h3>Koordinaten</h3>
     <p>{{ xCoordinates }} , {{ yCoordinates }} (lat. Ing)</p>
     <h3>Adresse</h3>
-    <p>Lange Straße 29, 18055 Rostock</p>
+    <p>{{ street }} {{ number }}, {{ zip }} {{ city }}</p>
     <h3>Öffnungszeiten</h3>
-    <p>Mo - Sa 09:30 - 20:00</p>
+    <p>{{ openingTimes }}</p>
     <h3>{{ detailCategories }}</h3>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['xCoordinates', 'yCoordinates', 'detailCategories']
+  props: [
+    'xCoordinates',
+    'yCoordinates',
+    'detailCategories',
+    'Headline',
+    'street',
+    'number',
+    'zip',
+    'city',
+    'openingTimes'
+  ]
 }
 </script>
 

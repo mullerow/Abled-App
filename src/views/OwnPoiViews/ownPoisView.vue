@@ -7,12 +7,9 @@
   <!--hier ggf
   <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <h2>Hier findest du alle Orte die du erstellt hast</h2>
-
-  <RouterLink :to="{ name: 'ownpoiinfo' }"
-    ><CategorieButton v-for="poi of store.poiData" :key="poi.id" :Kategorie="poi.poiName"
-  /></RouterLink>
-
-  <RouterLink :to="{ name: 'ownpoiinfo' }">Bearbeiten</RouterLink>
+  <router-link v-for="element of store.poiData" :key="element.id" :to="'/ownpoi/' + element.id"
+    ><CategorieButton :Kategorie="element.poiName"
+  /></router-link>
 </template>
 
 <script setup>
