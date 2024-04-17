@@ -7,14 +7,22 @@
   <!--hier ggf
   <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <h2>Hier findest du alle Orte die du erstellt hast</h2>
-
-  <RouterLink :to="{ name: 'ownpoiinfo' }">Bearbeiten</RouterLink>
+  <router-link v-for="element of store.poiData" :key="element.id" :to="'/ownpoi/' + element.id"
+    ><CategorieButton :Kategorie="element.poiName"
+  /></router-link>
 </template>
+
+<script setup>
+import { storeData } from '@/stores/store.js'
+
+const store = storeData()
+</script>
 
 <script>
 import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
+import CategorieButton from '@/components/CategorieButton.vue'
 export default {
-  components: { HomeButton, EarthMap }
+  components: { HomeButton, EarthMap, CategorieButton }
 }
 </script>

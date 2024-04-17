@@ -8,11 +8,27 @@
 
   <br />
   <h2>Info</h2>
-  <InfoField />
+  <InfoField
+    v-for="(poidatas, index) of limitedPoiData"
+    :key="index"
+    :xCoordinates="poidatas.xCoordinates"
+    :yCoordinates="poidatas.yCoordinates"
+    :detailCategories="poidatas.detailCategories"
+    :id="poidatas.id"
+  />
   <LöschenButton :Löschen="'Nicht nutzbar'" />
   <NavButton :Navigation="'In Maps öffnen'" />
   <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
 </template>
+
+<script setup>
+import { storeData } from '@/stores/store.js'
+
+const store = storeData()
+const limit = 1
+
+const limitedPoiData = store.poiData.slice(0, limit)
+</script>
 
 <script>
 import HomeButton from '@/components/HomeButton.vue'
