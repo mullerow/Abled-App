@@ -101,7 +101,6 @@ export default {
     userData: {
       deep: true,
       handler(newValue) {
-        console.log('Watcher getriggert.')
         console.log('New value for userData:', newValue)
         this.updateLocalStorage()
       }
@@ -109,6 +108,22 @@ export default {
   },
 
   methods: {
+    isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return emailRegex.test(email)
+    },
+    validateAndTrimEmail() {
+      const email = this.userData.eMailAddress.trim()
+      if (!this.isValidEmail(email)) {
+        throw new Error('Ungültige E-Mail-Adresse')
+      }
+      this.userData.eMailAddress = email
+    },
+    trimOtherFields() {
+      this.userData.passWord = this.userData.passWord.trim()
+      this.userData.mobilityAssistance = this.userData.mobilityAssistance.trim()
+      this.userData.mobilityAssistanceWidth = this.userData.mobilityAssistanceWidth.trim()
+    },
     loadUserDataFromStoreAndSaveToLocal(id) {
       try {
         const user = this.store.userData.find((user) => user.id === parseInt(id))
@@ -148,6 +163,9 @@ export default {
     },
     saveUserData() {
       try {
+        this.validateAndTrimEmail()
+
+        this.trimOtherFields()
         const storedUserData = JSON.parse(localStorage.getItem('userData'))
 
         if (!storedUserData) {
