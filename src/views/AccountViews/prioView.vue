@@ -1,8 +1,28 @@
 <template>
-  <RouterLink :to="{ name: 'home' }">Weiter</RouterLink>
-  <h2>Wähle deine Prio</h2>
+  <h1>Wähle deine Mobilitätshilfe</h1>
+  <PriorityButton
+    v-for="mobilityAssistanceClass in store.localData.mobilityAssistanceClasses"
+    :key="mobilityAssistanceClass"
+    :priority="mobilityAssistanceClass"
+    @click="saveButtonValue(mobilityAssistanceClass)"
+  />
+  <InputField></InputField>
+
+  <RouterLink :to="{ name: 'home' }"><NavButton Navigation="Weiter" /></RouterLink>
 </template>
 
+<script setup>
+import { storeData } from '@/stores/store.js'
+
+const store = storeData()
+</script>
+
 <script>
-export default {}
+import PriorityButton from '@/components/PriorityButton.vue'
+import NavButton from '@/components/NavButton.vue'
+import InputField from '@/components/InputField.vue'
+
+export default {
+  components: { PriorityButton, NavButton, InputField }
+}
 </script>
