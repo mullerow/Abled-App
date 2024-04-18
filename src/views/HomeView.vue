@@ -13,20 +13,24 @@ export default {
     }
   },
   mounted() {
-    console.log('davor', this.store.temporaryData.currentUser)
     this.store.getUserDataFromAPI()
-    console.log('dahinter', this.store.temporaryData.currentUser)
+    this.store.addNewUserToAPI()
   }
 }
 </script>
 
 <template>
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
-  <p>
+  <p v-if="store.temporaryData.currentUser[0]">
     <b>Nutzer:</b>
     {{
-      store.temporaryData.currentUser[0]
-        ? store.temporaryData.currentUser[0]
+      store.temporaryData.currentUser[0].userName
+        ? store.temporaryData.currentUser[0].userName
+        : 'User konnte nicht geladen werden'
+    }}
+    {{
+      store.temporaryData.currentUser[3].id
+        ? store.temporaryData.currentUser[3].id
         : 'User konnte nicht geladen werden'
     }}
   </p>

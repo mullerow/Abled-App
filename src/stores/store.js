@@ -30,7 +30,20 @@ export const storeData = defineStore('poiStore', {
       choosenCategory: 'Alle',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       // User Managament
-      currentUser: []
+      currentUser: [],
+      newUserData: {
+        ownId: 104,
+        userName: 'Holger Holgerson',
+        eMailAddress: 'Holger@Holgerson.de',
+        address: {
+          city: 'Schwedt',
+          street: 'Otto Braun Straße 122',
+          zipCode: '11113'
+        },
+        mobilityAssistance: 'Zwillingskinderwagen',
+        mobilityAssistanceWidth: '92',
+        ownPois: ['20232', '20911']
+      }
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +51,7 @@ export const storeData = defineStore('poiStore', {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     userData: [
       {
-        id: 101,
+        ownId: 101,
         userName: 'Karl Otto',
         eMailAddress: 'karl@otto.de',
         address: {
@@ -51,7 +64,7 @@ export const storeData = defineStore('poiStore', {
         ownPois: ['20292', '2091']
       },
       {
-        id: 102,
+        ownId: 102,
         userName: 'Sven Marquardt',
         eMailAddress: 'sven@marquardt.de',
         address: {
@@ -64,7 +77,7 @@ export const storeData = defineStore('poiStore', {
         ownPois: ['20232', '20911']
       },
       {
-        id: 103,
+        ownId: 103,
         userName: 'Ringo Bingo',
         eMailAddress: 'ringo@bingo.de',
         address: {
@@ -307,7 +320,7 @@ export const storeData = defineStore('poiStore', {
         } else return false
       }
     },
-    ///////////////////////////////////// API-Datenbank anbindungen ////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
     async getUserDataFromAPI() {
       const res = await fetch('http://localhost:3000/users')
       if (res.ok) {
@@ -315,9 +328,22 @@ export const storeData = defineStore('poiStore', {
         this.temporaryData.currentUser = data
       } else {
         console.warn(
-          'Die GET-Anfrage an den API-Server konnte nicht erfolgreich durchgeführt werden'
+          'Die GET-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
       }
+    },
+    async addNewUserToAPI() {
+      const res = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.newUserData)
+      })
+      if (res.ok) {
+        console.log('Die POST-Anfrage (User) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die POST-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
     }
   }
 })
