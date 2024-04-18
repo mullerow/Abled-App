@@ -82,6 +82,7 @@ export default {
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
+
       this.goToPrio()
     },
     goToPrio() {
