@@ -9,14 +9,21 @@
   <h2>Own Poi Info</h2>
 
   <div v-if="!editing">
-    <InfoField
-      :Headline="poi.poiName"
-      :xCoordinates="poi.xCoordinates"
-      :yCoordinates="poi.yCoordinates"
-      :openingTimes="poi.openingTimes"
-      :detailCategories="poi.detailCategories"
-      :id="poi.id"
-    />
+    <div class="info">
+      <h2>{{ poi.poiName }}</h2>
+      <h3>Koordinaten</h3>
+      <p>{{ poi.xCoordinates }}, {{ poi.yCoordinates }}</p>
+      <h3>Adresse</h3>
+      <p>{{ poi.street }} {{ poi.number }}, {{ poi.zip }} {{ poi.city }}</p>
+      <h3>Öffnungszeiten</h3>
+      <p>{{ poi.openingTimes }}</p>
+      <div v-if="poi.detailCategories.length > 0">
+        <p>Optional Categories:</p>
+        <ul>
+          <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
+        </ul>
+      </div>
+    </div>
     <LöschenButton :Löschen="'Löschen'" />
     <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
   </div>
@@ -55,7 +62,6 @@
 <script>
 import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
-import InfoField from '@/components/InfoField.vue'
 import NavButton from '@/components/NavButton.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 import InputField from '@/components/InputField.vue'
@@ -65,7 +71,6 @@ import HeadLine from '@/components/HeadLine.vue'
 export default {
   components: {
     HomeButton,
-    InfoField,
     NavButton,
     LöschenButton,
     InputField,
@@ -131,3 +136,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.info {
+  padding: 1rem;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 1rem;
+  width: 70%;
+  margin-top: 1rem;
+  display: grid;
+  margin: 2rem;
+}
+</style>

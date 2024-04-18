@@ -30,25 +30,4 @@ export default {
     LöschenButton
   }
 }
-//Daten auf Api laden//
-
-const apiUrl = 'https://example.com/api'
-const dataToSend = {
-  key1: 'value1',
-  key2: 'value2'
-}
-
-const requestOptions = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(dataToSend)
-}
-
-try {
-  await fetch(apiUrl, requestOptions)
-} catch (error) {
-  console.error('Error during fetch operation:', error)
-}
 </script>
