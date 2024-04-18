@@ -6,6 +6,7 @@
     :priority="mobilityAssistanceClass"
     @click="saveButtonValue(mobilityAssistanceClass)"
   />
+  <InputField></InputField>
 
   <RouterLink :to="{ name: 'home' }"><NavButton Navigation="Weiter" /></RouterLink>
 </template>
@@ -19,8 +20,9 @@ const store = storeData()
 <script>
 import PriorityButton from '@/components/PriorityButton.vue'
 import NavButton from '@/components/NavButton.vue'
+import InputField from '@/components/InputField.vue'
 
 export default {
-  components: { PriorityButton, NavButton }
+  components: { PriorityButton, NavButton, InputField }
 }
 </script>
