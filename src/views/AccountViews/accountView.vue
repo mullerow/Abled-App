@@ -6,7 +6,7 @@
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
 
   <h2>Verwalte deine Account-Daten</h2>
-  <label for="username">Username</label>
+  <label for="username">Bentuzername</label>
   <input
     class="input"
     type="text"
@@ -16,7 +16,7 @@
     :disabled="!editMode"
   />
 
-  <label for="email">Email</label>
+  <label for="email">E-mail</label>
   <input
     class="input"
     type="email"
@@ -24,7 +24,7 @@
     v-model="userData.eMailAddress"
     :placeholder="userData.eMailAddress ? userData.eMailAddress : 'Email'"
   />
-  <label for="password">Password</label>
+  <label for="password">Passwort</label>
   <input
     class="input"
     type="password"
@@ -32,7 +32,7 @@
     v-model="userData.passWord"
     :placeholder="userData.passWord ? userData.passWord : 'Passwort'"
   />
-  <label for="mobilityAssistance">Mobility Assistance</label>
+  <label for="mobilityAssistance">Mobilitätshilfe</label>
   <input
     class="input"
     type="text"
@@ -40,7 +40,7 @@
     v-model="userData.mobilityAssistance"
     :placeholder="userData.mobilityAssistance ? userData.mobilityAssistance : 'mobility assistance'"
   />
-  <label for="mobilityAssistanceWidth">Mobility Assistance Width</label>
+  <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
   <input
     class="input"
     type="text"
@@ -226,8 +226,5 @@ export default {
   border-radius: 0.5rem;
   margin: 2rem;
   color: darkgray;
-}
-label {
-  display: none;
 }
 </style>
