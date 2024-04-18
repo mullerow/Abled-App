@@ -82,7 +82,7 @@ export default {
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
-
+      localStorage.setItem('userId', userID)
       this.goToPrio()
     },
     goToPrio() {
