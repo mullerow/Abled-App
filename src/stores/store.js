@@ -273,12 +273,10 @@ export const storeData = defineStore('poiStore', {
         if (
           Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
         ) {
-          console.log('filteredPoisID', this.poiData[i].id)
           this.temporaryData.filteredPois.push(this.poiData[i].id)
           this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
         }
       }
-      console.log('filteredPois', this.temporaryData.filteredPois)
     },
 
     compareDetailCategories(poi) {
@@ -296,8 +294,6 @@ export const storeData = defineStore('poiStore', {
 
     renderFilteredPois(poi) {
       // checkForFilterOptions
-      console.log(poi.poiName)
-      console.log(this.temporaryData.choosenDetailCategories)
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
         if (this.temporaryData.choosenCategory === 'Alle') {
           console.log('ALLE')
