@@ -17,14 +17,16 @@ export const storeData = defineStore('poiStore', {
       searchDistance: 500,
       ownXCoordinate: 52.554228,
       ownYCoordinate: 13.412095,
-      // temporäre Daten für die Addressenbestimmung aus Koordinaten
+      // temporäre Daten für die Adressbestimmung aus Koordinaten
       district: 0,
       street: '',
       houseNumber: null,
       city: '',
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
-      filteredPois: []
+      filteredPois: [],
+      choosenCategory: 'Alle',
+      choosenDetailCategories: [] // 'Geländer', 'steil', 'extra breit'
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +85,6 @@ export const storeData = defineStore('poiStore', {
         yCoordinates: 13.412095,
         status: true,
         minWidth: 92,
-        isFavorite: false,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 122,
         creationDate: '12.09.24',
@@ -98,7 +99,6 @@ export const storeData = defineStore('poiStore', {
         yCoordinates: 13.412074165422512,
         status: true,
         minWidth: 122,
-        isFavorite: false,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 102,
         creationDate: '13.12.23',
@@ -108,16 +108,57 @@ export const storeData = defineStore('poiStore', {
       {
         id: 203,
         poiName: 'Toilette',
-        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Kinderstühle'],
+        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Wickelplatz', 'kostenfrei'],
         xCoordinates: 52.556657,
         yCoordinates: 13.37754,
         status: true,
         minWidth: 122,
-        isFavorite: true,
         openingTimes: 'Mo-Fr: 10-22 Uhr',
         prioWidth: 86,
         creationDate: '19.01.24',
         createdBy: 101,
+        currentSearchDistance: 0
+      },
+      {
+        id: 204,
+        poiName: 'Rampe',
+        detailCategories: ['flach', 'Geländer'],
+        xCoordinates: 52.556351,
+        yCoordinates: 13.37712,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
+      },
+      {
+        id: 205,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer'],
+        xCoordinates: 52.554248,
+        yCoordinates: 13.412295,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
+      },
+      {
+        id: 206,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer', 'extra breit'],
+        xCoordinates: 52.554348,
+        yCoordinates: 13.412995,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
         currentSearchDistance: 0
       }
     ],
@@ -136,26 +177,31 @@ export const storeData = defineStore('poiStore', {
       categories: [
         {
           id: 301,
+          categoryName: 'Alle',
+          detailCategorys: []
+        },
+        {
+          id: 302,
           categoryName: 'Rampe',
           detailCategorys: ['flach', 'mäßig Steil', 'steil', 'Geländer']
         },
         {
-          id: 302,
+          id: 303,
           categoryName: 'Fahrstuhl',
           detailCategorys: ['groß', 'mittel', 'klein']
         },
         {
-          id: 303,
+          id: 304,
           categoryName: 'Zugang',
-          detailCategorys: ['maximale breite (nicht zuende gedacht!)', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
+          detailCategorys: ['maximale breite', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
         },
         {
-          id: 304,
+          id: 305,
           categoryName: 'Toilette',
           detailCategorys: ['Wickelplatz', 'Behindertengerecht', 'Kostenfrei']
         },
         {
-          id: 305,
+          id: 306,
           categoryName: 'Gastronomie',
           detailCategorys: [
             'Wickelplatz',
@@ -188,7 +234,7 @@ export const storeData = defineStore('poiStore', {
       return this.straightLineToAim
     },
 
-    getAddressbyCoordinates(latitude, longitude) {
+    getAddressByCoordinates(latitude, longitude) {
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
@@ -209,14 +255,13 @@ export const storeData = defineStore('poiStore', {
       const saveOwnPositon = (position) => {
         this.ownXCoordinate = position.coords.latitude
         this.ownYCoordinate = position.coords.longitude
-        this.getAddressbyCoordinates(this.ownXCoordinate, this.ownYCoordinate)
+        this.getAddressByCoordinates(this.ownXCoordinate, this.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
 
-    filterPoisforSearch() {},
-
-    renderFilteredPois() {
+    checkForFilterOptions() {
+      // renderFilteredPois
       this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
         this.poiData[i].currentSearchDistance = this.calcDistance(
@@ -225,24 +270,41 @@ export const storeData = defineStore('poiStore', {
           this.ownXCoordinate,
           this.ownYCoordinate
         )
-        console.log('this.temporaryData.searchDistance', this.temporaryData.searchDistance)
-        console.log('this.poiData[i].currentSearchDistance', this.poiData[i].currentSearchDistance)
         if (
           Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
         ) {
-          console.log('filteredPoisID', this.poiData[i].id)
           this.temporaryData.filteredPois.push(this.poiData[i].id)
           this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
         }
       }
-      console.log('filteredPois', this.temporaryData.filteredPois)
     },
-    checkForFilterOptions(poi) {
-      console.log('bis hier hin!')
-      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
-        if (poi.id === this.temporaryData.filteredPois[i]) {
-          return true
+
+    compareDetailCategories(poi) {
+      let counter = 0
+      for (let entry of this.temporaryData.choosenDetailCategories) {
+        if (poi.detailCategories.includes(entry)) {
+          console.log('entry gefunden!!')
+          counter++
         }
+      }
+      if (this.temporaryData.choosenDetailCategories.length === counter) {
+        return true
+      } else return false
+    },
+
+    renderFilteredPois(poi) {
+      // checkForFilterOptions
+      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
+        if (this.temporaryData.choosenCategory === 'Alle') {
+          console.log('ALLE')
+          return true
+        } else if (
+          poi.id === this.temporaryData.filteredPois[i] &&
+          poi.poiName == this.temporaryData.choosenCategory &&
+          this.compareDetailCategories(poi)
+        ) {
+          return true
+        } else return false
       }
     }
   }
