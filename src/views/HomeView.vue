@@ -13,6 +13,7 @@ export default {
     }
   },
   mounted() {
+    this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     this.store.addNewUserToAPI()
   }
@@ -28,12 +29,17 @@ export default {
         ? store.temporaryData.currentUser[0].userName
         : 'User konnte nicht geladen werden'
     }}
+  </p>
+
+  <p v-if="this.store.temporaryData.currentPois">
+    <b>PoiName:</b>
     {{
-      store.temporaryData.currentUser[3].id
-        ? store.temporaryData.currentUser[3].id
+      store.temporaryData.currentPois[1].poiName
+        ? store.temporaryData.currentPois[1].poiName
         : 'User konnte nicht geladen werden'
     }}
   </p>
+
   <section class="container">
     <ul class="menu">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">

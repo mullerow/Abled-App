@@ -31,6 +31,7 @@ export const storeData = defineStore('poiStore', {
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       // User Managament
       currentUser: [],
+      currentPois: [],
       newUserData: {
         ownId: 104,
         userName: 'Holger Holgerson',
@@ -43,7 +44,8 @@ export const storeData = defineStore('poiStore', {
         mobilityAssistance: 'Zwillingskinderwagen',
         mobilityAssistanceWidth: '92',
         ownPois: ['20232', '20911']
-      }
+      },
+      changedUserData: ''
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -344,6 +346,31 @@ export const storeData = defineStore('poiStore', {
         console.warn(
           'Die POST-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
+    },
+    async updateUserAtAPI(userId) {
+      const res = await fetch('http://localhost:3000/users' + userId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.changedUserData)
+      })
+      if (res.ok) {
+        console.log('Die PUT-Anfrage (User) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die PUT-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+    async getPoiDataFromAPI() {
+      const res = await fetch('http://localhost:3000/pois')
+      if (res.ok) {
+        const data = await res.json()
+        this.temporaryData.currentPois = data
+        console.log('Die GET-Anfrage (POIs) an den API-Server war erfolgreich')
+      } else {
+        console.warn(
+          'Die GET-Anfrage (POIs) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+      }
     }
   }
 })
