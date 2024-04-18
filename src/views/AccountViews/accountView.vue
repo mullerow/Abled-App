@@ -6,7 +6,7 @@
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
 
   <h2>Verwalte deine Account-Daten</h2>
-  <label for="username">Username</label>
+  <label for="username">Bentuzername</label>
   <input
     class="input"
     type="text"
@@ -16,7 +16,7 @@
     :disabled="!editMode"
   />
 
-  <label for="email">Email</label>
+  <label for="email">E-mail</label>
   <input
     class="input"
     type="email"
@@ -24,7 +24,7 @@
     v-model="userData.eMailAddress"
     :placeholder="userData.eMailAddress ? userData.eMailAddress : 'Email'"
   />
-  <label for="password">Password</label>
+  <label for="password">Passwort</label>
   <input
     class="input"
     type="password"
@@ -32,7 +32,7 @@
     v-model="userData.passWord"
     :placeholder="userData.passWord ? userData.passWord : 'Passwort'"
   />
-  <label for="mobilityAssistance">Mobility Assistance</label>
+  <label for="mobilityAssistance">Mobilitätshilfe</label>
   <input
     class="input"
     type="text"
@@ -40,7 +40,7 @@
     v-model="userData.mobilityAssistance"
     :placeholder="userData.mobilityAssistance ? userData.mobilityAssistance : 'mobility assistance'"
   />
-  <label for="mobilityAssistanceWidth">Mobility Assistance Width</label>
+  <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
   <input
     class="input"
     type="text"
@@ -52,8 +52,16 @@
         : 'mobilityAssistance width'
     "
   />
-  <LöschenButton :Löschen="'Account-Löschen'" @click="deleteUserData"></LöschenButton>
+  <LöschenButton :Löschen="'Account-Löschen'" @click="confirmDelete"></LöschenButton>
   <NavButton :Navigation="'Speichern'" @click="saveUserData"></NavButton>
+
+  <div v-if="showConfirmation" class="confirmation-popup">
+    <div class="confirmation-message">
+      <p>Sind Sie sicher, dass Sie den Account dauerhaft löschen möchten?</p>
+      <button @click="deleteUser">Ja</button>
+      <button @click="cancelDelete">Nein</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -80,20 +88,19 @@ export default {
         passWord: '',
         mobilityAssistance: '',
         mobilityAssistanceWidth: ''
-      }
+      },
+      showConfirmation: false
     }
   },
-  //Änderung auf local Storage abruf oder Datenbank abruf eingeloggter User
+
   created() {
-    const id = '101'
+    const id = '102'
     this.loadUserDataFromStoreAndSaveToLocal(id)
   },
-  //Watcher
   watch: {
     userData: {
       deep: true,
       handler(newValue) {
-        console.log('Watcher getriggert.')
         console.log('New value for userData:', newValue)
         this.updateLocalStorage()
       }
@@ -101,8 +108,23 @@ export default {
   },
 
   methods: {
+    isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return emailRegex.test(email)
+    },
+    validateAndTrimEmail() {
+      const email = this.userData.eMailAddress.trim()
+      if (!this.isValidEmail(email)) {
+        throw new Error('Ungültige E-Mail-Adresse')
+      }
+      this.userData.eMailAddress = email
+    },
+    trimOtherFields() {
+      this.userData.passWord = this.userData.passWord.trim()
+      this.userData.mobilityAssistance = this.userData.mobilityAssistance.trim()
+      this.userData.mobilityAssistanceWidth = this.userData.mobilityAssistanceWidth.trim()
+    },
     loadUserDataFromStoreAndSaveToLocal(id) {
-      //lädt User in local Storage
       try {
         const user = this.store.userData.find((user) => user.id === parseInt(id))
 
@@ -122,17 +144,81 @@ export default {
       }
     },
     updateLocalStorage() {
-      console.log('Update Local Storage ausgeführt.')
       localStorage.setItem('userData', JSON.stringify(this.userData))
-    }
+    },
 
-    //saveUserData(id) {},
-    //deleteUserData(id) {}
+    saveUserDataToStore(userData) {
+      try {
+        const store = storeData()
+        const userIndex = store.userData.findIndex((user) => user.id === userData.id)
+        if (userIndex === -1) {
+          console.error(`Benutzer mit der ID ${userData.id} wurde nicht gefunden.`)
+          return
+        }
+
+        store.userData[userIndex] = { ...store.userData[userIndex], ...userData }
+      } catch (error) {
+        console.error('Fehler beim Aktualisieren der Benutzerdaten im Store:', error)
+      }
+    },
+    saveUserData() {
+      try {
+        this.validateAndTrimEmail()
+
+        this.trimOtherFields()
+        const storedUserData = JSON.parse(localStorage.getItem('userData'))
+
+        if (!storedUserData) {
+          console.error('Keine Benutzerdaten im lokalen Speicher gefunden.')
+          return
+        }
+
+        this.saveUserDataToStore(storedUserData)
+      } catch (error) {
+        console.error('Fehler beim Speichern der Benutzerdaten:', error)
+      }
+    },
+    confirmDelete() {
+      this.showConfirmation = true
+    },
+    deleteUser() {
+      const userId = this.userData.id
+      try {
+        const userIndex = this.store.userData.findIndex((user) => user.id === userId)
+        if (userIndex !== -1) {
+          this.store.userData.splice(userIndex, 1)
+
+          const isUserDeleted = this.store.userData.findIndex((user) => user.id === userId) === -1
+          if (isUserDeleted) {
+            console.log('Benutzer erfolgreich gelöscht.')
+          } else {
+            console.error('Fehler: Benutzer wurde nicht gelöscht.')
+          }
+        } else {
+          console.error('Benutzer nicht gefunden.')
+        }
+      } catch (error) {
+        console.error('Fehler beim Löschen des Benutzers:', error)
+      }
+
+      this.showConfirmation = false
+    }
   }
 }
 </script>
 
 <style>
+.confirmation-popup {
+  position: fixed;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 20px;
+  border: 4px solid var(--black);
+  z-index: 9999;
+}
 .input {
   padding: 0.5rem;
   width: 80%;
@@ -140,8 +226,5 @@ export default {
   border-radius: 0.5rem;
   margin: 2rem;
   color: darkgray;
-}
-label {
-  display: none;
 }
 </style>
