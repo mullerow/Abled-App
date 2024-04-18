@@ -16,42 +16,44 @@ export default {
 </script>
 
 <template>
-  <h2>Startseite</h2>
+  <!-- <h2>Startseite</h2> -->
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
-
-  <ul class="menu">
-    <li class="search">
-      <RouterLink :to="{ name: 'searchpoi' }">
-        <span class="icon"><img src="@/assets/icons/Magnifying-Glass.png" alt="Search Icon" /></span
-        >Suche</RouterLink
-      >
-    </li>
-    <li class="new">
-      <RouterLink :to="{ name: 'newpoicategorie' }">
-        <span class="icon"><img src="@/assets/icons/pencil.png" alt="newpoi Icon" /></span>Neuen Poi
-        erstellten</RouterLink
-      >
-    </li>
-    <li class="favorite">
-      <RouterLink :to="{ name: 'favoritepoi' }">
-        <span class="icon"><img src="@/assets/icons/star.png" alt="favorite Icon" /></span>Deine
-        Favoriten</RouterLink
-      >
-    </li>
-    <li class="own">
-      <RouterLink :to="{ name: 'ownpoi' }">
-        <span class="icon"><img src="@/assets/icons/folder.png" alt="ownpoi Icon" /></span>geteilte
-        Orte</RouterLink
-      >
-    </li>
-    <li class="account">
-      <RouterLink :to="{ name: 'account' }">
-        <span class="icon"><img src="@/assets/icons/user-account.png" alt="account Icon" /></span
-        >Deinen Account</RouterLink
-      >
-    </li>
-  </ul>
-
+  <section class="container">
+    <ul class="menu">
+      <RouterLink :to="{ name: 'searchpoi' }" class="search">
+        <li>
+          <span class="icon"
+            ><img src="@/assets/icons/Magnifying-Glass.png" alt="Search Icon"
+          /></span>
+          Suche
+        </li>
+      </RouterLink>
+      <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
+        <li>
+          <span class="icon"><img src="@/assets/icons/pencil.png" alt="newpoi Icon" /></span>Neuen
+          Poi erstellen
+        </li>
+      </RouterLink>
+      <RouterLink :to="{ name: 'favoritepoi' }" class="favorite">
+        <li>
+          <span class="icon"><img src="@/assets/icons/star.png" alt="favorite Icon" /></span>Deine
+          Favoriten
+        </li>
+      </RouterLink>
+      <RouterLink :to="{ name: 'ownpoi' }" class="own">
+        <li>
+          <span class="icon"><img src="@/assets/icons/folder.png" alt="ownpoi Icon" /></span
+          >geteilte Orte
+        </li>
+      </RouterLink>
+      <RouterLink :to="{ name: 'account' }" class="account">
+        <li>
+          <span class="icon"><img src="@/assets/icons/user-account.png" alt="account Icon" /></span>
+          Deinen Account
+        </li>
+      </RouterLink>
+    </ul>
+  </section>
   <!--
   <h3>Liste aller User aus der Pinia Datenbank</h3>
   <ul v-for="user of store.userData" :key="user.id">
@@ -81,47 +83,50 @@ export default {
 </template>
 <style scoped>
 .menu {
+  display: flex;
+  justify-content: center; /* Horizontal zentriert */
+  list-style-type: none;
+  margin-top: 1rem;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0.1rem;
   list-style-type: none;
+  margin-top: 1rem;
 }
-
+.container.menu:first-child {
+  grid-template-columns: 1fr;
+}
+.container.menu.first-row {
+  grid-template-columns: 1fr; /* Eine Spalte für die erste Reihe */
+}
 .menu li {
   position: relative;
   margin: 0.4rem;
   text-align: center;
   background-color: var(--white);
-  padding: 2rem;
+  padding: 5vh;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .menu .icon {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.menu .search .icon {
-  top: 20%;
-  transform: translate(-50%, -50%);
-}
-
-.menu .new .icon {
-  top: 20%;
-  transform: translate(-50%, -50%);
-}
-
-.menu .favorite .icon {
-  top: 20%;
-  transform: translate(-50%, -50%);
-}
-
-.menu .own .icon {
-  top: 20%;
-  transform: translate(-50%, -50%);
-}
+.menu .search .icon,
+.menu .new .icon,
+.menu .favorite .icon,
+.menu .own .icon,
 .menu .account .icon {
   top: 20%;
   transform: translate(-50%, -50%);
@@ -141,8 +146,9 @@ export default {
 }
 
 h1 {
-  height: 500px;
+  height: 350px;
   width: 20rem;
+
   margin-left: 2%;
   margin-right: 5%;
   margin-top: 10%;
