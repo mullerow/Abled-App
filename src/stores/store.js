@@ -25,8 +25,8 @@ export const storeData = defineStore('poiStore', {
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
-      choosenCategory: 'Rampe',
-      choosenDetailCategories: ['Geländer', 'steil', 'extra breit']
+      choosenCategory: 'Alle',
+      choosenDetailCategories: [] // 'Geländer', 'steil', 'extra breit'
     },
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,26 +177,31 @@ export const storeData = defineStore('poiStore', {
       categories: [
         {
           id: 301,
+          categoryName: 'Alle',
+          detailCategorys: []
+        },
+        {
+          id: 302,
           categoryName: 'Rampe',
           detailCategorys: ['flach', 'mäßig Steil', 'steil', 'Geländer']
         },
         {
-          id: 302,
+          id: 303,
           categoryName: 'Fahrstuhl',
           detailCategorys: ['groß', 'mittel', 'klein']
         },
         {
-          id: 303,
+          id: 304,
           categoryName: 'Zugang',
           detailCategorys: ['maximale breite', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
         },
         {
-          id: 304,
+          id: 305,
           categoryName: 'Toilette',
           detailCategorys: ['Wickelplatz', 'Behindertengerecht', 'Kostenfrei']
         },
         {
-          id: 305,
+          id: 306,
           categoryName: 'Gastronomie',
           detailCategorys: [
             'Wickelplatz',
@@ -229,7 +234,7 @@ export const storeData = defineStore('poiStore', {
       return this.straightLineToAim
     },
 
-    getAddressbyCoordinates(latitude, longitude) {
+    getAddressByCoordinates(latitude, longitude) {
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
@@ -250,7 +255,7 @@ export const storeData = defineStore('poiStore', {
       const saveOwnPositon = (position) => {
         this.ownXCoordinate = position.coords.latitude
         this.ownYCoordinate = position.coords.longitude
-        this.getAddressbyCoordinates(this.ownXCoordinate, this.ownYCoordinate)
+        this.getAddressByCoordinates(this.ownXCoordinate, this.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
@@ -265,8 +270,6 @@ export const storeData = defineStore('poiStore', {
           this.ownXCoordinate,
           this.ownYCoordinate
         )
-        console.log('this.temporaryData.searchDistance', this.temporaryData.searchDistance)
-        console.log('this.poiData[i].currentSearchDistance', this.poiData[i].currentSearchDistance)
         if (
           Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
         ) {
@@ -296,13 +299,16 @@ export const storeData = defineStore('poiStore', {
       console.log(poi.poiName)
       console.log(this.temporaryData.choosenDetailCategories)
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
-        if (
+        if (this.temporaryData.choosenCategory === 'Alle') {
+          console.log('ALLE')
+          return true
+        } else if (
           poi.id === this.temporaryData.filteredPois[i] &&
           poi.poiName == this.temporaryData.choosenCategory &&
           this.compareDetailCategories(poi)
         ) {
           return true
-        }
+        } else return false
       }
     }
   }
