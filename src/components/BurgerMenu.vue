@@ -7,7 +7,7 @@
         >Home</RouterLink
       >
       <hr />
-      <RouterLink :to="{ name: 'ownpoiinfo' }" class="menu-item">
+      <RouterLink :to="{ name: 'ownpoi' }" class="menu-item">
         <span class="icon"><img src="@/assets/icons/locationPin.png" alt="ownpoiinfo" /></span>Own
         POI Info</RouterLink
       >

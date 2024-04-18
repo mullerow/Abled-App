@@ -3,7 +3,14 @@
 </template>
 
 <style scoped>
+button {
+  background-color: transparent;
+  border: none;
+}
+
 img {
-  width: 1.3rem;
+  width: 24px;
+  height: auto;
+  background-color: transparent;
 }
 </style>
