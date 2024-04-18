@@ -29,7 +29,7 @@ export const storeData = defineStore('poiStore', {
       filteredPois: [],
       choosenCategory: 'Alle',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
-      // User Managament
+      ///////// API Managament //////////////////////////////////////////////////////////////////////////
       currentUser: [],
       currentPois: [],
       newUserData: {
@@ -44,6 +44,20 @@ export const storeData = defineStore('poiStore', {
         mobilityAssistance: 'Zwillingskinderwagen',
         mobilityAssistanceWidth: '92',
         ownPois: ['20232', '20911']
+      },
+      newPoiData: {
+        ownid: 207,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer'],
+        xCoordinates: 52.554228,
+        yCoordinates: 13.412095,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
       },
       changedUserData: ''
     }),
@@ -371,6 +385,19 @@ export const storeData = defineStore('poiStore', {
           'Die GET-Anfrage (POIs) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
       }
+    },
+    async addNewPoiToAPI() {
+      const res = await fetch('http://localhost:3000/pois', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.newPoiData)
+      })
+      if (res.ok) {
+        console.log('Die POST-Anfrage (Poi) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die POST-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
     }
   }
 })

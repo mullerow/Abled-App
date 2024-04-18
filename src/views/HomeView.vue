@@ -13,9 +13,10 @@ export default {
     }
   },
   mounted() {
+    this.store.addNewPoiToAPI()
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
-    this.store.addNewUserToAPI()
+    //this.store.addNewUserToAPI()
   }
 }
 </script>
@@ -31,11 +32,11 @@ export default {
     }}
   </p>
 
-  <p v-if="this.store.temporaryData.currentPois">
-    <b>PoiName:</b>
+  <p v-if="this.store.temporaryData.currentPois[6]">
+    <b>PoiId:</b>
     {{
-      store.temporaryData.currentPois[1].poiName
-        ? store.temporaryData.currentPois[1].poiName
+      store.temporaryData.currentPois[6].id
+        ? store.temporaryData.currentPois[6].id
         : 'User konnte nicht geladen werden'
     }}
   </p>
