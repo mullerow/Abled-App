@@ -8,29 +8,26 @@
 
   <br />
   <h2>Info</h2>
+
   <InfoField
-    v-for="(poidatas, index) of limitedPoiData"
-    :key="index"
-    :xCoordinates="poidatas.xCoordinates"
-    :yCoordinates="poidatas.yCoordinates"
-    :detailCategories="poidatas.detailCategories"
-    :id="poidatas.id"
+    :Headline="poi.poiName"
+    :xCoordinates="poi.xCoordinates"
+    :yCoordinates="poi.yCoordinates"
+    :openingTimes="poi.openingTimes"
+    :street="poi.street"
+    :number="poi.number"
+    :zip="poi.zip"
+    :city="poi.city"
+    :detailCategories="poi.detailCategories"
+    :id="poi.id"
   />
   <LöschenButton :Löschen="'Nicht nutzbar'" />
   <NavButton :Navigation="'In Maps öffnen'" />
   <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
 </template>
 
-<script setup>
-import { storeData } from '@/stores/store.js'
-
-const store = storeData()
-const limit = 1
-
-const limitedPoiData = store.poiData.slice(0, limit)
-</script>
-
 <script>
+import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import InfoField from '@/components/InfoField.vue'
@@ -44,6 +41,20 @@ export default {
     InfoField,
     NavButton,
     LöschenButton
+  },
+  data() {
+    return {
+      id: this.$route.params.id,
+      store: storeData()
+    }
+  },
+  computed: {
+    poi() {
+      return this.store.poiData.find((el) => el.id == this.id)
+    }
+  },
+  mounted() {
+    console.log(this.poi)
   }
 }
 </script>

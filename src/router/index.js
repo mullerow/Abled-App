@@ -126,7 +126,7 @@ const router = createRouter({
       component: searchResultmapView
     },
     {
-      path: '/infopoi',
+      path: '/infopoi/:id',
       name: 'infopoi',
       component: infoPoiView
     },
