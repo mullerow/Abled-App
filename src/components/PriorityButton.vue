@@ -1,6 +1,12 @@
 <template>
-  <button class="priority-button"><img src="" alt="" /> Priorität</button>
+  <button class="priority-button"><img src="" alt="" /> {{ priority }}</button>
 </template>
+
+<script>
+export default {
+  props: ['priority']
+}
+</script>
 
 <style scoped>
 .priority-button {
