@@ -11,13 +11,36 @@ export default {
     return {
       store: storeData()
     }
+  },
+  mounted() {
+    this.store.addNewPoiToAPI()
+    this.store.getPoiDataFromAPI()
+    this.store.getUserDataFromAPI()
+    //this.store.addNewUserToAPI()
   }
 }
 </script>
 
 <template>
-  <!-- <h2>Startseite</h2> -->
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
+  <p v-if="store.temporaryData.currentUser[0]">
+    <b>Nutzer:</b>
+    {{
+      store.temporaryData.currentUser[0].userName
+        ? store.temporaryData.currentUser[0].userName
+        : 'User konnte nicht geladen werden'
+    }}
+  </p>
+
+  <p v-if="this.store.temporaryData.currentPois[6]">
+    <b>PoiId:</b>
+    {{
+      store.temporaryData.currentPois[6].id
+        ? store.temporaryData.currentPois[6].id
+        : 'User konnte nicht geladen werden'
+    }}
+  </p>
+
   <section class="container">
     <ul class="menu">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
@@ -54,34 +77,9 @@ export default {
       </RouterLink>
     </ul>
   </section>
-  <!--
-  <h3>Liste aller User aus der Pinia Datenbank</h3>
-  <ul v-for="user of store.userData" :key="user.id">
-    <li>
-      <b style="font-size: 16px">{{ user.id }}</b>
-      <ul>
-        <li>Kategorie: {{ user.userName }}</li>
-        <li>E-Mail Adresse: {{ user.eMailAddress }}</li>
-      </ul>
-    </li>
-  </ul>
-
-  <h3>Liste aller POIs aus der Pinia Datenbank</h3>
-  <ul v-for="poi of store.poiData" :key="poi.id">
-    <li>
-      <b style="font-size: 16px">{{ poi.id }}</b>
-      <ul>
-        <li>Kategorie: {{ poi.category }}</li>
-        <li>X-Koordinate: {{ poi.xCoordinates }}</li>
-        <li>Y-Koordinate: {{ poi.yCoordinates }}</li>
-        <li>Favorit: {{ poi.isFavorite }}</li>
-        <button @click="store.changeFavorite(poi)">Favorit hinzufügen</button>
-      </ul>
-    </li>
-  </ul>
-  -->
 </template>
 <style scoped>
+
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
+
 export const storeData = defineStore('poiStore', {
   state: () => ({
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// TEMPORÄRE DATEN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    temporaryData: {
+    temporaryData: reactive({
       // temporäre Daten für die Koordinatenberechnung
       xCoordinateDifference: 0,
       yCoordinateDifference: 0,
@@ -26,15 +28,46 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: 'Alle',
-      choosenDetailCategories: [] // 'Geländer', 'steil', 'extra breit'
-    },
+      choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
+      ///////// API Managament //////////////////////////////////////////////////////////////////////////
+      currentUser: [],
+      currentPois: [],
+      newUserData: {
+        ownId: 104,
+        userName: 'Holger Holgerson',
+        eMailAddress: 'Holger@Holgerson.de',
+        address: {
+          city: 'Schwedt',
+          street: 'Otto Braun Straße 122',
+          zipCode: '11113'
+        },
+        mobilityAssistance: 'Zwillingskinderwagen',
+        mobilityAssistanceWidth: '92',
+        ownPois: ['20232', '20911']
+      },
+      newPoiData: {
+        ownid: 207,
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer'],
+        xCoordinates: 52.554228,
+        yCoordinates: 13.412095,
+        status: true,
+        minWidth: 92,
+        openingTimes: 'Mo-Fr: 10-22 Uhr',
+        prioWidth: 122,
+        creationDate: '12.09.24',
+        createdBy: 102,
+        currentSearchDistance: 0
+      },
+      changedUserData: ''
+    }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// DATEN VON DEN USERN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     userData: [
       {
-        id: 101,
+        ownId: 101,
         userName: 'Karl Otto',
         eMailAddress: 'karl@otto.de',
         address: {
@@ -47,7 +80,7 @@ export const storeData = defineStore('poiStore', {
         ownPois: ['20292', '2091']
       },
       {
-        id: 102,
+        ownId: 102,
         userName: 'Sven Marquardt',
         eMailAddress: 'sven@marquardt.de',
         address: {
@@ -60,7 +93,7 @@ export const storeData = defineStore('poiStore', {
         ownPois: ['20232', '20911']
       },
       {
-        id: 103,
+        ownId: 103,
         userName: 'Ringo Bingo',
         eMailAddress: 'ringo@bingo.de',
         address: {
@@ -213,14 +246,11 @@ export const storeData = defineStore('poiStore', {
       ]
     }
   }),
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   actions: {
-    changeFavorite(poi) {
-      poi.isFavorite = !poi.isFavorite
-    },
-
+    ///////////////////////////////////// Filterfunktion und Koordinatenberechnungen ////////////////////////////////////////////////////////////////////////
     calcDistance(poiXcoordinate, poiYcoordinate, xCoordinatePosition, yCoordinatePosition) {
       this.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
       this.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
@@ -234,21 +264,20 @@ export const storeData = defineStore('poiStore', {
       return this.straightLineToAim
     },
 
-    getAddressByCoordinates(latitude, longitude) {
-      fetch(
+    async getAddressByCoordinates(latitude, longitude) {
+      const res = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
-        .then((response) => response.json())
-        .then((data) => {
-          this.street = data.address.road
-          this.city = data.address.city
-          this.zipCode = data.address.postcode
-          this.district = data.address.suburb
-          this.houseNumber = data.address.house_number
-        })
-        .catch((error) => {
-          console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
-        })
+      if (res.ok) {
+        const data = await res.json()
+        this.street = data.address.road
+        this.city = data.address.city
+        this.zipCode = data.address.postcode
+        this.district = data.address.suburb
+        this.houseNumber = data.address.house_number
+      } else {
+        console.error('Die Koordinaten konnten leider nicht Verabeitet werden:')
+      }
     },
 
     getOwnPosition() {
@@ -306,6 +335,69 @@ export const storeData = defineStore('poiStore', {
           return true
         } else return false
       }
+    },
+    ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
+    async getUserDataFromAPI() {
+      const res = await fetch('http://localhost:3000/users')
+      if (res.ok) {
+        const data = await res.json()
+        this.temporaryData.currentUser = data
+      } else {
+        console.warn(
+          'Die GET-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+      }
+    },
+    async addNewUserToAPI() {
+      const res = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.newUserData)
+      })
+      if (res.ok) {
+        console.log('Die POST-Anfrage (User) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die POST-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+    async updateUserAtAPI(userId) {
+      const res = await fetch('http://localhost:3000/users' + userId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.changedUserData)
+      })
+      if (res.ok) {
+        console.log('Die PUT-Anfrage (User) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die PUT-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+    async getPoiDataFromAPI() {
+      const res = await fetch('http://localhost:3000/pois')
+      if (res.ok) {
+        const data = await res.json()
+        this.temporaryData.currentPois = data
+        console.log('Die GET-Anfrage (POIs) an den API-Server war erfolgreich')
+      } else {
+        console.warn(
+          'Die GET-Anfrage (POIs) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+      }
+    },
+    async addNewPoiToAPI() {
+      const res = await fetch('http://localhost:3000/pois', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.newPoiData)
+      })
+      if (res.ok) {
+        console.log('Die POST-Anfrage (Poi) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die POST-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
     }
   }
 })
