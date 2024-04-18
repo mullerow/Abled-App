@@ -8,17 +8,48 @@
   <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>
   <h2>Own Poi Info</h2>
 
-  <InfoField
-    :Headline="poi.poiName"
-    :xCoordinates="poi.xCoordinates"
-    :yCoordinates="poi.yCoordinates"
-    :openingTimes="poi.openingTimes"
-    :detailCategories="poi.detailCategories"
-    :id="poi.id"
-  />
-  <LöschenButton :Löschen="'Löschen'" />
-  <NavButton :Navigation="'Bearbeiten'" />
-  <!-- Button bearbeiten hinzufügen, der in Bearbeitung führt gleich wie New POI?-->
+  <div v-if="!editing">
+    <InfoField
+      :Headline="poi.poiName"
+      :xCoordinates="poi.xCoordinates"
+      :yCoordinates="poi.yCoordinates"
+      :openingTimes="poi.openingTimes"
+      :detailCategories="poi.detailCategories"
+      :id="poi.id"
+    />
+    <LöschenButton :Löschen="'Löschen'" />
+    <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
+  </div>
+
+  <div v-else>
+    <div class="input-field">
+      <HeadLine :Headline="'Adresse'" />
+      <InputField ref="addressInput" type="text" id="address" v-model="editedPoi.address" />
+    </div>
+    <div class="input-field">
+      <HeadLine :Headline="'Öffnungszeiten'" />
+      <InputField
+        ref="openingTimesInput"
+        type="text"
+        id="openingTimes"
+        v-model="editedPoi.openingTimes"
+      />
+    </div>
+    <HeadLine :Headline="'Zusatz'" />
+    <div v-for="categorie in store.localData.categories" :key="categorie.id">
+      <div v-if="poi.poiName.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+        <CategorieButton
+          v-for="detailCategorie in categorie.detailCategorys"
+          :key="detailCategorie"
+          :Kategorie="detailCategorie"
+          @click="saveButtonValue(detailCategorie)"
+          :id="detailCategorie"
+        />
+      </div>
+    </div>
+    <LöschenButton @click="saveChanges" :Löschen="'Speichern'" />
+    <NavButton @click="cancelEditing" :Navigation="'Abbrechen'" />
+  </div>
 </template>
 
 <script>
@@ -27,17 +58,30 @@ import HomeButton from '@/components/HomeButton.vue'
 import InfoField from '@/components/InfoField.vue'
 import NavButton from '@/components/NavButton.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
+import InputField from '@/components/InputField.vue'
+import CategorieButton from '@/components/CategorieButton.vue'
+import HeadLine from '@/components/HeadLine.vue'
+
 export default {
   components: {
     HomeButton,
     InfoField,
     NavButton,
-    LöschenButton
+    LöschenButton,
+    InputField,
+    CategorieButton,
+    HeadLine
   },
   data() {
     return {
       id: this.$route.params.id,
-      store: storeData()
+      store: storeData(),
+      editing: false,
+      editedPoi: {
+        address: '',
+        openingTimes: '',
+        detailCategories: []
+      }
     }
   },
   computed: {
@@ -45,8 +89,45 @@ export default {
       return this.store.poiData.find((el) => el.id == this.id)
     }
   },
-  mounted() {
-    console.log(this.poi)
+  methods: {
+    toggleEditing() {
+      this.editing = true
+
+      this.editedPoi = {
+        address: this.$refs.addressInput.value,
+        openingTimes: this.$refs.openingTimesInput.value,
+        detailCategories: this.poi.detailCategories
+      }
+    },
+
+    cancelEditing() {
+      this.editing = false
+    },
+
+    saveButtonValue(detailCategorie) {
+      let OptionalCategories = localStorage.getItem('ChangeOptionalCategories')
+      OptionalCategories = OptionalCategories ? JSON.parse(OptionalCategories) : []
+      const index = OptionalCategories.indexOf(detailCategorie)
+      if (index !== -1) {
+        OptionalCategories.splice(index, 1)
+      } else {
+        OptionalCategories.push(detailCategorie)
+      }
+      localStorage.setItem('ChangeOptionalCategories', JSON.stringify(OptionalCategories))
+    },
+
+    saveChanges() {
+      // Save optional categories from local storage
+      const selectedCategories = JSON.parse(localStorage.getItem('OptionalCategories'))
+      this.editedPoi.detailCategories = selectedCategories ? selectedCategories : []
+
+      console.log(this.editedPoi)
+      // Save the editedPoi object to local storage
+      localStorage.setItem('editedPoi', JSON.stringify(this.editedPoi))
+
+      // Reset editing state
+      this.editing = false
+    }
   }
 }
 </script>
