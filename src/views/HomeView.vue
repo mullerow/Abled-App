@@ -82,12 +82,6 @@ export default {
   -->
 </template>
 <style scoped>
-.menu {
-  display: flex;
-  justify-content: center; /* Horizontal zentriert */
-  list-style-type: none;
-  margin-top: 1rem;
-}
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -97,13 +91,15 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0.1rem;
   list-style-type: none;
-  margin-top: 1rem;
+  margin-top: 0rem;
+  padding-left: 0;
+  padding-right: 1rem;
 }
 .container.menu:first-child {
   grid-template-columns: 1fr;
 }
 .container.menu.first-row {
-  grid-template-columns: 1fr; /* Eine Spalte für die erste Reihe */
+  grid-template-columns: 1fr;
 }
 .menu li {
   position: relative;
@@ -148,9 +144,8 @@ export default {
 h1 {
   height: 350px;
   width: 20rem;
-
   margin-left: 2%;
   margin-right: 5%;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 </style>
