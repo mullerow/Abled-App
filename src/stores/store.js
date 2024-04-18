@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
+import { reactive } from 'vue'
+
 export const storeData = defineStore('poiStore', {
   state: () => ({
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// TEMPORÄRE DATEN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    temporaryData: {
+    temporaryData: reactive({
       // temporäre Daten für die Koordinatenberechnung
       xCoordinateDifference: 0,
       yCoordinateDifference: 0,
@@ -26,8 +28,10 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: 'Alle',
-      choosenDetailCategories: [] // 'Geländer', 'steil', 'extra breit'
-    },
+      choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
+      // User Managament
+      currentUser: []
+    }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// DATEN VON DEN USERN //////////////////////////////////////////////////////////////////////////////////
@@ -213,14 +217,11 @@ export const storeData = defineStore('poiStore', {
       ]
     }
   }),
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\//////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   actions: {
-    changeFavorite(poi) {
-      poi.isFavorite = !poi.isFavorite
-    },
-
+    ///////////////////////////////////// Filterfunktion und Koordinatenberechnungen ////////////////////////////////////////////////////////////////////////
     calcDistance(poiXcoordinate, poiYcoordinate, xCoordinatePosition, yCoordinatePosition) {
       this.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
       this.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
@@ -234,21 +235,20 @@ export const storeData = defineStore('poiStore', {
       return this.straightLineToAim
     },
 
-    getAddressByCoordinates(latitude, longitude) {
-      fetch(
+    async getAddressByCoordinates(latitude, longitude) {
+      const res = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
       )
-        .then((response) => response.json())
-        .then((data) => {
-          this.street = data.address.road
-          this.city = data.address.city
-          this.zipCode = data.address.postcode
-          this.district = data.address.suburb
-          this.houseNumber = data.address.house_number
-        })
-        .catch((error) => {
-          console.error('Die Koordinaten konnten leider nicht Verabeitet werden:', error)
-        })
+      if (res.ok) {
+        const data = await res.json()
+        this.street = data.address.road
+        this.city = data.address.city
+        this.zipCode = data.address.postcode
+        this.district = data.address.suburb
+        this.houseNumber = data.address.house_number
+      } else {
+        console.error('Die Koordinaten konnten leider nicht Verabeitet werden:')
+      }
     },
 
     getOwnPosition() {
@@ -305,6 +305,18 @@ export const storeData = defineStore('poiStore', {
         ) {
           return true
         } else return false
+      }
+    },
+    ///////////////////////////////////// API-Datenbank anbindungen ////////////////////////////////////////////////////////////////////////
+    async getUserDataFromAPI() {
+      const res = await fetch('http://localhost:3000/users')
+      if (res.ok) {
+        const data = await res.json()
+        this.temporaryData.currentUser = data
+      } else {
+        console.warn(
+          'Die GET-Anfrage an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
       }
     }
   }

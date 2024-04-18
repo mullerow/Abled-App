@@ -11,13 +11,25 @@ export default {
     return {
       store: storeData()
     }
+  },
+  mounted() {
+    console.log('davor', this.store.temporaryData.currentUser)
+    this.store.getUserDataFromAPI()
+    console.log('dahinter', this.store.temporaryData.currentUser)
   }
 }
 </script>
 
 <template>
-  <!-- <h2>Startseite</h2> -->
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
+  <p>
+    <b>Nutzer:</b>
+    {{
+      store.temporaryData.currentUser[0]
+        ? store.temporaryData.currentUser[0]
+        : 'User konnte nicht geladen werden'
+    }}
+  </p>
   <section class="container">
     <ul class="menu">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
@@ -54,34 +66,12 @@ export default {
       </RouterLink>
     </ul>
   </section>
-  <!--
-  <h3>Liste aller User aus der Pinia Datenbank</h3>
-  <ul v-for="user of store.userData" :key="user.id">
-    <li>
-      <b style="font-size: 16px">{{ user.id }}</b>
-      <ul>
-        <li>Kategorie: {{ user.userName }}</li>
-        <li>E-Mail Adresse: {{ user.eMailAddress }}</li>
-      </ul>
-    </li>
-  </ul>
-
-  <h3>Liste aller POIs aus der Pinia Datenbank</h3>
-  <ul v-for="poi of store.poiData" :key="poi.id">
-    <li>
-      <b style="font-size: 16px">{{ poi.id }}</b>
-      <ul>
-        <li>Kategorie: {{ poi.category }}</li>
-        <li>X-Koordinate: {{ poi.xCoordinates }}</li>
-        <li>Y-Koordinate: {{ poi.yCoordinates }}</li>
-        <li>Favorit: {{ poi.isFavorite }}</li>
-        <button @click="store.changeFavorite(poi)">Favorit hinzufügen</button>
-      </ul>
-    </li>
-  </ul>
-  -->
 </template>
 <style scoped>
+ul {
+  padding-left: 0;
+}
+
 .menu {
   display: flex;
   justify-content: center; /* Horizontal zentriert */
