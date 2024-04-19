@@ -10,10 +10,10 @@
   <h2>Ergebnisliste</h2>
 
   <router-link
-    v-for="element of store.temporaryData.currentPois"
-    :key="element.id"
-    :to="'/infopoi/' + element.id"
-    ><CategorieButton :Kategorie="element.poiName" v-if="store.renderFilteredPois()"
+    v-for="poi of store.temporaryData.currentPois"
+    :key="poi.id"
+    :to="'/infopoi/' + poi.id"
+    ><CategorieButton :Kategorie="poi.poiName" v-if="store.renderFilteredPois(poi)"
   /></router-link>
 </template>
 
