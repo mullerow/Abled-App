@@ -33,17 +33,16 @@ export const storeData = defineStore('poiStore', {
       currentUser: [],
       currentPois: [],
       newUserData: {
-        ownId: 104,
-        userName: 'Holger Holgerson',
-        eMailAddress: 'Holger@Holgerson.de',
+        userName: '',
+        eMailAddress: '',
         address: {
-          city: 'Schwedt',
-          street: 'Otto Braun Straße 122',
-          zipCode: '11113'
+          city: '',
+          street: '',
+          zipCode: ''
         },
-        mobilityAssistance: 'Zwillingskinderwagen',
-        mobilityAssistanceWidth: '92',
-        ownPois: ['20232', '20911']
+        mobilityAssistance: '',
+        mobilityAssistanceWidth: '',
+        ownPois: []
       },
       newPoiData: {
         ownid: 207,
@@ -290,7 +289,6 @@ export const storeData = defineStore('poiStore', {
     },
 
     checkForFilterOptions() {
-      // renderFilteredPois
       this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
         this.poiData[i].currentSearchDistance = this.calcDistance(
@@ -302,7 +300,7 @@ export const storeData = defineStore('poiStore', {
         if (
           Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].id) //////////// AUF API ANPASSEN!
           this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
         }
       }
@@ -322,13 +320,12 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
-      // checkForFilterOptions
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
         if (this.temporaryData.choosenCategory === 'Alle') {
           console.log('ALLE')
           return true
         } else if (
-          poi.id === this.temporaryData.filteredPois[i] &&
+          poi.id === this.temporaryData.filteredPois[i] && //////////// AUF API ANPASSEN!
           poi.poiName == this.temporaryData.choosenCategory &&
           this.compareDetailCategories(poi)
         ) {

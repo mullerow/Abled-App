@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    this.store.addNewPoiToAPI()
+    //this.store.addNewPoiToAPI()
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     //this.store.addNewUserToAPI()
@@ -35,9 +35,9 @@ export default {
   <p v-if="this.store.temporaryData.currentPois[6]">
     <b>PoiId:</b>
     {{
-      store.temporaryData.currentPois[6].id
-        ? store.temporaryData.currentPois[6].id
-        : 'User konnte nicht geladen werden'
+      store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].id
+        ? store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].id
+        : 'Poi konnte nicht geladen werden'
     }}
   </p>
 
