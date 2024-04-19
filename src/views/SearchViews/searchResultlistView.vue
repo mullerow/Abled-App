@@ -9,7 +9,10 @@
  -->
   <h2>Ergebnisliste</h2>
 
-  <router-link v-for="element of store.poiData" :key="element.id" :to="'/infopoi/' + element.id"
+  <router-link
+    v-for="element of store.temporaryData.currentPois"
+    :key="element.id"
+    :to="'/infopoi/' + element.id"
     ><CategorieButton :Kategorie="element.poiName" v-if="store.renderFilteredPois()"
   /></router-link>
 </template>
@@ -35,6 +38,7 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions() // renderFilteredPois
+    this.store.getPoiDataFromAPI()
   }
 }
 </script>
