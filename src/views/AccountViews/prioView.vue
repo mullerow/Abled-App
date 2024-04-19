@@ -14,10 +14,20 @@
     v-model="mobilityAssistanceWidth"
     :placeholder="'Breite in cm'"
   />
+  <NavButton Navigation="Weiter" @click="saveDataAndNavigate" />
 
-  <RouterLink :to="{ name: 'home' }"
-    ><NavButton Navigation="Weiter" @click="saveDataAndNavigate"
-  /></RouterLink>
+  <div v-if="showPopup" class="popup">
+    <div class="popup-content">
+      <p>Dein Account wird angelegt.</p>
+      <RouterLink :to="{ name: 'home' }"
+        ><button @click="addUserAndNavigate">OK</button></RouterLink
+      >
+    </div>
+  </div>
+  <!-- Lade- und Erfolgsanzeige -->
+  <span v-if="addingUser">Lädt...</span>
+  <span v-if="loading">Daten laden...</span>
+  <span v-if="successMessage">{{ successMessage }}</span>
 </template>
 
 <script setup>
@@ -34,7 +44,11 @@ export default {
     return {
       store: storeData(),
       selectedMobilityAssistance: '',
-      mobilityAssistanceWidth: ''
+      mobilityAssistanceWidth: '',
+      showPopup: false,
+      addingUser: false,
+      loading: false,
+      successMessage: ''
     }
   },
 
@@ -50,7 +64,7 @@ export default {
 
       localStorage.setItem('userData', JSON.stringify(localUserData))
 
-      this.store.userData = localUserData
+      //this.store.userData = localUserData
 
       this.$router.push({ name: 'home' })
     }
