@@ -78,8 +78,8 @@ export default {
     </ul>
   </section>
 </template>
-<style scoped>
 
+<style scoped>
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
