@@ -275,7 +275,6 @@ export const storeData = defineStore('poiStore', {
         this.zipCode = data.address.postcode
         this.district = data.address.suburb
         this.houseNumber = data.address.house_number
-        console.log(data)
       } else {
         console.error('Die Koordinaten konnten leider nicht Verabeitet werden:')
       }

@@ -64,7 +64,6 @@ export default {
         comment: comment
       }
       this.store.addNewPoiToAPI()
-      console.log(this.store.temporaryData.newPoiData)
     }
   }
 }
