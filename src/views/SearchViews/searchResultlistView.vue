@@ -13,7 +13,7 @@
     v-for="poi of store.temporaryData.currentPois"
     :key="poi.id"
     :to="'/infopoi/' + poi.id"
-    ><CategorieButton :Kategorie="poi.poiName" v-if="store.renderFilteredPois(poi)"
+    ><CategorieButton :Kategorie="poi.poiName"
   /></router-link>
 </template>
 
