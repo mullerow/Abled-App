@@ -9,25 +9,9 @@
  -->
   <h2>Ergebnisliste</h2>
 
-  <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
-  <ul>
-    <li v-for="poi in store.poiData" :key="poi.id">
-      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
-        <!--checkForFilterOptions -->
-        <div class="searchlist-poiname">{{ poi.poiName }}</div>
-        <div
-          class="searchlist-detailcategories"
-          v-for="detailcategorie of poi.detailCategories"
-          :key="'detail-' + poi.id + '-' + detailcategorie"
-        >
-          ✅ {{ detailcategorie }}
-        </div>
-        <div class="searchlist-distance">
-          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
-        </div>
-      </button>
-    </li>
-  </ul>
+  <router-link v-for="element of store.poiData" :key="element.id" :to="'/infopoi/' + element.id"
+    ><CategorieButton :Kategorie="element.poiName" v-if="store.renderFilteredPois()"
+  /></router-link>
 </template>
 
 <script>
@@ -35,11 +19,14 @@ import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
+import CategorieButton from '@/components/CategorieButton.vue'
+
 export default {
   components: {
     HomeButton,
     EarthMap,
-    BackArrow
+    BackArrow,
+    CategorieButton
   },
   data() {
     return {
