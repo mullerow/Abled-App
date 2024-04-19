@@ -17,8 +17,8 @@ export const storeData = defineStore('poiStore', {
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
       searchDistance: 500,
-      ownXCoordinate: 52.554228,
-      ownYCoordinate: 13.412095,
+      ownXCoordinate: null,
+      ownYCoordinate: null,
       // temporäre Daten für die Adressbestimmung aus Koordinaten
       district: 0,
       street: '',
@@ -46,17 +46,16 @@ export const storeData = defineStore('poiStore', {
         ownPois: ['20232', '20911']
       },
       newPoiData: {
-        ownid: 207,
-        poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.554228,
-        yCoordinates: 13.412095,
+        poiName: '',
+        detailCategories: [],
+        xCoordinates: null,
+        yCoordinates: null,
         status: true,
-        minWidth: 92,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 122,
-        creationDate: '12.09.24',
-        createdBy: 102,
+        minWidth: null,
+        openingTimes: '',
+        prioWidth: null,
+        creationDate: '',
+        createdBy: null,
         currentSearchDistance: 0
       },
       changedUserData: ''
@@ -246,6 +245,7 @@ export const storeData = defineStore('poiStore', {
       ]
     }
   }),
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //\/\/\/\/\/\/\/\/\/ GLOBALE FUNKTIONEN //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -271,10 +271,11 @@ export const storeData = defineStore('poiStore', {
       if (res.ok) {
         const data = await res.json()
         this.street = data.address.road
-        this.city = data.address.city
+        this.city = data.address.city || data.address.village
         this.zipCode = data.address.postcode
         this.district = data.address.suburb
         this.houseNumber = data.address.house_number
+        console.log(data)
       } else {
         console.error('Die Koordinaten konnten leider nicht Verabeitet werden:')
       }
@@ -285,6 +286,8 @@ export const storeData = defineStore('poiStore', {
         this.ownXCoordinate = position.coords.latitude
         this.ownYCoordinate = position.coords.longitude
         this.getAddressByCoordinates(this.ownXCoordinate, this.ownYCoordinate)
+        localStorage.setItem('x-Koordinate', this.ownXCoordinate)
+        localStorage.setItem('y-Koordinate', this.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
