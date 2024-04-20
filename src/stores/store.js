@@ -29,8 +29,11 @@ export const storeData = defineStore('poiStore', {
       filteredPois: [],
       choosenCategory: 'Alle',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
-      ///////// API Managament //////////////////////////////////////////////////////////////////////////
-      currentUser: [],
+
+      ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      currentUserData: [],
+      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a',
       currentPois: [],
       newUserData: {
         userName: '',
@@ -58,7 +61,10 @@ export const storeData = defineStore('poiStore', {
         createdBy: 102,
         currentSearchDistance: 0
       },
-      changedUserData: ''
+      changedUserData: {
+        id: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a',
+        userName: 'ICH HEIßE jetzt SVEN UPDATE'
+      }
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,7 +201,7 @@ export const storeData = defineStore('poiStore', {
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) //////////////////////////////////////////////////////////////////////////////////
+    /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) /////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     localData: {
       mobilityAssistanceClasses: [
@@ -338,7 +344,7 @@ export const storeData = defineStore('poiStore', {
       const res = await fetch('http://localhost:3000/users')
       if (res.ok) {
         const data = await res.json()
-        this.temporaryData.currentUser = data
+        this.temporaryData.currentUserData = data
       } else {
         console.warn(
           'Die GET-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'

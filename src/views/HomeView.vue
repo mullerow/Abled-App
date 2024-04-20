@@ -17,22 +17,25 @@ export default {
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     //this.store.addNewUserToAPI()
+    this.store.updateUserAtAPI(this.store.temporaryData.currentUserId)
   }
 }
 </script>
 
 <template>
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
-  <p v-if="store.temporaryData.currentUser[0]">
+  <p v-if="store.temporaryData.currentUserData[0]">
     <b>Nutzer:</b>
     {{
-      store.temporaryData.currentUser[0].userName
-        ? store.temporaryData.currentUser[0].userName
+      store.temporaryData.currentUserData[this.store.temporaryData.currentUserData.length - 1]
+        .userName
+        ? store.temporaryData.currentUserData[this.store.temporaryData.currentUserData.length - 1]
+            .userName
         : 'User konnte nicht geladen werden'
     }}
   </p>
 
-  <p v-if="this.store.temporaryData.currentPois[6]">
+  <p v-if="this.store.temporaryData.currentPois[0]">
     <b>PoiId:</b>
     {{
       store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].id
