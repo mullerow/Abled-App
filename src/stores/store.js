@@ -33,8 +33,8 @@ export const storeData = defineStore('poiStore', {
       ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       currentUserData: [],
-      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a',
       currentPois: [],
+      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a', // Hier muss dynamisch die ID hinterlegt werden
       currentPoiId: '28eda502-b494-4f2a-a892-ac6cfb2c286d',
       newUserData: {
         userName: '',
@@ -62,6 +62,7 @@ export const storeData = defineStore('poiStore', {
         currentSearchDistance: 0
       },
       changedUserData: {
+        // WICHTIG!!!! ES WERDEN ALLE DATEN ÜBERSCHRIEBEN; ALSO MUSS DER GESAMTE DATENSATZ EINES POIS / USER AKTUALISIERT WERDEN
         userName: 'frischer Username'
       },
       changedPoiData: {
