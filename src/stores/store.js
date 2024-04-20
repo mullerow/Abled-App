@@ -35,6 +35,7 @@ export const storeData = defineStore('poiStore', {
       currentUserData: [],
       currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a',
       currentPois: [],
+      currentPoiId: '28eda502-b494-4f2a-a892-ac6cfb2c286d',
       newUserData: {
         userName: '',
         eMailAddress: '',
@@ -48,7 +49,6 @@ export const storeData = defineStore('poiStore', {
         ownPois: []
       },
       newPoiData: {
-        ownid: 207,
         poiName: 'Rampe',
         detailCategories: ['steil', 'Geländer'],
         xCoordinates: 52.554228,
@@ -62,8 +62,10 @@ export const storeData = defineStore('poiStore', {
         currentSearchDistance: 0
       },
       changedUserData: {
-        id: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a',
-        userName: 'ICH HEIßE jetzt SVEN UPDATE'
+        userName: 'frischer Username'
+      },
+      changedPoiData: {
+        poiName: 'Schweinchen'
       }
     }),
 
@@ -345,6 +347,7 @@ export const storeData = defineStore('poiStore', {
       if (res.ok) {
         const data = await res.json()
         this.temporaryData.currentUserData = data
+        console.log('Die GET-Anfrage (User) an den API-Server war erfolgreich')
       } else {
         console.warn(
           'Die GET-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
@@ -365,7 +368,7 @@ export const storeData = defineStore('poiStore', {
         )
     },
     async updateUserAtAPI(userId) {
-      const res = await fetch('http://localhost:3000/users' + userId, {
+      const res = await fetch('http://localhost:3000/users/' + userId, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.changedUserData)
@@ -400,6 +403,19 @@ export const storeData = defineStore('poiStore', {
       } else
         console.warn(
           'Die POST-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+    async updatePoiAtAPI(poiId) {
+      const res = await fetch('http://localhost:3000/pois/' + poiId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.changedPoiData)
+      })
+      if (res.ok) {
+        console.log('Die PUT-Anfrage (POI) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die PUT-Anfrage (POI) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
     }
   }
