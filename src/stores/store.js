@@ -29,27 +29,31 @@ export const storeData = defineStore('poiStore', {
       filteredPois: [],
       choosenCategory: 'Alle',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
-      ///////// API Managament //////////////////////////////////////////////////////////////////////////
-      currentUser: [],
+
+      ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      currentUserData: [],
       currentPois: [],
+      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a', // Hier muss dynamisch die ID hinterlegt werden
+      currentPoiId: '28eda502-b494-4f2a-a892-ac6cfb2c286d',
       newUserData: {
-        ownId: 104,
-        userName: 'Holger Holgerson',
-        eMailAddress: 'Holger@Holgerson.de',
+        userName: '',
+        eMailAddress: '',
         address: {
-          city: 'Schwedt',
-          street: 'Otto Braun Straße 122',
-          zipCode: '11113'
+          city: '',
+          street: '',
+          zipCode: ''
         },
-        mobilityAssistance: 'Zwillingskinderwagen',
-        mobilityAssistanceWidth: '92',
-        ownPois: ['20232', '20911']
+        mobilityAssistance: '',
+        mobilityAssistanceWidth: '',
+        ownPois: []
       },
       newPoiData: {
-        poiName: '',
-        detailCategories: [],
+        poiName: 'Rampe',
+        detailCategories: ['steil', 'Geländer'],
         xCoordinates: null,
         yCoordinates: null,
+
         status: true,
         minWidth: null,
         openingTimes: '',
@@ -58,7 +62,13 @@ export const storeData = defineStore('poiStore', {
         createdBy: null,
         currentSearchDistance: 0
       },
-      changedUserData: ''
+      changedUserData: {
+        // WICHTIG!!!! ES WERDEN ALLE DATEN ÜBERSCHRIEBEN; ALSO MUSS DER GESAMTE DATENSATZ EINES POIS / USER AKTUALISIERT WERDEN
+        userName: 'frischer Username'
+      },
+      changedPoiData: {
+        poiName: 'Schweinchen'
+      }
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,7 +205,7 @@ export const storeData = defineStore('poiStore', {
       }
     ],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) //////////////////////////////////////////////////////////////////////////////////
+    /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) /////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     localData: {
       mobilityAssistanceClasses: [
@@ -292,7 +302,6 @@ export const storeData = defineStore('poiStore', {
     },
 
     checkForFilterOptions() {
-      // renderFilteredPois
       this.temporaryData.filteredPois = []
       for (let i = 0; i < this.poiData.length; i++) {
         this.poiData[i].currentSearchDistance = this.calcDistance(
@@ -304,7 +313,7 @@ export const storeData = defineStore('poiStore', {
         if (
           Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.poiData[i].id)
+          this.temporaryData.filteredPois.push(this.poiData[i].id) //////////// AUF API ANPASSEN!
           this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
         }
       }
@@ -324,13 +333,12 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
-      // checkForFilterOptions
       for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
         if (this.temporaryData.choosenCategory === 'Alle') {
           console.log('ALLE')
           return true
         } else if (
-          poi.id === this.temporaryData.filteredPois[i] &&
+          poi.id === this.temporaryData.filteredPois[i] && //////////// AUF API ANPASSEN!
           poi.poiName == this.temporaryData.choosenCategory &&
           this.compareDetailCategories(poi)
         ) {
@@ -343,7 +351,8 @@ export const storeData = defineStore('poiStore', {
       const res = await fetch('http://localhost:3000/users')
       if (res.ok) {
         const data = await res.json()
-        this.temporaryData.currentUser = data
+        this.temporaryData.currentUserData = data
+        console.log('Die GET-Anfrage (User) an den API-Server war erfolgreich')
       } else {
         console.warn(
           'Die GET-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
@@ -364,7 +373,7 @@ export const storeData = defineStore('poiStore', {
         )
     },
     async updateUserAtAPI(userId) {
-      const res = await fetch('http://localhost:3000/users' + userId, {
+      const res = await fetch('http://localhost:3000/users/' + userId, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.changedUserData)
@@ -399,6 +408,19 @@ export const storeData = defineStore('poiStore', {
       } else
         console.warn(
           'Die POST-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+    async updatePoiAtAPI(poiId) {
+      const res = await fetch('http://localhost:3000/pois/' + poiId, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.temporaryData.changedPoiData)
+      })
+      if (res.ok) {
+        console.log('Die PUT-Anfrage (POI) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die PUT-Anfrage (POI) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
     }
   }
