@@ -14,7 +14,7 @@
     v-model="mobilityAssistanceWidth"
     :placeholder="'Breite in cm'"
   />
-  <NavButton Navigation="Weiter" @click="saveDataAndNavigate" />
+  <NavButton Navigation="Weiter" @click="saveDataAndOpenPopup" />
 
   <div v-if="showPopup" class="popup">
     <div class="popup-content">
@@ -24,10 +24,6 @@
       >
     </div>
   </div>
-  <!-- Lade- und Erfolgsanzeige -->
-  <span v-if="addingUser">Lädt...</span>
-  <span v-if="loading">Daten laden...</span>
-  <span v-if="successMessage">{{ successMessage }}</span>
 </template>
 
 <script setup>
@@ -47,8 +43,7 @@ export default {
       mobilityAssistanceWidth: '',
       showPopup: false,
       addingUser: false,
-      loading: false,
-      successMessage: ''
+      loading: false
     }
   },
 
@@ -56,17 +51,52 @@ export default {
     selectMobilityAssistance(mobilityAssistanceClass) {
       this.selectedMobilityAssistance = mobilityAssistanceClass
     },
-    saveDataAndNavigate() {
+    saveDataAndOpenPopup() {
+      this.saveDataToLocalStorage()
+      this.showPopup = true
+    },
+    saveDataToLocalStorage() {
       const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
 
       localUserData.mobilityAssistance = this.selectedMobilityAssistance
       localUserData.mobilityAssistanceWidth = this.mobilityAssistanceWidth
 
       localStorage.setItem('userData', JSON.stringify(localUserData))
+    }
+  },
+  async addUserAndNavigate() {
+    //Schritt 1 user daten laden
+    this.loadUserDataFromLocalStorage()
 
-      //this.store.userData = localUserData
+    //erfolgreich?. dann
+    if (!this.addingUser) {
+      this.addingUser = true
+      try {
+        const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
 
-      this.$router.push({ name: 'home' })
+        // Schritt 2 User an API
+        const response = await this.store.addNewUserToAPI(localUserData)
+        console.log('API-Antwort:', response)
+
+        // Schritt 3 User von API mit neuer ID
+        const userDataFromAPI = await this.store.getUserDataFromAPI()
+
+        if (response && response.id && userDataFromAPI) {
+          // Schritt4  ID und User in local Storage
+          this.saveUserIdToLocalStorage(response.id)
+          localStorage.setItem('userData', JSON.stringify(userDataFromAPI))
+
+          // Schritt 5 zur Landing Page
+          this.$router.push({ name: 'home' })
+        } else {
+          console.error('Fehler: Ungültige API-Antwort')
+        }
+      } catch (error) {
+        console.error('Fehler beim Hinzufügen des Benutzers:', error)
+      } finally {
+        //ladezustand ENDE
+        this.addingUser = false
+      }
     }
   }
 }
@@ -79,5 +109,23 @@ export default {
   border-radius: 0.5rem;
   margin: 1rem;
   color: darkgray;
+}
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--black);
 }
 </style>
