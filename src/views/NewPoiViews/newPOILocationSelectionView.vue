@@ -8,6 +8,9 @@
   <h2>Wo befindet sich der Ort?</h2>
   <categorie-button :Kategorie="'Mein Standort'" @click="store.getOwnPosition" />
   <p><b>Dein Standort:</b> {{ store.city }}, {{ store.street }}, {{ store.houseNumber }}</p>
+  <RouterLink :to="{ name: 'newpoiinfoinput' }"
+    ><NavButton Navigation="Weiter mit meinem Standort"
+  /></RouterLink>
   <categorie-button :Kategorie="'Adresse eingeben'" @click="navigateToAdress" />
 
   <RouterLink ref="adress" :to="{ name: 'newpoiaddressinput' }"></RouterLink>
@@ -18,12 +21,14 @@ import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import { storeData } from '@/stores/store.js'
+import NavButton from '@/components/NavButton.vue'
 
 export default {
   components: {
     HomeButton,
     BackArrow,
-    CategorieButton
+    CategorieButton,
+    NavButton
   },
   data() {
     return {

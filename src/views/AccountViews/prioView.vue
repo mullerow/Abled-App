@@ -4,25 +4,66 @@
     v-for="mobilityAssistanceClass in store.localData.mobilityAssistanceClasses"
     :key="mobilityAssistanceClass"
     :priority="mobilityAssistanceClass"
-    @click="saveButtonValue(mobilityAssistanceClass)"
+    @click="selectMobilityAssistance(mobilityAssistanceClass)"
   />
-  <InputField></InputField>
+  <label class="label" for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
+  <input
+    class="input"
+    type="number"
+    id="mobilityAssistanceWidth"
+    v-model="mobilityAssistanceWidth"
+    :placeholder="'Breite in cm'"
+  />
 
-  <RouterLink :to="{ name: 'home' }"><NavButton Navigation="Weiter" /></RouterLink>
+  <RouterLink :to="{ name: 'home' }"
+    ><NavButton Navigation="Weiter" @click="saveDataAndNavigate"
+  /></RouterLink>
 </template>
 
 <script setup>
 import { storeData } from '@/stores/store.js'
-
-const store = storeData()
 </script>
 
 <script>
 import PriorityButton from '@/components/PriorityButton.vue'
 import NavButton from '@/components/NavButton.vue'
-import InputField from '@/components/InputField.vue'
 
 export default {
-  components: { PriorityButton, NavButton, InputField }
+  components: { PriorityButton, NavButton },
+  data() {
+    return {
+      store: storeData(),
+      selectedMobilityAssistance: '',
+      mobilityAssistanceWidth: ''
+    }
+  },
+
+  methods: {
+    selectMobilityAssistance(mobilityAssistanceClass) {
+      this.selectedMobilityAssistance = mobilityAssistanceClass
+    },
+    saveDataAndNavigate() {
+      const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
+
+      localUserData.mobilityAssistance = this.selectedMobilityAssistance
+      localUserData.mobilityAssistanceWidth = this.mobilityAssistanceWidth
+
+      localStorage.setItem('userData', JSON.stringify(localUserData))
+
+      this.store.userData = localUserData
+
+      this.$router.push({ name: 'home' })
+    }
+  }
 }
 </script>
+<style>
+.input {
+  padding: 0.5rem;
+  width: 80%;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  margin: 1rem;
+  color: darkgray;
+}
+</style>

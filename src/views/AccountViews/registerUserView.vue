@@ -40,7 +40,8 @@ export default {
     return {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      userCounter: 3
     }
   },
   methods: {
@@ -57,6 +58,10 @@ export default {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return regex.test(email)
     },
+    generateUserID() {
+      this.userCounter++
+      return 100 + this.userCounter
+    },
 
     registerUser() {
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
@@ -68,13 +73,16 @@ export default {
         return
       }
 
+      const userID = this.generateUserID()
       const userData = {
+        id: userID,
         username: this.username,
         email: this.email,
         password: this.password
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
+      localStorage.setItem('userId', userID)
       this.goToPrio()
     },
     goToPrio() {
