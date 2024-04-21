@@ -62,10 +62,8 @@ export default {
     },
     loadUserDataToTemporaryData() {
       try {
-        // Schritt 1: Benutzerdaten aus dem lokalen Speicher laden
         const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
 
-        // Schritt 2: Benutzerdaten in temporäre Daten im Store setzen
         this.store.temporaryData.newUserData = {
           id: '',
           username: localUserData.username || '',
@@ -86,32 +84,20 @@ export default {
 
     async addUserAndNavigate() {
       try {
-        // Schritt 1: Benutzerdaten aus dem lokalen Speicher laden
         const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
 
-        // Schritt 2: Benutzerdaten in temporäre Daten im Store setzen
         this.store.temporaryData.newUserData = localUserData
 
-        // Schritt 3: Benutzer an die API senden und auf Antwort warten
-        await this.store.addNewUserToAPI()
-
-        // Schritt 4: Benutzerdaten von der API abrufen
-        //const data =
         await this.store.getUserDataFromAPI()
 
         console.log('Daten von der API erhalten:', this.store.temporaryData.currentUser)
 
-        //speichern von der API im lokalen Speicher
-        //this.store.temporaryData.currentUser
-        //console.log('Aktuelle Benutzerdaten:', currentUser)
         localStorage.setItem(
           'currentUserID',
           JSON.stringify(
             this.store.temporaryData.currentUser[this.store.temporaryData.currentUser.length - 1].id
           )
         )
-
-        // Schritt 5: Weiterleitung zur Landing Page
         this.$router.push({ name: 'home' })
       } catch (error) {
         console.error('Fehler beim Hinzufügen des Benutzers:', error)
