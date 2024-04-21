@@ -13,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    this.store.addNewPoiToAPI()
+    //this.store.addNewPoiToAPI()
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     //this.store.addNewUserToAPI()
@@ -79,7 +79,6 @@ export default {
   </section>
 </template>
 <style scoped>
-
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
