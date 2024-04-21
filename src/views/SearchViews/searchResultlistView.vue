@@ -11,10 +11,14 @@
 
   <!-- <RouterLink :to="{ name: 'infopoi' }"></RouterLink> -->
   <ul>
-    <RouterLink :to="{ name: 'searchoptionalcategorie' }"
+    <RouterLink :to="{ name: 'infopoi', params: { id: 'cc46b9ca-e4a7-42f4-802e-83f185e8f4ae' } }"
       >Weiter
       <li v-for="poi in store.poiData" :key="poi.id">
-        <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+        <button
+          class="searchlist-button"
+          v-if="store.renderFilteredPois(poi)"
+          @click="saveChoosenPoi(poi)"
+        >
           <!--checkForFilterOptions -->
           <div class="searchlist-poiname">{{ poi.poiName }}</div>
           <div
@@ -51,6 +55,11 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions() // renderFilteredPois
+  },
+  methods: {
+    saveChoosenPoi(poi) {
+      this.store.temporaryData.choosenPoi = poi.id
+    }
   }
 }
 </script>
