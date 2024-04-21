@@ -17,6 +17,7 @@ export default {
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     //this.store.addNewUserToAPI()
+    // this.store.deletePoifromAPI('629a3e86-486d-40e2-879f-62ac4eeef794')
   }
 }
 </script>
