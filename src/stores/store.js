@@ -53,7 +53,6 @@ export const storeData = defineStore('poiStore', {
         detailCategories: ['steil', 'Geländer'],
         xCoordinates: null,
         yCoordinates: null,
-
         status: true,
         minWidth: null,
         openingTimes: '',
@@ -346,7 +345,9 @@ export const storeData = defineStore('poiStore', {
         } else return false
       }
     },
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     async getUserDataFromAPI() {
       const res = await fetch('http://localhost:3000/users')
       if (res.ok) {
@@ -359,6 +360,7 @@ export const storeData = defineStore('poiStore', {
         )
       }
     },
+
     async addNewUserToAPI() {
       const res = await fetch('http://localhost:3000/users', {
         method: 'POST',
@@ -372,6 +374,7 @@ export const storeData = defineStore('poiStore', {
           'Die POST-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
     },
+
     async updateUserAtAPI(userId) {
       const res = await fetch('http://localhost:3000/users/' + userId, {
         method: 'PUT',
@@ -385,6 +388,19 @@ export const storeData = defineStore('poiStore', {
           'Die PUT-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
     },
+
+    async deleteUserfromAPI(userId) {
+      const res = await fetch('http://localhost:3000/users/' + userId, {
+        method: 'DELETE'
+      })
+      if (res.ok) {
+        console.log('Die DELETE-Anfrage (User) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die DELETE-Anfrage (User) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+
     async getPoiDataFromAPI() {
       const res = await fetch('http://localhost:3000/pois')
       if (res.ok) {
@@ -421,6 +437,18 @@ export const storeData = defineStore('poiStore', {
       } else
         console.warn(
           'Die PUT-Anfrage (POI) an den API-Server konnte nicht erfolgreich durchgeführt werden'
+        )
+    },
+
+    async deletePoifromAPI(poiId) {
+      const res = await fetch('http://localhost:3000/pois/' + poiId, {
+        method: 'DELETE'
+      })
+      if (res.ok) {
+        console.log('Die DELETE-Anfrage (Poi) an den API-Server war erfolgreich')
+      } else
+        console.warn(
+          'Die DELETE-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
     }
   }
