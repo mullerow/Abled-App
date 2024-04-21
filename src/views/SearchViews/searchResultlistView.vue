@@ -9,24 +9,27 @@
  -->
   <h2>Ergebnisliste</h2>
 
-  <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
+  <!-- <RouterLink :to="{ name: 'infopoi' }"></RouterLink> -->
   <ul>
-    <li v-for="poi in store.poiData" :key="poi.id">
-      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
-        <!--checkForFilterOptions -->
-        <div class="searchlist-poiname">{{ poi.poiName }}</div>
-        <div
-          class="searchlist-detailcategories"
-          v-for="detailcategorie of poi.detailCategories"
-          :key="'detail-' + poi.id + '-' + detailcategorie"
-        >
-          ✅ {{ detailcategorie }}
-        </div>
-        <div class="searchlist-distance">
-          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
-        </div>
-      </button>
-    </li>
+    <RouterLink :to="{ name: 'searchoptionalcategorie' }"
+      >Weiter
+      <li v-for="poi in store.poiData" :key="poi.id">
+        <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+          <!--checkForFilterOptions -->
+          <div class="searchlist-poiname">{{ poi.poiName }}</div>
+          <div
+            class="searchlist-detailcategories"
+            v-for="detailcategorie of poi.detailCategories"
+            :key="'detail-' + poi.id + '-' + detailcategorie"
+          >
+            ✅ {{ detailcategorie }}
+          </div>
+          <div class="searchlist-distance">
+            Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+          </div>
+        </button>
+      </li></RouterLink
+    >
   </ul>
 </template>
 
