@@ -28,7 +28,7 @@ export const storeData = defineStore('poiStore', {
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: 'Rampe',
-      choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
+      choosenDetailCategories: ['steil', 'Geländer'], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
       ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ export const storeData = defineStore('poiStore', {
       currentUserData: [],
       currentPois: [],
       currentPoi: {},
-      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a', // Hier muss dynamisch die ID zugewiesen werden
+      currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
       currentPoiId: '',
       newUserData: {
         userName: '',
@@ -346,8 +346,8 @@ export const storeData = defineStore('poiStore', {
           return true
         } else if (
           poi.id === this.temporaryData.filteredPois[i] &&
-          poi.poiName == this.temporaryData.choosenCategory
-          // && this.compareDetailCategories(poi)
+          poi.poiName == this.temporaryData.choosenCategory &&
+          this.compareDetailCategories(poi)
         ) {
           return true
         }
