@@ -65,6 +65,10 @@ export default {
         comment: comment
       }
       this.store.addNewPoiToAPI()
+      localStorage.removeItem('buttonValue')
+      localStorage.removeItem('OptionalCategories')
+      localStorage.removeItem('x-Koordinate')
+      localStorage.removeItem('y-Koordinate')
     }
   }
 }

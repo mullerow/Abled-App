@@ -39,6 +39,7 @@ import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
+
 export default {
   components: {
     HomeButton,
@@ -53,6 +54,7 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions() // renderFilteredPois
+    this.store.getPoiDataFromAPI()
   }
 }
 </script>
