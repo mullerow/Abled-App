@@ -8,33 +8,25 @@
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
   <h2>Ergebnisliste</h2>
-
-  <ul>
-    <!-- <RouterLink
-      v-if="store.temporaryData.choosenPoi"
-      :to="{ name: 'infopoi', params: { id: store.temporaryData.choosenPoi.id } }"
-    ></RouterLink
-    -->
-    <li v-for="poi in store.poiData" :key="poi.id">
-      <button
-        class="searchlist-button"
-        v-if="store.renderFilteredPois(poi)"
-        @click="goToChoosenPoiDetails(poi)"
+  <router-link
+    v-for="poi of store.temporaryData.currentPois"
+    :key="poi.id"
+    :to="'/infopoi/' + poi.id"
+  >
+    <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+      <div class="searchlist-poiname">{{ poi.poiName }}</div>
+      <div
+        class="searchlist-detailcategories"
+        v-for="detailcategorie of poi.detailCategories"
+        :key="'detail-' + poi.id + '-' + detailcategorie"
       >
-        <div class="searchlist-poiname">{{ poi.poiName }}</div>
-        <div
-          class="searchlist-detailcategories"
-          v-for="detailcategorie of poi.detailCategories"
-          :key="'detail-' + poi.id + '-' + detailcategorie"
-        >
-          ✅ {{ detailcategorie }}
-        </div>
-        <div class="searchlist-distance">
-          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
-        </div>
-      </button>
-    </li>
-  </ul>
+        ✅ {{ detailcategorie }}
+      </div>
+      <div class="searchlist-distance">
+        Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+      </div>
+    </button>
+  </router-link>
 </template>
 
 <script>

@@ -7,47 +7,37 @@
   <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink> -->
 
   <br />
-  <h2>Info</h2>
+  <h2>Informationen zum Ort</h2>
 
-  <p v-if="findChoosenPoi" class="info">
-    <b>Name des Pois:</b>
-    {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
-    <br />
-    <!-- 
-    <b>Coordinates:</b>
-    {{
-      store.temporaryData.currentPois[0].xCoordinates
-        ? store.temporaryData.currentPois[0].xCoordinates
-        : 'User konnte nicht geladen werden'
-    }}
-
-    {{
-      store.temporaryData.currentPois[0].yCoordinates
-        ? store.temporaryData.currentPois[0].yCoordinates
-        : 'User konnte nicht geladen werden'
-    }}
-    <b>openingimes:</b>
-    {{
-      store.temporaryData.currentPois[0].openingTimes
-        ? store.temporaryData.currentPois[0].openingTimes
-        : 'User konnte nicht geladen werden'
-    }}
-    <br />
-    <b>Address:</b>
-    {{
-      store.temporaryData.currentPois[0].currentSearchDistance
-        ? store.temporaryData.currentPois[0].currentSearchDistance
-        : 'User konnte nicht geladen werden'
-    }}
-    <br />
-    <b>Categories:</b>
-    {{
-      store.temporaryData.currentPois[0].detailCategories
-        ? store.temporaryData.currentPois[0].detailCategories
-        : 'User konnte nicht geladen werden'
-    }}
-  </p>
--->
+  <section v-if="findChoosenPoi">
+    <p class="info">
+      <b>Name des Pois:</b>
+      {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
+    </p>
+    <div class="info">
+      <b> Details:</b>
+      <p
+        v-for="detailcategorie of findChoosenPoi.detailCategories"
+        :key="'detail-' + findChoosenPoi.id + '-' + detailcategorie"
+      >
+        ✅ {{ detailcategorie }}
+      </p>
+    </div>
+    <p class="info">
+      <b>Vorhandene Mindestbreite:</b>
+      {{ findChoosenPoi.minWidth ? findChoosenPoi.minWidth : 'Poi konnte nicht geladen werden' }}
+    </p>
+    <p class="info">
+      <b>Entfernung zu deinem Standort:</b>
+      {{
+        findChoosenPoi.currentSearchDistance
+          ? findChoosenPoi.currentSearchDistance
+          : 'Poi konnte nicht geladen werden'
+      }}
+      meter
+    </p>
+  </section>
+  <p>
     <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
     <NavButton :Navigation="'In Maps öffnen'" />
     <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
