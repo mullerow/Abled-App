@@ -88,15 +88,17 @@ export default {
         const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
 
         this.store.temporaryData.newUserData = localUserData
-
+        await this.store.addNewUserToAPI()
         await this.store.getUserDataFromAPI()
 
-        console.log('Daten von der API erhalten:', this.store.temporaryData.currentUser)
+        console.log('Daten von der API erhalten:', this.store.temporaryData.currentUserData)
 
         localStorage.setItem(
           'currentUserID',
           JSON.stringify(
-            this.store.temporaryData.currentUser[this.store.temporaryData.currentUser.length - 1].id
+            this.store.temporaryData.currentUserData[
+              this.store.temporaryData.currentUserData.length - 1
+            ].id
           )
         )
         this.$router.push({ name: 'home' })
