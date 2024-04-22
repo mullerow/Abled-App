@@ -7,61 +7,41 @@
   <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink> -->
 
   <br />
-  <h2>Info</h2>
+  <h2>Informationen zum Ort</h2>
 
-  <p v-if="this.store.temporaryData.currentPois[0]" class="info">
-    <b>PoiName:</b>
-    {{ poi.poiName }}
-    <!-- {{
-      store.temporaryData.currentPois[0].poiName
-        ? store.temporaryData.currentPois[0].poiName
-        : 'User konnte nicht geladen werden'
-    }} -->
-    <br />
-    <b>Coordinates:</b>
-    {{ poi.xCoordinates }} 
-    {{ poi.yCoordinates }}
-    <!-- {{
-      store.temporaryData.currentPois[0].xCoordinates
-        ? store.temporaryData.currentPois[0].xCoordinates
-        : 'User konnte nicht geladen werden'
-    }} -->
-
-    <!-- {{
-      store.temporaryData.currentPois[0].yCoordinates
-        ? store.temporaryData.currentPois[0].yCoordinates
-        : 'User konnte nicht geladen werden'
-    }} -->
-    <b>openingimes:</b>
-    {{ poi.openingTimes }}
-    <!-- {{
-      store.temporaryData.currentPois[0].openingTimes
-        ? store.temporaryData.currentPois[0].openingTimes
-        : 'User konnte nicht geladen werden'
-    }} -->
-    <br />
-    <b>Address:</b>
-    {{
-      store.temporaryData.currentPois[0].currentSearchDistance
-        ? store.temporaryData.currentPois[0].currentSearchDistance
-        : 'User konnte nicht geladen werden'
-    }}
-    <br />
-    <b>Categories:</b>
-    <ul>
-          <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
-        </ul>
-    <!-- {{
-      store.temporaryData.currentPois[0].detailCategories
-        ? store.temporaryData.currentPois[0].detailCategories
-        : 'User konnte nicht geladen werden'
-    }} -->
-     
+  <section v-if="findChoosenPoi">
+    <p class="info">
+      <b>Name des Pois:</b>
+      {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
+    </p>
+    <div class="info">
+      <b> Details:</b>
+      <p
+        v-for="detailcategorie of findChoosenPoi.detailCategories"
+        :key="'detail-' + findChoosenPoi.id + '-' + detailcategorie"
+      >
+        ✅ {{ detailcategorie }}
+      </p>
+    </div>
+    <p class="info">
+      <b>Vorhandene Mindestbreite:</b>
+      {{ findChoosenPoi.minWidth ? findChoosenPoi.minWidth : 'Poi konnte nicht geladen werden' }}
+    </p>
+    <p class="info">
+      <b>Entfernung zu deinem Standort:</b>
+      {{
+        findChoosenPoi.currentSearchDistance
+          ? findChoosenPoi.currentSearchDistance
+          : 'Poi konnte nicht geladen werden'
+      }}
+      meter
+    </p>
+  </section>
+  <p>
+    <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
+    <NavButton :Navigation="'In Maps öffnen'" />
+    <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
   </p>
-
-  <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
-  <NavButton :Navigation="'In Maps öffnen'" />
-  <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
 </template>
 
 <script>
@@ -91,8 +71,12 @@ export default {
     }
   },
   computed: {
-    poi() {
-      return this.store.poiData.find((el) => el.id == this.id)
+    findChoosenPoi() {
+      console.log(
+        'test',
+        this.store.temporaryData.currentPois.find((el) => el.id == this.id, this.id)
+      )
+      return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
     }
   },
   mounted() {
