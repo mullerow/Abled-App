@@ -57,19 +57,14 @@ export default {
 </script>
 
 <style scoped>
-li > .searchlist-button {
+.searchlist-button {
   width: 330px;
   background-color: var(--white);
   color: var(--red);
+  margin-bottom: 10px;
 }
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
-}
-li {
-  list-style-type: none;
-}
-ul {
-  padding-left: 0;
 }
 b {
   color: var(--black);
