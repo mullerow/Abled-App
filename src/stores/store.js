@@ -27,7 +27,7 @@ export const storeData = defineStore('poiStore', {
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
-      choosenCategory: 'Alle',
+      choosenCategory: 'Toilette',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
@@ -60,8 +60,7 @@ export const storeData = defineStore('poiStore', {
         openingTimes: '',
         prioWidth: null,
         creationDate: '',
-        createdBy: null,
-        currentSearchDistance: 0
+        createdBy: null
       },
       changedUserData: {
         // WICHTIG!!!! ES WERDEN ALLE DATEN ÜBERSCHRIEBEN; ALSO MUSS DER GESAMTE DATENSATZ EINES POIS / USER AKTUALISIERT WERDEN
@@ -272,6 +271,7 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
+      console.log('this.straightLineToAim', this.straightLineToAim)
       return this.straightLineToAim
     },
 
@@ -304,18 +304,21 @@ export const storeData = defineStore('poiStore', {
 
     checkForFilterOptions() {
       this.temporaryData.filteredPois = []
-      for (let i = 0; i < this.poiData.length; i++) {
-        this.poiData[i].currentSearchDistance = this.calcDistance(
-          this.poiData[i].xCoordinates,
-          this.poiData[i].yCoordinates,
+      for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
+        this.temporaryData.currentPois[i].currentSearchDistance = this.calcDistance(
+          this.temporaryData.currentPois[i].xCoordinates,
+          this.temporaryData.currentPois[i].yCoordinates,
           this.ownXCoordinate,
           this.ownYCoordinate
         )
         if (
-          Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
+          Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
+          Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.poiData[i].id) //////////// AUF API ANPASSEN!
-          this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
+          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
+          this.temporaryData.filteredPois.push(
+            this.temporaryData.currentPois[i].currentSearchDistance
+          )
         }
       }
     },

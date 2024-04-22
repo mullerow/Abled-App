@@ -47,11 +47,6 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions()
-  },
-  methods: {
-    goToChoosenPoiDetails(poi) {
-      this.$router.push({ name: 'infopoi', params: { id: poi.id } }) // Erstellt erst den Routerlink wenn auch die gesuchte Id vorhanden ist
-    }
   }
 }
 </script>

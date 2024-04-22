@@ -46,8 +46,8 @@ export default {
       let minWidth = document.getElementById('minWidthInput').value
       let comment = document.getElementById('comment').value
       let creationDate = new Date()
-      let XKoordinate = localStorage.getItem('x-Koordinate')
-      let YKoordinate = localStorage.getItem('y-Koordinate')
+      let XKoordinate = Number(localStorage.getItem('x-Koordinate'))
+      let YKoordinate = Number(localStorage.getItem('y-Koordinate'))
       let userID = JSON.parse(localStorage.getItem('currentUserID'))
 
       this.store.temporaryData.newPoiData = {
@@ -61,7 +61,6 @@ export default {
         prioWidth: minWidth,
         creationDate: creationDate,
         createdBy: userID,
-        currentSearchDistance: 0,
         comment: comment
       }
       this.store.addNewPoiToAPI()
