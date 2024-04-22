@@ -91,7 +91,11 @@ export default {
   },
   computed: {
     poi() {
-      return this.store.poiData.find((el) => el.id == this.id)
+      // Extrahiere die ID aus der URL
+      const idFromUrl = this.$route.params.id
+
+      // Suche den Poi in der Store-Datenstruktur basierend auf der extrahierten ID
+      return this.store.temporaryData.ownPoisList.find((poi) => poi.id === idFromUrl) || {}
     }
   },
   methods: {

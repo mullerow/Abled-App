@@ -31,6 +31,9 @@ export const storeData = defineStore('poiStore', {
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
+      //own Poi rendern
+      ownPoisList: [],
+
       ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       currentUserData: [],
