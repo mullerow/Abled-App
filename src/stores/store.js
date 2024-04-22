@@ -27,7 +27,7 @@ export const storeData = defineStore('poiStore', {
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
-      choosenCategory: 'Toilette',
+      choosenCategory: 'Rampe',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
@@ -52,7 +52,7 @@ export const storeData = defineStore('poiStore', {
       },
       newPoiData: {
         poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer'],
+        detailCategories: [],
         xCoordinates: null,
         yCoordinates: null,
         status: true,
@@ -271,7 +271,6 @@ export const storeData = defineStore('poiStore', {
       this.straightLineToAim = Math.sqrt(
         Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
       ).toFixed(0)
-      console.log('this.straightLineToAim', this.straightLineToAim)
       return this.straightLineToAim
     },
 
@@ -311,14 +310,14 @@ export const storeData = defineStore('poiStore', {
           this.ownXCoordinate,
           this.ownYCoordinate
         )
+        console.log('POI Distanz:', this.temporaryData.currentPois[i].currentSearchDistance)
+        console.log('Eingestellte Distanz:', this.temporaryData.searchDistance)
         if (
           Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
           Number(this.temporaryData.searchDistance)
         ) {
           this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
-          this.temporaryData.filteredPois.push(
-            this.temporaryData.currentPois[i].currentSearchDistance
-          )
+          console.log('filteredPois', this.temporaryData.filteredPois)
         }
       }
     },
@@ -337,18 +336,23 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
-      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
+      for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
+        console.log('poi.poiName', poi.poiName)
+        console.log('this.temporaryData.choosenCategory', this.temporaryData.choosenCategory)
+        console.log('poi.id', poi.id)
+        console.log('this.temporaryData.filteredPois[i]', this.temporaryData.filteredPois[i])
         if (this.temporaryData.choosenCategory === 'Alle') {
           console.log('ALLE')
           return true
         } else if (
-          poi.id === this.temporaryData.filteredPois[i] && //////////// AUF API ANPASSEN!
-          poi.poiName == this.temporaryData.choosenCategory &&
-          this.compareDetailCategories(poi)
+          poi.id === this.temporaryData.filteredPois[i] &&
+          poi.poiName == this.temporaryData.choosenCategory
+          // && this.compareDetailCategories(poi)
         ) {
           return true
-        } else return false
+        }
       }
+      return false
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
