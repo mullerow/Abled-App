@@ -7,22 +7,37 @@
   <!--hier ggf
   <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <h2>Hier findest du alle Orte die du erstellt hast</h2>
-  <router-link v-for="element of store.poiData" :key="element.id" :to="'/ownpoi/' + element.id"
+
+  <router-link
+    v-for="element of this.store.temporaryData.ownPoisList"
+    :key="element.id"
+    :to="'/ownpoi/' + element.id"
     ><CategorieButton :Kategorie="element.poiName"
   /></router-link>
 </template>
 
-<script setup>
-import { storeData } from '@/stores/store.js'
-
-const store = storeData()
-</script>
-
 <script>
+import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 export default {
-  components: { HomeButton, EarthMap, CategorieButton }
+  components: { HomeButton, EarthMap, CategorieButton },
+  data() {
+    return {
+      store: storeData(),
+      currentUser: JSON.parse(localStorage.getItem('currentUserID'))
+    }
+  },
+  methods: {
+    getcreatedBy() {
+      this.store.temporaryData.ownPoisList = this.store.temporaryData.currentPois.filter(
+        (poi) => poi.createdBy === this.currentUser
+      )
+    }
+  },
+  mounted() {
+    this.getcreatedBy()
+  }
 }
 </script>
