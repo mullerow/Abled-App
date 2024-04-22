@@ -9,31 +9,31 @@
  -->
   <h2>Ergebnisliste</h2>
 
-  <!-- <RouterLink :to="{ name: 'infopoi' }"></RouterLink> -->
   <ul>
-    <RouterLink :to="{ name: 'infopoi', params: { id: 'cc46b9ca-e4a7-42f4-802e-83f185e8f4ae' } }"
-      >Weiter
-      <li v-for="poi in store.poiData" :key="poi.id">
-        <button
-          class="searchlist-button"
-          v-if="store.renderFilteredPois(poi)"
-          @click="saveChoosenPoi(poi)"
+    <!-- <RouterLink
+      v-if="store.temporaryData.choosenPoi"
+      :to="{ name: 'infopoi', params: { id: store.temporaryData.choosenPoi.id } }"
+    ></RouterLink
+    -->
+    <li v-for="poi in store.poiData" :key="poi.id">
+      <button
+        class="searchlist-button"
+        v-if="store.renderFilteredPois(poi)"
+        @click="goToChoosenPoiDetails(poi)"
+      >
+        <div class="searchlist-poiname">{{ poi.poiName }}</div>
+        <div
+          class="searchlist-detailcategories"
+          v-for="detailcategorie of poi.detailCategories"
+          :key="'detail-' + poi.id + '-' + detailcategorie"
         >
-          <!--checkForFilterOptions -->
-          <div class="searchlist-poiname">{{ poi.poiName }}</div>
-          <div
-            class="searchlist-detailcategories"
-            v-for="detailcategorie of poi.detailCategories"
-            :key="'detail-' + poi.id + '-' + detailcategorie"
-          >
-            ✅ {{ detailcategorie }}
-          </div>
-          <div class="searchlist-distance">
-            Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
-          </div>
-        </button>
-      </li></RouterLink
-    >
+          ✅ {{ detailcategorie }}
+        </div>
+        <div class="searchlist-distance">
+          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+        </div>
+      </button>
+    </li>
   </ul>
 </template>
 
@@ -54,11 +54,11 @@ export default {
     }
   },
   created() {
-    this.store.checkForFilterOptions() // renderFilteredPois
+    this.store.checkForFilterOptions()
   },
   methods: {
-    saveChoosenPoi(poi) {
-      this.store.temporaryData.choosenPoi = poi.id
+    goToChoosenPoiDetails(poi) {
+      this.$router.push({ name: 'infopoi', params: { id: poi.id } }) // Erstellt erst den Routerlink wenn auch die gesuchte Id vorhanden ist
     }
   }
 }

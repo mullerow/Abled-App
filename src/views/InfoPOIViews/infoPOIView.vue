@@ -9,14 +9,11 @@
   <br />
   <h2>Info</h2>
 
-  <p v-if="this.store.temporaryData.currentPois[0]" class="info">
-    <b>PoiId:</b>
-    {{
-      store.temporaryData.currentPois[0].poiName
-        ? store.temporaryData.currentPois[0].poiName
-        : 'User konnte nicht geladen werden'
-    }}
+  <p v-if="findChoosenPoi" class="info">
+    <b>Name des Pois:</b>
+    {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     <br />
+    <!-- 
     <b>Coordinates:</b>
     {{
       store.temporaryData.currentPois[0].xCoordinates
@@ -50,10 +47,11 @@
         : 'User konnte nicht geladen werden'
     }}
   </p>
-
-  <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
-  <NavButton :Navigation="'In Maps öffnen'" />
-  <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
+-->
+    <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
+    <NavButton :Navigation="'In Maps öffnen'" />
+    <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
+  </p>
 </template>
 
 <script>
@@ -83,8 +81,12 @@ export default {
     }
   },
   computed: {
-    poi() {
-      return this.store.poiData.find((el) => el.id == this.id)
+    findChoosenPoi() {
+      console.log(
+        'test',
+        this.store.temporaryData.currentPois.find((el) => el.id == this.id, this.id)
+      )
+      return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
     }
   },
   mounted() {
