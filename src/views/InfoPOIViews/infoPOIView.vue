@@ -10,31 +10,35 @@
   <h2>Info</h2>
 
   <p v-if="this.store.temporaryData.currentPois[0]" class="info">
-    <b>PoiId:</b>
-    {{
+    <b>PoiName:</b>
+    {{ poi.poiName }}
+    <!-- {{
       store.temporaryData.currentPois[0].poiName
         ? store.temporaryData.currentPois[0].poiName
         : 'User konnte nicht geladen werden'
-    }}
+    }} -->
     <br />
     <b>Coordinates:</b>
-    {{
+    {{ poi.xCoordinates }} 
+    {{ poi.yCoordinates }}
+    <!-- {{
       store.temporaryData.currentPois[0].xCoordinates
         ? store.temporaryData.currentPois[0].xCoordinates
         : 'User konnte nicht geladen werden'
-    }}
+    }} -->
 
-    {{
+    <!-- {{
       store.temporaryData.currentPois[0].yCoordinates
         ? store.temporaryData.currentPois[0].yCoordinates
         : 'User konnte nicht geladen werden'
-    }}
+    }} -->
     <b>openingimes:</b>
-    {{
+    {{ poi.openingTimes }}
+    <!-- {{
       store.temporaryData.currentPois[0].openingTimes
         ? store.temporaryData.currentPois[0].openingTimes
         : 'User konnte nicht geladen werden'
-    }}
+    }} -->
     <br />
     <b>Address:</b>
     {{
@@ -44,11 +48,15 @@
     }}
     <br />
     <b>Categories:</b>
-    {{
+    <ul>
+          <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
+        </ul>
+    <!-- {{
       store.temporaryData.currentPois[0].detailCategories
         ? store.temporaryData.currentPois[0].detailCategories
         : 'User konnte nicht geladen werden'
-    }}
+    }} -->
+     
   </p>
 
   <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />

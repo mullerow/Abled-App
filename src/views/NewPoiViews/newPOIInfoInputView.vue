@@ -30,6 +30,7 @@ export default {
     CategorieButton,
     InputField,
     LöschenButton
+
   },
 
   data() {

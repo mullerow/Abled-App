@@ -8,13 +8,29 @@
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
   <h2>Ergebnisliste</h2>
-
-  <router-link
-    v-for="poi of store.temporaryData.currentPois"
-    :key="poi.id"
-    :to="'/infopoi/' + poi.id"
-    ><CategorieButton :Kategorie="poi.poiName"
+  <router-link v-for="element of store.poiData" :key="element.id" :to="'/infopoi/' + element.id"
+    ><CategorieButton :Kategorie="element.poiName"
   /></router-link>
+
+  <!-- <RouterLink :to="{ name: 'infopoi' }">Weiter</RouterLink> -->
+  <!-- <ul>
+    <li v-for="poi in store.poiData" :key="poi.id">
+      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)"> -->
+  <!--checkForFilterOptions -->
+  <!-- <div class="searchlist-poiname">{{ poi.poiName }}</div>
+        <div
+          class="searchlist-detailcategories"
+          v-for="detailcategorie of poi.detailCategories"
+          :key="'detail-' + poi.id + '-' + detailcategorie"
+        >
+          ✅ {{ detailcategorie }}
+        </div>
+        <div class="searchlist-distance">
+          Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
+        </div>
+      </button>
+    </li>
+  </ul> -->
 </template>
 
 <script>
