@@ -30,7 +30,6 @@ export default {
     CategorieButton,
     InputField,
     LöschenButton
-
   },
 
   data() {
@@ -49,6 +48,7 @@ export default {
       let creationDate = new Date()
       let XKoordinate = localStorage.getItem('x-Koordinate')
       let YKoordinate = localStorage.getItem('y-Koordinate')
+      let userID = JSON.parse(localStorage.getItem('currentUserID'))
 
       this.store.temporaryData.newPoiData = {
         poiName: category,
@@ -60,11 +60,15 @@ export default {
         openingTimes: openingTimes,
         prioWidth: minWidth,
         creationDate: creationDate,
-        createdBy: '',
+        createdBy: userID,
         currentSearchDistance: 0,
         comment: comment
       }
       this.store.addNewPoiToAPI()
+      localStorage.removeItem('buttonValue')
+      localStorage.removeItem('OptionalCategories')
+      localStorage.removeItem('x-Koordinate')
+      localStorage.removeItem('y-Koordinate')
     }
   }
 }
