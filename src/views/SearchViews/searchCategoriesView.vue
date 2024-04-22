@@ -37,7 +37,7 @@ export default {
   methods: {
     saveButtonValue(categorie) {
       const buttonValue = document.getElementById(categorie.id).textContent
-      localStorage.setItem('buttonValue', buttonValue)
+      localStorage.setItem('searchCategorie', buttonValue)
     }
   }
 }

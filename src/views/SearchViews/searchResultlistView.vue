@@ -8,13 +8,16 @@
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
   <h2>Ergebnisliste</h2>
+  <router-link v-for="element of store.poiData" :key="element.id" :to="'/infopoi/' + element.id"
+    ><CategorieButton :Kategorie="element.poiName"
+  /></router-link>
 
-  <RouterLink :to="{ name: 'infopoi' }"> Weiter</RouterLink>
-  <ul>
+  <!-- <RouterLink :to="{ name: 'infopoi' }">Weiter</RouterLink> -->
+  <!-- <ul>
     <li v-for="poi in store.poiData" :key="poi.id">
-      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
-        <!--checkForFilterOptions -->
-        <div class="searchlist-poiname">{{ poi.poiName }}</div>
+      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)"> -->
+  <!--checkForFilterOptions -->
+  <!-- <div class="searchlist-poiname">{{ poi.poiName }}</div>
         <div
           class="searchlist-detailcategories"
           v-for="detailcategorie of poi.detailCategories"
@@ -27,7 +30,7 @@
         </div>
       </button>
     </li>
-  </ul>
+  </ul> -->
 </template>
 
 <script>
@@ -35,11 +38,14 @@ import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
+import CategorieButton from '@/components/CategorieButton.vue'
+
 export default {
   components: {
     HomeButton,
     EarthMap,
-    BackArrow
+    BackArrow,
+    CategorieButton
   },
   data() {
     return {
@@ -48,6 +54,7 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions() // renderFilteredPois
+    this.store.getPoiDataFromAPI()
   }
 }
 </script>
