@@ -14,6 +14,7 @@
     v-model="mobilityAssistanceWidth"
     :placeholder="'Breite in cm'"
   />
+
   <NavButton Navigation="Weiter" @click="saveDataAndOpenPopup" />
 
   <div v-if="showPopup" class="popup">
