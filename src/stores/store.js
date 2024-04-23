@@ -363,7 +363,7 @@ export const storeData = defineStore('poiStore', {
       this.temporaryData.choosenDetailCategories = []
     },
     openExternMapToNavigate(poiXPosition, poiYPosition) {
-      const zoomFactor = 18
+      const zoomFactor = 16
       const centerDisplay =
         this.temporaryData.ownXCoordinate + '%2C' + this.temporaryData.ownYCoordinate
       const locationStart =
@@ -373,6 +373,10 @@ export const storeData = defineStore('poiStore', {
       console.log('locationStart', locationStart, 'locationPoi', locationPoi)
       const streetmapsURL = `https://routing.openstreetmap.de/?z=${zoomFactor}&center=${centerDisplay}&loc=${locationStart}&loc=${locationPoi}&hl=en&alt=0&srv=2`
       console.log('URL:', streetmapsURL)
+      const link = document.createElement('a')
+      link.href = streetmapsURL
+      link.target = '_blank'
+      link.click()
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
