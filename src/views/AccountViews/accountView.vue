@@ -23,6 +23,7 @@
     id="email"
     v-model="updatedUserData.email"
     :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
+    :class="{ 'invalid-email': !emailValid }"
   />
 
   <label for="password">Passwort</label>
@@ -66,6 +67,11 @@
       <button @click="cancelDelete">Nein</button>
     </div>
   </div>
+
+  <div v-if="showEmailErrorPopup" class="email-popup">
+    <p>Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.</p>
+    <button @click="closeEmailErrorPopup">OK</button>
+  </div>
 </template>
 
 <script>
@@ -97,7 +103,9 @@ export default {
       },
 
       currentUserID: localStorage.getItem('currentUserID').replace(/"/g, ''),
-      showConfirmation: false
+      showConfirmation: false,
+      emailValid: true,
+      showEmailErrorPopup: false
     }
   },
 
@@ -149,9 +157,16 @@ export default {
     validateAndTrimEmail() {
       const email = this.updatedUserData.email.trim()
       if (!this.isValidEmail(email)) {
-        throw new Error('Ungültige E-Mail-Adresse')
+        this.showEmailErrorPopup = true
+        this.emailValid = false
+        return
       }
+      this.emailValid = true
       this.userData.eMailAddress = email
+    },
+
+    closeEmailErrorPopup() {
+      this.showEmailErrorPopup = false
     },
     trimOtherFields() {
       this.updatedUserData.password = this.updatedUserData.password.trim()
@@ -250,5 +265,21 @@ export default {
   border-radius: 0.5rem;
   margin: 2rem;
   color: darkgray;
+}
+.input.invalid-email {
+  border-color: var(--black);
+}
+
+.email-popup {
+  color: var(--red);
+  position: fixed;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  padding: 20px;
+  border: 4px solid var(--black);
+  z-index: 9999;
 }
 </style>
