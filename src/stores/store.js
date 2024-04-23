@@ -238,7 +238,7 @@ export const storeData = defineStore('poiStore', {
         {
           id: 304,
           categoryName: 'Zugang',
-          detailCategorys: ['maximale breite', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
+          detailCategorys: ['Ohne Treppe']
         },
         {
           id: 305,
