@@ -7,7 +7,10 @@
   <h2>Location Selection</h2>
   <h2>Wo befindet sich der Ort?</h2>
   <categorie-button :Kategorie="'Mein Standort'" @click="store.getOwnPosition" />
-  <p><b>Dein Standort:</b> {{ store.city }}, {{ store.street }}, {{ store.houseNumber }}</p>
+  <p>
+    <b>Dein Standort:</b> {{ store.temporaryData.city }}, {{ store.temporaryData.street }},
+    {{ store.temporaryData.houseNumber }}
+  </p>
   <RouterLink :to="{ name: 'newpoiinfoinput' }"
     ><NavButton Navigation="Weiter mit meinem Standort"
   /></RouterLink>

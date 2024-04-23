@@ -10,7 +10,9 @@
   <InputField value="Füge einen Kommentar hinzu" id="comment" />
   <LöschenButton Löschen="Nicht nutzbar" />
   <categorie-button Kategorie="Abbrechen" />
-  <NavButton Navigation="Erstellen" @click="saveNewPoi()" />
+  <RouterLink :to="{ name: 'home' }">
+    <NavButton Navigation="Erstellen" @click="saveNewPoi()"
+  /></RouterLink>
 </template>
 
 <script>
