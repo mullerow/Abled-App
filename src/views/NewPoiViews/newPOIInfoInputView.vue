@@ -49,6 +49,10 @@ export default {
       let XKoordinate = localStorage.getItem('x-Koordinate')
       let YKoordinate = localStorage.getItem('y-Koordinate')
       let userID = JSON.parse(localStorage.getItem('currentUserID'))
+      let street = this.store.temporaryData.street
+      let number = this.store.temporaryData.houseNumber
+      let zip = this.store.temporaryData.zipCode
+      let city = this.store.temporaryData.city
 
       this.store.temporaryData.newPoiData = {
         poiName: category,
@@ -62,7 +66,11 @@ export default {
         creationDate: creationDate,
         createdBy: userID,
         currentSearchDistance: 0,
-        comment: comment
+        comment: comment,
+        street: street,
+        number: number,
+        zip: zip,
+        city: city
       }
       this.store.addNewPoiToAPI()
       localStorage.removeItem('buttonValue')
