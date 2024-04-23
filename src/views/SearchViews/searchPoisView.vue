@@ -1,7 +1,10 @@
 <template>
-  <div class="header-buttons">
+  <header>
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
-  </div>
+    <headerLogo> </headerLogo>
+    <div class="header-buttons"></div>
+    <RouterLink :to="{ name: 'home' }" class="back-arrow"> <BackArrow /></RouterLink>
+  </header>
 
   <h2>Suche einen POI Start</h2>
 
@@ -36,10 +39,14 @@
 <script>
 import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
+import BackArrow from '@/components/BackArrow.vue'
 
 export default {
   components: {
-    HomeButton
+    HomeButton,
+    headerLogo,
+    BackArrow
   },
   data() {
     return {
@@ -72,5 +79,12 @@ label {
   border: 2px solid aliceblue;
   border-radius: 5px;
   padding: 5px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+}
+.header-buttons {
+  margin-left: 50px;
 }
 </style>
