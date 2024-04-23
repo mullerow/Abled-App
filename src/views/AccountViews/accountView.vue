@@ -11,8 +11,8 @@
     class="input"
     type="text"
     id="username"
-    v-model="userData.userName"
-    :placeholder="userData.userName ? userData.userName : 'username'"
+    v-model="updatedUserData.username"
+    :placeholder="updatedUserData.username ? updatedUserData.username : 'username'"
     :disabled="!editMode"
   />
 
@@ -21,39 +21,43 @@
     class="input"
     type="email"
     id="email"
-    v-model="userData.eMailAddress"
-    :placeholder="userData.eMailAddress ? userData.eMailAddress : 'Email'"
+    v-model="updatedUserData.email"
+    :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
   />
+
   <label for="password">Passwort</label>
   <input
     class="input"
     type="password"
     id="password"
-    v-model="userData.passWord"
-    :placeholder="userData.passWord ? userData.passWord : 'Passwort'"
+    v-model="updatedUserData.password"
+    :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
   />
-  <label for="mobilityAssistance">Mobilitätshilfe</label>
   <input
     class="input"
     type="text"
     id="mobilityAssistance"
-    v-model="userData.mobilityAssistance"
-    :placeholder="userData.mobilityAssistance ? userData.mobilityAssistance : 'mobility assistance'"
+    v-model="updatedUserData.mobilityAssistance"
+    :placeholder="
+      updatedUserData.mobilityAssistance
+        ? updatedUserData.mobilityAssistance
+        : 'mobility assistance'
+    "
   />
-  <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
+  <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
   <input
     class="input"
     type="text"
     id="mobilityAssistanceWidth"
-    v-model="userData.mobilityAssistanceWidth"
+    v-model="updatedUserData.mobilityAssistanceWidth"
     :placeholder="
-      userData.mobilityAssistanceWidth
-        ? userData.mobilityAssistanceWidth
+      updatedUserData.mobilityAssistanceWidth
+        ? updatedUserData.mobilityAssistanceWidth
         : 'mobilityAssistance width'
     "
   />
   <LöschenButton :Löschen="'Account-Löschen'" @click="confirmDelete"></LöschenButton>
-  <NavButton :Navigation="'Speichern'" @click="saveUserData"></NavButton>
+  <NavButton :Navigation="'Speichern'" @click="validateAndSaveUserData"></NavButton>
 
   <div v-if="showConfirmation" class="confirmation-popup">
     <div class="confirmation-message">
@@ -76,108 +80,157 @@ export default {
   data() {
     return {
       store: storeData(),
-      updatedUserData: {
+      updatedUserData: JSON.parse(localStorage.getItem('updatedUserData')) || {
+        username: '',
+        email: '',
+        password: '',
+        mobilityAssistance: '',
+        mobilityAssistanceWidth: parseInt('')
+      },
+      userData: {
+        id: '',
         userName: '',
         eMailAddress: '',
         passWord: '',
         mobilityAssistance: '',
         mobilityAssistanceWidth: ''
       },
-      userData: {
-        eMailAddress: '',
-        passWord: '',
-        mobilityAssistance: '',
-        mobilityAssistanceWidth: ''
-      },
+      currentUserID: localStorage.getItem('currentUserID').replace(/"/g, ''),
       showConfirmation: false
     }
   },
 
   created() {
-    const id = '102'
-    this.loadUserDataFromStoreAndSaveToLocal(id)
+    this.fetchAndFilterUserData()
   },
+
   watch: {
-    userData: {
+    updatedUserData: {
       deep: true,
       handler(newValue) {
-        console.log('New value for userData:', newValue)
-        this.updateLocalStorage()
+        //console.log('New value for updatedUserData:', newValue)
+        this.updateUserDataInLocalStorage(newValue)
       }
     }
   },
 
   methods: {
+    //Schritt 1 holen der Userdaten von der API durch die hinterlegte ID im local Storage
+    async fetchAndFilterUserData() {
+      try {
+        await this.store.getUserDataFromAPI()
+        const currentUser = this.store.temporaryData.currentUserData.find((user) => {
+          //console.log('User ID (API/Store.js):', user.id)
+          //console.log('Current UserID (localStorage):', this.currentUserID)
+          return user.id === this.currentUserID
+        })
+        //console.log('ausgabe der currentUserData', this.store.temporaryData.currentUserData)
+
+        if (!currentUser) {
+          console.error('Benutzer nicht gefunden.')
+          return
+        }
+
+        this.userData = {
+          id: currentUser.id,
+          username: currentUser.username || '',
+          email: currentUser.email || '',
+          password: currentUser.password || '',
+          mobilityAssistance: currentUser.mobilityAssistance || '',
+          mobilityAssistanceWidth: parseInt(currentUser.mobilityAssistanceWidth) || 0
+        }
+        //console.log('Filtered User Data:', this.userData)
+        //this.updateUserData()
+      } catch (error) {
+        console.error('Fehler beim Abrufen und Filtern der Benutzerdaten:', error)
+      }
+    },
+    /*updateUserData() {
+      try {
+        localStorage.setItem('updatedUserData', JSON.stringify(this.userData))
+        console.log('Benutzerdaten erfolgreich aktualisiert und im lokalen Speicher gespeichert.')
+      } catch (error) {
+        console.error('Fehler beim Aktualisieren und Speichern der Benutzerdaten:', error)
+      }
+    },*/
+    //Validierungs Logik
     isValidEmail(email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       return emailRegex.test(email)
     },
     validateAndTrimEmail() {
-      const email = this.userData.eMailAddress.trim()
+      const email = this.updatedUserData.email.trim()
       if (!this.isValidEmail(email)) {
         throw new Error('Ungültige E-Mail-Adresse')
       }
       this.userData.eMailAddress = email
     },
     trimOtherFields() {
-      this.userData.passWord = this.userData.passWord.trim()
-      this.userData.mobilityAssistance = this.userData.mobilityAssistance.trim()
-      this.userData.mobilityAssistanceWidth = this.userData.mobilityAssistanceWidth.trim()
+      this.updatedUserData.password = this.updatedUserData.password.trim()
+      this.updatedUserData.mobilityAssistance = this.updatedUserData.mobilityAssistance.trim()
+      this.updatedUserData.mobilityAssistanceWidth =
+        this.updatedUserData.mobilityAssistanceWidth.trim()
     },
-    loadUserDataFromStoreAndSaveToLocal(id) {
+    //Schritt 2: Update der Daten im Local Storage
+    updateUserDataInLocalStorage(userData) {
       try {
-        const user = this.store.userData.find((user) => user.id === parseInt(id))
+        localStorage.setItem('updatedUserData', JSON.stringify(userData))
+        console.log('Benutzerdaten erfolgreich im lokalen Speicher aktualisiert:', userData)
+        //Aufruf temporäre Daten speichern
+        //this.saveUserDataToTemporaryData()
+      } catch (error) {
+        console.error('Fehler beim Aktualisieren der Benutzerdaten im lokalen Speicher:', error)
+      }
+    },
 
-        if (!user) {
-          console.error(`Benutzer mit der ID ${id} wurde nicht gefunden.`)
+    //Schritt 3: Daten an
+    async saveUserDataAndSendToServer() {
+      try {
+        const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
+        if (!updatedUserData) {
+          console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
           return
         }
-        this.userData = user
-
-        localStorage.setItem('userData', JSON.stringify(user))
-
+        this.store.temporaryData.changedUserData = {
+          id: updatedUserData.id,
+          username: updatedUserData.username || '',
+          email: updatedUserData.email || '',
+          mobilityAssistance: updatedUserData.mobilityAssistance || '',
+          mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth) || 0,
+          password: updatedUserData.password || ''
+        }
         console.log(
-          `Benutzerdaten des Benutzers mit der ID ${id} wurden erfolgreich in den localStorage hochgeladen.`
+          'Aktualisierte Benutzerdaten erfolgreich im temporären Speicher gespeichert:',
+          this.store.temporaryData.changedUserData
         )
+        await this.store.updateUserAtAPI(this.store.temporaryData.changedUserData.id)
       } catch (error) {
-        console.error('Fehler beim Laden der Benutzerdaten aus dem Store:', error)
+        console.error(
+          'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
+          error
+        )
       }
     },
-    updateLocalStorage() {
-      localStorage.setItem('userData', JSON.stringify(this.userData))
-    },
 
-    saveUserDataToStore(userData) {
+    validateAndSaveUserData() {
       try {
-        const store = storeData()
-        const userIndex = store.userData.findIndex((user) => user.id === userData.id)
-        if (userIndex === -1) {
-          console.error(`Benutzer mit der ID ${userData.id} wurde nicht gefunden.`)
+        //Validierungen werden aufgerufen
+        this.validateAndTrimEmail(this.updatedUserData)
+        this.trimOtherFields(this.updatedUserData)
+        const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
+
+        if (!updatedUserData) {
+          console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
           return
         }
 
-        store.userData[userIndex] = { ...store.userData[userIndex], ...userData }
-      } catch (error) {
-        console.error('Fehler beim Aktualisieren der Benutzerdaten im Store:', error)
-      }
-    },
-    saveUserData() {
-      try {
-        this.validateAndTrimEmail()
-
-        this.trimOtherFields()
-        const storedUserData = JSON.parse(localStorage.getItem('userData'))
-
-        if (!storedUserData) {
-          console.error('Keine Benutzerdaten im lokalen Speicher gefunden.')
-          return
-        }
-
-        this.saveUserDataToStore(storedUserData)
+        this.saveUserDataAndSendToServer(updatedUserData)
       } catch (error) {
         console.error('Fehler beim Speichern der Benutzerdaten:', error)
       }
+      console.log('temporäre Daten:', this.store.temporaryData.changedUserData)
     },
+
     confirmDelete() {
       this.showConfirmation = true
     },
