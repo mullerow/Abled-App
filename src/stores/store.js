@@ -252,8 +252,14 @@ export const storeData = defineStore('poiStore', {
             'Wickelplatz',
             'Behindertengerechte Toiletten',
             'Rollstuhl/Kinderwagen geeignet',
-            'Kinderstühle'
+            'Kinderstühle',
+            'Stellplatz Kinderwagen'
           ]
+        },
+        {
+          id: 307,
+          categoryName: 'Wickelplatz',
+          detailCategorys: ['Windelspender', 'Platz für Kinderwagen', 'Desinfektionsmittel']
         }
       ]
     }
@@ -319,6 +325,13 @@ export const storeData = defineStore('poiStore', {
           this.temporaryData.ownXCoordinate,
           this.temporaryData.ownYCoordinate
         )
+        console.log(
+          'currentSearchDistance',
+          this.temporaryData.currentPois[i].currentSearchDistance,
+          'searchDistance',
+          this.temporaryData.searchDistance
+        )
+        console.log('filteredPois', this.temporaryData.filteredPois)
         if (
           Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
           Number(this.temporaryData.searchDistance)
@@ -341,6 +354,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
+      console.log('filteredPois in REnder', this.temporaryData.filteredPois)
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
         if (this.temporaryData.choosenCategory == ' Alle') {
           return true
@@ -354,9 +368,11 @@ export const storeData = defineStore('poiStore', {
       }
       return false
     },
+
     resetDetailcategory() {
       this.temporaryData.choosenDetailCategories = []
     },
+
     openExternMapToNavigate(poiXPosition, poiYPosition) {
       const zoomFactor = 16
       const centerDisplay =
