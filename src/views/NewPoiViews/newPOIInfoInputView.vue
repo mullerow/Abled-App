@@ -10,7 +10,9 @@
   <InputField value="Füge einen Kommentar hinzu" id="comment" />
   <LöschenButton Löschen="Nicht nutzbar" />
   <categorie-button Kategorie="Abbrechen" />
-  <NavButton Navigation="Erstellen" @click="saveNewPoi()" />
+  <RouterLink :to="{ name: 'home' }">
+    <NavButton Navigation="Erstellen" @click="saveNewPoi()"
+  /></RouterLink>
 </template>
 
 <script>
@@ -49,6 +51,10 @@ export default {
       let XKoordinate = Number(localStorage.getItem('x-Koordinate'))
       let YKoordinate = Number(localStorage.getItem('y-Koordinate'))
       let userID = JSON.parse(localStorage.getItem('currentUserID'))
+      let street = this.store.temporaryData.street
+      let number = this.store.temporaryData.houseNumber
+      let zip = this.store.temporaryData.zipCode
+      let city = this.store.temporaryData.city
 
       this.store.temporaryData.newPoiData = {
         poiName: category,
@@ -61,7 +67,14 @@ export default {
         prioWidth: minWidth,
         creationDate: creationDate,
         createdBy: userID,
-        comment: comment
+
+        currentSearchDistance: 0,
+        comment: comment,
+        street: street,
+        number: number,
+        zip: zip,
+        city: city
+
       }
       this.store.addNewPoiToAPI()
       localStorage.removeItem('buttonValue')

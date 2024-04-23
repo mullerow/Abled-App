@@ -24,23 +24,20 @@
         </ul>
       </div>
     </div>
-    <LöschenButton :Löschen="'Löschen'" />
+    <RouterLink :to="{ name: 'home' }">
+      <LöschenButton :Löschen="'Löschen'" @click="deletePoi"
+    /></RouterLink>
     <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
   </div>
 
   <div v-else>
     <div class="input-field">
       <HeadLine :Headline="'Adresse'" />
-      <InputField ref="addressInput" type="text" id="address" v-model="editedPoi.address" />
+      <InputField ref="addressInput" type="text" id="address" />
     </div>
     <div class="input-field">
       <HeadLine :Headline="'Öffnungszeiten'" />
-      <InputField
-        ref="openingTimesInput"
-        type="text"
-        id="openingTimes"
-        v-model="editedPoi.openingTimes"
-      />
+      <InputField type="text" id="openingTimes" />
     </div>
     <HeadLine :Headline="'Zusatz'" />
     <div v-for="categorie in store.localData.categories" :key="categorie.id">
@@ -81,12 +78,7 @@ export default {
     return {
       id: this.$route.params.id,
       store: storeData(),
-      editing: false,
-      editedPoi: {
-        address: '',
-        openingTimes: '',
-        detailCategories: []
-      }
+      editing: false
     }
   },
   computed: {
@@ -102,11 +94,7 @@ export default {
     toggleEditing() {
       this.editing = true
 
-      this.editedPoi = {
-        address: this.$refs.addressInput.value,
-        openingTimes: this.$refs.openingTimesInput.value,
-        detailCategories: this.poi.detailCategories
-      }
+      localStorage.removeItem('ChangeOptionalCategories')
     },
 
     cancelEditing() {
@@ -126,16 +114,38 @@ export default {
     },
 
     saveChanges() {
-      // Save optional categories from local storage
-      const selectedCategories = JSON.parse(localStorage.getItem('OptionalCategories'))
-      this.editedPoi.detailCategories = selectedCategories ? selectedCategories : []
+      // Speichere die Werte als Variablen
+      const editedAddress = document.getElementById('address').value
+      const editedOpeningTimes = document.getElementById('openingTimes').value
+      const selectedCategories = JSON.parse(localStorage.getItem('ChangeOptionalCategories'))
+      const PoiId = this.$route.params.id
 
-      console.log(this.editedPoi)
-      // Save the editedPoi object to local storage
-      localStorage.setItem('editedPoi', JSON.stringify(this.editedPoi))
+      //console.log(this.poi.poiName)
+      // Aktualisiere den Poi im Store
+      this.store.temporaryData.changedPoiData = {
+        ...this.store.temporaryData.changedPoiData,
+        address: editedAddress,
+        openingTimes: editedOpeningTimes,
+        detailCategories: selectedCategories || [],
+        poiName: this.poi.poiName,
+        createdBy: JSON.parse(localStorage.getItem('currentUserID')),
+        xCoordinates: this.poi.xCoordinates,
+        yCoordinates: this.poi.yCoordinates,
+        prioWidth: this.poi.priowidth,
+        creationDate: this.poi.creationDate,
+        comment: this.poi.comment,
+        status: this.poi.status
+      }
+      // Aktualisiere den Poi in der API
+      this.store.updatePoiAtAPI(PoiId)
 
-      // Reset editing state
+      // Setze den Editing-Status zurück
       this.editing = false
+    },
+
+    deletePoi() {
+      const PoiId = this.$route.params.id
+      this.store.deletePoifromAPI(PoiId)
     }
   }
 }

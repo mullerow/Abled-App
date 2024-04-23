@@ -24,7 +24,7 @@ export const storeData = defineStore('poiStore', {
       street: '',
       houseNumber: null,
       city: '',
-      ZipCode: 0,
+      zipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
       choosenCategory: '',
@@ -283,11 +283,11 @@ export const storeData = defineStore('poiStore', {
       )
       if (res.ok) {
         const data = await res.json()
-        this.street = data.address.road
-        this.city = data.address.city || data.address.village
-        this.zipCode = data.address.postcode
-        this.district = data.address.suburb
-        this.houseNumber = data.address.house_number
+        this.temporaryData.street = data.address.road
+        this.temporaryData.city = data.address.city || data.address.village
+        this.temporaryData.zipCode = data.address.postcode
+        this.temporaryData.district = data.address.suburb
+        this.temporaryData.houseNumber = data.address.house_number
       } else {
         console.error('Die Koordinaten konnten leider nicht Verabeitet werden:')
       }
