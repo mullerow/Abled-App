@@ -52,7 +52,6 @@
         store.openExternMapToNavigate(findChoosenPoi.xCoordinates, findChoosenPoi.yCoordinates)
       "
     />
-    <!-- <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink> -->
   </p>
 </template>
 
