@@ -356,7 +356,10 @@ export const storeData = defineStore('poiStore', {
     renderFilteredPois(poi) {
       console.log('filteredPois in REnder', this.temporaryData.filteredPois)
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
-        if (this.temporaryData.choosenCategory == ' Alle') {
+        if (
+          this.temporaryData.choosenCategory == ' Alle' &&
+          poi.id === this.temporaryData.filteredPois[i]
+        ) {
           return true
         } else if (
           poi.id === this.temporaryData.filteredPois[i] &&
