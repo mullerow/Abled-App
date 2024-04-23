@@ -3,21 +3,25 @@
     <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
   </div>
-  <HeadLine :Headline="'Zusatz'" />
-  <div v-for="categorie in store.localData.categories" :key="categorie.id">
-    <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
-      <CategorieButton
-        v-for="detailCategorie in categorie.detailCategorys"
-        :key="detailCategorie"
-        :Kategorie="detailCategorie"
-        @click="saveButtonValue(detailCategorie)"
-        :id="detailCategorie"
-      />
+
+  <div class="container">
+    <HeadLine :Headline="'Zusatz'" />
+    <div v-for="categorie in store.localData.categories" :key="categorie.id">
+      <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+        <CategorieButton
+          v-for="detailCategorie in categorie.detailCategorys"
+          :key="detailCategorie"
+          :Kategorie="detailCategorie"
+          @click="saveButtonValue(detailCategorie)"
+          :id="detailCategorie"
+          :class="{ pressed: isPressed[detailCategorie] }"
+        />
+      </div>
     </div>
+    <RouterLink ref="lastLink" :to="{ name: 'newpoilocationselection' }"
+      ><NavButton Navigation="Weiter"
+    /></RouterLink>
   </div>
-  <RouterLink ref="lastLink" :to="{ name: 'newpoilocationselection' }"
-    ><NavButton Navigation="Weiter"
-  /></RouterLink>
 </template>
 
 <script setup>
@@ -38,7 +42,8 @@ export default {
 
   data() {
     return {
-      buttonValue: ''
+      buttonValue: '',
+      isPressed: {}
     }
   },
   created() {
@@ -48,6 +53,7 @@ export default {
 
   methods: {
     saveButtonValue(detailCategorie) {
+      this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
       let OptionalCategories = localStorage.getItem('OptionalCategories')
       OptionalCategories = OptionalCategories ? JSON.parse(OptionalCategories) : []
       const index = OptionalCategories.indexOf(detailCategorie)
@@ -57,7 +63,22 @@ export default {
         OptionalCategories.push(detailCategorie)
       }
       localStorage.setItem('OptionalCategories', JSON.stringify(OptionalCategories))
+      // Aktualisierung der isPressed-Bedingung
+      this.isPressed = !this.isPressed
     }
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.pressed {
+  color: var(--white);
+  background-color: var(--black);
+}
+</style>

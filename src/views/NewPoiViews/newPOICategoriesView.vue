@@ -11,7 +11,6 @@
       :Kategorie="categorie.categoryName"
       @click="saveButtonValue(categorie)"
       :id="categorie.id"
-      class="Kategorien"
     />
     <NavButton Navigation="Weiter" @click="navigateToLastLink" />
     <RouterLink ref="lastLink" :to="{ name: 'newpoioptionalcategorie' }"></RouterLink>
