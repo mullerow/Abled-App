@@ -78,7 +78,8 @@ export default {
   },
   methods: {
     deletePoi() {
-      this.store.deletePoi(this.id)
+      this.store.deletePoifromAPI(this.id)
+      this.$router.push({ name: 'home' })
     }
   },
   computed: {
