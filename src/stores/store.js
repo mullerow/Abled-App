@@ -27,7 +27,7 @@ export const storeData = defineStore('poiStore', {
       zipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
-      choosenCategory: 'Alle',
+      choosenCategory: '',
       choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
@@ -39,7 +39,7 @@ export const storeData = defineStore('poiStore', {
       currentUserData: [],
       currentPois: [],
       currentPoi: {},
-      currentUserId: 'e6aca17a-73b3-469b-9a0e-1cadfe1eb96a', // Hier muss dynamisch die ID zugewiesen werden
+      currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
       currentPoiId: '',
       newUserData: {
         userName: '',
@@ -55,7 +55,7 @@ export const storeData = defineStore('poiStore', {
       },
       newPoiData: {
         poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer'],
+        detailCategories: [],
         xCoordinates: null,
         yCoordinates: null,
         status: true,
@@ -63,8 +63,7 @@ export const storeData = defineStore('poiStore', {
         openingTimes: '',
         prioWidth: null,
         creationDate: '',
-        createdBy: null,
-        currentSearchDistance: 0
+        createdBy: null
       },
       changedUserData: {
         // WICHTIG!!!! ES WERDEN ALLE DATEN ÜBERSCHRIEBEN; ALSO MUSS DER GESAMTE DATENSATZ EINES POIS / USER AKTUALISIERT WERDEN
@@ -307,18 +306,21 @@ export const storeData = defineStore('poiStore', {
 
     checkForFilterOptions() {
       this.temporaryData.filteredPois = []
-      for (let i = 0; i < this.poiData.length; i++) {
-        this.poiData[i].currentSearchDistance = this.calcDistance(
-          this.poiData[i].xCoordinates,
-          this.poiData[i].yCoordinates,
+      for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
+        this.temporaryData.currentPois[i].currentSearchDistance = this.calcDistance(
+          this.temporaryData.currentPois[i].xCoordinates,
+          this.temporaryData.currentPois[i].yCoordinates,
           this.ownXCoordinate,
           this.ownYCoordinate
         )
+        console.log('POI Distanz:', this.temporaryData.currentPois[i].currentSearchDistance)
+        console.log('Eingestellte Distanz:', this.temporaryData.searchDistance)
         if (
-          Number(this.poiData[i].currentSearchDistance) <= Number(this.temporaryData.searchDistance)
+          Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
+          Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.poiData[i].id) //////////// AUF API ANPASSEN!
-          this.temporaryData.filteredPois.push(this.poiData[i].currentSearchDistance)
+          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
+          console.log('filteredPois', this.temporaryData.filteredPois)
         }
       }
     },
@@ -337,18 +339,22 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
-      for (let i = 0; i < this.temporaryData.filteredPois.length; i++) {
-        if (this.temporaryData.choosenCategory === 'Alle') {
+      for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
+        if (this.temporaryData.choosenCategory == ' Alle') {
           console.log('ALLE')
           return true
         } else if (
-          poi.id === this.temporaryData.filteredPois[i] && //////////// AUF API ANPASSEN!
+          poi.id === this.temporaryData.filteredPois[i] &&
           poi.poiName == this.temporaryData.choosenCategory &&
           this.compareDetailCategories(poi)
         ) {
           return true
-        } else return false
+        }
       }
+      return false
+    },
+    resetDetailcategory() {
+      this.temporaryData.choosenDetailCategories = []
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
