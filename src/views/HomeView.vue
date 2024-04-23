@@ -13,59 +13,15 @@ export default {
     }
   },
   mounted() {
-    //this.store.addNewPoiToAPI()
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
-    //this.store.addNewUserToAPI()
-    // this.store.deletePoifromAPI('629a3e86-486d-40e2-879f-62ac4eeef794')
+    this.store.resetDetailcategory()
   }
 }
 </script>
 
 <template>
   <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
-  <p v-if="store.temporaryData.currentUserData[0]">
-    <b>Nutzer:</b>
-    {{
-      store.temporaryData.currentUserData[this.store.temporaryData.currentUserData.length - 1]
-        .userName
-        ? store.temporaryData.currentUserData[this.store.temporaryData.currentUserData.length - 1]
-            .userName
-        : 'User konnte nicht geladen werden'
-    }}
-  </p>
-
-  <p v-if="this.store.temporaryData.currentPois[0]">
-    <b>Poi Name:</b>
-    {{
-      store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].poiName
-        ? store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].poiName
-        : 'Poi konnte nicht geladen werden'
-    }}
-  </p>
-  <p v-if="store.temporaryData.currentUserData[0]">
-    <b> UserId:</b>
-    {{
-      store.temporaryData.currentUserData[store.temporaryData.currentUserData.length - 1].id
-        ? store.temporaryData.currentUserData[this.store.temporaryData.currentUserData.length - 1]
-            .id
-        : 'UserId konnte nicht geladen werden'
-    }}
-  </p>
-  <button @click="this.store.updateUserAtAPI(this.store.temporaryData.currentUserId)">
-    TEST Update Username
-  </button>
-  <button @click="this.store.updatePoiAtAPI(this.store.temporaryData.currentPoiId)">
-    TEST Update POI name
-  </button>
-  <p v-if="this.store.temporaryData.currentPois[0]">
-    <b> POI ID:</b>
-    {{
-      this.store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].id
-        ? this.store.temporaryData.currentPois[this.store.temporaryData.currentPois.length - 1].id
-        : 'UserId konnte nicht geladen werden'
-    }}
-  </p>
 
   <section class="container">
     <ul class="menu">

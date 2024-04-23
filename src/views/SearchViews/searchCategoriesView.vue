@@ -17,26 +17,27 @@
     <NavButton Navigation="Weiter"
   /></RouterLink>
 </template>
-
-<script setup>
-import { storeData } from '@/stores/store.js'
-
-const store = storeData()
-</script>
-
 <script>
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
 import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
+import { storeData } from '@/stores/store.js'
 
 export default {
   components: { CategorieButton, NavButton, HomeButton, BackArrow, HeadLine },
+  data() {
+    return {
+      store: storeData()
+    }
+  },
 
   methods: {
     saveButtonValue(categorie) {
       const buttonValue = document.getElementById(categorie.id).textContent
+      this.store.temporaryData.choosenCategory = buttonValue
+      console.log('buttonValue', buttonValue)
       localStorage.setItem('buttonValue', buttonValue)
     }
   }
