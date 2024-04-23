@@ -6,7 +6,7 @@
     <RouterLink :to="{ name: 'home' }" class="back-arrow"> <BackArrow /></RouterLink>
   </header>
 
-  <h2>Suche einen POI Start</h2>
+  <h4>In welchem Umkreis möchtest du suchen?</h4>
 
   <input
     type="range"
@@ -18,7 +18,7 @@
     id="idRangeInput"
   />
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
-  <button @click="store.getOwnPosition">Eigener Standort</button>
+  <button @click="store.getOwnPosition">Bestimme meinen Standort</button>
   <br />
   <h3>Sie befinden sich hier:</h3>
   <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
