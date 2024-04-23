@@ -45,14 +45,14 @@
     </p>
   </section>
   <p>
-    <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
+    <LöschenButton :Löschen="'Nicht nutzbar'" @click="removePoi" />
     <NavButton
       :Navigation="'In Maps öffnen'"
       @click="
         store.openExternMapToNavigate(findChoosenPoi.xCoordinates, findChoosenPoi.yCoordinates)
       "
     />
-    <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
+    <!-- <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink> -->
   </p>
 </template>
 
@@ -77,9 +77,8 @@ export default {
     }
   },
   methods: {
-    deletePoi() {
-      this.store.deletePoifromAPI(this.id)
-      this.$router.push({ name: 'home' })
+    removePoi() {
+      this.$router.push({ name: 'searchresultlist' })
     }
   },
   computed: {
