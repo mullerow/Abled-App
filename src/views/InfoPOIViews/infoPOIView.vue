@@ -30,18 +30,32 @@
       {{ findChoosenPoi.minWidth ? findChoosenPoi.minWidth : 'Poi konnte nicht geladen werden' }} cm
     </p>
     <p>
-      Es ist noch
-      <b
-        >{{
-          this.store.calcDistance(
-            findChoosenPoi.xCoordinates,
-            findChoosenPoi.yCoordinates,
-            this.store.temporaryData.ownXCoordinate,
-            this.store.temporaryData.ownYCoordinate
-          )
-        }}
-        Meter</b
-      >entfernt
+      <b>Entfernung Luftlinie:</b>
+      {{
+        this.store.calcDistance(
+          findChoosenPoi.xCoordinates,
+          findChoosenPoi.yCoordinates,
+          this.store.temporaryData.ownXCoordinate,
+          this.store.temporaryData.ownYCoordinate
+        )
+      }}
+      Meter
+    </p>
+    <p>
+      <b>Öffnungszeiten:</b>
+      {{
+        findChoosenPoi.openingTimes
+          ? findChoosenPoi.openingTimes
+          : 'Poi konnte nicht geladen werden'
+      }}
+    </p>
+    <p>
+      <b>Kommentar:</b>
+      {{ findChoosenPoi.comment ? findChoosenPoi.comment : 'Poi konnte nicht geladen werden' }}
+    </p>
+    <p>
+      <b>Derzeit nutzbar?</b>
+      ✅
     </p>
   </section>
   <p>
