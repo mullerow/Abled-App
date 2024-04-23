@@ -83,10 +83,6 @@ export default {
   },
   computed: {
     findChoosenPoi() {
-      console.log(
-        'poiData:',
-        this.store.temporaryData.currentPois.find((el) => el.id == this.id)
-      )
       return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
     }
   },
