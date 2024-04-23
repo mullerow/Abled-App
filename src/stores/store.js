@@ -243,7 +243,12 @@ export const storeData = defineStore('poiStore', {
         {
           id: 305,
           categoryName: 'Toilette',
-          detailCategorys: ['Wickelplatz', 'Behindertengerecht', 'Kostenfrei']
+          detailCategorys: [
+            'Wickelplatz',
+            'Behindertengerecht',
+            'Kostenfrei',
+            'Desinfektionsmittel'
+          ]
         },
         {
           id: 306,
@@ -253,7 +258,8 @@ export const storeData = defineStore('poiStore', {
             'Behindertengerechte Toiletten',
             'Rollstuhl/Kinderwagen geeignet',
             'Kinderstühle',
-            'Stellplatz Kinderwagen'
+            'Stellplatz Kinderwagen',
+            'Desinfektionsmittel'
           ]
         },
         {

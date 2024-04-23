@@ -18,7 +18,9 @@
       />
     </div>
   </div>
-  <RouterLink :to="{ name: 'searchresultlist' }"> <NavButton Navigation="Weiter" /></RouterLink>
+  <RouterLink :to="{ name: 'searchresultlist' }">
+    <NavButton Navigation="Weiter" id="navButton"
+  /></RouterLink>
 </template>
 
 <script>
@@ -46,6 +48,14 @@ export default {
   },
   created() {
     this.buttonValue = localStorage.getItem('buttonValue')
+    if (this.store.temporaryData.choosenCategory === ' Alle') {
+      console.log('ALLLE ALLEAA')
+      this.$nextTick(() => {
+        // Wartet noch bis der DOM vollständig erstellt ist, damit navButton auch gefunden werden kann
+        const button = document.getElementById('navButton')
+        button.click()
+      })
+    }
   }
 }
 </script>

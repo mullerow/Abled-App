@@ -9,7 +9,7 @@ button {
 }
 
 img {
-  width: 24px;
+  width: 40px;
   height: auto;
   background-color: transparent;
 }
