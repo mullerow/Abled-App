@@ -95,12 +95,14 @@ export default {
         mobilityAssistance: '',
         mobilityAssistanceWidth: ''
       },
+
       currentUserID: localStorage.getItem('currentUserID').replace(/"/g, ''),
       showConfirmation: false
     }
   },
 
   created() {
+    console.log('Component created.')
     this.fetchAndFilterUserData()
   },
 
@@ -115,23 +117,19 @@ export default {
   },
 
   methods: {
-    //Schritt 1 holen der Userdaten von der API durch die hinterlegte ID im local Storage
     async fetchAndFilterUserData() {
       try {
         await this.store.getUserDataFromAPI()
         const currentUser = this.store.temporaryData.currentUserData.find((user) => {
-          //console.log('User ID (API/Store.js):', user.id)
-          //console.log('Current UserID (localStorage):', this.currentUserID)
           return user.id === this.currentUserID
         })
-        //console.log('ausgabe der currentUserData', this.store.temporaryData.currentUserData)
 
         if (!currentUser) {
           console.error('Benutzer nicht gefunden.')
           return
         }
 
-        this.userData = {
+        this.updatedUserData = {
           id: currentUser.id,
           username: currentUser.username || '',
           email: currentUser.email || '',
@@ -139,23 +137,13 @@ export default {
           mobilityAssistance: currentUser.mobilityAssistance || '',
           mobilityAssistanceWidth: parseInt(currentUser.mobilityAssistanceWidth) || 0
         }
-        //console.log('Filtered User Data:', this.userData)
-        //this.updateUserData()
       } catch (error) {
         console.error('Fehler beim Abrufen und Filtern der Benutzerdaten:', error)
       }
     },
-    /*updateUserData() {
-      try {
-        localStorage.setItem('updatedUserData', JSON.stringify(this.userData))
-        console.log('Benutzerdaten erfolgreich aktualisiert und im lokalen Speicher gespeichert.')
-      } catch (error) {
-        console.error('Fehler beim Aktualisieren und Speichern der Benutzerdaten:', error)
-      }
-    },*/
-    //Validierungs Logik
+
     isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       return emailRegex.test(email)
     },
     validateAndTrimEmail() {
@@ -168,22 +156,16 @@ export default {
     trimOtherFields() {
       this.updatedUserData.password = this.updatedUserData.password.trim()
       this.updatedUserData.mobilityAssistance = this.updatedUserData.mobilityAssistance.trim()
-      this.updatedUserData.mobilityAssistanceWidth =
-        this.updatedUserData.mobilityAssistanceWidth.trim()
     },
-    //Schritt 2: Update der Daten im Local Storage
     updateUserDataInLocalStorage(userData) {
       try {
         localStorage.setItem('updatedUserData', JSON.stringify(userData))
         console.log('Benutzerdaten erfolgreich im lokalen Speicher aktualisiert:', userData)
-        //Aufruf temporäre Daten speichern
-        //this.saveUserDataToTemporaryData()
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Benutzerdaten im lokalen Speicher:', error)
       }
     },
 
-    //Schritt 3: Daten an
     async saveUserDataAndSendToServer() {
       try {
         const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
@@ -214,7 +196,6 @@ export default {
 
     validateAndSaveUserData() {
       try {
-        //Validierungen werden aufgerufen
         this.validateAndTrimEmail(this.updatedUserData)
         this.trimOtherFields(this.updatedUserData)
         const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
@@ -238,8 +219,9 @@ export default {
       const userId = localStorage.getItem('currentUserID').replace(/"/g, '')
       console.log('id', this.currentUserID)
       try {
-        // Rufe die Methode zum Löschen des Benutzers von der API auf
         await this.store.deleteUserfromAPI(userId)
+        localStorage.removeItem('updatedUserData')
+        localStorage.removeItem('currentUserID')
       } catch (error) {
         console.error('Fehler beim Löschen des Benutzers:', error)
       }
