@@ -110,7 +110,6 @@ export default {
   },
 
   created() {
-    console.log('Component created.')
     this.fetchAndFilterUserData()
   },
 
@@ -118,7 +117,6 @@ export default {
     updatedUserData: {
       deep: true,
       handler(newValue) {
-        //console.log('New value for updatedUserData:', newValue)
         this.updateUserDataInLocalStorage(newValue)
       }
     }
@@ -175,7 +173,6 @@ export default {
     updateUserDataInLocalStorage(userData) {
       try {
         localStorage.setItem('updatedUserData', JSON.stringify(userData))
-        console.log('Benutzerdaten erfolgreich im lokalen Speicher aktualisiert:', userData)
       } catch (error) {
         console.error('Fehler beim Aktualisieren der Benutzerdaten im lokalen Speicher:', error)
       }
@@ -196,10 +193,7 @@ export default {
           mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth) || 0,
           password: updatedUserData.password || ''
         }
-        console.log(
-          'Aktualisierte Benutzerdaten erfolgreich im temporären Speicher gespeichert:',
-          this.store.temporaryData.changedUserData
-        )
+
         await this.store.updateUserAtAPI(this.store.temporaryData.changedUserData.id)
       } catch (error) {
         console.error(
@@ -224,7 +218,6 @@ export default {
       } catch (error) {
         console.error('Fehler beim Speichern der Benutzerdaten:', error)
       }
-      console.log('temporäre Daten:', this.store.temporaryData.changedUserData)
     },
 
     confirmDelete() {
@@ -232,7 +225,7 @@ export default {
     },
     async deleteUser() {
       const userId = localStorage.getItem('currentUserID').replace(/"/g, '')
-      console.log('id', this.currentUserID)
+
       try {
         await this.store.deleteUserfromAPI(userId)
         localStorage.removeItem('updatedUserData')
