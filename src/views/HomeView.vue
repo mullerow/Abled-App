@@ -13,10 +13,9 @@ export default {
     }
   },
   mounted() {
-    //this.store.addNewPoiToAPI()
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
-    //this.store.addNewUserToAPI()
+    this.store.resetDetailcategory()
   }
 }
 </script>

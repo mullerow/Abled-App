@@ -27,8 +27,8 @@ export const storeData = defineStore('poiStore', {
       ZipCode: 0,
       // temporäre Daten für die gefilterte Poi-Liste zum Rendern
       filteredPois: [],
-      choosenCategory: 'Rampe',
-      choosenDetailCategories: ['steil', 'Geländer'], // 'Geländer', 'steil', 'extra breit'
+      choosenCategory: '',
+      choosenDetailCategories: [], // 'Geländer', 'steil', 'extra breit'
       choosenPoi: {}, // Objekt welches alle Informationen des gewählten Pois enthalten soll
 
       ///////// API MANAGAMENT /////////////////////////////////////////////////////////////////////////////////////////////
@@ -337,11 +337,7 @@ export const storeData = defineStore('poiStore', {
 
     renderFilteredPois(poi) {
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
-        console.log('poi.poiName', poi.poiName)
-        console.log('this.temporaryData.choosenCategory', this.temporaryData.choosenCategory)
-        console.log('poi.id', poi.id)
-        console.log('this.temporaryData.filteredPois[i]', this.temporaryData.filteredPois[i])
-        if (this.temporaryData.choosenCategory === 'Alle') {
+        if (this.temporaryData.choosenCategory == ' Alle') {
           console.log('ALLE')
           return true
         } else if (
@@ -353,6 +349,9 @@ export const storeData = defineStore('poiStore', {
         }
       }
       return false
+    },
+    resetDetailcategory() {
+      this.temporaryData.choosenDetailCategories = []
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////

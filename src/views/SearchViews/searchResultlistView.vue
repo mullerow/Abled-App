@@ -47,6 +47,7 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions()
+    console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
   }
 }
 </script>
