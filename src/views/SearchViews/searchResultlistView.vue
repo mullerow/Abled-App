@@ -49,7 +49,6 @@ export default {
   },
   created() {
     this.store.checkForFilterOptions()
-    console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
   }
 }
 </script>
@@ -60,6 +59,7 @@ export default {
   background-color: var(--white);
   color: var(--red);
   margin-bottom: 10px;
+  border-radius: 16px;
 }
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
@@ -78,8 +78,7 @@ b {
 }
 .searchlist-distance {
   text-align: end;
-}
-.list-container {
-  overflow: auto;
+  margin-right: 5px;
+  font-size: 14px;
 }
 </style>

@@ -37,7 +37,6 @@ export default {
     saveButtonValue(categorie) {
       const buttonValue = document.getElementById(categorie.id).textContent
       this.store.temporaryData.choosenCategory = buttonValue
-      console.log('buttonValue', buttonValue)
       localStorage.setItem('buttonValue', buttonValue)
     }
   }

@@ -238,7 +238,7 @@ export const storeData = defineStore('poiStore', {
         {
           id: 304,
           categoryName: 'Zugang',
-          detailCategorys: ['maximale breite', 'Ohne Treppe'] //  der este arrayeintrag bezieht sich auf die Eingangsbreite
+          detailCategorys: ['Ohne Treppe']
         },
         {
           id: 305,
@@ -252,8 +252,14 @@ export const storeData = defineStore('poiStore', {
             'Wickelplatz',
             'Behindertengerechte Toiletten',
             'Rollstuhl/Kinderwagen geeignet',
-            'Kinderstühle'
+            'Kinderstühle',
+            'Stellplatz Kinderwagen'
           ]
+        },
+        {
+          id: 307,
+          categoryName: 'Wickelplatz',
+          detailCategorys: ['Windelspender', 'Platz für Kinderwagen', 'Desinfektionsmittel']
         }
       ]
     }
@@ -319,14 +325,18 @@ export const storeData = defineStore('poiStore', {
           this.temporaryData.ownXCoordinate,
           this.temporaryData.ownYCoordinate
         )
-        console.log('POI Distanz:', this.temporaryData.currentPois[i].currentSearchDistance)
-        console.log('Eingestellte Distanz:', this.temporaryData.searchDistance)
+        console.log(
+          'currentSearchDistance',
+          this.temporaryData.currentPois[i].currentSearchDistance,
+          'searchDistance',
+          this.temporaryData.searchDistance
+        )
+        console.log('filteredPois', this.temporaryData.filteredPois)
         if (
           Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
           Number(this.temporaryData.searchDistance)
         ) {
           this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
-          console.log('filteredPois', this.temporaryData.filteredPois)
         }
       }
     },
@@ -335,7 +345,6 @@ export const storeData = defineStore('poiStore', {
       let counter = 0
       for (let entry of this.temporaryData.choosenDetailCategories) {
         if (poi.detailCategories.includes(entry)) {
-          console.log('entry gefunden!!')
           counter++
         }
       }
@@ -345,9 +354,12 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
+      console.log('filteredPois in REnder', this.temporaryData.filteredPois)
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
-        if (this.temporaryData.choosenCategory == ' Alle') {
-          console.log('ALLE')
+        if (
+          this.temporaryData.choosenCategory == ' Alle' &&
+          poi.id === this.temporaryData.filteredPois[i]
+        ) {
           return true
         } else if (
           poi.id === this.temporaryData.filteredPois[i] &&
@@ -359,9 +371,11 @@ export const storeData = defineStore('poiStore', {
       }
       return false
     },
+
     resetDetailcategory() {
       this.temporaryData.choosenDetailCategories = []
     },
+
     openExternMapToNavigate(poiXPosition, poiYPosition) {
       const zoomFactor = 16
       const centerDisplay =
