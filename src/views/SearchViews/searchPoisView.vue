@@ -17,34 +17,19 @@
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
   <button @click="store.getOwnPosition">Eigener Standort</button>
   <br />
-  <button
-    @click="
-      store.calcDistance(
-        store.poiData[0].xCoordinates,
-        store.poiData[0].yCoordinates,
-        store.ownXCoordinate,
-        store.ownYCoordinate
-      )
-    "
-  >
-    Berechne Distanz
-  </button>
-  <h3>Ermittelter Standort:</h3>
-  <p><b>Stadt:</b> {{ store.city }}</p>
-  <p><b>Stadteil:</b> {{ store.district }}</p>
-  <p><b>Straße:</b> {{ store.street }}</p>
-  <p><b>Postleitzahl:</b> {{ store.zipCode }}</p>
-  <p v-show="store.houseNumber"><b>Hausnummer:</b> {{ store.houseNumber }}</p>
-  <p v-show="!store.houseNumber">
+  <h3>Sie befinden sich hier:</h3>
+  <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
+  <p><b>Stadteil:</b> {{ store.temporaryData.district }}</p>
+  <p><b>Straße:</b> {{ store.temporaryData.street }}</p>
+  <p><b>Postleitzahl:</b> {{ store.temporaryData.zipCode }}</p>
+  <p v-show="store.temporaryData.houseNumber">
+    <b>Hausnummer:</b> {{ store.temporaryData.houseNumber }}
+  </p>
+  <p v-show="!store.temporaryData.houseNumber">
     <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
   </p>
-  <h2>
-    Luftlinie zum Ziel:
-    <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
-    Meter
-  </h2>
 
-  <RouterLink :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
+  <RouterLink class="router-link-next" :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
   <br />
 </template>
 
@@ -79,5 +64,13 @@ button {
 }
 label {
   margin-left: 20px;
+}
+
+.router-link-next {
+  color: aliceblue;
+  font-size: 20px;
+  border: 2px solid aliceblue;
+  border-radius: 5px;
+  padding: 5px;
 }
 </style>
