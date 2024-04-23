@@ -17,19 +17,7 @@
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
   <button @click="store.getOwnPosition">Eigener Standort</button>
   <br />
-  <button
-    @click="
-      store.calcDistance(
-        store.temporaryData.poiData[0].xCoordinates,
-        store.temporaryData.poiData[0].yCoordinates,
-        store.temporaryData.ownXCoordinate,
-        store.temporaryData.ownYCoordinate
-      )
-    "
-  >
-    Berechne Distanz
-  </button>
-  <h3>Ermittelter Standort:</h3>
+  <h3>Sie befinden sich hier:</h3>
   <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
   <p><b>Stadteil:</b> {{ store.temporaryData.district }}</p>
   <p><b>Straße:</b> {{ store.temporaryData.street }}</p>
@@ -40,13 +28,8 @@
   <p v-show="!store.temporaryData.houseNumber">
     <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
   </p>
-  <h2>
-    Luftlinie zum Ziel:
-    <span style="color: goldenrod">{{ store.temporaryData.straightLineToAim }}</span>
-    Meter
-  </h2>
 
-  <RouterLink :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
+  <RouterLink class="router-link-next" :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
   <br />
 </template>
 
@@ -81,5 +64,13 @@ button {
 }
 label {
   margin-left: 20px;
+}
+
+.router-link-next {
+  color: aliceblue;
+  font-size: 20px;
+  border: 2px solid aliceblue;
+  border-radius: 5px;
+  padding: 5px;
 }
 </style>

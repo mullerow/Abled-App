@@ -24,15 +24,22 @@
       </p>
     </div>
     <p class="info">
-      <b>Vorhandene Mindestbreite:</b>
-      {{ findChoosenPoi.minWidth ? findChoosenPoi.minWidth : 'Poi konnte nicht geladen werden' }}
+      <b>Adresse:</b>
+      {{ findChoosenPoi.city }}, {{ findChoosenPoi.street }},{{ findChoosenPoi.zip }}
+    </p>
+    <p class="info">
+      <b>passierbare Mindestbreite:</b>
+      {{ findChoosenPoi.minWidth ? findChoosenPoi.minWidth : 'Poi konnte nicht geladen werden' }} cm
     </p>
     <p class="info">
       <b>Entfernung zu deinem Standort:</b>
       {{
-        findChoosenPoi.currentSearchDistance
-          ? findChoosenPoi.currentSearchDistance
-          : 'Poi konnte nicht geladen werden'
+        this.store.calcDistance(
+          findChoosenPoi.xCoordinates,
+          findChoosenPoi.yCoordinates,
+          this.store.temporaryData.ownXCoordinate,
+          this.store.temporaryData.ownYCoordinate
+        )
       }}
       meter
     </p>
@@ -60,7 +67,6 @@ export default {
   components: {
     HomeButton,
     BackArrow,
-
     NavButton,
     LöschenButton
   },
@@ -98,11 +104,21 @@ export default {
   border-radius: 1rem;
   width: 75%;
   margin-top: 0;
+  margin-left: 5px;
+
   display: grid;
+  font-size: 14px;
 }
 b {
-  font-size: 20px;
+  font-size: 16px;
   padding: 0.9rem;
   padding-left: 0;
+}
+p {
+  margin-right: 5px;
+  width: 350px;
+}
+section {
+  overflow: auto;
 }
 </style>

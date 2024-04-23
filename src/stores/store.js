@@ -369,8 +369,6 @@ export const storeData = defineStore('poiStore', {
       const locationStart =
         this.temporaryData.ownXCoordinate + '%2C' + this.temporaryData.ownYCoordinate
       const locationPoi = poiXPosition + '%2C' + poiYPosition
-      console.log('zoomFactor', zoomFactor, 'centerDisplay', centerDisplay)
-      console.log('locationStart', locationStart, 'locationPoi', locationPoi)
       const streetmapsURL = `https://routing.openstreetmap.de/?z=${zoomFactor}&center=${centerDisplay}&loc=${locationStart}&loc=${locationPoi}&hl=en&alt=0&srv=2`
       console.log('URL:', streetmapsURL)
       const link = document.createElement('a')
