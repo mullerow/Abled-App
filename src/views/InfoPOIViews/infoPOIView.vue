@@ -39,7 +39,12 @@
   </section>
   <p>
     <LöschenButton :Löschen="'Nicht nutzbar'" @click="deletePoi" />
-    <NavButton :Navigation="'In Maps öffnen'" />
+    <NavButton
+      :Navigation="'In Maps öffnen'"
+      @click="
+        store.openExternMapToNavigate(findChoosenPoi.xCoordinates, findChoosenPoi.yCoordinates)
+      "
+    />
     <RouterLink :to="{ name: 'infopoicomment' }">Comments</RouterLink>
   </p>
 </template>
@@ -72,6 +77,10 @@ export default {
   },
   computed: {
     findChoosenPoi() {
+      console.log(
+        'poiData:',
+        this.store.temporaryData.currentPois.find((el) => el.id == this.id)
+      )
       return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
     }
   },

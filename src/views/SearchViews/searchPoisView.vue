@@ -20,27 +20,29 @@
   <button
     @click="
       store.calcDistance(
-        store.poiData[0].xCoordinates,
-        store.poiData[0].yCoordinates,
-        store.ownXCoordinate,
-        store.ownYCoordinate
+        store.temporaryData.poiData[0].xCoordinates,
+        store.temporaryData.poiData[0].yCoordinates,
+        store.temporaryData.ownXCoordinate,
+        store.temporaryData.ownYCoordinate
       )
     "
   >
     Berechne Distanz
   </button>
   <h3>Ermittelter Standort:</h3>
-  <p><b>Stadt:</b> {{ store.city }}</p>
-  <p><b>Stadteil:</b> {{ store.district }}</p>
-  <p><b>Straße:</b> {{ store.street }}</p>
-  <p><b>Postleitzahl:</b> {{ store.zipCode }}</p>
-  <p v-show="store.houseNumber"><b>Hausnummer:</b> {{ store.houseNumber }}</p>
-  <p v-show="!store.houseNumber">
+  <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
+  <p><b>Stadteil:</b> {{ store.temporaryData.district }}</p>
+  <p><b>Straße:</b> {{ store.temporaryData.street }}</p>
+  <p><b>Postleitzahl:</b> {{ store.temporaryData.zipCode }}</p>
+  <p v-show="store.temporaryData.houseNumber">
+    <b>Hausnummer:</b> {{ store.temporaryData.houseNumber }}
+  </p>
+  <p v-show="!store.temporaryData.houseNumber">
     <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
   </p>
   <h2>
     Luftlinie zum Ziel:
-    <span style="color: goldenrod">{{ store.straightLineToAim }}</span>
+    <span style="color: goldenrod">{{ store.temporaryData.straightLineToAim }}</span>
     Meter
   </h2>
 

@@ -265,16 +265,19 @@ export const storeData = defineStore('poiStore', {
   actions: {
     ///////////////////////////////////// Filterfunktion und Koordinatenberechnungen ////////////////////////////////////////////////////////////////////////
     calcDistance(poiXcoordinate, poiYcoordinate, xCoordinatePosition, yCoordinatePosition) {
-      this.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
-      this.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
-      this.xlengthDifference = this.xCoordinateDifference * this.temporaryData.lengthLatitude
-      this.ylengthDifference = this.yCoordinateDifference * this.temporaryData.lengthlongitude
+      this.temporaryData.xCoordinateDifference = Math.abs(xCoordinatePosition - poiXcoordinate)
+      this.temporaryData.yCoordinateDifference = Math.abs(yCoordinatePosition - poiYcoordinate)
+      this.temporaryData.xlengthDifference =
+        this.temporaryData.xCoordinateDifference * this.temporaryData.lengthLatitude
+      this.temporaryData.ylengthDifference =
+        this.temporaryData.yCoordinateDifference * this.temporaryData.lengthlongitude
 
       // Trigonometrische Funktion
-      this.straightLineToAim = Math.sqrt(
-        Math.pow(this.xlengthDifference, 2) + Math.pow(this.ylengthDifference, 2)
+      this.temporaryData.straightLineToAim = Math.sqrt(
+        Math.pow(this.temporaryData.xlengthDifference, 2) +
+          Math.pow(this.temporaryData.ylengthDifference, 2)
       ).toFixed(0)
-      return this.straightLineToAim
+      return this.temporaryData.straightLineToAim
     },
 
     async getAddressByCoordinates(latitude, longitude) {
@@ -295,11 +298,14 @@ export const storeData = defineStore('poiStore', {
 
     getOwnPosition() {
       const saveOwnPositon = (position) => {
-        this.ownXCoordinate = position.coords.latitude
-        this.ownYCoordinate = position.coords.longitude
-        this.getAddressByCoordinates(this.ownXCoordinate, this.ownYCoordinate)
-        localStorage.setItem('x-Koordinate', this.ownXCoordinate)
-        localStorage.setItem('y-Koordinate', this.ownYCoordinate)
+        this.temporaryData.ownXCoordinate = position.coords.latitude
+        this.temporaryData.ownYCoordinate = position.coords.longitude
+        this.getAddressByCoordinates(
+          this.temporaryData.ownXCoordinate,
+          this.temporaryData.ownYCoordinate
+        )
+        localStorage.setItem('x-Koordinate', this.temporaryData.ownXCoordinate)
+        localStorage.setItem('y-Koordinate', this.temporaryData.ownYCoordinate)
       }
       navigator.geolocation.getCurrentPosition(saveOwnPositon)
     },
@@ -310,8 +316,8 @@ export const storeData = defineStore('poiStore', {
         this.temporaryData.currentPois[i].currentSearchDistance = this.calcDistance(
           this.temporaryData.currentPois[i].xCoordinates,
           this.temporaryData.currentPois[i].yCoordinates,
-          this.ownXCoordinate,
-          this.ownYCoordinate
+          this.temporaryData.ownXCoordinate,
+          this.temporaryData.ownYCoordinate
         )
         console.log('POI Distanz:', this.temporaryData.currentPois[i].currentSearchDistance)
         console.log('Eingestellte Distanz:', this.temporaryData.searchDistance)
@@ -355,6 +361,18 @@ export const storeData = defineStore('poiStore', {
     },
     resetDetailcategory() {
       this.temporaryData.choosenDetailCategories = []
+    },
+    openExternMapToNavigate(poiXPosition, poiYPosition) {
+      const zoomFactor = 18
+      const centerDisplay =
+        this.temporaryData.ownXCoordinate + '%2C' + this.temporaryData.ownYCoordinate
+      const locationStart =
+        this.temporaryData.ownXCoordinate + '%2C' + this.temporaryData.ownYCoordinate
+      const locationPoi = poiXPosition + '%2C' + poiYPosition
+      console.log('zoomFactor', zoomFactor, 'centerDisplay', centerDisplay)
+      console.log('locationStart', locationStart, 'locationPoi', locationPoi)
+      const streetmapsURL = `https://routing.openstreetmap.de/?z=${zoomFactor}&center=${centerDisplay}&loc=${locationStart}&loc=${locationPoi}&hl=en&alt=0&srv=2`
+      console.log('URL:', streetmapsURL)
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
