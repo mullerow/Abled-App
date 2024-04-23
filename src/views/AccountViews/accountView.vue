@@ -234,26 +234,15 @@ export default {
     confirmDelete() {
       this.showConfirmation = true
     },
-    deleteUser() {
-      const userId = this.userData.id
+    async deleteUser() {
+      const userId = localStorage.getItem('currentUserID').replace(/"/g, '')
+      console.log('id', this.currentUserID)
       try {
-        const userIndex = this.store.userData.findIndex((user) => user.id === userId)
-        if (userIndex !== -1) {
-          this.store.userData.splice(userIndex, 1)
-
-          const isUserDeleted = this.store.userData.findIndex((user) => user.id === userId) === -1
-          if (isUserDeleted) {
-            console.log('Benutzer erfolgreich gelöscht.')
-          } else {
-            console.error('Fehler: Benutzer wurde nicht gelöscht.')
-          }
-        } else {
-          console.error('Benutzer nicht gefunden.')
-        }
+        // Rufe die Methode zum Löschen des Benutzers von der API auf
+        await this.store.deleteUserfromAPI(userId)
       } catch (error) {
         console.error('Fehler beim Löschen des Benutzers:', error)
       }
-
       this.showConfirmation = false
     }
   }
