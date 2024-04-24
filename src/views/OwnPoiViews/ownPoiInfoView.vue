@@ -6,53 +6,52 @@
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>
-  <h2>Own Poi Info</h2>
-
-  <div v-if="!editing">
-    <div class="info">
-      <h2>{{ poi.poiName }}</h2>
-      <h3>Koordinaten</h3>
-      <p>{{ poi.xCoordinates }}, {{ poi.yCoordinates }}</p>
-      <h3>Adresse</h3>
-      <p>{{ poi.street }} {{ poi.number }}, {{ poi.zip }} {{ poi.city }}</p>
-      <h3>Öffnungszeiten</h3>
-      <p>{{ poi.openingTimes }}</p>
-      <div v-if="poi.detailCategories.length > 0">
-        <p>Optional Categories:</p>
-        <ul>
-          <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
-        </ul>
+  <div class="container">
+    <HeadLine :Headline="'Informationen zum Poi'" />
+    <div v-if="!editing">
+      <div class="info">
+        <h2>{{ poi.poiName }}</h2>
+        <h3>Adresse</h3>
+        <p>{{ poi.street }} {{ poi.number }}, {{ poi.zip }} {{ poi.city }}</p>
+        <h3>Öffnungszeiten</h3>
+        <p>{{ poi.openingTimes }}</p>
+        <div v-if="poi.detailCategories.length > 0">
+          <h3>Optional Categories</h3>
+          <ul>
+            <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
+          </ul>
+        </div>
       </div>
+      <RouterLink :to="{ name: 'home' }">
+        <LöschenButton :Löschen="'Löschen'" @click="deletePoi"
+      /></RouterLink>
+      <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
     </div>
-    <RouterLink :to="{ name: 'home' }">
-      <LöschenButton :Löschen="'Löschen'" @click="deletePoi"
-    /></RouterLink>
-    <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
-  </div>
 
-  <div v-else>
-    <div class="input-field">
-      <HeadLine :Headline="'Adresse'" />
-      <InputField ref="addressInput" type="text" id="address" />
-    </div>
-    <div class="input-field">
-      <HeadLine :Headline="'Öffnungszeiten'" />
-      <InputField type="text" id="openingTimes" />
-    </div>
-    <HeadLine :Headline="'Zusatz'" />
-    <div v-for="categorie in store.localData.categories" :key="categorie.id">
-      <div v-if="poi.poiName.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
-        <CategorieButton
-          v-for="detailCategorie in categorie.detailCategorys"
-          :key="detailCategorie"
-          :Kategorie="detailCategorie"
-          @click="saveButtonValue(detailCategorie)"
-          :id="detailCategorie"
-        />
+    <div v-else>
+      <div class="input-field">
+        <InputField placeholder="Adresse" ref="addressInput" type="text" id="address" />
       </div>
+      <div class="input-field">
+        <InputField placeholder="Öffnungszeiten" type="text" id="openingTimes" />
+      </div>
+      <h2>Zusatzkategorien auswählen</h2>
+      <div v-for="categorie in store.localData.categories" :key="categorie.id">
+        <div
+          v-if="poi.poiName.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
+        >
+          <CategorieButton
+            v-for="detailCategorie in categorie.detailCategorys"
+            :key="detailCategorie"
+            :Kategorie="detailCategorie"
+            @click="saveButtonValue(detailCategorie)"
+            :id="detailCategorie"
+          />
+        </div>
+      </div>
+      <LöschenButton @click="saveChanges" :Löschen="'Speichern'" />
+      <NavButton @click="cancelEditing" :Navigation="'Abbrechen'" />
     </div>
-    <LöschenButton @click="saveChanges" :Löschen="'Speichern'" />
-    <NavButton @click="cancelEditing" :Navigation="'Abbrechen'" />
   </div>
 </template>
 
@@ -151,15 +150,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .info {
   padding: 1rem;
   background-color: var(--white);
   color: var(--black);
   border-radius: 1rem;
-  width: 70%;
   margin-top: 1rem;
   display: grid;
-  margin: 2rem;
+  margin: 1rem;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 </style>
