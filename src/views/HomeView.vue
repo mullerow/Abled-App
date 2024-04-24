@@ -125,7 +125,21 @@ h1 {
   height: 350px;
   width: 20rem;
   margin-left: 2%;
-  /* margin-right: 5%; */
-  /* margin-top: 5%; */
+}
+@media screen and (max-width: 768px) {
+  .container {
+    margin-left: 1%;
+  }
+  .menu {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .menu li {
+    padding: 3vh;
+    margin: 0.2rem;
+  }
+}
+
+.menu li {
+  outline: none;
 }
 </style>
