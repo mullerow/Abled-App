@@ -1,5 +1,5 @@
 <template>
-  <button><img src="@/assets/icons/Earthmap.png" alt="go to map" /></button>
+  <button><img src="@/assets/icons/Earthmap48.svg" alt="go to map" /></button>
 </template>
 
 <style scoped>
@@ -9,7 +9,6 @@ button {
 }
 
 img {
-  width: 24px;
   height: auto;
   background-color: transparent;
 }

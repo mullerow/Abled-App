@@ -1,5 +1,5 @@
 <template>
-  <button><img src="@/assets/icons/Arrow.png" alt="go back" class="rotate-right" /></button>
+  <button><img src="@/assets/icons/Arrow48.svg" alt="go back" class="rotate-right" /></button>
 </template>
 
 <style scoped>
@@ -9,7 +9,6 @@ button {
 }
 
 img {
-  width: 40px;
   height: auto;
   background-color: transparent;
 }

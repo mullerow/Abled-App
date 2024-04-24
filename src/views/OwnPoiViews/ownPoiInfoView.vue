@@ -1,6 +1,6 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <!--hier ggf
@@ -58,7 +58,7 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import NavButton from '@/components/NavButton.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 import InputField from '@/components/InputField.vue'
@@ -67,7 +67,7 @@ import HeadLine from '@/components/HeadLine.vue'
 
 export default {
   components: {
-    HomeButton,
+    headerLogo,
     NavButton,
     LöschenButton,
     InputField,

@@ -1,6 +1,6 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
@@ -78,11 +78,11 @@
 import { storeData } from '@/stores/store.js'
 
 import NavButton from '@/components/NavButton.vue'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 
 export default {
-  components: { NavButton, HomeButton, LöschenButton },
+  components: { NavButton, headerLogo, LöschenButton },
   data() {
     return {
       store: storeData(),
@@ -274,5 +274,12 @@ export default {
   padding: 20px;
   border: 4px solid var(--black);
   z-index: 9999;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

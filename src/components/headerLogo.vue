@@ -1,10 +1,10 @@
 <template>
-  <img src="@\assets\images\simplifiedApp-logo-reduced.png" alt="App-logo" />
+  <img src="@\assets\images\final_logo_comprimized.png" alt="App-logo" />
 </template>
 
 <style scoped>
 img {
-  width: 200px;
+  width: 150px;
   height: auto;
 }
 </style>

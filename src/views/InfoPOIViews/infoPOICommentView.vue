@@ -17,3 +17,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+</style>
