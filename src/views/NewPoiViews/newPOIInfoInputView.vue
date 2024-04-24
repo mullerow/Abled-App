@@ -1,7 +1,7 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoiaddressinput' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <div class="container">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import InputField from '@/components/InputField.vue'
@@ -46,7 +46,7 @@ import HeadLine from '@/components/HeadLine.vue'
 
 export default {
   components: {
-    HomeButton,
+    headerLogo,
     BackArrow,
     NavButton,
     InputField,
@@ -106,6 +106,13 @@ export default {
 </script>
 
 <style scoped>
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
 .container {
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <div class="container">
@@ -22,7 +22,7 @@
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
@@ -33,7 +33,7 @@ export default {
     }
   },
 
-  components: { HeadLine, CategorieButton, NavButton, HomeButton },
+  components: { HeadLine, CategorieButton, NavButton, headerLogo },
 
   computed: {
     filteredCategories() {
@@ -71,5 +71,12 @@ export default {
 .pressed {
   color: var(--white);
   background-color: var(--black);
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

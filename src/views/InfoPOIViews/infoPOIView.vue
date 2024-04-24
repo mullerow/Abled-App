@@ -1,7 +1,7 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'searchresultlist' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
   <!-- 
   <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink> -->
@@ -71,14 +71,14 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 
 export default {
   components: {
-    HomeButton,
+    headerLogo,
     BackArrow,
     NavButton,
     LöschenButton
@@ -135,5 +135,12 @@ h2 {
   color: var(--red);
   margin: 0 0 0 10px;
   font-size: 28px;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <div class="container">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
@@ -36,7 +36,7 @@ import NavButton from '@/components/NavButton.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
-  components: { HeadLine, CategorieButton, NavButton, HomeButton, BackArrow },
+  components: { HeadLine, CategorieButton, NavButton, headerLogo, BackArrow },
 
   data() {
     return {
@@ -81,10 +81,18 @@ export default {
   background-color: var(--black);
 }
 
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
 .categorie-button {
   display: flex;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+
 }
 </style>

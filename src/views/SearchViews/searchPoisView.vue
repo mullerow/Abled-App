@@ -1,9 +1,10 @@
 <template>
   <header>
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
-    <headerLogo> </headerLogo>
-    <div class="header-buttons"></div>
-    <RouterLink :to="{ name: 'home' }" class="back-arrow"> <BackArrow /></RouterLink>
+    <!-- <headerLogo> </headerLogo> -->
+    <div class="header-buttons">
+      <RouterLink :to="{ name: 'home' }"> <BackArrow /></RouterLink>
+      <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
+    </div>
   </header>
 
   <h4>In welchem Umkreis möchtest du suchen?</h4>
@@ -38,13 +39,13 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-import HomeButton from '@/components/HomeButton.vue'
+// import HomeButton from '@/components/HomeButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 
 export default {
   components: {
-    HomeButton,
+    // HomeButton,
     headerLogo,
     BackArrow
   },
@@ -80,11 +81,12 @@ label {
   border-radius: 5px;
   padding: 5px;
 }
-header {
+
+.header-buttons {
   display: flex;
   justify-content: space-between;
-}
-.header-buttons {
-  margin-left: 50px;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>
