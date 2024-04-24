@@ -1,6 +1,6 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
@@ -8,7 +8,7 @@
   <h2>Verwalte deine Account-Daten</h2>
   <label for="username">Bentuzername</label>
   <input
-    class="input"
+    class="input-account"
     type="text"
     id="username"
     v-model="updatedUserData.username"
@@ -18,7 +18,7 @@
 
   <label for="email">E-mail</label>
   <input
-    class="input"
+    class="input-account"
     type="email"
     id="email"
     v-model="updatedUserData.email"
@@ -35,7 +35,7 @@
     :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
   />
   <input
-    class="input"
+    class="input-account"
     type="text"
     id="mobilityAssistance"
     v-model="updatedUserData.mobilityAssistance"
@@ -47,7 +47,7 @@
   />
   <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
   <input
-    class="input"
+    class="input-account"
     type="text"
     id="mobilityAssistanceWidth"
     v-model="updatedUserData.mobilityAssistanceWidth"
@@ -78,11 +78,11 @@
 import { storeData } from '@/stores/store.js'
 
 import NavButton from '@/components/NavButton.vue'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 
 export default {
-  components: { NavButton, HomeButton, LöschenButton },
+  components: { NavButton, headerLogo, LöschenButton },
   data() {
     return {
       store: storeData(),
@@ -251,7 +251,7 @@ export default {
   border: 4px solid var(--black);
   z-index: 9999;
 }
-.input {
+.input-account {
   padding: 0.5rem;
   width: 80%;
   background-color: var(--white);
@@ -274,5 +274,12 @@ export default {
   padding: 20px;
   border: 4px solid var(--black);
   z-index: 9999;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

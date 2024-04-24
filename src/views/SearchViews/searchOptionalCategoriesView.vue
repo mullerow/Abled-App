@@ -1,9 +1,9 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'searchcategorie' }" @click="this.store.resetDetailcategory()">
       <BackArrow
     /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <HeadLine :Headline="'Zusatz'" />
@@ -24,20 +24,22 @@
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton.vue'
+// import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
 import { storeData } from '@/stores/store.js'
+import headerLogo from '@/components/headerLogo.vue'
 
 export default {
   components: {
-    HomeButton,
+    // HomeButton,
     BackArrow,
     HeadLine,
     CategorieButton,
-    NavButton
+    NavButton,
+    headerLogo
   },
 
   data() {
@@ -58,3 +60,12 @@ export default {
   }
 }
 </script>
+<style scoped>
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+</style>

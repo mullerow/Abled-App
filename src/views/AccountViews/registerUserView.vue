@@ -1,6 +1,12 @@
 <template>
-  <h1>Willkomen bei xyz</h1>
+  <img
+    class="logo-img-register"
+    src="/src/assets/images/final_logo_comprimized.png"
+    alt="Logo der App"
+  />
+  <h1 class="heading-register">Willkomen bei Abled</h1>
   <InputField
+    class="input-register"
     :value="username"
     @input="updateUsername($event.target.value)"
     placeholder="Benutzername eingeben"
@@ -9,6 +15,7 @@
     ></InputField
   >
   <InputField
+    class="input-register"
     :value="email"
     @input="updateEmail($event.target.value)"
     placeholder="E-Mail-Adresse eingeben"
@@ -16,6 +23,7 @@
     ></InputField
   >
   <InputField
+    class="input-register"
     :value="password"
     @input="updatePassword($event.target.value)"
     type="password"
@@ -23,7 +31,7 @@
   >
     ></InputField
   >
-  <NavButton :Navigation="'Registrieren'" @click="registerUser"></NavButton>
+  <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 </template>
 
 <script>
@@ -91,3 +99,32 @@ export default {
   }
 }
 </script>
+
+<style>
+.input-register {
+  padding: 0.5rem;
+  width: 90%;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  margin: 2rem;
+  color: var(--black);
+  border: 1px solid var(--black);
+  align-self: center;
+  min-height: 3rem;
+}
+
+.logo-img-register {
+  width: 100%;
+  margin-top: 2rem;
+}
+.heading-register {
+  align-self: center;
+  margin-top: 3rem;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+</style>

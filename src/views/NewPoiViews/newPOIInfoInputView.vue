@@ -1,37 +1,57 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoiaddressinput' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
-  <h2>Optionale Infos</h2>
-  <InputField value="Gib Öffnungszeiten ein" id="openingTimesInput" />
-  <InputField value="Gib eine Zugangsbreite ein" id="minWidthInput" />
-  <InputField value="Füge einen Kommentar hinzu" id="comment" />
-  <LöschenButton Löschen="Nicht nutzbar" />
-  <categorie-button Kategorie="Abbrechen" />
-  <RouterLink :to="{ name: 'home' }">
-    <NavButton Navigation="Erstellen" @click="saveNewPoi()"
-  /></RouterLink>
+  <div class="container">
+    <HeadLine :Headline="'Trage weitere Informationen ein'" />
+
+    <InputField
+      class="input-newpoi"
+      placeholder="Gib Öffnungszeiten ein"
+      value=""
+      id="openingTimesInput"
+    />
+
+    <InputField
+      class="input-newpoi"
+      placeholder="Gib eine Zugangsbreite ein"
+      value=""
+      id="minWidthInput"
+    />
+
+    <InputField
+      class="input-newpoi"
+      placeholder="Füge einen Kommentar hinzu"
+      value=""
+      id="comment"
+    />
+    <LöschenButton Löschen="Nicht nutzbar" />
+    <RouterLink :to="{ name: 'home' }"> <NavButton Navigation="Abbrechen" /></RouterLink>
+    <RouterLink :to="{ name: 'home' }">
+      <NavButton Navigation="Erstellen" @click="saveNewPoi()"
+    /></RouterLink>
+  </div>
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
-import CategorieButton from '@/components/CategorieButton.vue'
 import InputField from '@/components/InputField.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 import { storeData } from '@/stores/store.js'
+import HeadLine from '@/components/HeadLine.vue'
 
 export default {
   components: {
-    HomeButton,
+    headerLogo,
     BackArrow,
     NavButton,
-    CategorieButton,
     InputField,
-    LöschenButton
+    LöschenButton,
+    HeadLine
   },
 
   data() {
@@ -74,7 +94,6 @@ export default {
         number: number,
         zip: zip,
         city: city
-
       }
       this.store.addNewPoiToAPI()
       localStorage.removeItem('buttonValue')
@@ -85,3 +104,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input-newpoi {
+  color: black;
+}
+</style>

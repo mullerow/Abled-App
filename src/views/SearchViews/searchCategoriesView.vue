@@ -1,7 +1,7 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'searchpoi' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <HeadLine :Headline="'Kategorien'" />
@@ -21,13 +21,13 @@
 <script>
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
-  components: { CategorieButton, NavButton, HomeButton, BackArrow, HeadLine },
+  components: { CategorieButton, NavButton, headerLogo, BackArrow, HeadLine },
   data() {
     return {
       store: storeData()
@@ -44,8 +44,13 @@ export default {
 }
 </script>
 
-<style>
-.category-button {
-  margin: 0 auto 0 auto;
+
+<style scoped>
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

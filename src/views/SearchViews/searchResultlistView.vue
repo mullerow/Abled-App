@@ -1,8 +1,8 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
-    <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
     <RouterLink :to="{ name: 'searchoptionalcategorie' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
+    <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
   </div>
 
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
@@ -33,12 +33,12 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-import HomeButton from '@/components/HomeButton.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
+import headerLogo from '@/components/headerLogo.vue'
 export default {
   components: {
-    HomeButton,
+    headerLogo,
     EarthMap,
     BackArrow
   },
@@ -80,5 +80,12 @@ b {
   text-align: end;
   margin-right: 5px;
   font-size: 14px;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>

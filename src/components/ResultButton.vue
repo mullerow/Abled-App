@@ -12,5 +12,6 @@
   margin-top: 1rem;
   font-weight: bold;
   margin: 2rem;
+  border: 1px solid var(--black);
 }
 </style>

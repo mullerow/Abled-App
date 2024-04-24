@@ -17,5 +17,8 @@ export default {
   width: 70%;
   margin-top: 1rem;
   font-weight: bold;
+  margin: 1rem;
+  border: 2px solid var(--black);
+
 }
 </style>

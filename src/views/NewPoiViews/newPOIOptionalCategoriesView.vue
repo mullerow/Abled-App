@@ -1,13 +1,16 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Zusatz'" />
-    <div v-for="categorie in store.localData.categories" :key="categorie.id">
-      <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+    <HeadLine :Headline="'Wähle deine Zusatzkategorien'" />
+    <div class="container" v-for="categorie in store.localData.categories" :key="categorie.id">
+      <div
+        class="container"
+        v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
+      >
         <CategorieButton
           v-for="detailCategorie in categorie.detailCategorys"
           :key="detailCategorie"
@@ -25,7 +28,7 @@
 </template>
 
 <script>
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
@@ -33,7 +36,7 @@ import NavButton from '@/components/NavButton.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
-  components: { HeadLine, CategorieButton, NavButton, HomeButton, BackArrow },
+  components: { HeadLine, CategorieButton, NavButton, headerLogo, BackArrow },
 
   data() {
     return {
@@ -71,9 +74,25 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
 }
 .pressed {
   color: var(--white);
   background-color: var(--black);
+}
+
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+.categorie-button {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 </style>

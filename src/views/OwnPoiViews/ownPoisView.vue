@@ -1,7 +1,7 @@
 <template>
   <div class="header-buttons">
     <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
-    <RouterLink :to="{ name: 'home' }"> <HomeButton /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <!--hier ggf
@@ -18,11 +18,11 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-import HomeButton from '@/components/HomeButton.vue'
+import headerLogo from '@/components/headerLogo.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 export default {
-  components: { HomeButton, EarthMap, CategorieButton },
+  components: { headerLogo, EarthMap, CategorieButton },
   data() {
     return {
       store: storeData(),
