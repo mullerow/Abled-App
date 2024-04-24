@@ -40,6 +40,7 @@ export const storeData = defineStore('poiStore', {
       currentPois: [],
       currentPoi: {},
       currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
+      currentUser: '',
       currentPoiId: '',
       newUserData: {
         userName: '',

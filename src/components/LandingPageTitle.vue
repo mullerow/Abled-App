@@ -22,8 +22,9 @@ img {
 }
 h3 {
   color: var(--white);
-  font-family: monospace;
   font-size: large;
   text-align: center;
+  font-size: 22px;
+  margin-top: 50px;
 }
 </style>

@@ -6,9 +6,12 @@
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
-  <HeadLine :Headline="'Zusatz'" />
-  <div v-for="categorie in store.localData.categories" :key="categorie.id">
-    <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+  <HeadLine :Headline="'Zusatz'" class="header-text" />
+  <div v-for="categorie in store.localData.categories" :key="categorie.id" class="container">
+    <div
+      v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
+      class="buttons"
+    >
       <CategorieButton
         v-for="detailCategorie in categorie.detailCategorys"
         :key="detailCategorie"
@@ -19,9 +22,7 @@
       />
     </div>
   </div>
-  <RouterLink :to="{ name: 'searchresultlist' }">
-    <NavButton Navigation="Weiter" id="navButton"
-  /></RouterLink>
+  <RouterLink :to="{ name: 'searchresultlist' }"> <NavButton Navigation="Weiter" /></RouterLink>
 </template>
 
 <script>
@@ -83,5 +84,15 @@ export default {
 .pressed {
   color: var(--white);
   background-color: var(--black);
+}
+.header-text {
+  width: 100%;
+}
+.buttons {
+  align-self: center;
+}
+
+.container {
+  display: flex;
 }
 </style>

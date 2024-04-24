@@ -4,7 +4,7 @@
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Wähle eine Kategorie'" />
+    <HeadLine :Headline="'Wähle eine Kategorie'" class="headline-text" />
     <CategorieButton
       v-for="categorie in filteredCategories"
       :key="categorie.id"
@@ -78,5 +78,8 @@ export default {
   align-items: center;
   padding: 10px 0;
   background-color: transparent;
+}
+.headline-text {
+  width: 100%;
 }
 </style>
