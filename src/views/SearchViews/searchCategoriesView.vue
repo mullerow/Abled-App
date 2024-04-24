@@ -11,6 +11,7 @@
     :Kategorie="categorie.categoryName"
     @click="saveButtonValue(categorie)"
     :id="categorie.id"
+    :class="{ pressed: isPressed === categorie.id }"
   />
 
   <RouterLink :to="{ name: 'searchoptionalcategorie' }">
@@ -29,12 +30,18 @@ export default {
   components: { CategorieButton, NavButton, headerLogo, BackArrow, HeadLine },
   data() {
     return {
-      store: storeData()
+      store: storeData(),
+      isPressed: null
     }
   },
 
   methods: {
     saveButtonValue(categorie) {
+      this.isPressed = categorie.id
+      document.getElementById(categorie.id).classList.add('pressed')
+      if (this.isPressed !== null) {
+        document.getElementById(this.isPressed).classList.remove('pressed')
+      }
       const buttonValue = document.getElementById(categorie.id).textContent
       this.store.temporaryData.choosenCategory = buttonValue
       localStorage.setItem('buttonValue', buttonValue)
@@ -49,5 +56,9 @@ export default {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.pressed {
+  color: var(--white);
+  background-color: var(--black);
 }
 </style>
