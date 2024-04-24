@@ -4,9 +4,9 @@
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
-  <HeadLine :Headline="'Kategorien'" />
+  <HeadLine class="headline-searchcategorie" :Headline="'Kategorien'" />
   <CategorieButton
-    class="category-button"
+    class="category-button button-search-categorie"
     v-for="categorie of store.localData.categories"
     :key="categorie.id"
     :Kategorie="categorie.categoryName"
@@ -15,7 +15,7 @@
     :class="{ pressed: isPressed === categorie.id }"
   />
 
-  <RouterLink :to="{ name: 'searchoptionalcategorie' }">
+  <RouterLink class="button-search-nav" :to="{ name: 'searchoptionalcategorie' }">
     <NavButton Navigation="Weiter"
   /></RouterLink>
 </template>
@@ -51,7 +51,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .header-buttons {
   display: flex;
@@ -63,5 +62,14 @@ export default {
 .pressed {
   color: var(--white);
   background-color: var(--black);
+}
+.button-search-categorie {
+  align-self: center;
+}
+.headline-searchcategorie {
+  align-self: center;
+}
+.button-search-nav {
+  align-self: center;
 }
 </style>
