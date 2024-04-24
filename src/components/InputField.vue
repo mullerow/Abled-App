@@ -17,6 +17,7 @@ export default {
   background-color: var(--white);
   border-radius: 0.5rem;
   margin: 2rem;
-  color: darkgray;
+  color: black;
+  border: 1px solid var(--black);
 }
 </style>

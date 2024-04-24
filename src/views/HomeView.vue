@@ -89,6 +89,7 @@ export default {
   padding: 5vh;
   border-radius: 1rem;
   cursor: pointer;
+  border: 1px solid var(--black);
 }
 
 .menu .icon {
