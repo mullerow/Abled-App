@@ -1,12 +1,13 @@
 <template>
-  <h1>Wähle deine Mobilitätshilfe</h1>
+  <HeadLine class="headline-account" :Headline="'Wähle deine Mobilitätshilfe'" />
+
   <PriorityButton
     v-for="mobilityAssistanceClass in store.localData.mobilityAssistanceClasses"
     :key="mobilityAssistanceClass"
     :priority="mobilityAssistanceClass"
     @click="selectMobilityAssistance(mobilityAssistanceClass)"
   />
-  <label class="label" for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
+  <label class="label-prio" for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
   <input
     class="input-prio"
     type="number"
@@ -28,11 +29,12 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
+import HeadLine from '@/components/HeadLine.vue'
 import PriorityButton from '@/components/PriorityButton.vue'
 import NavButton from '@/components/NavButton.vue'
 
 export default {
-  components: { PriorityButton, NavButton },
+  components: { PriorityButton, NavButton, HeadLine },
   data() {
     return {
       store: storeData(),
@@ -113,11 +115,17 @@ export default {
 <style>
 .input-prio {
   padding: 0.5rem;
-  width: 80%;
+  width: 90%;
   background-color: var(--white);
   border-radius: 0.5rem;
-  margin: 1rem;
-  color: darkgray;
+  margin: 1rem 1rem 2rem 1rem;
+  color: var(--black);
+  border: 1px solid var(--black);
+  min-height: 3rem;
+}
+.label-prio {
+  margin-left: 2rem;
+  margin-top: 1.5rem;
 }
 .popup {
   position: fixed;
