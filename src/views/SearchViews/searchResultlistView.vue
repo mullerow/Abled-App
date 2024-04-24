@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 .searchlist-button {
-  width: 330px;
+  width: 100%;
   background-color: var(--white);
   color: var(--red);
   margin-bottom: 10px;

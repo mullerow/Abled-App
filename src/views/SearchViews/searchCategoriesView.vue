@@ -6,6 +6,7 @@
 
   <HeadLine :Headline="'Kategorien'" />
   <CategorieButton
+    class="category-button"
     v-for="categorie of store.localData.categories"
     :key="categorie.id"
     :Kategorie="categorie.categoryName"
@@ -42,6 +43,8 @@ export default {
   }
 }
 </script>
+
+
 <style scoped>
 .header-buttons {
   display: flex;

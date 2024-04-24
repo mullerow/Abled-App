@@ -1,4 +1,5 @@
 <template>
+
   <img src="@\assets\images\final_logo_comprimized.png" alt="App-logo" />
 </template>
 

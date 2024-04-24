@@ -51,7 +51,6 @@ export default {
   created() {
     this.buttonValue = localStorage.getItem('buttonValue')
     if (this.store.temporaryData.choosenCategory === ' Alle') {
-      console.log('ALLLE ALLEAA')
       this.$nextTick(() => {
         // Wartet noch bis der DOM vollständig erstellt ist, damit navButton auch gefunden werden kann
         const button = document.getElementById('navButton')
