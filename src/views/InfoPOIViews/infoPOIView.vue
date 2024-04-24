@@ -13,7 +13,7 @@
     <p>
       <b>Adresse:</b> <br />
       {{ findChoosenPoi.city }}, <br />
-      {{ findChoosenPoi.street }}, <br />{{ findChoosenPoi.zip }}
+      {{ findChoosenPoi.street }}, {{ findChoosenPoi.number }} <br />{{ findChoosenPoi.zip }}
     </p>
     <div>
       <div

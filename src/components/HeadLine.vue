@@ -1,5 +1,5 @@
 <template>
-  <h1 id="Headline">{{ Headline }}</h1>
+  <h1 class="Headline">{{ Headline }}</h1>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style scoped>
-#Headline {
+.Headline {
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 1rem;
   color: var(--red);
