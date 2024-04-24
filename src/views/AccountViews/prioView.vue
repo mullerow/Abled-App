@@ -8,7 +8,7 @@
   />
   <label class="label" for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
   <input
-    class="input"
+    class="input-prio"
     type="number"
     id="mobilityAssistanceWidth"
     v-model="mobilityAssistanceWidth"
@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style>
-.input {
+.input-prio {
   padding: 0.5rem;
   width: 80%;
   background-color: var(--white);
