@@ -13,8 +13,9 @@
         v-for="detailCategorie in categorie.detailCategorys"
         :key="detailCategorie"
         :Kategorie="detailCategorie"
-        @click="this.store.temporaryData.choosenDetailCategories.push(detailCategorie)"
+        @click="saveClick(detailCategorie)"
         :id="detailCategorie"
+        :class="{ pressed: isPressed[detailCategorie] }"
       />
     </div>
   </div>
@@ -45,9 +46,19 @@ export default {
   data() {
     return {
       buttonValue: '',
-      store: storeData()
+      store: storeData(),
+      isPressed: {}
     }
   },
+
+  methods: {
+    saveClick(detailCategorie) {
+      this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
+      this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
+      console.log(this.store.temporaryData.choosenDetailCategories)
+    }
+  },
+
   created() {
     this.buttonValue = localStorage.getItem('buttonValue')
     if (this.store.temporaryData.choosenCategory === ' Alle') {
@@ -67,5 +78,9 @@ export default {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.pressed {
+  color: var(--white);
+  background-color: var(--black);
 }
 </style>
