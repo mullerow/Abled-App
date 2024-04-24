@@ -14,11 +14,12 @@ export default {
   background-color: var(--white);
   color: var(--black);
   border-radius: 1rem;
-  width: 70%;
+  width: 14.5rem;
   display: grid;
   margin-top: 1rem;
   font-weight: bold;
-  margin: 2rem;
+  margin: 1rem;
   border: 1px solid var(--black);
+  align-self: center;
 }
 </style>
