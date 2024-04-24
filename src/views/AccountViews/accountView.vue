@@ -2,11 +2,9 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
+  <HeadLine class="headline-account" :Headline="'Verwalte deine Account-Daten'" />
 
-  <RouterLink :to="{ name: 'register' }"> Register</RouterLink>
-
-  <h2>Verwalte deine Account-Daten</h2>
-  <label for="username">Bentuzername</label>
+  <label class="label-username label-account" for="username">Benutzername</label>
   <input
     class="input-account"
     type="text"
@@ -16,7 +14,7 @@
     :disabled="!editMode"
   />
 
-  <label for="email">E-mail</label>
+  <label class="label-account" for="email">E-mail</label>
   <input
     class="input-account"
     type="email"
@@ -26,14 +24,15 @@
     :class="{ 'invalid-email': !emailValid }"
   />
 
-  <label for="password">Passwort</label>
+  <label class="label-account" for="password">Passwort</label>
   <input
-    class="input"
+    class="input-account"
     type="password"
     id="password"
     v-model="updatedUserData.password"
     :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
   />
+  <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
   <input
     class="input-account"
     type="text"
@@ -45,7 +44,7 @@
         : 'mobility assistance'
     "
   />
-  <label for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
+  <label class="label-account" for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
   <input
     class="input-account"
     type="text"
@@ -76,13 +75,13 @@
 
 <script>
 import { storeData } from '@/stores/store.js'
-
+import HeadLine from '@/components/HeadLine.vue'
 import NavButton from '@/components/NavButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 
 export default {
-  components: { NavButton, headerLogo, LöschenButton },
+  components: { NavButton, headerLogo, LöschenButton, HeadLine },
   data() {
     return {
       store: storeData(),
@@ -251,13 +250,22 @@ export default {
   border: 4px solid var(--black);
   z-index: 9999;
 }
+.label-username {
+  margin-top: 2rem;
+}
+
+.label-account {
+  margin-left: 2rem;
+}
 .input-account {
   padding: 0.5rem;
   width: 80%;
   background-color: var(--white);
   border-radius: 0.5rem;
-  margin: 2rem;
-  color: darkgray;
+  margin: 1rem 2rem 2rem 2rem;
+  color: var(--black);
+  border: 1px solid var(--black);
+  min-height: 3rem;
 }
 .input.invalid-email {
   border-color: var(--black);
@@ -274,6 +282,9 @@ export default {
   padding: 20px;
   border: 4px solid var(--black);
   z-index: 9999;
+}
+.headline-account {
+  align-self: center;
 }
 .header-buttons {
   display: flex;

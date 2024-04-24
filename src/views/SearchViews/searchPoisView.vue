@@ -6,9 +6,8 @@
       <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
     </div>
   </header>
-
-  <h4>In welchem Umkreis möchtest du suchen?</h4>
-
+  <HeadLine Headline="Wo möchtest du suchen?" class="headline"></HeadLine>
+  <h3>SUCHRADIUS</h3>
   <input
     type="range"
     min="50"
@@ -19,7 +18,7 @@
     id="idRangeInput"
   />
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
-  <button @click="store.getOwnPosition">Bestimme meinen Standort</button>
+  <NavButton Navigation="Bestimme meinen Standort" @click="store.getOwnPosition"></NavButton>
   <br />
   <h3>Sie befinden sich hier:</h3>
   <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
@@ -44,13 +43,15 @@ import { storeData } from '@/stores/store.js'
 import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
+import HeadLine from '@/components/HeadLine.vue'
 
 export default {
   components: {
     // HomeButton,
     headerLogo,
     BackArrow,
-    NavButton
+    NavButton,
+    HeadLine
   },
   data() {
     return {
@@ -91,5 +92,9 @@ label {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+
+.headline {
+  width: 100%;
 }
 </style>
