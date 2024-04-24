@@ -21,65 +21,54 @@ export default {
 </script>
 
 <template>
-  <h1><LandingPageTitle :username="'JohnDoe'" /></h1>
+  <h1 class="heading-home"><LandingPageTitle :username="'JohnDoe'" /></h1>
 
-  <section class="container">
-    <ul class="menu">
+  <div class="grid-container">
+    <button class="btn-search">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
-        <li>
-          <span class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /></span>
-          Suche
-        </li>
+        <div class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /> Suche</div>
       </RouterLink>
+    </button>
+    <button class="btn-new-poi btn-style">
       <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
-        <li>
-          <span class="icon"><img src="@/assets/icons/Pencil.svg" alt="newpoi Icon" /></span>Neuen
-          Poi erstellen
-        </li>
+        <div class="icon"><img src="@/assets/icons/Pencil.svg" alt="newpoi Icon" /></div>
+        Neuen Poi erstellen
       </RouterLink>
+    </button>
+    <button class="btn-favorite btn-style">
       <RouterLink :to="{ name: 'favoritepoi' }" class="favorite">
-        <li>
-          <span class="icon"><img src="@/assets/icons/Star.svg" alt="favorite Icon" /></span>Deine
-          Favoriten
-        </li>
+        <div class="icon"><img src="@/assets/icons/Star.svg" alt="favorite Icon" /></div>
+        Deine Favoriten
       </RouterLink>
+    </button>
+    <button class="btn-own-poi btn-style">
       <RouterLink :to="{ name: 'ownpoi' }" class="own">
-        <li>
-          <span class="icon"><img src="@/assets/icons/folder.svg" alt="ownpoi Icon" /></span
-          >geteilte Orte
-        </li>
+        <div class="icon"><img src="@/assets/icons/folder.svg" alt="ownpoi Icon" /></div>
+        geteilte Orte
       </RouterLink>
+    </button>
+    <button class="btn-account btn-style">
       <RouterLink :to="{ name: 'account' }" class="account">
-        <li>
-          <span class="icon"><img src="@/assets/icons/user-account.svg" alt="account Icon" /></span>
-          Deinen Account
-        </li>
+        <div class="icon"><img src="@/assets/icons/user-account.svg" alt="account Icon" /></div>
+        Deinen Account
       </RouterLink>
-    </ul>
-  </section>
+    </button>
+  </div>
 </template>
 
 <style scoped>
-.container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  margin-left: 3%;
+.heading-home {
+  height: 290px;
+  width: 20rem;
 }
+
 .menu {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 0.1rem;
   list-style-type: none;
   margin-top: 0;
   padding-left: 0;
   padding-right: 1rem;
 }
-.container.menu:first-child {
-  grid-template-columns: 1fr;
-}
-.container.menu.first-row {
-  grid-template-columns: 1fr;
-}
+
 .menu li {
   position: relative;
   margin: 0.4rem;
@@ -99,33 +88,59 @@ export default {
   transform: translateY(-50%);
 }
 
-.menu .search .icon,
-.menu .new .icon,
-.menu .favorite .icon,
-.menu .own .icon,
-.menu .account .icon {
-  top: 20%;
-  transform: translate(-50%, -50%);
+.grid-container {
+  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-flow: row;
+  gap: 0.6rem;
+  grid-template-areas:
+    'search search'
+    'newpoi favorite'
+    'ownpoi account';
 }
 
-.menu .search .icon img,
-.menu .new .icon img,
-.menu .favorite .icon img,
-.menu .own .icon img,
-.menu .account .icon img {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-.menu .search {
-  grid-column: 1 / -1;
+.btn-search {
+  width: 21rem;
+  grid-area: search;
+  grid-row-start: 1;
+  grid-row-end: span 1;
+  border-radius: 0.5rem;
+  background-color: var(--white);
 }
 
-h1 {
-  height: 350px;
-  width: 20rem;
-  margin-left: 2%;
-  /* margin-right: 5%; */
-  /* margin-top: 5%; */
+.btn-favorite {
+  grid-area: favorite;
+}
+.btn-new-poi {
+  grid-area: newpoi;
+}
+.btn-own-poi {
+  grid-area: ownpoi;
+}
+.btn-account {
+  grid-area: account;
+}
+.btn-style {
+  height: 7rem;
+  border-radius: 0.5rem;
+  background-color: var(--white);
+}
+@media screen and (max-width: 768px) {
+  .container {
+    margin-left: 1%;
+  }
+  .menu {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .menu li {
+    padding: 3vh;
+    margin: 0.2rem;
+  }
+}
+
+.menu li {
+  outline: none;
 }
 </style>
