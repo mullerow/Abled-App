@@ -19,5 +19,6 @@ export default {
   margin: 2rem;
   color: black;
   border: 1px solid var(--black);
+  min-height: 3rem;
 }
 </style>
