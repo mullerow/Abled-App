@@ -6,7 +6,7 @@
   <!-- 
   <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink> -->
   <br />
-  <section v-if="findChoosenPoi" class="info">
+  <div v-if="findChoosenPoi" class="info-infopoi">
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
@@ -57,7 +57,7 @@
       <b>Derzeit nutzbar?</b>
       ✅
     </p>
-  </section>
+  </div>
   <p class="ctn-btn">
     <LöschenButton class="button-infopoi" :Löschen="'Nicht nutzbar'" @click="removePoi" />
     <NavButton
@@ -149,6 +149,17 @@ h2 {
   flex-direction: column;
 }
 .button-infopoi {
+  align-self: center;
+}
+.info-infopoi {
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 1rem;
+  width: 95%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   align-self: center;
 }
 </style>
