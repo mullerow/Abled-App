@@ -5,9 +5,12 @@
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Zusatz'" />
-    <div v-for="categorie in store.localData.categories" :key="categorie.id">
-      <div v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+    <HeadLine :Headline="'Wähle deine Zusatzkategorien'" />
+    <div class="container" v-for="categorie in store.localData.categories" :key="categorie.id">
+      <div
+        class="container"
+        v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
+      >
         <CategorieButton
           v-for="detailCategorie in categorie.detailCategorys"
           :key="detailCategorie"
@@ -71,9 +74,17 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
 }
 .pressed {
   color: var(--white);
   background-color: var(--black);
+}
+
+.categorie-button {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
