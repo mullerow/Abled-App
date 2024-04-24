@@ -58,9 +58,10 @@
       ✅
     </p>
   </section>
-  <p>
-    <LöschenButton :Löschen="'Nicht nutzbar'" @click="removePoi" />
+  <p class="ctn-btn">
+    <LöschenButton class="button-infopoi" :Löschen="'Nicht nutzbar'" @click="removePoi" />
     <NavButton
+      class="button-infopoi"
       :Navigation="'In Maps öffnen'"
       @click="
         store.openExternMapToNavigate(findChoosenPoi.xCoordinates, findChoosenPoi.yCoordinates)
@@ -142,5 +143,12 @@ h2 {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.ctn-btn {
+  display: flex;
+  flex-direction: column;
+}
+.button-infopoi {
+  align-self: center;
 }
 </style>
