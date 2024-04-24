@@ -8,7 +8,7 @@
   <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>
 
   <HeadLine :Headline="'Informationen zum Poi'" />
-  <div v-if="!editing">
+  <div class="container" v-if="!editing">
     <div class="info">
       <h2>{{ poi.poiName }}</h2>
       <h3>Adresse</h3>
@@ -28,7 +28,7 @@
     <NavButton :Navigation="'Bearbeiten'" @click="toggleEditing" />
   </div>
 
-  <div v-else>
+  <div class="container" v-else>
     <div class="input-field">
       <InputField placeholder="Adresse" ref="addressInput" type="text" id="address" />
     </div>
@@ -37,7 +37,10 @@
     </div>
     <h2>Zusatzkategorien auswählen</h2>
     <div v-for="categorie in store.localData.categories" :key="categorie.id">
-      <div v-if="poi.poiName.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()">
+      <div
+        class="zusatz"
+        v-if="poi.poiName.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
+      >
         <CategorieButton
           v-for="detailCategorie in categorie.detailCategorys"
           :key="detailCategorie"
@@ -163,5 +166,21 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.container {
+  display: flex;
+}
+
+.input-field {
+  width: 100%;
+}
+.zusatz {
+  display: flex;
+  flex-direction: column;
+}
+
+.categorie-button {
+  width: 14.5rem;
 }
 </style>
