@@ -4,7 +4,7 @@
     src="/src/assets/images/final_logo_comprimized.png"
     alt="Logo der App"
   />
-  <h1 class="heading-register">Willkomen bei Abled</h1>
+  <h1 class="heading-register">Willkommen bei Abled</h1>
   <InputField
     class="input-register"
     :value="username"
