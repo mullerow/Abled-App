@@ -50,7 +50,6 @@ export default {
 </script>
 
 <style scoped>
-
 .header-buttons {
   display: flex;
   justify-content: space-between;
@@ -62,6 +61,5 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
 </style>

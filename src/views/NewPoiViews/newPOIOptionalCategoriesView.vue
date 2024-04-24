@@ -3,9 +3,8 @@
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
-
+  <HeadLine :Headline="'Wähle deine Zusatzkategorien'" class="headline-text" />
   <div class="container">
-    <HeadLine :Headline="'Wähle deine Zusatzkategorien'" />
     <div class="container" v-for="categorie in store.localData.categories" :key="categorie.id">
       <div
         class="container"
@@ -93,6 +92,8 @@ export default {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-
+}
+.headline-text {
+  width: 100%;
 }
 </style>

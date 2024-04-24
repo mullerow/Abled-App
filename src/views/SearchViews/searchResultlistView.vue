@@ -7,7 +7,7 @@
 
   <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
  -->
-  <h2>Ergebnisliste</h2>
+  <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
   <div class="list-container">
     <router-link
       v-for="poi of store.temporaryData.currentPois"
@@ -36,11 +36,14 @@ import { storeData } from '@/stores/store.js'
 import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
+import HeadLine from '@/components/HeadLine.vue'
+
 export default {
   components: {
     headerLogo,
     EarthMap,
-    BackArrow
+    BackArrow,
+    HeadLine
   },
   data() {
     return {
@@ -87,5 +90,8 @@ b {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.headline-text {
+  width: 100%;
 }
 </style>
