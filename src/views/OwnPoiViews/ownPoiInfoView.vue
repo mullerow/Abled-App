@@ -7,13 +7,10 @@
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
 
-
-  <h2>Own Poi Info</h2>
-
-  <HeadLine :Headline="'Informationen zum Poi'" />
+  <HeadLine class="headline-ownpoiinfo" :Headline="'Informationen zum Poi'" />
   <div class="container" v-if="!editing">
-    <div class="info">
-      <h2>{{ poi.poiName }}</h2>
+    <div class="info-ownpoi">
+      <h2 class="categorie-heading-ownpoiinfo">{{ poi.poiName }}</h2>
       <h3>Adresse</h3>
       <p>{{ poi.street }} {{ poi.number }}, {{ poi.zip }} {{ poi.city }}</p>
       <h3>Öffnungszeiten</h3>
@@ -194,5 +191,22 @@ export default {
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.headline-ownpoiinfo {
+  align-self: center;
+}
+.info-ownpoi {
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 1rem;
+  width: 95%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  align-self: center;
+}
+.categorie-heading-ownpoiinfo {
+  color: var(--red);
 }
 </style>
