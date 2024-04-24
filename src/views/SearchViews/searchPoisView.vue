@@ -32,8 +32,9 @@
     <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
   </p>
 
-  <RouterLink class="router-link-next" :to="{ name: 'searchcategorie' }"> Weiter</RouterLink>
-  <br />
+  <RouterLink :to="{ name: 'searchcategorie' }"
+    ><NavButton Navigation="Weiter">Weiter</NavButton>
+  </RouterLink>
 </template>
 
 <script>
@@ -41,12 +42,14 @@ import { storeData } from '@/stores/store.js'
 import HomeButton from '@/components/HomeButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
+import NavButton from '@/components/NavButton.vue'
 
 export default {
   components: {
     HomeButton,
     headerLogo,
-    BackArrow
+    BackArrow,
+    NavButton
   },
   data() {
     return {
