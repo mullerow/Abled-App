@@ -27,33 +27,31 @@ export default {
     <ul class="menu">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
         <li>
-          <span class="icon"
-            ><img src="@/assets/icons/Magnifying-Glass.png" alt="Search Icon"
-          /></span>
+          <span class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /></span>
           Suche
         </li>
       </RouterLink>
       <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
         <li>
-          <span class="icon"><img src="@/assets/icons/pencil.png" alt="newpoi Icon" /></span>Neuen
+          <span class="icon"><img src="@/assets/icons/Pencil.svg" alt="newpoi Icon" /></span>Neuen
           Poi erstellen
         </li>
       </RouterLink>
       <RouterLink :to="{ name: 'favoritepoi' }" class="favorite">
         <li>
-          <span class="icon"><img src="@/assets/icons/star.png" alt="favorite Icon" /></span>Deine
+          <span class="icon"><img src="@/assets/icons/Star.svg" alt="favorite Icon" /></span>Deine
           Favoriten
         </li>
       </RouterLink>
       <RouterLink :to="{ name: 'ownpoi' }" class="own">
         <li>
-          <span class="icon"><img src="@/assets/icons/folder.png" alt="ownpoi Icon" /></span
+          <span class="icon"><img src="@/assets/icons/folder.svg" alt="ownpoi Icon" /></span
           >geteilte Orte
         </li>
       </RouterLink>
       <RouterLink :to="{ name: 'account' }" class="account">
         <li>
-          <span class="icon"><img src="@/assets/icons/user-account.png" alt="account Icon" /></span>
+          <span class="icon"><img src="@/assets/icons/user-account.svg" alt="account Icon" /></span>
           Deinen Account
         </li>
       </RouterLink>
@@ -65,13 +63,14 @@ export default {
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  margin-left: 3%;
 }
 .menu {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 0.1rem;
   list-style-type: none;
-  margin-top: 0rem;
+  margin-top: 0;
   padding-left: 0;
   padding-right: 1rem;
 }
@@ -126,7 +125,7 @@ h1 {
   height: 350px;
   width: 20rem;
   margin-left: 2%;
-  margin-right: 5%;
-  margin-top: 5%;
+  /* margin-right: 5%; */
+  /* margin-top: 5%; */
 }
 </style>

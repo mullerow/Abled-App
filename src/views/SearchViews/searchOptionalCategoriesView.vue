@@ -60,6 +60,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .header-buttons {
   display: flex;

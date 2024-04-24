@@ -74,9 +74,9 @@ export default {
 }
 .header-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 0;
   background-color: transparent;
 }
 </style>
