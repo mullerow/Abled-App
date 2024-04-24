@@ -4,7 +4,7 @@
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Kategorien'" />
+    <HeadLine :Headline="'Wähle eine Kategorie'" />
     <CategorieButton
       v-for="categorie in filteredCategories"
       :key="categorie.id"

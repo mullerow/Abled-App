@@ -14,8 +14,7 @@ export default {
   border-radius: 1rem;
   color: var(--red);
   background-color: #3d405b;
-  width: 70%;
+  width: 90%;
   text-align: center;
-  margin: 2rem;
 }
 </style>
