@@ -24,18 +24,13 @@
   </div>
 </template>
 
-<script setup>
-import { storeData } from '@/stores/store.js'
-
-const store = storeData()
-</script>
-
 <script>
 import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
+import { storeData } from '@/stores/store.js'
 
 export default {
   components: { HeadLine, CategorieButton, NavButton, HomeButton, BackArrow },
@@ -43,6 +38,7 @@ export default {
   data() {
     return {
       buttonValue: '',
+      store: storeData(),
       isPressed: {}
     }
   },
@@ -54,6 +50,7 @@ export default {
   methods: {
     saveButtonValue(detailCategorie) {
       this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
+
       let OptionalCategories = localStorage.getItem('OptionalCategories')
       OptionalCategories = OptionalCategories ? JSON.parse(OptionalCategories) : []
       const index = OptionalCategories.indexOf(detailCategorie)
@@ -63,8 +60,6 @@ export default {
         OptionalCategories.push(detailCategorie)
       }
       localStorage.setItem('OptionalCategories', JSON.stringify(OptionalCategories))
-      // Aktualisierung der isPressed-Bedingung
-      this.isPressed = !this.isPressed
     }
   }
 }
