@@ -63,6 +63,7 @@ export default {
   color: var(--red);
   margin-bottom: 10px;
   border-radius: 16px;
+  border: 1px solid var(--black);
 }
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);

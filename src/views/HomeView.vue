@@ -16,12 +16,23 @@ export default {
     this.store.getPoiDataFromAPI()
     this.store.getUserDataFromAPI()
     this.store.resetDetailcategory()
+    this.store.temporaryData.currentUserId = localStorage.getItem('currentUserID')
+  },
+  methods: {
+    getUserName() {
+      const nameOfUser = this.store.temporaryData.currentUserData.find(
+        (el) => (el.id = this.store.temporaryData.currentUserId)
+      )
+      if (nameOfUser) {
+        return nameOfUser.username
+      }
+    }
   }
 }
 </script>
 
 <template>
-  <h1 class="heading-home"><LandingPageTitle :username="'JohnDoe'" /></h1>
+  <LandingPageTitle :username="getUserName()" class="welcome-text" />
 
   <div class="grid-container">
     <button class="btn-search">
@@ -57,16 +68,15 @@ export default {
 </template>
 
 <style scoped>
-.heading-home {
-  height: 290px;
-  width: 20rem;
-}
-
 .menu {
   list-style-type: none;
   margin-top: 0;
   padding-left: 0;
   padding-right: 1rem;
+}
+.welcome-text {
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .menu li {
