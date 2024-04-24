@@ -121,6 +121,9 @@ export default {
   align-self: center;
   margin-top: 3rem;
 }
+.button-register {
+  align-self: center;
+}
 
 #app {
   height: 100%;

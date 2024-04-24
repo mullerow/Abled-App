@@ -56,8 +56,16 @@
         : 'mobilityAssistance width'
     "
   />
-  <LöschenButton :Löschen="'Account-Löschen'" @click="confirmDelete"></LöschenButton>
-  <NavButton :Navigation="'Speichern'" @click="validateAndSaveUserData"></NavButton>
+  <LöschenButton
+    class="button-account"
+    :Löschen="'Account-Löschen'"
+    @click="confirmDelete"
+  ></LöschenButton>
+  <NavButton
+    class="button-account"
+    :Navigation="'Speichern'"
+    @click="validateAndSaveUserData"
+  ></NavButton>
 
   <div v-if="showConfirmation" class="confirmation-popup">
     <div class="confirmation-message">
@@ -270,7 +278,9 @@ export default {
 .input.invalid-email {
   border-color: var(--black);
 }
-
+.button-account {
+  align-self: center;
+}
 .email-popup {
   color: var(--red);
   position: fixed;

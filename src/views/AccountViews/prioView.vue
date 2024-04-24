@@ -16,7 +16,7 @@
     :placeholder="'Breite in cm'"
   />
 
-  <NavButton Navigation="Weiter" @click="saveDataAndOpenPopup" />
+  <NavButton class="button-prio" Navigation="Weiter" @click="saveDataAndOpenPopup" />
 
   <div v-if="showPopup" class="popup">
     <div class="popup-content">
@@ -114,8 +114,9 @@ export default {
 
 <style>
 .input-prio {
+  align-self: center;
   padding: 0.5rem;
-  width: 90%;
+  width: 14.5rem;
   background-color: var(--white);
   border-radius: 0.5rem;
   margin: 1rem 1rem 2rem 1rem;
@@ -144,5 +145,8 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px var(--black);
+}
+.button-prio {
+  align-self: center;
 }
 </style>
