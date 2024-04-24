@@ -1,11 +1,14 @@
 <template>
   <div class="header-buttons">
+    <RouterLink :to="{ name: 'ownpoi' }"><BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
-  <RouterLink :to="{ name: 'ownpoi' }">Zurück</RouterLink>
+
+
+  <h2>Own Poi Info</h2>
 
   <HeadLine :Headline="'Informationen zum Poi'" />
   <div class="container" v-if="!editing">
@@ -63,6 +66,7 @@ import LöschenButton from '@/components/LöschenButton.vue'
 import InputField from '@/components/InputField.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
+import BackArrow from '@/components/BackArrow.vue'
 
 export default {
   components: {
@@ -71,7 +75,8 @@ export default {
     LöschenButton,
     InputField,
     CategorieButton,
-    HeadLine
+    HeadLine,
+    BackArrow
   },
   data() {
     return {
@@ -182,5 +187,12 @@ export default {
 
 .categorie-button {
   width: 14.5rem;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
 }
 </style>
