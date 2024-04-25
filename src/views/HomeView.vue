@@ -43,7 +43,7 @@ export default {
     <button class="btn-new-poi btn-style">
       <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
         <div class="icon"><img src="@/assets/icons/Pencil.svg" alt="newpoi Icon" /></div>
-        Neuen Poi erstellen
+        Neuen Ort erstellen
       </RouterLink>
     </button>
     <button class="btn-favorite btn-style">
