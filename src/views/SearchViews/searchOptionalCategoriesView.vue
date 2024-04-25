@@ -22,11 +22,12 @@
       />
     </div>
   </div>
-  <RouterLink :to="{ name: 'searchresultlist' }"> <NavButton Navigation="Weiter" /></RouterLink>
+  <RouterLink :to="{ name: 'searchresultlist' }" class="router-link">
+    <NavButton Navigation="Weiter"
+  /></RouterLink>
 </template>
 
 <script>
-// import HomeButton from '@/components/HomeButton.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
@@ -36,7 +37,6 @@ import headerLogo from '@/components/headerLogo.vue'
 
 export default {
   components: {
-    // HomeButton,
     BackArrow,
     HeadLine,
     CategorieButton,
@@ -90,9 +90,13 @@ export default {
 }
 .buttons {
   align-self: center;
+  margin-left: 55px;
 }
 
 .container {
   display: flex;
+}
+.router-link {
+  align-self: center;
 }
 </style>

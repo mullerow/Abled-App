@@ -18,7 +18,11 @@
     id="idRangeInput"
   />
   <label for="rangeInput">Reichweite {{ store.temporaryData.searchDistance }} m</label>
-  <NavButton Navigation="Bestimme meinen Standort" @click="store.getOwnPosition"></NavButton>
+  <NavButton
+    Navigation="Bestimme meinen Standort"
+    @click="store.getOwnPosition"
+    class="router-link"
+  ></NavButton>
   <br />
   <h3>Sie befinden sich hier:</h3>
   <p><b>Stadt:</b> {{ store.temporaryData.city }}</p>
@@ -32,7 +36,7 @@
     <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
   </p>
 
-  <RouterLink :to="{ name: 'searchcategorie' }"
+  <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
     ><NavButton Navigation="Weiter">Weiter</NavButton>
   </RouterLink>
 </template>
@@ -96,5 +100,8 @@ label {
 
 .headline {
   width: 100%;
+}
+.router-link {
+  align-self: center;
 }
 </style>
