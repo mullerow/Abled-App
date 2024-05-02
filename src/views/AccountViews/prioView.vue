@@ -103,6 +103,10 @@ export default {
             ].id
           )
         )
+        this.store.temporaryData.currentUserId =
+          this.store.temporaryData.currentUserData[
+            this.store.temporaryData.currentUserData.length - 1
+          ].id
         this.$router.push({ name: 'home' })
       } catch (error) {
         console.error('Fehler beim Hinzufügen des Benutzers:', error)

@@ -1,7 +1,7 @@
 <template>
   <div class="imgcover">
     <img src="../assets/images/ABledApp-Logo-reduced.png" alt="Logo: Abled App" />
-    <h3>Welcome {{ username }}</h3>
+    <h3>Willkommen {{ username }}</h3>
   </div>
 </template>
 
