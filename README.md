@@ -29,7 +29,7 @@ npm run start
 👤 **Maximilian Kohler, Eric Rump, Vanessa Pfohmann & Mariana Astamadze**
 
 - Github: [@mullerow](https://github.com/mullerow), [@EricRump](https://github.com/EricRump), [@alpenkind](https://github.com/alpenkind), [@Mariana-x-1](https://github.com/Mariana-x1)
-- LinkedIn: [Maximilian Kohler] (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/), [Vanessa Pfohmann](https://www.linkedin.com/in/vanessa-p-476157239/)
+- LinkedIn: [Maximilian Kohler] (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/) [Vanessa Pfohmann](https://www.linkedin.com/in/vanessa-p-476157239/)
 
 ## 🤝 Contributing
 
@@ -41,5 +41,5 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2024 [Maximilian Kohler, Eric Rump, Vanessa Pfohmann & Mariana Astamadze](https://github.com/mullerow EricRump Alpenkind Mariana-x-1).<br />
+Copyright © 2024 [Maximilian Kohler, Eric Rump, Vanessa Pfohmann & Mariana Astamadze].<br />
 This project is [MIT License](License) licensed.
