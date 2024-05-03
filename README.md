@@ -15,7 +15,7 @@
 ## Install
 
 ```sh
-npm install xyz
+npm install
 ```
 
 ## Usage
@@ -28,8 +28,8 @@ npm run start
 
 👤 **Maximilian Kohler, Eric Rump, Vanessa Pfohmann & Mariana Astamadze**
 
-- Github: [@mullerow EricRump Alpenkind Mariana-x-1](https://github.com/mullerow), (https://github.com/EricRump), (https://github.com/alpenkind), (https://github.com/Mariana-x1)
-- LinkedIn: (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/), (https://www.linkedin.com/in/vanessa-p-476157239/)
+- Github: [@mullerow](https://github.com/mullerow), [@EricRump](https://github.com/EricRump), [@alpenkind](https://github.com/alpenkind), [@Mariana-x-1](https://github.com/Mariana-x1)
+- LinkedIn: [Maximilian Kohler] (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/), [Vanessa Pfohmann](https://www.linkedin.com/in/vanessa-p-476157239/)
 
 ## 🤝 Contributing
 
