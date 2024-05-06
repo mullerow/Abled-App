@@ -5,6 +5,7 @@
     v-for="mobilityAssistanceClass in store.localData.mobilityAssistanceClasses"
     :key="mobilityAssistanceClass"
     :priority="mobilityAssistanceClass"
+    :selected="selectedMobilityAssistance === mobilityAssistanceClass"
     @click="selectMobilityAssistance(mobilityAssistanceClass)"
   />
   <label class="label-prio" for="mobilityAssistanceWidth">Mobilitätshilfe Breite</label>
