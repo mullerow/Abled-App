@@ -115,8 +115,4 @@ export default {
 .btn-style:hover {
   border: 5px solid var(--black);
 }
-
-.menu li {
-  outline: none;
-}
 </style>

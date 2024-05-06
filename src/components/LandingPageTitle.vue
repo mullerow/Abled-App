@@ -28,4 +28,7 @@ h3 {
   font-size: 22px;
   margin-top: 50px;
 }
+#landing-page-logo {
+  border-radius: 50% 0px 0px 10px;
+}
 </style>

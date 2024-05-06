@@ -7,6 +7,7 @@ button {
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 10px;
+  background-color: var(--red);
 }
 
 button:hover {
