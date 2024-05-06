@@ -21,5 +21,9 @@ img {
   .container-hover-text-headerlogo:hover .hover-text-headerlogo {
     color: var(--black);
   }
+  .container-hover-text-headerlogo:hover img {
+    box-shadow: 0px 0px 15px var(--white);
+    border-radius: 15px;
+  }
 }
 </style>

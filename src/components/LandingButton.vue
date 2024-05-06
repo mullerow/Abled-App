@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <button class="ImageButton">
-      <img src="" alt="" /> <br />
-      text
-    </button>
-  </div>
+  <button class="ImageButton">
+    <img src="" alt="" /> <br />
+    text
+  </button>
 </template>
 
 <style scoped>

@@ -35,7 +35,7 @@ export default {
   <LandingPageTitle :username="getUserName()" class="welcome-text" />
 
   <div class="grid-container">
-    <button class="btn-search">
+    <button class="btn-search btn-style">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
         <div class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /> Suche</div>
       </RouterLink>
@@ -111,6 +111,9 @@ export default {
   height: 7rem;
   border-radius: 0.5rem;
   background-color: var(--white);
+}
+.btn-style:hover {
+  border: 5px solid var(--black);
 }
 
 .menu li {
