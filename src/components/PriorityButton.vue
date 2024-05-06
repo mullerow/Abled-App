@@ -1,14 +1,19 @@
 <template>
-  <button class="priority-button"><img src="" alt="" /> {{ priority }}</button>
+  <button :class="buttonClasses"><img src="" alt="" /> {{ priority }}</button>
 </template>
 
 <script>
 export default {
-  props: ['priority']
+  props: ['priority', 'selected'],
+  computed: {
+    buttonClasses() {
+      return ['priority-button', { selected: this.selected }]
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style>
 .priority-button {
   padding: 1rem;
   background-color: var(--white);
@@ -21,5 +26,10 @@ export default {
   margin: 1rem;
   border: 1px solid var(--black);
   align-self: center;
+}
+
+.selected {
+  background-color: var(--black);
+  color: var(--white);
 }
 </style>
