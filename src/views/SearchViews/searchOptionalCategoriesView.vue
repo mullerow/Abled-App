@@ -90,7 +90,7 @@ export default {
 }
 .buttons {
   align-self: center;
-  margin-left: 55px;
+  justify-content: space-around;
 }
 
 .container {
