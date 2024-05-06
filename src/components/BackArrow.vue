@@ -5,7 +5,14 @@
 <style scoped>
 button {
   background-color: transparent;
-  border: none;
+  border: 2px solid transparent;
+  border-radius: 10px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: var(--white);
+  box-shadow: 0px 0px 15px white;
 }
 
 img {

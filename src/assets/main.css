@@ -61,3 +61,42 @@ a {
 li {
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 600px) {
+  #landing-page-logo {
+    width: 330px;
+    margin-top: 4rem;
+  }
+}
+@media screen and (min-width: 600px) {
+  body {
+    min-width: 600px;
+  }
+  #landing-page-logo {
+    width: 400px;
+    margin-top: 50px;
+  }
+  .location-info-container {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    width: 768px;
+  }
+}
+@media screen and (min-width: 992px) {
+  body {
+    width: 992px;
+  }
+  .location-info-container {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  body {
+    width: 1200px;
+  }
+}

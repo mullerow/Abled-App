@@ -1,7 +1,11 @@
 <template>
   <div class="imgcover">
-    <img src="../assets/images/ABledApp-Logo-reduced.png" alt="Logo: Abled App" />
-    <h3>Welcome {{ username }}</h3>
+    <img
+      src="../assets/images/ABledApp-Logo-reduced.png"
+      alt="Logo: Abled App"
+      id="landing-page-logo"
+    />
+    <h3>Willkommen {{ username }}</h3>
   </div>
 </template>
 
@@ -14,11 +18,8 @@ export default {
 </script>
 
 <style scoped>
-img {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 4rem;
+.imgcover {
+  text-align: center;
 }
 h3 {
   color: var(--white);

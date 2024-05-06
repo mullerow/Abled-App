@@ -10,7 +10,7 @@
   <div v-for="categorie in store.localData.categories" :key="categorie.id" class="container">
     <div
       v-if="buttonValue.trim().toLowerCase() === categorie.categoryName.trim().toLowerCase()"
-      class="buttons"
+      class="optional-categories-buttons"
     >
       <CategorieButton
         v-for="detailCategorie in categorie.detailCategorys"
@@ -77,7 +77,6 @@ export default {
 .header-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 10px 20px;
   background-color: transparent;
 }
@@ -88,13 +87,14 @@ export default {
 .header-text {
   width: 100%;
 }
-.buttons {
+.optional-categories-buttons {
   align-self: center;
-  margin-left: 55px;
 }
 
 .container {
   display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 .router-link {
   align-self: center;

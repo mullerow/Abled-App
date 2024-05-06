@@ -35,7 +35,7 @@ export default {
   <LandingPageTitle :username="getUserName()" class="welcome-text" />
 
   <div class="grid-container">
-    <button class="btn-search">
+    <button class="btn-search btn-style">
       <RouterLink :to="{ name: 'searchpoi' }" class="search">
         <div class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /> Suche</div>
       </RouterLink>
@@ -68,34 +68,9 @@ export default {
 </template>
 
 <style scoped>
-.menu {
-  list-style-type: none;
-  margin-top: 0;
-  padding-left: 0;
-  padding-right: 1rem;
-}
 .welcome-text {
   margin-bottom: 20px;
   margin-top: 10px;
-}
-
-.menu li {
-  position: relative;
-  margin: 0.4rem;
-  text-align: center;
-  background-color: var(--white);
-  padding: 5vh;
-  border-radius: 1rem;
-  cursor: pointer;
-  border: 1px solid var(--black);
-}
-
-.menu .icon {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .grid-container {
@@ -137,17 +112,8 @@ export default {
   border-radius: 0.5rem;
   background-color: var(--white);
 }
-@media screen and (max-width: 768px) {
-  .container {
-    margin-left: 1%;
-  }
-  .menu {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .menu li {
-    padding: 3vh;
-    margin: 0.2rem;
-  }
+.btn-style:hover {
+  border: 5px solid var(--black);
 }
 
 .menu li {
