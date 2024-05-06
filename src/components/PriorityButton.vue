@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .priority-button {
   padding: 1rem;
   background-color: var(--white);
