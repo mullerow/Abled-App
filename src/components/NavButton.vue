@@ -16,6 +16,6 @@ export default {
   border-radius: 1rem;
   margin: 1rem;
   border: 1px solid var(--white);
-  width: 14.5rem;
+  width: 250px;
 }
 </style>

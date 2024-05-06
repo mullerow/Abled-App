@@ -85,9 +85,6 @@ li {
   body {
     width: 768px;
   }
-  button.categorie-button {
-    width: 100%;
-  }
 }
 @media screen and (min-width: 992px) {
   body {

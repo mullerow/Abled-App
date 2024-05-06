@@ -14,7 +14,7 @@ export default {
   background-color: var(--white);
   color: var(--black);
   border-radius: 1rem;
-  width: 14.5rem;
+  width: 250px;
   display: grid;
   margin-top: 1rem;
   font-weight: bold;
