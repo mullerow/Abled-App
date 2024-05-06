@@ -31,5 +31,6 @@ export default {
   color: var(--white);
   border: 2px solid var(--white);
   border-radius: 1rem;
+  border: 1px solid var(--black);
 }
 </style>

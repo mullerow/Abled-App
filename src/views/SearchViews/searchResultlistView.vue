@@ -5,10 +5,8 @@
     <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
   </div>
 
-  <!--Routerlink Map:  <RouterLink :to="{ name: 'searchresultmap' }">ICON Erde</RouterLink>
- -->
   <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
-  <div class="list-container">
+  <div class="search-list-container">
     <router-link
       v-for="poi of store.temporaryData.currentPois"
       :key="poi.id"
@@ -64,6 +62,8 @@ export default {
   margin-bottom: 10px;
   border-radius: 16px;
   border: 1px solid var(--black);
+  align-self: center;
+  justify-content: space-around;
 }
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
@@ -86,13 +86,27 @@ b {
   font-size: 14px;
 }
 .header-buttons {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 10px 20px;
   background-color: transparent;
 }
 .headline-text {
   width: 100%;
+}
+.search-list-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+  .searchlist-button {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .searchlist-button {
+    width: 50%;
+  }
 }
 </style>

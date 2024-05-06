@@ -27,5 +27,6 @@ export default {
     var(--black) 85%,
     var(--white) 100%
   );
+  border: 1px solid var(--black);
 }
 </style>
