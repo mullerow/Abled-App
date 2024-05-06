@@ -18,6 +18,7 @@
     class="input-register"
     :value="email"
     @input="updateEmail($event.target.value)"
+    @change="checkEmailValidity"
     placeholder="E-Mail-Adresse eingeben"
   >
     ></InputField
@@ -32,6 +33,13 @@
     ></InputField
   >
   <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
+
+  <div v-if="showPopup" class="popup-mail">
+    <div class="popup-content">
+      <p>Ungültige E-Mail-Adresse.</p>
+      <button @click="closePopup">OK</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -49,7 +57,8 @@ export default {
       username: '',
       email: '',
       password: '',
-      userCounter: 3
+      userCounter: 3,
+      showPopup: false
     }
   },
   methods: {
@@ -63,7 +72,7 @@ export default {
       this.password = value
     },
     validateEmail(email) {
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       return regex.test(email)
     },
     /*generateUserID() {
@@ -77,7 +86,7 @@ export default {
         return
       }
       if (!this.validateEmail(this.email)) {
-        alert('Ungültige E-Mail-Adresse.')
+        this.showPopup = true
         return
       }
 
@@ -95,6 +104,14 @@ export default {
     },
     goToPrio() {
       this.$router.push({ name: 'prio' })
+    },
+    closePopup() {
+      this.showPopup = false
+    },
+    checkEmailValidity() {
+      if (!this.validateEmail(this.email)) {
+        this.showPopup = true
+      }
     }
   }
 }
@@ -123,6 +140,32 @@ export default {
 }
 .button-register {
   align-self: center;
+}
+
+.popup-mail {
+  color: var(--red);
+  position: fixed;
+  width: 40%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--black);
+  padding: 20px;
+  border: 4px solid var(--black);
+  border-radius: 1rem;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--black);
+}
+
+.popup button {
+  margin-top: 10px;
 }
 
 #app {
