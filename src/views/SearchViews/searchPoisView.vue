@@ -84,14 +84,6 @@ label {
   margin-left: 20px;
 }
 
-.router-link-next {
-  color: aliceblue;
-  font-size: 20px;
-  border: 2px solid aliceblue;
-  border-radius: 5px;
-  padding: 5px;
-}
-
 .header-buttons {
   display: flex;
   justify-content: space-between;

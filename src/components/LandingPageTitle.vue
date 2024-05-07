@@ -29,6 +29,6 @@ h3 {
   margin-top: 50px;
 }
 #landing-page-logo {
-  border-radius: 50% 0px 0px 10px;
+  border-radius: 40% 0px 0px 10px;
 }
 </style>
