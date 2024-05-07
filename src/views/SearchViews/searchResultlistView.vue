@@ -2,7 +2,7 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchoptionalcategorie' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
-    <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
+    <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink>
   </div>
 
   <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
