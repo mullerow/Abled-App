@@ -4,7 +4,11 @@
     src="/src/assets/images/final_logo_comprimized.png"
     alt="Logo der App"
   />
-  <h1 class="heading-register">Willkommen bei Abled</h1>
+  <h1 class="heading-register">
+    Willkommen <br />
+    bei <br />
+    Abled
+  </h1>
   <InputField
     class="input-register"
     :value="username"
@@ -131,12 +135,18 @@ export default {
 }
 
 .logo-img-register {
-  width: 100%;
+  width: 50%;
+  max-width: 300px;
   margin-top: 2rem;
+  margin-right: 10px;
+  border-radius: 40% 0px 0px 10px;
+  align-self: flex-end;
 }
 .heading-register {
-  align-self: center;
+  align-self: flex-end;
   margin-top: 3rem;
+  margin-right: 30px;
+  text-align: right;
 }
 .button-register {
   align-self: center;

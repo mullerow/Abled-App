@@ -40,7 +40,7 @@ export const storeData = defineStore('poiStore', {
       currentPois: [],
       currentPoi: {},
       currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
-      currentUser: '',
+      currentUserName: '',
       currentPoiId: '',
       newUserData: {
         userName: '',
@@ -396,6 +396,12 @@ export const storeData = defineStore('poiStore', {
       link.href = streetmapsURL
       link.target = '_blank'
       link.click()
+    },
+    getUserName() {
+      const nameOfUser = this.temporaryData.currentUserData.find((user) => {
+        return user.id === this.temporaryData.currentUserId
+      })
+      this.temporaryData.currentUserName = nameOfUser.username
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////

@@ -2,6 +2,7 @@
 import { storeData } from '@/stores/store.js'
 
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
+import { parse } from 'vue/compiler-sfc'
 
 export default {
   components: {
@@ -12,27 +13,21 @@ export default {
       store: storeData()
     }
   },
-  mounted() {
+  created() {
     this.store.getPoiDataFromAPI()
-    this.store.getUserDataFromAPI()
-    this.store.resetDetailcategory()
-    this.store.temporaryData.currentUserId = localStorage.getItem('currentUserID')
-  },
-  methods: {
-    getUserName() {
-      const nameOfUser = this.store.temporaryData.currentUserData.find(
-        (el) => (el.id = this.store.temporaryData.currentUserId)
-      )
-      if (nameOfUser) {
-        return nameOfUser.username
+    this.store.getUserDataFromAPI().then(() => {
+      if (this.store.temporaryData.currentUserData.length > 0) {
+        this.store.currentUserName = this.store.getUserName()
       }
-    }
+    })
+    this.store.resetDetailcategory()
+    this.store.temporaryData.currentUserId = JSON.parse(localStorage.getItem('currentUserID'))
   }
 }
 </script>
 
 <template>
-  <LandingPageTitle :username="getUserName()" class="welcome-text" />
+  <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
 
   <div class="grid-container">
     <button class="btn-search btn-style">
@@ -114,9 +109,5 @@ export default {
 }
 .btn-style:hover {
   border: 5px solid var(--black);
-}
-
-.menu li {
-  outline: none;
 }
 </style>
