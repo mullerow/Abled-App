@@ -11,9 +11,11 @@
 
 <script>
 import L from 'leaflet' // npm install leaflet@latest
+import { storeData } from '@/stores/store.js'
 export default {
   data() {
     return {
+      store: storeData(),
       initalMapFocuslon: 13.419938105983068, // Längenangabe
       initalMapFocuslat: 52.551246414660746, // Breitenangabe
       PoiLon: 13.419938105983068,
@@ -35,7 +37,7 @@ export default {
         }).addTo(this.map)
         // Hinzufügen des Suchradius
         this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
-          radius: 200,
+          radius: 1500, // in meter
           fillColor: 'blue',
           color: 'red',
           weight: 1,
@@ -43,10 +45,18 @@ export default {
           fillOpacity: 0.15
         })
         this.serachCircle.addTo(this.map)
-        this.serachCircle.bindPopup('Dein Suchradius!')
+        this.serachCircle.bindPopup('Dsein Suchradius!')
         // eigener Standort
         this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon])
         this.ownPosition.addTo(this.map)
+        // pois Anzeigen
+        console.log(this.store.temporaryData.currentPois)
+        this.store.temporaryData.currentPois.forEach((element) => {
+          console.log(element.xCoordinates)
+          L.marker([element.xCoordinates, element.yCoordinates])
+            .addTo(this.map)
+            .bindPopup(element.poiName)
+        })
       }
     })
   }
