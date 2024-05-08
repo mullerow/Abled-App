@@ -14,20 +14,39 @@ import L from 'leaflet' // npm install leaflet@latest
 export default {
   data() {
     return {
-      lng: 13.419938105983068, // Längenangabe
-      lat: 52.551246414660746, // Breitenangabe
-      zoom: 13,
-      map: null
+      initalMapFocuslon: 13.419938105983068, // Längenangabe
+      initalMapFocuslat: 52.551246414660746, // Breitenangabe
+      PoiLon: 13.419938105983068,
+      PoiLat: 52.551246414660746,
+      zoom: 15,
+      map: null,
+      serachCircle: null,
+      ownPosition: null
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.map = L.map('map').setView([this.lat, this.lng], this.zoom)
+      // Initailisieren der Karte
+      this.map = L.map('map').setView([this.initalMapFocuslat, this.initalMapFocuslon], this.zoom)
       if (this.map) {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map)
+        // Hinzufügen des Suchradius
+        this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
+          radius: 200,
+          fillColor: 'blue',
+          color: 'red',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.15
+        })
+        this.serachCircle.addTo(this.map)
+        this.serachCircle.bindPopup('Dein Suchradius!')
+        // eigener Standort
+        this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon])
+        this.ownPosition.addTo(this.map)
       }
     })
   }
