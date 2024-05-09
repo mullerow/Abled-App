@@ -11,7 +11,9 @@
 
 <script>
 import L from 'leaflet' // npm install leaflet@latest
+import 'leaflet/dist/leaflet.css'
 import { storeData } from '@/stores/store.js'
+import { toRaw } from 'vue'
 export default {
   data() {
     return {
@@ -23,7 +25,8 @@ export default {
       zoom: 15,
       map: null,
       serachCircle: null,
-      ownPosition: null
+      ownPosition: null,
+      testIcon: null
     }
   },
   mounted() {
@@ -35,6 +38,18 @@ export default {
           maxZoom: 19,
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map)
+        // Icon Design hinzufügen
+        this.testIcon = L.icon({
+          iconUrl: this.store.temporaryData.testIconUrl,
+          iconSize: [72, 73],
+          iconAnchor: [10, 10],
+          popupAnchor: [30, 30]
+        })
+        if (this.testIcon) {
+          console.log('icon wurde gefunden')
+        } else {
+          console.log('icon wurde NICHT gefunden')
+        }
         // Hinzufügen des Suchradius
         this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
           radius: 1500, // in meter
@@ -45,16 +60,16 @@ export default {
           fillOpacity: 0.15
         })
         this.serachCircle.addTo(this.map)
-        this.serachCircle.bindPopup('Dsein Suchradius!')
         // eigener Standort
-        this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon])
-        this.ownPosition.addTo(this.map)
+        this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon], {
+          icon: this.testIcon
+        }).addTo(toRaw(this.map))
         // pois Anzeigen
-        console.log(this.store.temporaryData.currentPois)
         this.store.temporaryData.currentPois.forEach((element) => {
-          console.log(element.xCoordinates)
-          L.marker([element.xCoordinates, element.yCoordinates])
-            .addTo(this.map)
+          L.marker([element.xCoordinates, element.yCoordinates], {
+            icon: this.testIcon
+          })
+            .addTo(toRaw(this.map)) // toRaw entfernt die proxiierung und löst einen konflikt von vue3 und map
             .bindPopup(element.poiName)
         })
       }
