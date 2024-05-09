@@ -1,8 +1,11 @@
 <template>
+  <!--
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
     <RouterLink :to="{ name: 'searchresultlist' }">Gehe eine Seite zurück</RouterLink>
   </div>
+
+  -->
 
   <h2>Ergebnismap</h2>
 
@@ -38,18 +41,14 @@ export default {
           maxZoom: 19,
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map)
-        // Icon Design hinzufügen
+        // Icon Design erzeugen
         this.testIcon = L.icon({
-          iconUrl: this.store.temporaryData.testIconUrl,
-          iconSize: [72, 73],
+          iconUrl: '/src/assets/icons/testicon_for_map.png',
+          iconSize: [30, 30],
           iconAnchor: [10, 10],
           popupAnchor: [30, 30]
         })
-        if (this.testIcon) {
-          console.log('icon wurde gefunden')
-        } else {
-          console.log('icon wurde NICHT gefunden')
-        }
+
         // Hinzufügen des Suchradius
         this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
           radius: 1500, // in meter
@@ -63,14 +62,24 @@ export default {
         // eigener Standort
         this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon], {
           icon: this.testIcon
-        }).addTo(toRaw(this.map))
+        })
+          .addTo(toRaw(this.map))
+          .bindPopup('Dein Standort!')
+
         // pois Anzeigen
+
         this.store.temporaryData.currentPois.forEach((element) => {
           L.marker([element.xCoordinates, element.yCoordinates], {
             icon: this.testIcon
           })
             .addTo(toRaw(this.map)) // toRaw entfernt die proxiierung und löst einen konflikt von vue3 und map
             .bindPopup(element.poiName)
+            .bindTooltip(element.poiName, {
+              permanent: true,
+              direction: 'top',
+              offset: L.point(5, -10)
+            })
+            .openTooltip()
         })
       }
     })

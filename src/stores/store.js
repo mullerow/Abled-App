@@ -72,8 +72,7 @@ export const storeData = defineStore('poiStore', {
       },
       changedPoiData: {
         poiName: 'Schweinchen'
-      },
-      testIconUrl: '/src/assets/icons/testicon_for_map.png'
+      }
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
