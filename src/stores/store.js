@@ -332,18 +332,11 @@ export const storeData = defineStore('poiStore', {
           this.temporaryData.ownXCoordinate,
           this.temporaryData.ownYCoordinate
         )
-        console.log(
-          'currentSearchDistance',
-          this.temporaryData.currentPois[i].currentSearchDistance,
-          'searchDistance',
-          this.temporaryData.searchDistance
-        )
-        console.log('filteredPois', this.temporaryData.filteredPois)
         if (
           Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
           Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
+          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i])
         }
       }
     },
@@ -361,11 +354,10 @@ export const storeData = defineStore('poiStore', {
     },
 
     renderFilteredPois(poi) {
-      console.log('filteredPois in REnder', this.temporaryData.filteredPois)
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
         if (
           this.temporaryData.choosenCategory == ' Alle' &&
-          poi.id === this.temporaryData.filteredPois[i]
+          poi.id === this.temporaryData.filteredPois[i].id
         ) {
           return true
         } else if (

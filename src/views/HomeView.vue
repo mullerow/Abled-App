@@ -2,7 +2,6 @@
 import { storeData } from '@/stores/store.js'
 
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
-import { parse } from 'vue/compiler-sfc'
 
 export default {
   components: {
