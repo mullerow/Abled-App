@@ -33,6 +33,7 @@ export default {
     }
   },
   mounted() {
+    ///// EINBINDEN DER LEAFLET Karte ////////////////////////////////////////////////////////////////////////
     this.$nextTick(() => {
       // Initailisieren der Karte
       this.map = L.map('map').setView([this.initalMapFocuslat, this.initalMapFocuslon], this.zoom)
@@ -65,10 +66,8 @@ export default {
         })
           .addTo(toRaw(this.map))
           .bindPopup('Dein Standort!')
-
         // pois Anzeigen
-
-        this.store.temporaryData.currentPois.forEach((element) => {
+        this.store.temporaryData.filteredPois.forEach((element) => {
           L.marker([element.xCoordinates, element.yCoordinates], {
             icon: this.testIcon
           })
@@ -77,7 +76,7 @@ export default {
             .bindTooltip(element.poiName, {
               permanent: true,
               direction: 'top',
-              offset: L.point(5, -10)
+              offset: L.point(5, -8)
             })
             .openTooltip()
         })

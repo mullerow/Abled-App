@@ -336,7 +336,7 @@ export const storeData = defineStore('poiStore', {
           Number(this.temporaryData.currentPois[i].currentSearchDistance) <=
           Number(this.temporaryData.searchDistance)
         ) {
-          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i].id)
+          this.temporaryData.filteredPois.push(this.temporaryData.currentPois[i])
         }
       }
     },
@@ -357,7 +357,7 @@ export const storeData = defineStore('poiStore', {
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
         if (
           this.temporaryData.choosenCategory == ' Alle' &&
-          poi.id === this.temporaryData.filteredPois[i]
+          poi.id === this.temporaryData.filteredPois[i].id
         ) {
           return true
         } else if (
