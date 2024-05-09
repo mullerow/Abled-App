@@ -1,11 +1,8 @@
 <template>
-  <!--
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
     <RouterLink :to="{ name: 'searchresultlist' }">Gehe eine Seite zurück</RouterLink>
   </div>
-
-  -->
 
   <h2>Ergebnismap</h2>
 
@@ -52,7 +49,7 @@ export default {
 
         // Hinzufügen des Suchradius
         this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
-          radius: 1500, // in meter
+          radius: this.store.temporaryData.searchDistance, // in meter
           fillColor: 'blue',
           color: 'red',
           weight: 1,
