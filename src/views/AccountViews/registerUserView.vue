@@ -41,8 +41,8 @@
 
   <div v-if="showPopup" class="popup-mail">
     <div class="popup-content">
-      <p>Ungültige E-Mail-Adresse.</p>
-      <button @click="closePopup">OK</button>
+      <p>{{ popupMessage }}</p>
+      <button @click="closePopup">{{ popupButtonLabel }}</button>
     </div>
   </div>
 </template>
@@ -117,16 +117,30 @@ export default {
       this.popupMessage = 'Der Benutzername ist bereits vergeben.'
     },
 
+    showEmailInvalidPopup() {
+      this.popupMessage =
+        'Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.'
+      this.showPopup = true
+      this.popupButtonLabel = 'OK'
+    },
+
     checkUsernameDuplicate() {
-      const userData = storeData.getUserData()
+      const store = storeData() // Rufe das Store-Objekt auf
+      store
+        .getUserDataFromAPI() // Rufe die Methode vom Store-Objekt auf
+        .then(() => {
+          const userData = store.temporaryData.currentUserData // Erhalte die Benutzerdaten
+          const usernameExists = userData.some((user) => user.username === this.username) // Prüfe auf vorhandenen Benutzernamen
 
-      const usernameExists = userData.users.some((user) => user.username === this.username)
+          this.usernameExists = usernameExists
 
-      this.usernameExists = usernameExists
-
-      if (this.usernameExists) {
-        this.showUsernameTakenPopup()
-      }
+          if (this.usernameExists) {
+            this.showUsernameTakenPopup()
+          }
+        })
+        .catch((error) => {
+          console.error('Fehler beim Überprüfen des Benutzernamens:', error)
+        })
     },
     registerUser() {
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
@@ -159,7 +173,8 @@ export default {
     },
     checkEmailValidity() {
       if (!this.validateEmail(this.email)) {
-        this.showPopup = true
+        this.showEmailInvalidPopup()
+        return
       }
     }
   }
