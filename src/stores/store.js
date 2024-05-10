@@ -72,7 +72,8 @@ export const storeData = defineStore('poiStore', {
       },
       changedPoiData: {
         poiName: 'Schweinchen'
-      }
+      },
+      poiListforMap: []
     }),
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -355,19 +356,26 @@ export const storeData = defineStore('poiStore', {
 
     renderFilteredPois(poi) {
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
-        if (
-          this.temporaryData.choosenCategory == ' Alle' &&
-          poi.id === this.temporaryData.filteredPois[i].id
-        ) {
-          return true
-        } else if (
-          poi.id === this.temporaryData.filteredPois[i] &&
-          poi.poiName == this.temporaryData.choosenCategory &&
-          this.compareDetailCategories(poi)
-        ) {
-          return true
+        console.log('this.temporaryData.filteredPois[i]', this.temporaryData.filteredPois[i])
+        if (this.temporaryData.filteredPois[i] && this.temporaryData.filteredPois[i].id) {
+          if (
+            this.temporaryData.choosenCategory == ' Alle' &&
+            poi.id === this.temporaryData.filteredPois[i].id
+          ) {
+            this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
+            return true
+          } else if (
+            poi.id === this.temporaryData.filteredPois[i].id &&
+            poi.poiName == this.temporaryData.choosenCategory &&
+            this.compareDetailCategories(poi)
+          ) {
+            this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
+            console.log('this.temporaryData.poiListforMap', this.temporaryData.poiListforMap)
+            return true
+          }
         }
       }
+
       return false
     },
 
