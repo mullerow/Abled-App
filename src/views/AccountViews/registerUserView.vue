@@ -62,7 +62,10 @@ export default {
       email: '',
       password: '',
       userCounter: 3,
-      showPopup: false
+      showPopup: false,
+      usernameExists: false,
+      popupMessage: '',
+      popupButtonLabel: 'OK'
     }
   },
   methods: {
@@ -83,6 +86,23 @@ export default {
       this.userCounter++
       return 100 + this.userCounter
     },*/
+
+    showUsernameTakenPopup() {
+      this.showPopup = true
+      this.popupMessage = 'Der Benutzername ist bereits vergeben.'
+    },
+
+    checkUsernameDuplicate() {
+      const usernameExists = this.userData.users.some((user) => user.username === this.username)
+
+      // Setzen der Datenvariable 'usernameExists' basierend auf dem Ergebnis der Überprüfung
+      this.usernameExists = usernameExists
+
+      // Wenn der Benutzername bereits existiert, können Sie entsprechende Maßnahmen ergreifen
+      if (this.usernameExists) {
+        this.showUsernameTakenPopup()
+      }
+    },
 
     registerUser() {
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
