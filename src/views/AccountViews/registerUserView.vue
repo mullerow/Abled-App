@@ -13,6 +13,7 @@
     class="input-register"
     :value="username"
     @input="updateUsername($event.target.value)"
+    @blur="checkUsernameDuplicate"
     placeholder="Benutzername eingeben"
     label
   >
@@ -40,13 +41,15 @@
 
   <div v-if="showPopup" class="popup-mail">
     <div class="popup-content">
-      <p>Ungültige E-Mail-Adresse.</p>
-      <button @click="closePopup">OK</button>
+      <p>{{ popupMessage }}</p>
+      <button @click="closePopup">{{ popupButtonLabel }}</button>
     </div>
   </div>
 </template>
 
 <script>
+import { storeData } from '@/stores/store.js'
+
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
@@ -62,10 +65,24 @@ export default {
       email: '',
       password: '',
       userCounter: 3,
-      showPopup: false
+      showPopup: false,
+      usernameExists: false,
+      popupMessage: '',
+      popupButtonLabel: 'OK'
     }
   },
   methods: {
+    async getUserData() {
+      try {
+        await storeData.getUserDataFromAPI()
+        console.log(
+          'Benutzerdaten erfolgreich vom Server abgerufen:',
+          storeData.temporaryData.currentUserData
+        )
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzerdaten:', error)
+      }
+    },
     updateUsername(value) {
       this.username = value
     },
@@ -79,11 +96,52 @@ export default {
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       return regex.test(email)
     },
-    /*generateUserID() {
-      this.userCounter++
-      return 100 + this.userCounter
-    },*/
+    showPopupWithMessage(message) {
+      this.popupMessage = message
+      this.showPopup = true
+    },
 
+    checkInputValidity() {
+      if (!this.validateEmail(this.email)) {
+        this.showPopupWithMessage('Ungültige E-Mail-Adresse.')
+        return false
+      }
+
+      if (!this.username.trim()) {
+        this.showPopupWithMessage('Benutzername darf nicht leer sein.')
+        return false
+      }
+    },
+    showUsernameTakenPopup() {
+      this.showPopup = true
+      this.popupMessage = 'Der Benutzername ist bereits vergeben.'
+    },
+
+    showEmailInvalidPopup() {
+      this.popupMessage =
+        'Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.'
+      this.showPopup = true
+      this.popupButtonLabel = 'OK'
+    },
+
+    checkUsernameDuplicate() {
+      const store = storeData() // Rufe das Store-Objekt auf
+      store
+        .getUserDataFromAPI() // Rufe die Methode vom Store-Objekt auf
+        .then(() => {
+          const userData = store.temporaryData.currentUserData // Erhalte die Benutzerdaten
+          const usernameExists = userData.some((user) => user.username === this.username) // Prüfe auf vorhandenen Benutzernamen
+
+          this.usernameExists = usernameExists
+
+          if (this.usernameExists) {
+            this.showUsernameTakenPopup()
+          }
+        })
+        .catch((error) => {
+          console.error('Fehler beim Überprüfen des Benutzernamens:', error)
+        })
+    },
     registerUser() {
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
         console.error('Bitte füllen Sie alle Felder aus.')
@@ -93,6 +151,7 @@ export default {
         this.showPopup = true
         return
       }
+      this.checkUsernameDuplicate()
 
       //const userID = this.generateUserID()
       const userData = {
@@ -103,7 +162,7 @@ export default {
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
-      //localStorage.setItem('userId', userID)
+
       this.goToPrio()
     },
     goToPrio() {
@@ -114,7 +173,8 @@ export default {
     },
     checkEmailValidity() {
       if (!this.validateEmail(this.email)) {
-        this.showPopup = true
+        this.showEmailInvalidPopup()
+        return
       }
     }
   }
