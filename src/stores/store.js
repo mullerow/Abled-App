@@ -356,13 +356,13 @@ export const storeData = defineStore('poiStore', {
 
     renderFilteredPois(poi) {
       for (let i = 0; i < this.temporaryData.currentPois.length; i++) {
-        console.log('this.temporaryData.filteredPois[i]', this.temporaryData.filteredPois[i])
         if (this.temporaryData.filteredPois[i] && this.temporaryData.filteredPois[i].id) {
           if (
             this.temporaryData.choosenCategory == ' Alle' &&
             poi.id === this.temporaryData.filteredPois[i].id
           ) {
             this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
+            console.log('.poiListforMap ALLE', this.temporaryData.poiListforMap)
             return true
           } else if (
             poi.id === this.temporaryData.filteredPois[i].id &&
@@ -370,12 +370,12 @@ export const storeData = defineStore('poiStore', {
             this.compareDetailCategories(poi)
           ) {
             this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
-            console.log('this.temporaryData.poiListforMap', this.temporaryData.poiListforMap)
+            console.log('.poiListforMap nicht alle', this.temporaryData.poiListforMap)
             return true
           }
         }
       }
-
+      console.log('nix gefunden')
       return false
     },
 

@@ -64,8 +64,11 @@ export default {
           .addTo(toRaw(this.map))
           .bindPopup('Dein Standort!')
         // pois Anzeigen
-
-        this.store.temporaryData.filteredPois.forEach((element) => {
+        console.log(
+          'this.store.temporaryData.poiListforMap',
+          this.store.temporaryData.poiListforMap
+        )
+        this.store.temporaryData.poiListforMap.forEach((element) => {
           L.marker([element.xCoordinates, element.yCoordinates], {
             icon: this.testIcon
           })
