@@ -82,11 +82,22 @@ export default {
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       return regex.test(email)
     },
-    /*generateUserID() {
-      this.userCounter++
-      return 100 + this.userCounter
-    },*/
+    showPopupWithMessage(message) {
+      this.popupMessage = message
+      this.showPopup = true
+    },
 
+    checkInputValidity() {
+      if (!this.validateEmail(this.email)) {
+        this.showPopupWithMessage('Ungültige E-Mail-Adresse.')
+        return false
+      }
+
+      if (!this.username.trim()) {
+        this.showPopupWithMessage('Benutzername darf nicht leer sein.')
+        return false
+      }
+    },
     showUsernameTakenPopup() {
       this.showPopup = true
       this.popupMessage = 'Der Benutzername ist bereits vergeben.'
@@ -113,6 +124,7 @@ export default {
         this.showPopup = true
         return
       }
+      this.checkUsernameDuplicate()
 
       //const userID = this.generateUserID()
       const userData = {
