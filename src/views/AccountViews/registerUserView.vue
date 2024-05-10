@@ -13,6 +13,7 @@
     class="input-register"
     :value="username"
     @input="updateUsername($event.target.value)"
+    @blur="checkUsernameDuplicate"
     placeholder="Benutzername eingeben"
     label
   >
@@ -47,6 +48,8 @@
 </template>
 
 <script>
+import { storeData } from '@/stores/store.js'
+
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
@@ -69,6 +72,17 @@ export default {
     }
   },
   methods: {
+    async getUserData() {
+      try {
+        await storeData.getUserDataFromAPI()
+        console.log(
+          'Benutzerdaten erfolgreich vom Server abgerufen:',
+          storeData.temporaryData.currentUserData
+        )
+      } catch (error) {
+        console.error('Fehler beim Abrufen der Benutzerdaten:', error)
+      }
+    },
     updateUsername(value) {
       this.username = value
     },
@@ -104,17 +118,16 @@ export default {
     },
 
     checkUsernameDuplicate() {
-      const usernameExists = this.userData.users.some((user) => user.username === this.username)
+      const userData = storeData.getUserData()
 
-      // Setzen der Datenvariable 'usernameExists' basierend auf dem Ergebnis der Überprüfung
+      const usernameExists = userData.users.some((user) => user.username === this.username)
+
       this.usernameExists = usernameExists
 
-      // Wenn der Benutzername bereits existiert, können Sie entsprechende Maßnahmen ergreifen
       if (this.usernameExists) {
         this.showUsernameTakenPopup()
       }
     },
-
     registerUser() {
       if (!this.username.trim() || !this.email.trim() || !this.password.trim()) {
         console.error('Bitte füllen Sie alle Felder aus.')
@@ -135,7 +148,7 @@ export default {
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))
-      //localStorage.setItem('userId', userID)
+
       this.goToPrio()
     },
     goToPrio() {
