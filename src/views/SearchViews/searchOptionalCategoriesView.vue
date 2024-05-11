@@ -22,7 +22,7 @@
       />
     </div>
   </div>
-  <RouterLink :to="{ name: 'searchresultlist' }" class="router-link">
+  <RouterLink :to="{ name: 'searchresultlist' }" class="router-link" id="navButton">
     <NavButton Navigation="Weiter"
   /></RouterLink>
 </template>
@@ -56,7 +56,6 @@ export default {
     saveClick(detailCategorie) {
       this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
       this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
-      console.log(this.store.temporaryData.choosenDetailCategories)
     }
   },
 
@@ -66,7 +65,9 @@ export default {
       this.$nextTick(() => {
         // Wartet noch bis der DOM vollständig erstellt ist, damit navButton auch gefunden werden kann
         const button = document.getElementById('navButton')
-        button.click()
+        if (button) {
+          button.click()
+        }
       })
     }
   }

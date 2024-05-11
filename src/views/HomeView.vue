@@ -19,7 +19,7 @@ export default {
         this.store.currentUserName = this.store.getUserName()
       }
     })
-    this.store.resetDetailcategory()
+    this.store.resetTemporaryLists()
     this.store.temporaryData.currentUserId = JSON.parse(localStorage.getItem('currentUserID'))
   }
 }
