@@ -22,7 +22,7 @@ export default {
       initalMapFocuslat: 52.551246414660746, // Breitenangabe
       PoiLon: 13.419938105983068,
       PoiLat: 52.551246414660746,
-      zoom: 15,
+      zoom: 14,
       map: null,
       serachCircle: null,
       ownPosition: null,

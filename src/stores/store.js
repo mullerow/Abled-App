@@ -379,8 +379,9 @@ export const storeData = defineStore('poiStore', {
       return false
     },
 
-    resetDetailcategory() {
+    resetTemporaryLists() {
       this.temporaryData.choosenDetailCategories = []
+      this.temporaryData.poiListforMap = []
     },
 
     openExternMapToNavigate(poiXPosition, poiYPosition) {
