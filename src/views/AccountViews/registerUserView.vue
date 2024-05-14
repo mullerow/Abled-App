@@ -32,11 +32,26 @@
     class="input-register"
     :value="password"
     @input="updatePassword($event.target.value)"
+    @focus="showPasswordConditions = true"
     type="password"
     placeholder="Passwort eingeben"
   >
     ></InputField
   >
+  <div v-show="showPasswordConditions" class="password-conditions">
+    <ul class="password-conditions-list">
+      <li v-for="condition in passwordConditions" :key="condition.condition">
+        <span
+          :class="{
+            condition: condition.fulfilled,
+            'condition-unfulfilled': !condition.fulfilled
+          }"
+          >{{ condition.condition }}</span
+        >: <span v-if="condition.fulfilled">&#10004;</span
+        ><span v-if="!condition.fulfilled" class="cross">&#10006;</span>
+      </li>
+    </ul>
+  </div>
   <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 
   <div v-if="showPopup" class="popup-mail">
@@ -68,7 +83,14 @@ export default {
       showPopup: false,
       usernameExists: false,
       popupMessage: '',
-      popupButtonLabel: 'OK'
+      popupButtonLabel: 'OK',
+      passwordConditions: [
+        { condition: 'Mindestens 8 Zeichen lang', fulfilled: false },
+        { condition: 'Mindestens ein Sonderzeichen', fulfilled: false },
+        { condition: 'Mindestens eine Zahl', fulfilled: false },
+        { condition: 'Mindestens ein Großbuchstabe', fulfilled: false },
+        { condition: 'Mindestens ein Kleinbuchstabe', fulfilled: false }
+      ]
     }
   },
   methods: {
@@ -91,6 +113,7 @@ export default {
     },
     updatePassword(value) {
       this.password = value
+      this.updatePasswordConditions()
     },
     validateEmail(email) {
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -165,6 +188,69 @@ export default {
 
       this.goToPrio()
     },
+    updatePasswordConditions() {
+      this.passwordConditions.forEach((condition, index) => {
+        switch (index) {
+          case 0:
+            condition.fulfilled = this.password.length >= 8
+            break
+          case 1:
+            condition.fulfilled = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]/.test(this.password)
+            break
+          case 2:
+            condition.fulfilled = /\d/.test(this.password)
+            break
+          case 3:
+            condition.fulfilled = /[A-Z]/.test(this.password)
+            break
+          case 4:
+            condition.fulfilled = /[a-z]/.test(this.password)
+            break
+          default:
+            break
+        }
+      })
+    },
+
+    validatePassword(password) {
+      if (password.length < 8) {
+        return {
+          valid: false
+        }
+      }
+
+      const specialCharacters = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/
+      if (!specialCharacters.test(password)) {
+        return {
+          valid: false
+        }
+      }
+
+      const numbers = /\d/
+      if (!numbers.test(password)) {
+        return {
+          valid: false
+        }
+      }
+
+      const uppercaseLetters = /[A-Z]/
+      if (!uppercaseLetters.test(password)) {
+        return {
+          valid: false
+        }
+      }
+
+      const lowercaseLetters = /[a-z]/
+      if (!lowercaseLetters.test(password)) {
+        return {
+          valid: false
+        }
+      }
+
+      return {
+        valid: true
+      }
+    },
     goToPrio() {
       this.$router.push({ name: 'prio' })
     },
@@ -236,6 +322,25 @@ export default {
 
 .popup button {
   margin-top: 10px;
+}
+.password-conditions {
+  background: var(--white);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.password-conditions-list {
+  list-style: none;
+}
+
+.condition-unfulfilled {
+  color: var(--red);
+}
+
+.condition {
+  color: var(--black);
+}
+.cross {
+  color: var(--red);
 }
 
 #app {
