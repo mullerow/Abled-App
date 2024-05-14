@@ -91,6 +91,10 @@ export default {
     },
     updatePassword(value) {
       this.password = value
+      const passwordValidation = this.validatePassword(value)
+      if (!passwordValidation.valid) {
+        this.showPopupWithMessage(passwordValidation.message)
+      }
     },
     validateEmail(email) {
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -164,6 +168,51 @@ export default {
       localStorage.setItem('userData', JSON.stringify(userData))
 
       this.goToPrio()
+    },
+    validatePassword(password) {
+      if (password.length < 8) {
+        return {
+          valid: false,
+          message: 'Das Passwort muss mindestens 8 Zeichen lang sein.'
+        }
+      }
+
+      const specialCharacters = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/
+      if (!specialCharacters.test(password)) {
+        return {
+          valid: false,
+          message: 'Das Passwort muss mindestens ein Sonderzeichen enthalten.'
+        }
+      }
+
+      const numbers = /\d/
+      if (!numbers.test(password)) {
+        return {
+          valid: false,
+          message: 'Das Passwort muss mindestens eine Zahl enthalten.'
+        }
+      }
+
+      const uppercaseLetters = /[A-Z]/
+      if (!uppercaseLetters.test(password)) {
+        return {
+          valid: false,
+          message: 'Das Passwort muss mindestens einen Großbuchstaben enthalten.'
+        }
+      }
+
+      const lowercaseLetters = /[a-z]/
+      if (!lowercaseLetters.test(password)) {
+        return {
+          valid: false,
+          message: 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten.'
+        }
+      }
+
+      return {
+        valid: true,
+        message: 'Das Passwort ist gültig.'
+      }
     },
     goToPrio() {
       this.$router.push({ name: 'prio' })
