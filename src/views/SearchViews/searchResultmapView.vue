@@ -18,10 +18,6 @@ export default {
   data() {
     return {
       store: storeData(),
-      initalMapFocuslon: 13.419938105983068, // Längenangabe
-      initalMapFocuslat: 52.551246414660746, // Breitenangabe
-      PoiLon: 13.419938105983068,
-      PoiLat: 52.551246414660746,
       zoom: 14,
       map: null,
       serachCircle: null,
@@ -33,7 +29,10 @@ export default {
     ///// EINBINDEN DER LEAFLET Karte ////////////////////////////////////////////////////////////////////////
     this.$nextTick(() => {
       // Initailisieren der Karte
-      this.map = L.map('map').setView([this.initalMapFocuslat, this.initalMapFocuslon], this.zoom)
+      this.map = L.map('map').setView(
+        [this.store.temporaryData.ownXCoordinate, this.store.temporaryData.ownYCoordinate],
+        this.zoom
+      )
       if (this.map) {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
@@ -48,26 +47,28 @@ export default {
         })
 
         // Hinzufügen des Suchradius
-        this.serachCircle = L.circle([this.initalMapFocuslat, this.initalMapFocuslon], {
-          radius: this.store.temporaryData.searchDistance, // in meter
-          fillColor: 'blue',
-          color: 'red',
-          weight: 1,
-          opacity: 1,
-          fillOpacity: 0.15
-        })
+        this.serachCircle = L.circle(
+          [this.store.temporaryData.ownXCoordinate, this.store.temporaryData.ownYCoordinate],
+          {
+            radius: this.store.temporaryData.searchDistance, // in meter
+            fillColor: 'blue',
+            color: 'red',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.15
+          }
+        )
         this.serachCircle.addTo(this.map)
         // eigener Standort
-        this.ownPosition = L.marker([this.initalMapFocuslat, this.initalMapFocuslon], {
-          icon: this.testIcon
-        })
+        this.ownPosition = L.marker(
+          [this.store.temporaryData.ownXCoordinate, this.store.temporaryData.ownYCoordinate],
+          {
+            icon: this.testIcon
+          }
+        )
           .addTo(toRaw(this.map))
           .bindPopup('Dein Standort!')
         // pois Anzeigen
-        console.log(
-          'this.store.temporaryData.poiListforMap',
-          this.store.temporaryData.poiListforMap
-        )
         this.store.temporaryData.poiListforMap.forEach((element) => {
           L.marker([element.xCoordinates, element.yCoordinates], {
             icon: this.testIcon
