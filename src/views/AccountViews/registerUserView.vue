@@ -37,6 +37,13 @@
   >
     ></InputField
   >
+  <div>
+    <ul>
+      <li v-for="condition in passwordConditions" :key="condition.condition">
+        {{ condition.condition }}: {{ condition.fulfilled ? 'Erfüllt' : 'Nicht erfüllt' }}
+      </li>
+    </ul>
+  </div>
   <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 
   <div v-if="showPopup" class="popup-mail">
@@ -68,7 +75,14 @@ export default {
       showPopup: false,
       usernameExists: false,
       popupMessage: '',
-      popupButtonLabel: 'OK'
+      popupButtonLabel: 'OK',
+      passwordConditions: [
+        { condition: 'Mindestens 8 Zeichen lang', fulfilled: false },
+        { condition: 'Mindestens ein Sonderzeichen', fulfilled: false },
+        { condition: 'Mindestens eine Zahl', fulfilled: false },
+        { condition: 'Mindestens ein Großbuchstabe', fulfilled: false },
+        { condition: 'Mindestens ein Kleinbuchstabe', fulfilled: false }
+      ]
     }
   },
   methods: {
@@ -91,10 +105,7 @@ export default {
     },
     updatePassword(value) {
       this.password = value
-      const passwordValidation = this.validatePassword(value)
-      if (!passwordValidation.valid) {
-        this.showPopupWithMessage(passwordValidation.message)
-      }
+      this.updatePasswordConditions()
     },
     validateEmail(email) {
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -169,49 +180,67 @@ export default {
 
       this.goToPrio()
     },
+    updatePasswordConditions() {
+      this.passwordConditions.forEach((condition, index) => {
+        switch (index) {
+          case 0:
+            condition.fulfilled = this.password.length >= 8
+            break
+          case 1:
+            condition.fulfilled = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]/.test(this.password)
+            break
+          case 2:
+            condition.fulfilled = /\d/.test(this.password)
+            break
+          case 3:
+            condition.fulfilled = /[A-Z]/.test(this.password)
+            break
+          case 4:
+            condition.fulfilled = /[a-z]/.test(this.password)
+            break
+          default:
+            break
+        }
+      })
+    },
+
     validatePassword(password) {
       if (password.length < 8) {
         return {
-          valid: false,
-          message: 'Das Passwort muss mindestens 8 Zeichen lang sein.'
+          valid: false
         }
       }
 
       const specialCharacters = /[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/
       if (!specialCharacters.test(password)) {
         return {
-          valid: false,
-          message: 'Das Passwort muss mindestens ein Sonderzeichen enthalten.'
+          valid: false
         }
       }
 
       const numbers = /\d/
       if (!numbers.test(password)) {
         return {
-          valid: false,
-          message: 'Das Passwort muss mindestens eine Zahl enthalten.'
+          valid: false
         }
       }
 
       const uppercaseLetters = /[A-Z]/
       if (!uppercaseLetters.test(password)) {
         return {
-          valid: false,
-          message: 'Das Passwort muss mindestens einen Großbuchstaben enthalten.'
+          valid: false
         }
       }
 
       const lowercaseLetters = /[a-z]/
       if (!lowercaseLetters.test(password)) {
         return {
-          valid: false,
-          message: 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten.'
+          valid: false
         }
       }
 
       return {
-        valid: true,
-        message: 'Das Passwort ist gültig.'
+        valid: true
       }
     },
     goToPrio() {
