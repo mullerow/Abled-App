@@ -1,6 +1,6 @@
 <script>
 import { storeData } from '@/stores/store.js'
-
+import router from '@/router'
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
 
 export default {
@@ -13,14 +13,19 @@ export default {
     }
   },
   created() {
-    this.store.getPoiDataFromAPI()
-    this.store.getUserDataFromAPI().then(() => {
-      if (this.store.temporaryData.currentUserData.length > 0) {
-        this.store.currentUserName = this.store.getUserName()
-      }
-    })
-    this.store.resetTemporaryLists()
-    this.store.temporaryData.currentUserId = JSON.parse(localStorage.getItem('currentUserID'))
+    const currentUserID = localStorage.getItem('currentUserID')
+    if (!currentUserID) {
+      router.push({ name: 'register' })
+    } else {
+      this.store.getPoiDataFromAPI()
+      this.store.getUserDataFromAPI().then(() => {
+        if (this.store.temporaryData.currentUserData.length > 0) {
+          this.store.currentUserName = this.store.getUserName()
+        }
+      })
+      this.store.resetTemporaryLists()
+      this.store.temporaryData.currentUserId = JSON.parse(currentUserID)
+    }
   }
 }
 </script>
