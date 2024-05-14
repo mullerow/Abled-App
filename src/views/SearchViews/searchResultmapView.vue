@@ -73,7 +73,20 @@ export default {
             icon: this.testIcon
           })
             .addTo(toRaw(this.map)) // toRaw entfernt die proxiierung und löst einen konflikt von vue3 und map
-            .bindPopup(element.poiName)
+            .bindPopup(
+              `
+            <div>
+              <h3>${element.poiName}</h3> 
+              <b>Details: </b> <span>${element.detailCategories}</span> <br>
+              <b>Mindestbreite Tür: </b> <span>${element.minWidth} cm</span> <br>
+              <b>Erstelldatum: </b><span>${element.creationDate}</span> <br>
+              <b>Derzeit nutzbar?: </b><span>${element.status}</span> <br>
+              <b>Kommentar: </b><span>${element.comment}</span> <br>
+              </div>
+              <button @click="
+              store.openExternMapToNavigate(${element.xCoordinates}, ${element.yCoordinates})
+                ">Zeig mir den Weg</button>`
+            )
             .bindTooltip(element.poiName, {
               permanent: true,
               direction: 'top',

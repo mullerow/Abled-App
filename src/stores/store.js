@@ -79,136 +79,11 @@ export const storeData = defineStore('poiStore', {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// DATEN VON DEN USERN //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    userData: [
-      {
-        ownId: 101,
-        userName: 'Karl Otto',
-        eMailAddress: 'karl@otto.de',
-        address: {
-          city: 'Eisenhüttenstadt',
-          street: 'Juri Gagarin Ring 12',
-          zipCode: '12983'
-        },
-        mobilityAssistance: 'Rollstuhl',
-        mobilityAssistanceWidth: '72',
-        ownPois: ['20292', '2091']
-      },
-      {
-        ownId: 102,
-        userName: 'Sven Marquardt',
-        eMailAddress: 'sven@marquardt.de',
-        address: {
-          city: 'Schwedt',
-          street: 'Otto Braun Straße 122',
-          zipCode: '11113'
-        },
-        mobilityAssistance: 'Zwillingskinderwagen',
-        mobilityAssistanceWidth: '92',
-        ownPois: ['20232', '20911']
-      },
-      {
-        ownId: 103,
-        userName: 'Ringo Bingo',
-        eMailAddress: 'ringo@bingo.de',
-        address: {
-          city: 'Finsterwalde',
-          street: 'Apfelweg 2',
-          zipCode: '01123'
-        },
-        mobilityAssistance: 'Rentnermobil',
-        mobilityAssistanceWidth: '100',
-        ownPois: ['2012', '2034', '20191']
-      }
-    ],
+    userData: [],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// DATEN von den POIs //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    poiData: [
-      {
-        id: 201,
-        poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.554228,
-        yCoordinates: 13.412095,
-        status: true,
-        minWidth: 92,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 122,
-        creationDate: '12.09.24',
-        createdBy: 102,
-        currentSearchDistance: 0
-      },
-      {
-        id: 202,
-        poiName: 'Toilette',
-        detailCategories: ['Wickelplatz', 'Behindertengerecht'],
-        xCoordinates: 52.55347266835722,
-        yCoordinates: 13.412074165422512,
-        status: true,
-        minWidth: 122,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 102,
-        creationDate: '13.12.23',
-        createdBy: 102,
-        currentSearchDistance: 0
-      },
-      {
-        id: 203,
-        poiName: 'Toilette',
-        detailCategories: ['Rollstuhl/Kinderwagen geeignet', 'Wickelplatz', 'kostenfrei'],
-        xCoordinates: 52.556657,
-        yCoordinates: 13.37754,
-        status: true,
-        minWidth: 122,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 86,
-        creationDate: '19.01.24',
-        createdBy: 101,
-        currentSearchDistance: 0
-      },
-      {
-        id: 204,
-        poiName: 'Rampe',
-        detailCategories: ['flach', 'Geländer'],
-        xCoordinates: 52.556351,
-        yCoordinates: 13.37712,
-        status: true,
-        minWidth: 92,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 122,
-        creationDate: '12.09.24',
-        createdBy: 102,
-        currentSearchDistance: 0
-      },
-      {
-        id: 205,
-        poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer'],
-        xCoordinates: 52.554248,
-        yCoordinates: 13.412295,
-        status: true,
-        minWidth: 92,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 122,
-        creationDate: '12.09.24',
-        createdBy: 102,
-        currentSearchDistance: 0
-      },
-      {
-        id: 206,
-        poiName: 'Rampe',
-        detailCategories: ['steil', 'Geländer', 'extra breit'],
-        xCoordinates: 52.554348,
-        yCoordinates: 13.412995,
-        status: true,
-        minWidth: 92,
-        openingTimes: 'Mo-Fr: 10-22 Uhr',
-        prioWidth: 122,
-        creationDate: '12.09.24',
-        createdBy: 102,
-        currentSearchDistance: 0
-      }
-    ],
+    poiData: [],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) /////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -362,7 +237,6 @@ export const storeData = defineStore('poiStore', {
             poi.id === this.temporaryData.filteredPois[i].id
           ) {
             this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
-            console.log('.poiListforMap ALLE', this.temporaryData.poiListforMap)
             return true
           } else if (
             poi.id === this.temporaryData.filteredPois[i].id &&
@@ -370,7 +244,6 @@ export const storeData = defineStore('poiStore', {
             this.compareDetailCategories(poi)
           ) {
             this.temporaryData.poiListforMap.push(this.temporaryData.filteredPois[i])
-            console.log('.poiListforMap nicht alle', this.temporaryData.poiListforMap)
             return true
           }
         }

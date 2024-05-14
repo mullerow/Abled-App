@@ -21,6 +21,8 @@ export default {
     })
     this.store.resetTemporaryLists()
     this.store.temporaryData.currentUserId = JSON.parse(localStorage.getItem('currentUserID'))
+    console.log('this.temporaryData.currentUserData', this.temporaryData.currentUserData)
+    console.log('this.temporaryData.currentPois', this.temporaryData.currentPois)
   }
 }
 </script>
