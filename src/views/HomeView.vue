@@ -34,35 +34,39 @@ export default {
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
 
   <div class="grid-container">
-    <button class="btn-search btn-style">
-      <RouterLink :to="{ name: 'searchpoi' }" class="search">
+    <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
+      <button class="btn-style search-button-width">
         <div class="icon"><img src="@/assets/icons/search.svg" alt="Search Icon" /> Suche</div>
-      </RouterLink>
-    </button>
-    <button class="btn-new-poi btn-style">
-      <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
+      </button>
+    </RouterLink>
+
+    <RouterLink :to="{ name: 'newpoicategorie' }" class="new">
+      <button class="btn-new-poi btn-style">
         <div class="icon"><img src="@/assets/icons/Pencil.svg" alt="newpoi Icon" /></div>
         Neuen Ort erstellen
-      </RouterLink>
-    </button>
-    <button class="btn-favorite btn-style">
-      <RouterLink :to="{ name: 'favoritepoi' }" class="favorite">
+      </button>
+    </RouterLink>
+
+    <RouterLink :to="{ name: 'favoritepoi' }" class="favorite">
+      <button class="btn-favorite btn-style">
         <div class="icon"><img src="@/assets/icons/Star.svg" alt="favorite Icon" /></div>
         Deine Favoriten
-      </RouterLink>
-    </button>
-    <button class="btn-own-poi btn-style">
-      <RouterLink :to="{ name: 'ownpoi' }" class="own">
+      </button>
+    </RouterLink>
+
+    <RouterLink :to="{ name: 'ownpoi' }" class="own">
+      <button class="btn-own-poi btn-style">
         <div class="icon"><img src="@/assets/icons/folder.svg" alt="ownpoi Icon" /></div>
         geteilte Orte
-      </RouterLink>
-    </button>
-    <button class="btn-account btn-style">
-      <RouterLink :to="{ name: 'account' }" class="account">
+      </button>
+    </RouterLink>
+
+    <RouterLink :to="{ name: 'account' }" class="account">
+      <button class="btn-account btn-style">
         <div class="icon"><img src="@/assets/icons/user-account.svg" alt="account Icon" /></div>
         Deinen Account
-      </RouterLink>
-    </button>
+      </button>
+    </RouterLink>
   </div>
 </template>
 
@@ -89,29 +93,38 @@ export default {
   width: 21rem;
   grid-area: search;
   grid-row-start: 1;
-  grid-row-end: span 1;
+  _grid-row-end: span 1;
   border-radius: 0.5rem;
   background-color: var(--white);
 }
 
 .btn-favorite {
   grid-area: favorite;
+  width: 10rem;
 }
 .btn-new-poi {
   grid-area: newpoi;
+  width: 10rem;
 }
 .btn-own-poi {
   grid-area: ownpoi;
+  width: 10rem;
 }
 .btn-account {
   grid-area: account;
+  width: 10rem;
 }
 .btn-style {
   height: 7rem;
   border-radius: 0.5rem;
   background-color: var(--white);
+  font-weight: bold;
 }
 .btn-style:hover {
   border: 5px solid var(--black);
+  cursor: pointer;
+}
+.search-button-width {
+  width: 21rem;
 }
 </style>
