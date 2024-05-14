@@ -32,15 +32,23 @@
     class="input-register"
     :value="password"
     @input="updatePassword($event.target.value)"
+    @focus="showPasswordConditions = true"
     type="password"
     placeholder="Passwort eingeben"
   >
     ></InputField
   >
-  <div>
-    <ul>
+  <div v-show="showPasswordConditions" class="password-conditions">
+    <ul class="password-conditions-list">
       <li v-for="condition in passwordConditions" :key="condition.condition">
-        {{ condition.condition }}: {{ condition.fulfilled ? 'Erfüllt' : 'Nicht erfüllt' }}
+        <span
+          :class="{
+            condition: condition.fulfilled,
+            'condition-unfulfilled': !condition.fulfilled
+          }"
+          >{{ condition.condition }}</span
+        >: <span v-if="condition.fulfilled">&#10004;</span
+        ><span v-if="!condition.fulfilled" class="cross">&#10006;</span>
       </li>
     </ul>
   </div>
@@ -314,6 +322,25 @@ export default {
 
 .popup button {
   margin-top: 10px;
+}
+.password-conditions {
+  background: var(--white);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.password-conditions-list {
+  list-style: none;
+}
+
+.condition-unfulfilled {
+  color: var(--red);
+}
+
+.condition {
+  color: var(--black);
+}
+.cross {
+  color: var(--red);
 }
 
 #app {
