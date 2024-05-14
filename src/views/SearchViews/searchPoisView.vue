@@ -1,6 +1,5 @@
 <template>
   <header>
-    <!-- <headerLogo> </headerLogo> -->
     <div class="header-buttons">
       <RouterLink :to="{ name: 'home' }"> <BackArrow /></RouterLink>
       <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -8,6 +7,7 @@
   </header>
   <HeadLine Headline="Wo möchtest du suchen?" class="headline"></HeadLine>
   <h3 class="search-radius-input-header">SUCHRADIUS</h3>
+
   <input
     type="range"
     min="50"
@@ -17,31 +17,40 @@
     name="rangeInput"
     id="idRangeInput"
   />
+
   <label for="rangeInput" class="search-radius-label"
     >Reichweite {{ store.temporaryData.searchDistance }} m</label
   >
+
   <NavButton
     Navigation="Bestimme meinen Standort"
     @click="store.getOwnPosition"
     class="router-link"
   ></NavButton>
   <br />
+
   <div class="location-info-container">
     <h3 class="current-location-info">Sie befinden sich hier:</h3>
     <p class="current-location-info"><b>Stadt:</b> {{ store.temporaryData.city }}</p>
     <p class="current-location-info"><b>Stadteil:</b> {{ store.temporaryData.district }}</p>
     <p class="current-location-info"><b>Straße:</b> {{ store.temporaryData.street }}</p>
     <p class="current-location-info"><b>Postleitzahl:</b> {{ store.temporaryData.zipCode }}</p>
+
     <p v-show="store.temporaryData.houseNumber" class="current-location-info">
       <b>Hausnummer:</b> {{ store.temporaryData.houseNumber }}
     </p>
+
     <p v-show="!store.temporaryData.houseNumber" class="current-location-info">
       <b>Hausnummer:</b> nicht vorhanden (Daten nicht genau zuweisbar)
     </p>
   </div>
 
+  <p v-show="!store.temporaryData.street" class="searchpoiview-info">
+    Bitte bestimmen Sie ihren Standort, bevor Sie fortfahren
+  </p>
+
   <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
-    ><NavButton Navigation="Weiter">Weiter</NavButton>
+    ><NavButton :disabled="!store.temporaryData.street" Navigation="Weiter">Weiter</NavButton>
   </RouterLink>
 </template>
 
@@ -119,5 +128,10 @@ label {
   background-color: var(--white);
   color: var(--black);
   border-radius: 16px;
+}
+.searchpoiview-info {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
