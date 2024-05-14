@@ -248,13 +248,13 @@ export const storeData = defineStore('poiStore', {
           }
         }
       }
-      console.log('nix gefunden')
       return false
     },
 
     resetTemporaryLists() {
       this.temporaryData.choosenDetailCategories = []
       this.temporaryData.poiListforMap = []
+      this.temporaryData.searchDistance = 500
     },
 
     openExternMapToNavigate(poiXPosition, poiYPosition) {
