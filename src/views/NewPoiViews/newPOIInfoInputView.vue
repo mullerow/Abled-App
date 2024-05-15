@@ -67,7 +67,14 @@ export default {
       let openingTimes = document.getElementById('openingTimesInput').value
       let minWidth = document.getElementById('minWidthInput').value
       let comment = document.getElementById('comment').value
-      let creationDate = new Date()
+      let date = new Date()
+      let year = date.getFullYear()
+      let month = date.getMonth()
+      let day = date.getDate()
+      let hour = date.getHours()
+      let minutes = date.getMinutes()
+      let creationDate = day + '.' + month + '.' + year + ' ' + hour + ':' + minutes
+      console.log('creationDate', creationDate)
       let XKoordinate = Number(localStorage.getItem('x-Koordinate'))
       let YKoordinate = Number(localStorage.getItem('y-Koordinate'))
       let userID = JSON.parse(localStorage.getItem('currentUserID'))
