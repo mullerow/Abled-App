@@ -74,7 +74,6 @@ export default {
       let hour = date.getHours()
       let minutes = date.getMinutes()
       let creationDate = day + '.' + month + '.' + year + ' ' + hour + ':' + minutes
-      console.log('creationDate', creationDate)
       let XKoordinate = Number(localStorage.getItem('x-Koordinate'))
       let YKoordinate = Number(localStorage.getItem('y-Koordinate'))
       let userID = JSON.parse(localStorage.getItem('currentUserID'))
