@@ -40,11 +40,39 @@ export default {
         }).addTo(this.map)
         // Icon Design erzeugen
         this.testIcon = L.icon({
-          iconUrl: '/src/assets/icons/testicon_for_map.png',
+          iconUrl: 'src/assets/icons/map-icons/Gastro.svg',
           iconSize: [30, 30],
           iconAnchor: [10, 10],
           popupAnchor: [30, 30]
         })
+        // Legende erstellen
+        let legend = L.control({ position: 'bottomleft' })
+
+        legend.onAdd = function () {
+          let div = L.DomUtil.create('div', 'info legend')
+          div.innerHTML = `
+          <h3>Legende</h3>
+          <div class="legend-container">
+            <img src="src/assets/icons/map-icons/Gastro.svg" style="width: 30px;" id="gastro"> 
+            <label for="gastro"" >&nbsp;Gastronomie</label>
+            <img src="src/assets/icons/map-icons/Baby-Changing-Table.svg" style="width: 30px;" id="baby-changing"> 
+            <label for="baby-changing" >&nbsp;Wickleplatz</label>
+            <img src="src/assets/icons/map-icons/Entrance.svg" style="width: 30px;" id="entrance"> 
+            <label for="entrance" >&nbsp;Eingang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <img src="src/assets/icons/map-icons/Lift.svg" style="width: 30px;" id="lift"> 
+            <label for="lift" >&nbsp;Fahrstuhl&nbsp;&nbsp;&nbsp;</label>
+            <img src="src/assets/icons/map-icons/Location.svg" style="width: 30px;" id="location"> 
+            <label for="location" >&nbsp;Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <img src="src/assets/icons/map-icons/Ramp-Up.svg" style="width: 30px;" id="ramp"> 
+            <label for="ramp" >&nbsp;Rampe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <img src="src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg" style="width: 30px;" id="toilette"> 
+            <label for="toilette" >&nbsp;Gastronomie</label>
+          </div>
+          `
+          return div
+        }
+
+        legend.addTo(this.map)
 
         // Hinzufügen des Suchradius
         this.serachCircle = L.circle(
@@ -88,12 +116,13 @@ export default {
               store.openExternMapToNavigate(${element.xCoordinates}, ${element.yCoordinates})
                 ">Zeig mir den Weg</button>`
             )
-            .bindTooltip(element.poiName, {
+          /*.bindTooltip(element.poiName, {
               permanent: true,
               direction: 'top',
               offset: L.point(5, -8)
             })
             .openTooltip()
+             das dauerhafte Label wird aufgrund der Legende nict mehr benötigt, sodass die karte übersichtlicher wird */
         })
       }
     })
@@ -101,12 +130,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+/* scoped muss weggelassen werden, damit die styles auf leaflet angwendet werden können */
 .header-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: transparent;
+}
+.legend {
+  background-color: var(--white);
+  height: 260px;
+  border-radius: 20px;
+}
+.legend-container {
+  display: flex;
+  width: 120px;
+  flex-wrap: wrap;
+  margin-left: 5px;
+}
+h3 {
+  text-align: center;
+}
+label {
+  font-weight: bold;
+  margin-top: 5px;
 }
 </style>
