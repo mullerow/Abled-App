@@ -9,7 +9,13 @@ export default {
   },
   data() {
     return {
-      store: storeData()
+      store: storeData(),
+      InfoPopup: false
+    }
+  },
+  methods: {
+    openInfoPopup() {
+      this.InfoPopup = !this.InfoPopup
     }
   },
   created() {
@@ -26,12 +32,21 @@ export default {
       this.store.resetTemporaryLists()
       this.store.temporaryData.currentUserId = JSON.parse(currentUserID)
     }
+    this.openInfoPopup()
   }
 }
 </script>
 
 <template>
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
+
+  <div v-if="this.InfoPopup" class="popup-info">
+    <p>
+      Achtung! die API-Datenbank Anbindung funktioniert derzeit leider nicht! Daher kann diese App
+      nur eingeschränkt genutzt werden.
+    </p>
+    <button @click="this.InfoPopup = false">VERSTANDEN!</button>
+  </div>
 
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
@@ -126,5 +141,16 @@ export default {
 }
 .search-button-width {
   width: 21rem;
+}
+.popup-info {
+  position: fixed;
+
+  margin-top: 200px;
+  margin-left: 50px;
+  padding-left: 20px;
+  width: 60%;
+  height: 20%;
+  background-color: var(--black);
+  color: var(--white);
 }
 </style>

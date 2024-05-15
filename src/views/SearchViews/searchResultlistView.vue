@@ -14,6 +14,7 @@
     >
       <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
+        <img class="categorie-icon" src="@/assets/icons/Pencil.svg" alt="Kategorie Icon" />
         <div
           class="searchlist-detailcategories"
           v-for="detailcategorie of poi.detailCategories"
@@ -21,6 +22,7 @@
         >
           ✅ {{ detailcategorie }}
         </div>
+
         <div class="searchlist-distance">
           Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
         </div>
@@ -67,6 +69,7 @@ export default {
 }
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
+  cursor: pointer;
 }
 b {
   color: var(--black);
@@ -79,6 +82,7 @@ b {
 .searchlist-detailcategories {
   text-align: start;
   font-size: 14px;
+  width: 70%;
 }
 .searchlist-distance {
   text-align: end;
@@ -97,6 +101,14 @@ b {
   display: flex;
   flex-direction: column;
   text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.categorie-icon {
+  float: right;
+  margin-right: 20px;
+  width: 30px;
 }
 
 @media screen and (min-width: 600px) {
