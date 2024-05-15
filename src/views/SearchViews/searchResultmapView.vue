@@ -58,7 +58,7 @@ export default {
             <img src="src/assets/icons/map-icons/Baby-Changing-Table.svg" style="width: 30px;" id="baby-changing"> 
             <label for="baby-changing" >&nbsp;Wickleplatz</label>
             <img src="src/assets/icons/map-icons/Entrance.svg" style="width: 30px;" id="entrance"> 
-            <label for="entrance" >&nbsp;Eingang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label for="entrance" >&nbsp;Zugang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Lift.svg" style="width: 30px;" id="lift"> 
             <label for="lift" >&nbsp;Fahrstuhl&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Location.svg" style="width: 30px;" id="location"> 
@@ -66,7 +66,7 @@ export default {
             <img src="src/assets/icons/map-icons/Ramp-Up.svg" style="width: 30px;" id="ramp"> 
             <label for="ramp" >&nbsp;Rampe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg" style="width: 30px;" id="toilette"> 
-            <label for="toilette" >&nbsp;Gastronomie</label>
+            <label for="toilette" >&nbsp;Toilette</label>
           </div>
           `
           return div
