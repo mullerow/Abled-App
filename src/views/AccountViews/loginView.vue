@@ -12,6 +12,13 @@
     ></InputField
   >
   <NavButton class="button-login" :Navigation="'Login'"></NavButton>
+
+  <div v-if="showPopup" class="popup-login">
+    <div class="popup-content">
+      <p>{{ popupMessage }}</p>
+      <button @click="closePopup">{{ popupButtonLabel }}</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -29,7 +36,10 @@ export default {
       store: storeData(),
       username: '',
       password: '',
-      timeoutId: null
+      timeoutId: null,
+      showPopup: false,
+      popupMessage: '',
+      popupButtonLabel: 'OK'
     }
   },
 
@@ -58,7 +68,6 @@ export default {
     },
 
     async checkUsername() {
-      console.log(this.username)
       if (!this.username || this.username.trim() === '') {
         console.log('Ungültiger Benutzername')
         return
@@ -70,15 +79,16 @@ export default {
         const userData = this.store.temporaryData.currentUserData
 
         const userExists = userData.some((user) => user.username === this.username)
-        console.log(typeof this.username)
-        if (userExists) {
-          console.log('Benutzer vorhanden')
-        } else {
-          console.log('Benutzer nicht gefunden')
+        if (!userExists) {
+          this.showPopup = true
+          this.popupMessage = 'Benutzername existiert nicht'
         }
       } catch (error) {
         console.error('Fehler beim Abrufen der Benutzerdaten:', error)
       }
+    },
+    closePopup() {
+      this.showPopup = false
     }
   }
 }
@@ -105,5 +115,31 @@ export default {
 
 .button-login {
   align-self: center;
+}
+
+.popup-login {
+  color: var(--red);
+  position: fixed;
+  width: 40%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--black);
+  padding: 20px;
+  border: 4px solid var(--black);
+  border-radius: 1rem;
+  z-index: 9999;
+}
+
+.popup-content {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--black);
+}
+
+.popup button {
+  margin-top: 10px;
 }
 </style>
