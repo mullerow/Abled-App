@@ -47,6 +47,8 @@ export default {
           div.innerHTML = `
           <h3>Legende</h3>
           <div class="legend-container">
+            <img src="src/assets/icons/map-icons/Location.svg" style="width: 30px;" id="location">
+            <label for="location" >&nbsp;Sie sind hier!</label>
             <img src="src/assets/icons/map-icons/Gastro.svg" style="width: 30px;" id="gastro">
             <label for="gastro"" >&nbsp;Gastronomie</label>
             <img src="src/assets/icons/map-icons/Baby-Changing-Table.svg" style="width: 30px;" id="baby-changing">
@@ -55,8 +57,6 @@ export default {
             <label for="entrance" >&nbsp;Zugang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Lift.svg" style="width: 30px;" id="lift">
             <label for="lift" >&nbsp;Fahrstuhl&nbsp;&nbsp;&nbsp;</label>
-            <img src="src/assets/icons/map-icons/Location.svg" style="width: 30px;" id="location">
-            <label for="location" >&nbsp;Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Ramp-Up.svg" style="width: 30px;" id="ramp">
             <label for="ramp" >&nbsp;Rampe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg" style="width: 30px;" id="toilette">
