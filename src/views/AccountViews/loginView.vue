@@ -1,27 +1,13 @@
 <template>
-  <h1>Willkommen zurück</h1>
-  <InputField
-    class="input-register"
-    :value="username"
-    @input="updateUsername($event.target.value)"
-    @blur="checkUsernameDuplicate"
-    placeholder="Benutzername eingeben"
-    label
-  >
+  <h1 class="heading-login">Willkommen zurück</h1>
+  <InputField class="input-login" :value="username" placeholder="Benutzername eingeben" label>
     ></InputField
   >
 
-  <InputField
-    class="input-register"
-    :value="password"
-    @input="updatePassword($event.target.value)"
-    @focus="showPasswordConditions = true"
-    type="password"
-    placeholder="Passwort eingeben"
-  >
+  <InputField class="input-login" :value="password" type="password" placeholder="Passwort eingeben">
     ></InputField
   >
-  <NavButton></NavButton>
+  <NavButton class="button-login" :Navigation="'Login'"></NavButton>
 </template>
 
 <script>
@@ -42,4 +28,26 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.heading-login {
+  align-self: flex-end;
+  margin-top: 3rem;
+  margin-right: 30px;
+  text-align: right;
+}
+.input-login {
+  background-color: var(--white);
+  padding: 0.5rem;
+  width: 90%;
+  border-radius: 0.5rem;
+  margin: 2rem;
+  color: var(--black);
+  border: 1px solid var(--black);
+  align-self: center;
+  min-height: 3rem;
+}
+
+.button-login {
+  align-self: center;
+}
+</style>
