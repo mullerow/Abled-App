@@ -8,10 +8,16 @@
     label
   ></InputField>
 
-  <InputField class="input-login" :value="password" type="password" placeholder="Passwort eingeben">
+  <InputField
+    class="input-login"
+    :value="password"
+    @input="onPasswordInput"
+    type="password"
+    placeholder="Passwort eingeben"
+  >
     ></InputField
   >
-  <NavButton class="button-login" :Navigation="'Login'"></NavButton>
+  <NavButton class="button-login" :Navigation="'Login'" @click="login"></NavButton>
 
   <div v-if="showPopup" class="popup-login">
     <div class="popup-content">
@@ -66,6 +72,16 @@ export default {
         this.checkUsername()
       }, 5000)
     },
+    async onPasswordInput(event) {
+      this.password = event.target.value
+      if (this.passwordTimeoutId !== null) {
+        clearTimeout(this.passwordTimeoutId)
+      }
+
+      this.passwordTimeoutId = setTimeout(() => {
+        this.checkPassword()
+      }, 3000)
+    },
 
     async checkUsername() {
       if (!this.username || this.username.trim() === '') {
@@ -78,13 +94,55 @@ export default {
 
         const userData = this.store.temporaryData.currentUserData
 
-        const userExists = userData.some((user) => user.username === this.username)
-        if (!userExists) {
+        const user = userData.find((user) => user.username === this.username)
+        if (!user) {
           this.showPopup = true
           this.popupMessage = 'Benutzername existiert nicht'
+          return
         }
+        if (user.password !== this.password) {
+          this.showPopup = true
+          this.popupMessage = 'Falsches Passwort'
+          return
+        }
+        localStorage.setItem('currentUserID', user.id)
       } catch (error) {
         console.error('Fehler beim Abrufen der Benutzerdaten:', error)
+      }
+    },
+    async checkPassword() {
+      if (!this.password || this.password.trim() === '') {
+        console.log('Ungültiges Passwort')
+        return
+      }
+
+      try {
+        await this.fetchUserDataFromAPI()
+        const userData = this.store.temporaryData.currentUserData
+
+        const user = userData.find((user) => user.username === this.username)
+        if (user && user.password !== this.password) {
+          this.showPopup = true
+          this.popupMessage = 'Falsches Passwort'
+          return
+        }
+      } catch (error) {
+        console.error('Fehler beim Überprüfen des Passworts:', error)
+      }
+    },
+    async login() {
+      try {
+        const userData = this.store.temporaryData.currentUserData
+        const user = userData.find((user) => user.username === this.username)
+        if (user && user.password === this.password) {
+          localStorage.setItem('currentUserID', user.id)
+          console.log('Erfolgreich eingeloggt')
+        } else {
+          this.showPopup = true
+          this.popupMessage = 'Falsches Passwort'
+        }
+      } catch (error) {
+        console.error('Fehler beim Einloggen:', error)
       }
     },
     closePopup() {
