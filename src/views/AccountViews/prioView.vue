@@ -65,9 +65,8 @@ export default {
       localStorage.setItem('userData', JSON.stringify(localUserData))
     },
     loadUserDataToTemporaryData() {
-      try {
-        const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
-
+      const localUserData = JSON.parse(localStorage.getItem('userData')) || {}
+      if (localUserData) {
         this.store.temporaryData.newUserData = {
           id: '',
           username: localUserData.username || '',
@@ -76,14 +75,12 @@ export default {
           mobilityAssistanceWidth: localUserData.mobilityAssistanceWidth || '',
           password: localUserData.password || ''
         }
-
-        console.log(
-          'Benutzerdaten erfolgreich in temporäre Daten geladen:',
-          this.store.temporaryData.newUserData
-        )
-      } catch (error) {
-        console.error('Fehler beim Laden der Benutzerdaten in temporäre Daten:', error)
       }
+
+      console.log(
+        'Benutzerdaten erfolgreich in temporäre Daten geladen:',
+        this.store.temporaryData.newUserData
+      )
     },
 
     async addUserAndNavigate() {
