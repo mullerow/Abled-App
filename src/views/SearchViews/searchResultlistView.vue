@@ -6,13 +6,9 @@
   </div>
 
   <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
-  <div class="search-list-container">
-    <router-link
-      v-for="poi of store.temporaryData.currentPois"
-      :key="poi.id"
-      :to="'/infopoi/' + poi.id"
-    >
-      <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+  <div class="search-list-container" v-for="poi of store.temporaryData.currentPois" :key="poi.id">
+    <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+      <router-link :to="'/infopoi/' + poi.id">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
         <img class="categorie-icon" src="@/assets/icons/Pencil.svg" alt="Kategorie Icon" />
         <div
@@ -26,8 +22,8 @@
         <div class="searchlist-distance">
           Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
         </div>
-      </button>
-    </router-link>
+      </router-link>
+    </button>
   </div>
 </template>
 

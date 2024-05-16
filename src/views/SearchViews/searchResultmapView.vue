@@ -40,7 +40,7 @@ export default {
         }).addTo(this.map)
         // Icon Design erzeugen
         this.testIcon = L.icon({
-          iconUrl: 'src/assets/icons/map-icons/Gastro.svg',
+          iconUrl: 'src/assets/icons/map-icons/Location.svg',
           iconSize: [30, 30],
           iconAnchor: [10, 10],
           popupAnchor: [30, 30]
