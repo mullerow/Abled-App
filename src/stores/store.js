@@ -277,11 +277,89 @@ export const storeData = defineStore('poiStore', {
       })
       this.temporaryData.currentUserName = nameOfUser.username
     },
+    createDummyPois() {
+      // erstelle DUmmy Toilette
+      this.temporaryData.newPoiData = {
+        poiName: ' Toilette',
+        detailCategories: [
+          'Wickelplatz',
+          'Behindertengerecht',
+          'Kostenfrei',
+          'Desinfektionsmittel'
+        ],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.01,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.01,
+        status: true,
+        minWidth: 120,
+        openingTimes: 'Mo - Fr 8:00 bis 22:00 Uhr',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'bei dir'
+      }
+      this.addNewPoiToAPI()
+
+      // erstelle Dummy Gastronomie
+      this.temporaryData.newPoiData = {
+        poiName: ' Gastronomie',
+        detailCategories: [
+          'Wickelplatz',
+          'Behindertengerechte Toiletten',
+          'Rollstuhl/Kinderwagen geeignet',
+          'Kinderstühle',
+          'Stellplatz Kinderwagen',
+          'Desinfektionsmittel'
+        ],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.004,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.011,
+        status: true,
+        minWidth: 100,
+        openingTimes: 'Mo - Sa 8:00 bis 22:00 Uhr',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'bei dir'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Wickelplatz
+      this.temporaryData.newPoiData = {
+        poiName: ' Wickelplatz',
+        detailCategories: ['Windelspender', 'Platz für Kinderwagen', 'Desinfektionsmittel'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.003,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.0094,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'bei dir'
+      }
+      // lade die Datenbank neu
+      this.addNewPoiToAPI().then(() => {
+        this.store.getPoiDataFromAPI()
+      })
+    },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     async getUserDataFromAPI() {
-      const res = await fetch('http://localhost:3000/users')
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/users')
       if (res.ok) {
         const data = await res.json()
         this.temporaryData.currentUserData = data
@@ -294,7 +372,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     async addNewUserToAPI() {
-      const res = await fetch('http://localhost:3000/users', {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.newUserData)
@@ -308,7 +386,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     async updateUserAtAPI(userId) {
-      const res = await fetch('http://localhost:3000/users/' + userId, {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/users/' + userId, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.changedUserData)
@@ -322,7 +400,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     async deleteUserfromAPI(userId) {
-      const res = await fetch('http://localhost:3000/users/' + userId, {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/users/' + userId, {
         method: 'DELETE'
       })
       if (res.ok) {
@@ -334,7 +412,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     async getPoiDataFromAPI() {
-      const res = await fetch('http://localhost:3000/pois')
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/poi')
       if (res.ok) {
         const data = await res.json()
         this.temporaryData.currentPois = data
@@ -346,7 +424,7 @@ export const storeData = defineStore('poiStore', {
       }
     },
     async addNewPoiToAPI() {
-      const res = await fetch('http://localhost:3000/pois', {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/poi', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.newPoiData)
@@ -359,7 +437,7 @@ export const storeData = defineStore('poiStore', {
         )
     },
     async updatePoiAtAPI(poiId) {
-      const res = await fetch('http://localhost:3000/pois/' + poiId, {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/poi/' + poiId, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.temporaryData.changedPoiData)
@@ -373,7 +451,7 @@ export const storeData = defineStore('poiStore', {
     },
 
     async deletePoifromAPI(poiId) {
-      const res = await fetch('http://localhost:3000/pois/' + poiId, {
+      const res = await fetch('https://24-01-accessibility.api.cbe.uber.space/poi/' + poiId, {
         method: 'DELETE'
       })
       if (res.ok) {
