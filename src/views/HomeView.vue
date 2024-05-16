@@ -39,7 +39,7 @@ export default {
 
 <template>
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
-
+  <!--
   <div v-if="this.InfoPopup" class="popup-info">
     <p>
       Achtung! die API-Datenbank Anbindung funktioniert derzeit leider nicht! Daher kann diese App
@@ -47,7 +47,7 @@ export default {
     </p>
     <button @click="this.InfoPopup = false">VERSTANDEN!</button>
   </div>
-
+-->
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
       <button class="btn-style search-button-width">

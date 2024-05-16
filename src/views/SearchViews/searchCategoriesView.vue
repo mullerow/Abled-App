@@ -35,6 +35,9 @@ export default {
       isPressed: null
     }
   },
+  mounted() {
+    this.store.createDummyPois()
+  },
 
   methods: {
     saveButtonValue(categorie) {
