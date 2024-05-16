@@ -89,7 +89,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      componet: loginView
+      component: loginView
     },
     {
       path: '/searchpoi',
