@@ -296,11 +296,11 @@ export const storeData = defineStore('poiStore', {
         creationDate: 'Dummys bekommen kein Datum',
         createdBy: this.temporaryData.currentUserId,
         comment:
-          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch Einträge in Ihrer Nähe haben',
         street: 'Am Damm',
         number: 2,
         zip: 12345,
-        city: 'bei dir'
+        city: 'Bei Dir ums Eck'
       }
       this.addNewPoiToAPI()
 
@@ -328,7 +328,7 @@ export const storeData = defineStore('poiStore', {
         street: 'Am Damm',
         number: 2,
         zip: 12345,
-        city: 'bei dir'
+        city: 'Bei Dir ums Eck'
       }
       this.addNewPoiToAPI()
       // erstelle Dummy Wickelplatz
@@ -348,7 +348,27 @@ export const storeData = defineStore('poiStore', {
         street: 'Am Damm',
         number: 2,
         zip: 12345,
-        city: 'bei dir'
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Fahrstuhl
+      this.temporaryData.newPoiData = {
+        poiName: ' Fahrstuhl',
+        detailCategories: ['Groß'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.003,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) - 0.0094,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
       }
       // lade die Datenbank neu
       this.addNewPoiToAPI().then(() => {
