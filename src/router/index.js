@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import registerUserView from '@/views/AccountViews/registerUserView.vue'
+import loginView from '@/views/AccountViews/loginView.vue'
 import prioView from '@/views/AccountViews/prioView.vue'
 import newPoiCategorieView from '@/views/NewPoiViews/newPOICategoriesView.vue'
 import newPoiLocationSelectionView from '@/views/NewPoiViews/newPOILocationSelectionView.vue'
@@ -84,6 +85,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: accountView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: loginView
     },
     {
       path: '/searchpoi',
