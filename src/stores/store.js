@@ -352,7 +352,7 @@ export const storeData = defineStore('poiStore', {
       }
       // lade die Datenbank neu
       this.addNewPoiToAPI().then(() => {
-        this.store.getPoiDataFromAPI()
+        this.getPoiDataFromAPI()
       })
     },
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
