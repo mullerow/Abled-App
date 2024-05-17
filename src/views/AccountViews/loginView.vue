@@ -86,7 +86,6 @@ export default {
 
     async checkUsername() {
       if (!this.username || this.username.trim() === '') {
-        console.log('Ungültiger Benutzername')
         return
       }
 
