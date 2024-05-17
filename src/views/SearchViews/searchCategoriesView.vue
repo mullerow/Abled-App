@@ -36,7 +36,9 @@ export default {
     }
   },
   mounted() {
-    this.store.createDummyPois()
+    if (this.store.temporaryData.currentPois.length < 4) {
+      this.store.createDummyPois()
+    }
   },
 
   methods: {
