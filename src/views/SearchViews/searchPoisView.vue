@@ -50,7 +50,7 @@
   </p>
 
   <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
-    ><NavButton :disabled="!store.temporaryData.street" Navigation="Weiter">Weiter</NavButton>
+    ><NavButton :disabled="!store.temporaryData.city" Navigation="Weiter">Weiter</NavButton>
   </RouterLink>
 </template>
 
