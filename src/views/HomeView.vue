@@ -9,13 +9,7 @@ export default {
   },
   data() {
     return {
-      store: storeData(),
-      InfoPopup: false
-    }
-  },
-  methods: {
-    openInfoPopup() {
-      this.InfoPopup = !this.InfoPopup
+      store: storeData()
     }
   },
   created() {
@@ -32,22 +26,27 @@ export default {
       this.store.resetTemporaryLists()
       this.store.temporaryData.currentUserId = JSON.parse(currentUserID)
     }
-    this.openInfoPopup()
+
+    // DELETE the Dummydata
+    // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
+    /*
+    if (this.store.temporaryData.currentPois) {
+      console.log('currentPois', this.store.temporaryData.currentPois)
+      this.store.temporaryData.currentPois.forEach((element) => {
+        console.log('element', element)
+        console.log('element.id', element.id)
+        if (element.creationDate === 'Dummys bekommen kein Datum') {
+          this.store.deletePoifromAPI(element.id)
+        }
+      })
+    }
+    */
   }
 }
 </script>
 
 <template>
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
-  <!--
-  <div v-if="this.InfoPopup" class="popup-info">
-    <p>
-      Achtung! die API-Datenbank Anbindung funktioniert derzeit leider nicht! Daher kann diese App
-      nur eingeschränkt genutzt werden.
-    </p>
-    <button @click="this.InfoPopup = false">VERSTANDEN!</button>
-  </div>
--->
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
       <button class="btn-style search-button-width">
@@ -141,16 +140,5 @@ export default {
 }
 .search-button-width {
   width: 21rem;
-}
-.popup-info {
-  position: fixed;
-
-  margin-top: 200px;
-  margin-left: 50px;
-  padding-left: 20px;
-  width: 60%;
-  height: 20%;
-  background-color: var(--black);
-  color: var(--white);
 }
 </style>
