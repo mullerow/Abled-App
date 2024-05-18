@@ -31,10 +31,7 @@ export default {
     // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
     /*
     if (this.store.temporaryData.currentPois) {
-      console.log('currentPois', this.store.temporaryData.currentPois)
       this.store.temporaryData.currentPois.forEach((element) => {
-        console.log('element', element)
-        console.log('element.id', element.id)
         if (element.creationDate === 'Dummys bekommen kein Datum') {
           this.store.deletePoifromAPI(element.id)
         }

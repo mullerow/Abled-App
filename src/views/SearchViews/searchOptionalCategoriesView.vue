@@ -55,7 +55,27 @@ export default {
   methods: {
     saveClick(detailCategorie) {
       this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
-      this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
+      //console.log('this.isPressed[detailCategorie]', this.isPressed[detailCategorie])
+
+      if (
+        this.store.temporaryData.choosenDetailCategories.some((category) => {
+          return category === detailCategorie
+        })
+      ) {
+        console.log('DU bist schon da!')
+        let indexDeleteCategory = this.store.temporaryData.choosenDetailCategories.findIndex(
+          (element) => {
+            console.log('element', element, '=', 'detailCategorie', detailCategorie)
+            return element === detailCategorie
+          }
+        )
+        console.log('indexDeleteCategory', indexDeleteCategory)
+        this.store.temporaryData.choosenDetailCategories.splice(indexDeleteCategory, 1)
+        console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
+      } else {
+        this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
+        console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
+      }
     }
   },
 

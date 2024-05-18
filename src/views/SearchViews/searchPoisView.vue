@@ -76,8 +76,6 @@ export default {
   mounted() {
     const rangeinputField = document.querySelector('#idRangeInput')
     rangeinputField.addEventListener('input', this.saveInputValue)
-    console.log('currentUserData', this.store.temporaryData.currentUserData)
-    console.log('currentPois', this.store.temporaryData.currentPois)
   },
   methods: {
     saveInputValue(e) {
