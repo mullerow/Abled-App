@@ -354,7 +354,7 @@ export const storeData = defineStore('poiStore', {
       // erstelle Dummy Fahrstuhl
       this.temporaryData.newPoiData = {
         poiName: ' Fahrstuhl',
-        detailCategories: ['Groß'],
+        detailCategories: ['groß'],
         xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.003,
         yCoordinates: Number(this.temporaryData.ownYCoordinate) - 0.0094,
         status: true,

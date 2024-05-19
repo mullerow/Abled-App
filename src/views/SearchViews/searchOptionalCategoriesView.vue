@@ -91,6 +91,29 @@ export default {
         })
       ) {
         return
+      }
+      // Abfrage Fahrstuhl detailcategorien
+      else if (
+        detailCategorie === 'klein' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'mittel' || element === 'groß'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'mittel' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'klein' || element === 'groß'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'groß' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'klein' || element === 'mittel'
+        })
+      ) {
+        return
       } else {
         this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
         this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
@@ -100,6 +123,7 @@ export default {
 
   created() {
     this.buttonValue = localStorage.getItem('buttonValue')
+    this.store.temporaryData.choosenDetailCategories = []
     if (this.store.temporaryData.choosenCategory === ' Alle') {
       this.$nextTick(() => {
         // Wartet noch bis der DOM vollständig erstellt ist, damit navButton auch gefunden werden kann
