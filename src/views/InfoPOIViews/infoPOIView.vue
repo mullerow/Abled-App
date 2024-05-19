@@ -7,7 +7,7 @@
   <div v-if="findChoosenPoi" class="info-infopoi">
     <img
       class="categorie-icon"
-      :src="this.store.getIconOfCategory(findChoosenPoi)"
+      src="@\assets\images\ABledApp-Logo-reduced.png"
       alt="Kategorie Icon"
     />
     <h2>
@@ -170,7 +170,8 @@ h2 {
 .categorie-icon {
   position: absolute;
   top: 10px;
-  right: 10px;
-  width: 30px;
+  right: 20px;
+  width: 90px;
+  border-radius: 10px;
 }
 </style>
