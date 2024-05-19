@@ -93,8 +93,6 @@ export default {
         prioWidth: minWidth,
         creationDate: creationDate,
         createdBy: userID,
-
-        currentSearchDistance: 0,
         comment: comment,
         street: street,
         number: number,

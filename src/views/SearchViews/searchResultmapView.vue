@@ -1,10 +1,8 @@
 <template>
   <div class="header-buttons">
-    <RouterLink :to="{ name: 'home' }">Gehe zurück zur Startseite</RouterLink>
-    <RouterLink :to="{ name: 'searchresultlist' }">Gehe eine Seite zurück</RouterLink>
+    <RouterLink :to="{ name: 'searchresultlist' }"> <BackArrow /></RouterLink>
+    <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
-
-  <h2>Ergebnismap</h2>
 
   <div style="height: 600px; width: 100%" id="map"></div>
 </template>
@@ -14,7 +12,10 @@ import L from 'leaflet' // npm install leaflet@latest notwendig
 import 'leaflet/dist/leaflet.css'
 import { storeData } from '@/stores/store.js'
 import { toRaw } from 'vue'
+import BackArrow from '@/components/BackArrow.vue'
+import headerLogo from '@/components/headerLogo.vue'
 export default {
+  components: { BackArrow, headerLogo },
   data() {
     return {
       store: storeData(),
@@ -89,7 +90,7 @@ export default {
               iconUrl: 'src/assets/icons/map-icons/Location.svg',
               iconSize: [30, 30],
               iconAnchor: [10, 10],
-              popupAnchor: [30, 30]
+              popupAnchor: [0, -4]
             })
           }
         )
@@ -117,20 +118,22 @@ export default {
               iconUrl: this.categoryIconURL,
               iconSize: [30, 30],
               iconAnchor: [10, 10],
-              popupAnchor: [30, 30]
+              popupAnchor: [0, -4]
             })
           })
             .addTo(toRaw(this.map)) // toRaw entfernt die proxiierung und löst einen konflikt von vue3 und map
             .bindPopup(
               `
-            <div>
+            <div class="custom-popup">
               <h3>${element.poiName}</h3>
               <b>Details: </b> <span>${element.detailCategories}</span> <br>
               <b>Mindestbreite Tür: </b> <span>${element.minWidth} cm</span> <br>
-              <b>Erstelldatum: </b><span>${element.creationDate}</span> <br>
-              <b>Derzeit nutzbar?: </b><span>${element.status}</span> <br>
-              <b>Kommentar: </b><span>${element.comment}</span> <br>
+              <b>Öffungszeiten: </b><span>${element.openingTimes}</span> <br>
+              <b>Derzeit nutzbar? </b><span>${element.status}</span> <br>
+              <br>
+              <b>Kommentar: </b><span>${element.comment}</span> 
               </div>
+              <br>
               <button @click="
               store.openExternMapToNavigate(${element.xCoordinates}, ${element.yCoordinates})
                 ">Zeig mir den Weg</button>`
@@ -175,5 +178,18 @@ h3 {
 label {
   font-weight: bold;
   margin-top: 5px;
+}
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+.custom-popup {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  min-width: 195px;
 }
 </style>

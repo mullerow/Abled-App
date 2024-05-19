@@ -76,8 +76,6 @@ export default {
   mounted() {
     const rangeinputField = document.querySelector('#idRangeInput')
     rangeinputField.addEventListener('input', this.saveInputValue)
-    console.log('currentUserData', this.store.temporaryData.currentUserData)
-    console.log('currentPois', this.store.temporaryData.currentPois)
   },
   methods: {
     saveInputValue(e) {
@@ -117,7 +115,7 @@ label {
   margin-left: 30%;
 }
 .search-radius-input-header {
-  margin-left: 30%;
+  text-align: center;
 }
 .current-location-info {
   margin-left: 15px;
@@ -128,10 +126,16 @@ label {
   background-color: var(--white);
   color: var(--black);
   border-radius: 16px;
+  width: 100%;
 }
 .searchpoiview-info {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
+}
+@media screen and (min-width: 600px) {
+  .location-info-container {
+    width: 70%;
+  }
 }
 </style>

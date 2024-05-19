@@ -54,13 +54,76 @@ export default {
 
   methods: {
     saveClick(detailCategorie) {
-      this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
-      this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
+      console.log('choosenDetailCategories DAVOR', this.store.temporaryData.choosenDetailCategories)
+      if (
+        this.store.temporaryData.choosenDetailCategories.some((category) => {
+          return category === detailCategorie
+        })
+      ) {
+        let indexDeleteCategory = this.store.temporaryData.choosenDetailCategories.findIndex(
+          (element) => {
+            return element === detailCategorie
+          }
+        )
+        this.store.temporaryData.choosenDetailCategories.splice(indexDeleteCategory, 1)
+        this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
+      }
+      // abfrage ob detailcategorien sich gegenseitig ausschließen
+      else if (
+        // Abfrage Rampen detailcategorien
+        detailCategorie === 'flach' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'mäßig Steil' || element === 'steil'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'mäßig Steil' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'flach' || element === 'steil'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'steil' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'flach' || element === 'mäßig Steil'
+        })
+      ) {
+        return
+      }
+      // Abfrage Fahrstuhl detailcategorien
+      else if (
+        detailCategorie === 'klein' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'mittel' || element === 'groß'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'mittel' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'klein' || element === 'groß'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'groß' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'klein' || element === 'mittel'
+        })
+      ) {
+        return
+      } else {
+        this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
+        this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
+      }
     }
   },
 
   created() {
     this.buttonValue = localStorage.getItem('buttonValue')
+    this.store.temporaryData.choosenDetailCategories = []
     if (this.store.temporaryData.choosenCategory === ' Alle') {
       this.$nextTick(() => {
         // Wartet noch bis der DOM vollständig erstellt ist, damit navButton auch gefunden werden kann
