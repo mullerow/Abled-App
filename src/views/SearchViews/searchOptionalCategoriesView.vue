@@ -54,27 +54,46 @@ export default {
 
   methods: {
     saveClick(detailCategorie) {
-      this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
-      //console.log('this.isPressed[detailCategorie]', this.isPressed[detailCategorie])
-
+      console.log('choosenDetailCategories DAVOR', this.store.temporaryData.choosenDetailCategories)
       if (
         this.store.temporaryData.choosenDetailCategories.some((category) => {
           return category === detailCategorie
         })
       ) {
-        console.log('DU bist schon da!')
         let indexDeleteCategory = this.store.temporaryData.choosenDetailCategories.findIndex(
           (element) => {
-            console.log('element', element, '=', 'detailCategorie', detailCategorie)
             return element === detailCategorie
           }
         )
-        console.log('indexDeleteCategory', indexDeleteCategory)
         this.store.temporaryData.choosenDetailCategories.splice(indexDeleteCategory, 1)
-        console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
+        this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
+      }
+      // abfrage ob detailcategorien sich gegenseitig ausschließen
+      else if (
+        // Abfrage Rampen detailcategorien
+        detailCategorie === 'flach' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'mäßig Steil' || element === 'steil'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'mäßig Steil' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'flach' || element === 'steil'
+        })
+      ) {
+        return
+      } else if (
+        detailCategorie === 'steil' &&
+        this.store.temporaryData.choosenDetailCategories.find((element) => {
+          return element === 'flach' || element === 'mäßig Steil'
+        })
+      ) {
+        return
       } else {
         this.store.temporaryData.choosenDetailCategories.push(detailCategorie)
-        console.log('choosenDetailCategories', this.store.temporaryData.choosenDetailCategories)
+        this.isPressed[detailCategorie] = !this.isPressed[detailCategorie]
       }
     }
   },
