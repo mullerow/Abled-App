@@ -3,13 +3,17 @@
     <RouterLink :to="{ name: 'searchresultlist' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
-  <!-- 
-  <RouterLink :to="{ name: 'searchresultmap' }"><EarthMap /></RouterLink> -->
   <br />
   <div v-if="findChoosenPoi" class="info-infopoi">
+    <img
+      class="categorie-icon"
+      :src="this.store.getIconOfCategory(findChoosenPoi)"
+      alt="Kategorie Icon"
+    />
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
+
     <p>
       <b>Adresse:</b> <br />
       {{ findChoosenPoi.city }}, <br />
@@ -161,5 +165,12 @@ h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
   align-self: center;
+  position: relative;
+}
+.categorie-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
 }
 </style>
