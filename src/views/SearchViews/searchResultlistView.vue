@@ -8,9 +8,10 @@
   <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
   <div class="search-list-container" v-for="poi of store.temporaryData.currentPois" :key="poi.id">
     <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
+      <img class="categorie-icon" :src="this.store.getIconOfCategory(poi)" alt="Kategorie Icon" />
       <router-link :to="'/infopoi/' + poi.id">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
-        <img class="categorie-icon" src="@/assets/icons/Pencil.svg" alt="Kategorie Icon" />
+
         <div
           class="searchlist-detailcategories"
           v-for="detailcategorie of poi.detailCategories"
@@ -54,6 +55,7 @@ export default {
 
 <style scoped>
 .searchlist-button {
+  position: relative;
   width: 100%;
   background-color: var(--white);
   color: var(--red);
@@ -74,6 +76,7 @@ b {
 .searchlist-poiname {
   font-size: 20px;
   font-weight: bold;
+  color: var(--red);
 }
 .searchlist-detailcategories {
   text-align: start;
@@ -102,8 +105,9 @@ b {
   margin-right: auto;
 }
 .categorie-icon {
-  float: right;
-  margin-right: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   width: 30px;
 }
 

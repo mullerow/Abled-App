@@ -9,6 +9,7 @@
 img {
   width: 150px;
   height: auto;
+  border-radius: 60% 0px 0px 10px;
 }
 .hover-text-headerlogo {
   display: none;
