@@ -14,6 +14,13 @@ import { storeData } from '@/stores/store.js'
 import { toRaw } from 'vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
+import babyChangingTableIcon from '@/assets/icons/map-icons/Baby-Changing-Table.svg'
+import toiletIcon from '@/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg'
+import entranceIcon from '@/assets/icons/map-icons/Entrance.svg'
+import rampIcon from '@/assets/icons/map-icons/Ramp-Up.svg'
+import gastroIcon from '@/assets/icons/map-icons/Gastro.svg'
+import liftIcon from '@/assets/icons/map-icons/Lift.svg'
+import locationIcon from '@/assets/icons/map-icons/Location.svg'
 export default {
   components: { BackArrow, headerLogo },
   data() {
@@ -23,7 +30,7 @@ export default {
       map: null,
       serachCircle: null,
       ownPosition: null,
-      categoryIconURL: 'src/assets/icons/map-icons/Gastro.svg'
+      categoryIconURL: ''
     }
   },
   mounted() {
@@ -48,19 +55,19 @@ export default {
           div.innerHTML = `
           <h3>Legende</h3>
           <div class="legend-container">
-            <img src="src/assets/icons/map-icons/Location.svg" style="width: 30px;" id="location">
+            <img src="${locationIcon}" style="width: 30px;" id="location">
             <label for="location" >&nbsp;Sie sind hier!</label>
-            <img src="src/assets/icons/map-icons/Gastro.svg" style="width: 30px;" id="gastro">
+            <img src="${gastroIcon}" style="width: 30px;" id="gastro">
             <label for="gastro"" >&nbsp;Gastronomie</label>
-            <img src="src/assets/icons/map-icons/Baby-Changing-Table.svg" style="width: 30px;" id="baby-changing">
+            <img src="${babyChangingTableIcon}" style="width: 30px;" id="baby-changing">
             <label for="baby-changing" >&nbsp;Wickleplatz</label>
-            <img src="src/assets/icons/map-icons/Entrance.svg" style="width: 30px;" id="entrance">
+            <img src="${entranceIcon}" style="width: 30px;" id="entrance">
             <label for="entrance" >&nbsp;Zugang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <img src="src/assets/icons/map-icons/Lift.svg" style="width: 30px;" id="lift">
+            <img src="${liftIcon}" style="width: 30px;" id="lift">
             <label for="lift" >&nbsp;Fahrstuhl&nbsp;&nbsp;&nbsp;</label>
-            <img src="src/assets/icons/map-icons/Ramp-Up.svg" style="width: 30px;" id="ramp">
+            <img src="${rampIcon}" style="width: 30px;" id="ramp">
             <label for="ramp" >&nbsp;Rampe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <img src="src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg" style="width: 30px;" id="toilette">
+            <img src="${toiletIcon}" style="width: 30px;" id="toilette">
             <label for="toilette" >&nbsp;Toilette</label>
           </div>
           `
@@ -87,7 +94,7 @@ export default {
           [this.store.temporaryData.ownXCoordinate, this.store.temporaryData.ownYCoordinate],
           {
             icon: L.icon({
-              iconUrl: 'src/assets/icons/map-icons/Location.svg',
+              iconUrl: locationIcon,
               iconSize: [30, 30],
               iconAnchor: [10, 10],
               popupAnchor: [0, -4]
@@ -99,18 +106,17 @@ export default {
         // pois Anzeigen
         this.store.temporaryData.poiListforMap.forEach((element) => {
           if (element.poiName === ' Wickelplatz') {
-            this.categoryIconURL = 'src/assets/icons/map-icons/Baby-Changing-Table.svg'
+            this.categoryIconURL = babyChangingTableIcon
           } else if (element.poiName === ' Toilette') {
-            this.categoryIconURL =
-              'src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg'
+            this.categoryIconURL = toiletIcon
           } else if (element.poiName === ' Zugang') {
-            this.categoryIconURL = 'src/assets/icons/map-icons/Entrance.svg'
+            this.categoryIconURL = entranceIcon
           } else if (element.poiName === ' Rampe') {
-            this.categoryIconURL = 'src/assets/icons/map-icons/Ramp-Up.svg'
+            this.categoryIconURL = rampIcon
           } else if (element.poiName === ' Gastronomie') {
-            this.categoryIconURL = 'src/assets/icons/map-icons/Gastro.svg'
+            this.categoryIconURL = gastroIcon
           } else if (element.poiName === ' Fahrstuhl') {
-            this.categoryIconURL = 'src/assets/icons/map-icons/Lift.svg'
+            this.categoryIconURL = liftIcon
           }
 
           L.marker([element.xCoordinates, element.yCoordinates], {
