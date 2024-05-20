@@ -140,10 +140,15 @@ export default {
               <b>Kommentar: </b><span>${element.comment}</span> 
               </div>
               <br>
-              <button @click="
-              store.openExternMapToNavigate(${element.xCoordinates}, ${element.yCoordinates})
-                ">Zeig mir den Weg</button>`
+              <button id="navigateButton-${element.id}">Zeig mir den Weg</button>`
             )
+            .on('popupopen', () => {
+              document
+                .getElementById(`navigateButton-${element.id}`)
+                .addEventListener('click', () => {
+                  this.store.openExternMapToNavigate(element.xCoordinates, element.yCoordinates)
+                })
+            })
           /*.bindTooltip(element.poiName, {
               permanent: true,
               direction: 'top',
