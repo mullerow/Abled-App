@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import babyChangingTableIcon from '@/assets/icons/map-icons/Baby-Changing-Table.svg'
+import toiletIcon from '@/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg'
+import entranceIcon from '@/assets/icons/map-icons/Entrance.svg'
+import rampIcon from '@/assets/icons/map-icons/Ramp-Up.svg'
+import gastroIcon from '@/assets/icons/map-icons/Gastro.svg'
+import liftIcon from '@/assets/icons/map-icons/Lift.svg'
 
 export const storeData = defineStore('poiStore', {
   state: () => ({
@@ -375,22 +381,48 @@ export const storeData = defineStore('poiStore', {
         this.getPoiDataFromAPI()
       })
     },
+    /*
     getIconOfCategory(poi) {
       console.log('poi', poi)
       if (poi.poiName === ' Wickelplatz') {
-        return 'src/assets/icons/map-icons/Baby-Changing-Table.svg'
+        return require('@/assets/icons/map-icons/Baby-Changing-Table.svg')
       } else if (poi.poiName === ' Toilette') {
-        return 'src/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg'
+        return require('@/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg')
       } else if (poi.poiName === ' Zugang') {
-        return 'src/assets/icons/map-icons/Entrance.svg'
+        return require('@/assets/icons/map-icons/Entrance.svg')
       } else if (poi.poiName === ' Rampe') {
-        return 'src/assets/icons/map-icons/Ramp-Up.svg'
+        return require('@/assets/icons/map-icons/Ramp-Up.svg')
       } else if (poi.poiName === ' Gastronomie') {
-        return 'src/assets/icons/map-icons/Gastro.svg'
+        return require('@/assets/icons/map-icons/Gastro.svg')
       } else if (poi.poiName === ' Fahrstuhl') {
-        return 'src/assets/icons/map-icons/Lift.svg'
+        return require('@/assets/icons/map-icons/Lift.svg')
       }
     },
+    */
+
+    getIconOfCategory(poi) {
+      console.log('poi', poi)
+      const name = poi.poiName.trim()
+
+      switch (name) {
+        case 'Wickelplatz':
+          return babyChangingTableIcon
+        case 'Toilette':
+          return toiletIcon
+        case 'Zugang':
+          return entranceIcon
+        case 'Rampe':
+          return rampIcon
+        case 'Gastronomie':
+          return gastroIcon
+        case 'Fahrstuhl':
+          return liftIcon
+        default:
+          console.error('Unbekannte Kategorie:', name)
+          return ''
+      }
+    },
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// API-Datenbank Anbindungen ////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
