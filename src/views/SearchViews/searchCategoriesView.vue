@@ -36,7 +36,10 @@ export default {
     }
   },
   mounted() {
-    if (this.store.temporaryData.currentPois.length < 4) {
+    this.store.temporaryData.ownPoisList = this.store.temporaryData.currentPois.filter(
+      (poi) => poi.createdBy === this.currentUser
+    )
+    if (this.store.temporaryData.ownPoisList.length < 4) {
       this.store.createDummyPois()
     }
   },
