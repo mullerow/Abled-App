@@ -298,6 +298,11 @@ export default {
   margin-right: 30px;
   text-align: right;
 }
+.login-link {
+  width: 90%;
+  align-self: center;
+  padding: 0 0.5rem 0.5rem;
+}
 
 .button-register {
   align-self: center;
