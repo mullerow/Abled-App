@@ -52,6 +52,10 @@
       </li>
     </ul>
   </div>
+
+  <RouterLink class="login-link" :to="{ name: 'login' }">
+    Du hast schon einen Account? <br />Hier geht's zum Login</RouterLink
+  >
   <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 
   <div v-if="showPopup" class="popup-mail">
@@ -294,6 +298,12 @@ export default {
   margin-right: 30px;
   text-align: right;
 }
+.login-link {
+  width: 90%;
+  align-self: center;
+  padding: 0 0.5rem 0.5rem;
+}
+
 .button-register {
   align-self: center;
 }
