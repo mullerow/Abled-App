@@ -30,7 +30,7 @@ export default {
   updated() {
     // DELETE the Dummydata
     // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
-
+    /*
     if (this.store.temporaryData.currentPois) {
       this.store.temporaryData.currentPois.forEach(async (element) => {
         if (element.creationDate === 'Dummys bekommen kein Datum') {
@@ -38,6 +38,7 @@ export default {
         }
       })
     }
+    */
   }
 }
 </script>
