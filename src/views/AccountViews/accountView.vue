@@ -56,16 +56,19 @@
         : 'mobilityAssistance width'
     "
   />
-  <LöschenButton
-    class="button-account"
-    :Löschen="'Account-Löschen'"
-    @click="confirmDelete"
-  ></LöschenButton>
+
   <NavButton
     class="button-account"
     :Navigation="'Speichern'"
     @click="validateAndSaveUserData"
   ></NavButton>
+
+  <LöschenButton
+    class="button-account"
+    :Löschen="'Account-Löschen'"
+    @click="confirmDelete"
+  ></LöschenButton>
+  <NavButton class="button-account" :Navigation="'Logout'" @click="logout"></NavButton>
 
   <div v-if="showConfirmation" class="confirmation-popup">
     <div class="confirmation-message">
@@ -241,6 +244,15 @@ export default {
         console.error('Fehler beim Löschen des Benutzers:', error)
       }
       this.showConfirmation = false
+    },
+    logout() {
+      try {
+        localStorage.removeItem('updatedUserData')
+        localStorage.removeItem('currentUserID')
+        this.$router.push({ name: 'login' })
+      } catch (error) {
+        console.error('Fehler beim Ausloggen:', error)
+      }
     }
   }
 }
@@ -281,6 +293,7 @@ export default {
 .button-account {
   align-self: center;
 }
+
 .email-popup {
   color: var(--red);
   position: fixed;
