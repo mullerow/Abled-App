@@ -22,7 +22,7 @@ export const storeData = defineStore('poiStore', {
       lengthLatitude: 111320, // 111 km lang (Breitengrade sind relativ konstant)
       lengthlongitude: 68710, // 68,71 km lang ist die durchschnittliche Länge der Längengrade (mittlerer Grad über Deutschland)
       // temporäre Daten für die Suchfunktion
-      searchDistance: 500,
+      searchDistance: 1000,
       ownXCoordinate: null,
       ownYCoordinate: null,
       // temporäre Daten für die Adressbestimmung aus Koordinaten
@@ -260,7 +260,7 @@ export const storeData = defineStore('poiStore', {
     resetTemporaryLists() {
       this.temporaryData.choosenDetailCategories = []
       this.temporaryData.poiListforMap = []
-      this.temporaryData.searchDistance = 500
+      this.temporaryData.searchDistance = 1000
     },
 
     openExternMapToNavigate(poiXPosition, poiYPosition) {
@@ -283,122 +283,6 @@ export const storeData = defineStore('poiStore', {
       })
       this.temporaryData.currentUserName = nameOfUser.username
     },
-    createDummyPois() {
-      // erstelle DUmmy Toilette
-      this.temporaryData.newPoiData = {
-        poiName: ' Toilette',
-        detailCategories: [
-          'Wickelplatz',
-          'Behindertengerecht',
-          'Kostenfrei',
-          'Desinfektionsmittel'
-        ],
-        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.01,
-        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.01,
-        status: true,
-        minWidth: 120,
-        openingTimes: 'Mo - Fr 8:00 bis 22:00 Uhr',
-        prioWidth: 100,
-        creationDate: 'Dummys bekommen kein Datum',
-        createdBy: this.temporaryData.currentUserId,
-        comment:
-          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch Einträge in Ihrer Nähe haben',
-        street: 'Am Damm',
-        number: 2,
-        zip: 12345,
-        city: 'Bei Dir ums Eck'
-      }
-      this.addNewPoiToAPI()
-
-      // erstelle Dummy Gastronomie
-      this.temporaryData.newPoiData = {
-        poiName: ' Gastronomie',
-        detailCategories: [
-          'Wickelplatz',
-          'Behindertengerechte Toiletten',
-          'Rollstuhl/Kinderwagen geeignet',
-          'Kinderstühle',
-          'Stellplatz Kinderwagen',
-          'Desinfektionsmittel'
-        ],
-        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.004,
-        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.011,
-        status: true,
-        minWidth: 100,
-        openingTimes: 'Mo - Sa 8:00 bis 22:00 Uhr',
-        prioWidth: 100,
-        creationDate: 'Dummys bekommen kein Datum',
-        createdBy: this.temporaryData.currentUserId,
-        comment:
-          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
-        street: 'Am Damm',
-        number: 2,
-        zip: 12345,
-        city: 'Bei Dir ums Eck'
-      }
-      this.addNewPoiToAPI()
-      // erstelle Dummy Wickelplatz
-      this.temporaryData.newPoiData = {
-        poiName: ' Wickelplatz',
-        detailCategories: ['Windelspender', 'Platz für Kinderwagen', 'Desinfektionsmittel'],
-        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.003,
-        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.0094,
-        status: true,
-        minWidth: 80,
-        openingTimes: '24/7',
-        prioWidth: 100,
-        creationDate: 'Dummys bekommen kein Datum',
-        createdBy: this.temporaryData.currentUserId,
-        comment:
-          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
-        street: 'Am Damm',
-        number: 2,
-        zip: 12345,
-        city: 'Bei Dir ums Eck'
-      }
-      this.addNewPoiToAPI()
-      // erstelle Dummy Fahrstuhl
-      this.temporaryData.newPoiData = {
-        poiName: ' Fahrstuhl',
-        detailCategories: ['groß'],
-        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.003,
-        yCoordinates: Number(this.temporaryData.ownYCoordinate) - 0.0094,
-        status: true,
-        minWidth: 80,
-        openingTimes: '24/7',
-        prioWidth: 100,
-        creationDate: 'Dummys bekommen kein Datum',
-        createdBy: this.temporaryData.currentUserId,
-        comment:
-          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
-        street: 'Am Damm',
-        number: 2,
-        zip: 12345,
-        city: 'Bei Dir ums Eck'
-      }
-      // lade die Datenbank neu
-      this.addNewPoiToAPI().then(() => {
-        this.getPoiDataFromAPI()
-      })
-    },
-    /*
-    getIconOfCategory(poi) {
-      console.log('poi', poi)
-      if (poi.poiName === ' Wickelplatz') {
-        return require('@/assets/icons/map-icons/Baby-Changing-Table.svg')
-      } else if (poi.poiName === ' Toilette') {
-        return require('@/assets/icons/map-icons/Toilet-Man-Woman-1--Streamline-Flex.svg')
-      } else if (poi.poiName === ' Zugang') {
-        return require('@/assets/icons/map-icons/Entrance.svg')
-      } else if (poi.poiName === ' Rampe') {
-        return require('@/assets/icons/map-icons/Ramp-Up.svg')
-      } else if (poi.poiName === ' Gastronomie') {
-        return require('@/assets/icons/map-icons/Gastro.svg')
-      } else if (poi.poiName === ' Fahrstuhl') {
-        return require('@/assets/icons/map-icons/Lift.svg')
-      }
-    },
-    */
 
     getIconOfCategory(poi) {
       console.log('poi', poi)
@@ -528,6 +412,147 @@ export const storeData = defineStore('poiStore', {
         console.warn(
           'Die DELETE-Anfrage (Poi) an den API-Server konnte nicht erfolgreich durchgeführt werden'
         )
+    },
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////// ERZEUGEN von DUMMYDATEN ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    createDummyPois() {
+      // erstelle DUmmy Toilette
+      this.temporaryData.newPoiData = {
+        poiName: ' Toilette',
+        detailCategories: [
+          'Wickelplatz',
+          'Behindertengerecht',
+          'Kostenfrei',
+          'Desinfektionsmittel'
+        ],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.01,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.01,
+        status: true,
+        minWidth: 120,
+        openingTimes: 'Mo - Fr 8:00 bis 22:00 Uhr',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch Einträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+
+      // erstelle Dummy Gastronomie
+      this.temporaryData.newPoiData = {
+        poiName: ' Gastronomie',
+        detailCategories: [
+          'Wickelplatz',
+          'Behindertengerechte Toiletten',
+          'Rollstuhl/Kinderwagen geeignet',
+          'Kinderstühle',
+          'Stellplatz Kinderwagen',
+          'Desinfektionsmittel'
+        ],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.004,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.011,
+        status: true,
+        minWidth: 100,
+        openingTimes: 'Mo - Sa 8:00 bis 22:00 Uhr',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Wickelplatz
+      this.temporaryData.newPoiData = {
+        poiName: ' Wickelplatz',
+        detailCategories: ['Windelspender', 'Platz für Kinderwagen', 'Desinfektionsmittel'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) + 0.003,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.0094,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Fahrstuhl
+      this.temporaryData.newPoiData = {
+        poiName: ' Fahrstuhl',
+        detailCategories: ['groß'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.003,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) - 0.0094,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Rampe
+      this.temporaryData.newPoiData = {
+        poiName: ' Rampe',
+        detailCategories: ['flach', 'Geländer'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.001,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) - 0.0044,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      this.addNewPoiToAPI()
+      // erstelle Dummy Zugang
+      this.temporaryData.newPoiData = {
+        poiName: ' Zugang',
+        detailCategories: ['Ohne Treppe'],
+        xCoordinates: Number(this.temporaryData.ownXCoordinate) - 0.001,
+        yCoordinates: Number(this.temporaryData.ownYCoordinate) + 0.0054,
+        status: true,
+        minWidth: 80,
+        openingTimes: '24/7',
+        prioWidth: 100,
+        creationDate: 'Dummys bekommen kein Datum',
+        createdBy: this.temporaryData.currentUserId,
+        comment:
+          'Das ist ein automatisch generierter Dummy damit Sie bei Ihrem Test auch EInträge in Ihrer Nähe haben',
+        street: 'Am Damm',
+        number: 2,
+        zip: 12345,
+        city: 'Bei Dir ums Eck'
+      }
+      // lade die Datenbank neu
+      this.addNewPoiToAPI().then(() => {
+        this.getPoiDataFromAPI()
+      })
     }
   }
 })

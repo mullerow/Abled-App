@@ -31,16 +31,13 @@ export default {
     // DELETE the Dummydata
     // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
     /*
-    console.log('currentPois vor deleteDummys', this.store.temporaryData.currentPois)
     if (this.store.temporaryData.currentPois) {
       this.store.temporaryData.currentPois.forEach(async (element) => {
         if (element.creationDate === 'Dummys bekommen kein Datum') {
-          console.log('element.id', element.id)
           this.store.deletePoifromAPI(element.id)
         }
       })
     }
-    console.log('ALLE DummyPois wurden gelöscht', this.store.temporaryData.currentPois)
     */
   }
 }
