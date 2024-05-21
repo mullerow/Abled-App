@@ -39,7 +39,7 @@ export default {
     this.store.temporaryData.ownPoisList = this.store.temporaryData.currentPois.filter(
       (poi) => poi.createdBy === this.currentUser
     )
-    if (this.store.temporaryData.ownPoisList.length < 4) {
+    if (this.store.temporaryData.ownPoisList.length < 6) {
       this.store.createDummyPois()
     }
   },

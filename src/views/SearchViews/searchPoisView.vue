@@ -13,7 +13,7 @@
     min="50"
     max="3000"
     step="50"
-    value="500"
+    value="1000"
     name="rangeInput"
     id="idRangeInput"
   />
