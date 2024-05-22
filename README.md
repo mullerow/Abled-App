@@ -8,9 +8,7 @@
 
 > Web application whose use case is to help people with mobility limitations move around our cities more easily.
 
-### 🏠 [Homepage](Netlify)
-
-### ✨ [Demo](Netlify)
+### ✨ [Demo](https://abledapp.netlify.app/ )
 
 ## Install
 
