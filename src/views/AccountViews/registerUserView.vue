@@ -58,6 +58,22 @@
   >
   <NavButton class="button-register" :Navigation="'Registrieren'" @click="registerUser"></NavButton>
 
+  <div v-if="WelcomePopup" class="popup-mail">
+    <div class="popup-content">
+      <h2>Herzlich Willkommen!</h2>
+      <hr />
+      <p class="popup-text">
+        Wir freuen uns, dass Sie unsere App ausprobieren wollen. <br />Erstellen Sie gerne ein
+        Scheinkonto, um auf die App zugreifen zu können. <br /><br />
+
+        Und bitte denken Sie daran, das die App sich noch in der Entwicklung befindet und
+        dementsprechend noch nicht alle Features implementiert sind. <br />
+        <br />Viel Spaß mit Abled!
+      </p>
+      <button class="popup-button" @click="closePopup">Verstanden</button>
+    </div>
+  </div>
+
   <div v-if="showPopup" class="popup-mail">
     <div class="popup-content">
       <p>{{ popupMessage }}</p>
@@ -85,6 +101,7 @@ export default {
       password: '',
       userCounter: 3,
       showPopup: false,
+      WelcomePopup: true,
       usernameExists: false,
       popupMessage: '',
       popupButtonLabel: 'OK',
@@ -260,6 +277,7 @@ export default {
     },
     closePopup() {
       this.showPopup = false
+      this.WelcomePopup = false
     },
     checkEmailValidity() {
       if (!this.validateEmail(this.email)) {
@@ -317,8 +335,8 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--black);
-  padding: 20px;
-  border: 4px solid var(--black);
+  padding: 5px;
+  border: 1px solid var(--black);
   border-radius: 1rem;
   z-index: 9999;
 }
@@ -326,7 +344,7 @@ export default {
 .popup-content {
   background-color: var(--white);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 0 10px var(--black);
 }
 
@@ -353,9 +371,29 @@ export default {
   color: var(--red);
 }
 
+.popup-text {
+  color: var(--black);
+}
+.popup-button {
+  width: 100px;
+  height: 30px;
+  color: var(--white);
+  background-color: var(--black);
+  border-radius: 6px;
+  border: 2px solid black;
+}
+.popup-button:hover {
+  color: var(--red);
+  border: 2px solid var(--red);
+}
 #app {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+@media screen and (max-width: 600px) {
+  .popup-mail {
+    width: 70%;
+  }
 }
 </style>
