@@ -90,8 +90,10 @@
   <div v-if="showConfirmation" class="confirmation-popup">
     <div class="confirmation-message">
       <p>Sind Sie sicher, dass Sie den Account dauerhaft löschen möchten?</p>
-      <button @click="deleteUser">Ja</button>
-      <button @click="cancelDelete">Nein</button>
+      <div class="confirmation-buttons">
+        <button class="button-confirmation button-delete" @click="deleteUser">Ja</button>
+        <button class="button-confirmation button-cancel" @click="cancelDelete">Nein</button>
+      </div>
     </div>
   </div>
 
@@ -296,19 +298,51 @@ export default {
 
 <style>
 .confirmation-popup {
+  display: flex;
+  justify-content: center;
   position: fixed;
-  width: 300px;
+  width: 90%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--white);
   padding: 20px;
   border: 4px solid var(--black);
+  border-radius: 0.25rem;
   z-index: 9999;
+  align-items: center;
 }
-.confirmation-message button {
+.confirmation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.confirmation-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-delete {
+  background-color: var(--red);
+  color: var(--white);
+  width: 1rem;
+}
+.button-cancel {
+  color: var(--black);
+  background: var(--white);
+}
+
+.button-confirmation {
+  border: 0.1rem solid var(--black);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  align-self: center;
   margin: 0 10px;
+  width: 3rem;
 }
+
 .label-username {
   margin-top: 2rem;
 }
