@@ -63,8 +63,8 @@
       <h2>Herzlich Willkommen!</h2>
       <hr />
       <p class="popup-text">
-        Wir freuen uns, dass Sie unsere App ausprobieren wollen. <br />Erstellen Sie gerne ein
-        Scheinkonto, um auf die App zugreifen zu können. <br /><br />
+        Wir freuen uns, dass Sie unsere App ausprobieren wollen. <br />Erstellen Sie gerne einen
+        Test-Account, um auf die App zugreifen zu können. <br /><br />
 
         Und bitte denken Sie daran, das die App sich noch in der Entwicklung befindet und
         dementsprechend noch nicht alle Features implementiert sind. <br />
@@ -75,10 +75,8 @@
   </div>
 
   <div v-if="showPopup" class="popup-mail">
-    <div class="popup-content">
-      <p>{{ popupMessage }}</p>
-      <button @click="closePopup">{{ popupButtonLabel }}</button>
-    </div>
+    <p>{{ popupMessage }}</p>
+    <button class="popup-mail-button" @click="closePopup">{{ popupButtonLabel }}</button>
   </div>
 </template>
 
@@ -320,6 +318,7 @@ export default {
   width: 90%;
   align-self: center;
   padding: 0 0.5rem 0.5rem;
+  margin-top: 1rem;
 }
 
 .button-register {
@@ -327,18 +326,21 @@ export default {
 }
 
 .popup-mail {
-  color: var(--red);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
-  width: 40%;
-  height: auto;
+  width: 90%;
+  max-width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--black);
-  padding: 5px;
-  border: 1px solid var(--black);
-  border-radius: 1rem;
+  background-color: var(--white);
+  padding: 20px;
+  border: 4px solid var(--black);
+  border-radius: 0.25rem;
   z-index: 9999;
+  align-items: center;
 }
 
 .popup-content {
@@ -348,13 +350,26 @@ export default {
   box-shadow: 0 0 10px var(--black);
 }
 
-.popup button {
+.popup-mail-button {
   margin-top: 10px;
+  justify-content: center;
+  width: 3rem;
+  color: var(--white);
+  background-color: var(--black);
+  border: 0.1rem solid var(--black);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  align-self: center;
+}
+.popup-mail-button:hover {
+  transform: scale(1.1);
 }
 .password-conditions {
   background: var(--white);
   border-radius: 1rem;
   padding: 1rem;
+  width: 90%;
+  align-self: center;
 }
 .password-conditions-list {
   list-style: none;
