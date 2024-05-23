@@ -30,8 +30,25 @@
     type="password"
     id="password"
     v-model="updatedUserData.password"
+    @focus="showPasswordConditions = true"
+    @input="updatePasswordConditions"
     :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
   />
+  <div v-show="showPasswordConditions" class="password-conditions">
+    <ul class="password-conditions-list">
+      <li v-for="condition in passwordConditions" :key="condition.condition">
+        <span
+          :class="{
+            condition: condition.fulfilled,
+            'condition-unfulfilled': !condition.fulfilled
+          }"
+          >{{ condition.condition }}</span
+        >: <span v-if="condition.fulfilled">&#10004;</span
+        ><span v-if="!condition.fulfilled" class="cross">&#10006;</span>
+      </li>
+    </ul>
+  </div>
+
   <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
   <input
     class="input-account"
@@ -115,7 +132,15 @@ export default {
       currentUserID: localStorage.getItem('currentUserID').replace(/"/g, ''),
       showConfirmation: false,
       emailValid: true,
-      showEmailErrorPopup: false
+      showEmailErrorPopup: false,
+      showPasswordConditions: false,
+      passwordConditions: [
+        { condition: 'Mindestens 8 Zeichen lang', fulfilled: false },
+        { condition: 'Mindestens ein Sonderzeichen', fulfilled: false },
+        { condition: 'Mindestens eine Zahl', fulfilled: false },
+        { condition: 'Mindestens ein Großbuchstabe', fulfilled: false },
+        { condition: 'Mindestens ein Kleinbuchstabe', fulfilled: false }
+      ]
     }
   },
 
@@ -253,6 +278,14 @@ export default {
       } catch (error) {
         console.error('Fehler beim Ausloggen:', error)
       }
+    },
+    updatePasswordConditions() {
+      const password = this.updatedUserData.password
+      this.passwordConditions[0].fulfilled = password.length >= 8
+      this.passwordConditions[1].fulfilled = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      this.passwordConditions[2].fulfilled = /\d/.test(password)
+      this.passwordConditions[3].fulfilled = /[A-Z]/.test(password)
+      this.passwordConditions[4].fulfilled = /[a-z]/.test(password)
     }
   }
 }
