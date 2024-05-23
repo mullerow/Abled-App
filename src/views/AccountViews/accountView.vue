@@ -2,39 +2,46 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
+
   <HeadLine class="headline-account" :Headline="'Verwalte deine Account-Daten'" />
+  <div class="form-group">
+    <label class="label-username label-account" for="username">Benutzername</label>
+    <input
+      class="input-account"
+      type="text"
+      id="username"
+      v-model="updatedUserData.username"
+      :placeholder="updatedUserData.username ? updatedUserData.username : 'username'"
+      :disabled="!editMode"
+    />
+  </div>
 
-  <label class="label-username label-account" for="username">Benutzername</label>
-  <input
-    class="input-account"
-    type="text"
-    id="username"
-    v-model="updatedUserData.username"
-    :placeholder="updatedUserData.username ? updatedUserData.username : 'username'"
-    :disabled="!editMode"
-  />
+  <div class="form-group">
+    <label class="label-account" for="email">E-mail</label>
+    <input
+      class="input-account"
+      type="email"
+      id="email"
+      v-model="updatedUserData.email"
+      :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
+      :class="{ 'invalid-email': !emailValid }"
+    />
+  </div>
 
-  <label class="label-account" for="email">E-mail</label>
-  <input
-    class="input-account"
-    type="email"
-    id="email"
-    v-model="updatedUserData.email"
-    :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
-    :class="{ 'invalid-email': !emailValid }"
-  />
+  <div class="form-group">
+    <label class="label-account" for="password">Passwort</label>
+    <input
+      class="input-account"
+      type="password"
+      id="password"
+      v-model="updatedUserData.password"
+      @focus="showPasswordConditions = true"
+      @input="updatePasswordConditions"
+      :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
+    />
+  </div>
 
-  <label class="label-account" for="password">Passwort</label>
-  <input
-    class="input-account"
-    type="password"
-    id="password"
-    v-model="updatedUserData.password"
-    @focus="showPasswordConditions = true"
-    @input="updatePasswordConditions"
-    :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
-  />
-  <div v-show="showPasswordConditions" class="password-conditions">
+  <div v-show="showPasswordConditions" class="password-conditions form-group">
     <ul class="password-conditions-list">
       <li v-for="condition in passwordConditions" :key="condition.condition">
         <span
@@ -49,30 +56,37 @@
     </ul>
   </div>
 
-  <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
-  <input
-    class="input-account"
-    type="text"
-    id="mobilityAssistance"
-    v-model="updatedUserData.mobilityAssistance"
-    :placeholder="
-      updatedUserData.mobilityAssistance
-        ? updatedUserData.mobilityAssistance
-        : 'mobility assistance'
-    "
-  />
-  <label class="label-account" for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
-  <input
-    class="input-account"
-    type="text"
-    id="mobilityAssistanceWidth"
-    v-model="updatedUserData.mobilityAssistanceWidth"
-    :placeholder="
-      updatedUserData.mobilityAssistanceWidth
-        ? updatedUserData.mobilityAssistanceWidth
-        : 'mobilityAssistance width'
-    "
-  />
+  <div class="form-group">
+    <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
+    <input
+      class="input-account"
+      type="text"
+      id="mobilityAssistance"
+      v-model="updatedUserData.mobilityAssistance"
+      :placeholder="
+        updatedUserData.mobilityAssistance
+          ? updatedUserData.mobilityAssistance
+          : 'mobility assistance'
+      "
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="label-account" for="mobilityAssistanceWidth"
+      >Mobilitätshilfe Breite (in cm)</label
+    >
+    <input
+      class="input-account"
+      type="text"
+      id="mobilityAssistanceWidth"
+      v-model="updatedUserData.mobilityAssistanceWidth"
+      :placeholder="
+        updatedUserData.mobilityAssistanceWidth
+          ? updatedUserData.mobilityAssistanceWidth
+          : 'mobilityAssistance width'
+      "
+    />
+  </div>
 
   <NavButton
     class="button-account"
@@ -344,21 +358,29 @@ export default {
   width: 3rem;
 }
 
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
 .label-username,
 .label-account {
+  flex: 1;
   margin-top: 2rem;
 }
 
 .input-account {
   padding: 0.5rem;
-  width: calc(100% - 4rem);
-  max-width: 400px;
+  flex: 2;
+  width: 80%;
   background-color: var(--white);
   border-radius: 0.5rem;
   margin: 1rem 2rem 2rem;
   color: var(--black);
   border: 1px solid var(--black);
   min-height: 3rem;
+  align-self: center;
 }
 .input.invalid-email {
   border-color: var(--black);
