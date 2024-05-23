@@ -114,7 +114,7 @@
 
   <div v-if="showEmailErrorPopup" class="email-popup">
     <p>Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.</p>
-    <button @click="closeEmailErrorPopup">OK</button>
+    <button class="button-confirmation popup-mail-button" @click="closeEmailErrorPopup">OK</button>
   </div>
 </template>
 
@@ -361,6 +361,9 @@ export default {
   margin: 0 10px;
   width: 3rem;
 }
+.button-confirmation:hover {
+  transform: scale(1.1);
+}
 
 .form-group {
   display: flex;
@@ -396,6 +399,8 @@ export default {
 
 .email-popup {
   color: var(--red);
+  display: flex;
+  flex-direction: column;
   position: fixed;
   width: 300px;
   top: 50%;
