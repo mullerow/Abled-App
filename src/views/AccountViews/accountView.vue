@@ -302,6 +302,7 @@ export default {
   justify-content: center;
   position: fixed;
   width: 90%;
+  max-width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -343,19 +344,18 @@ export default {
   width: 3rem;
 }
 
-.label-username {
+.label-username,
+.label-account {
   margin-top: 2rem;
 }
 
-.label-account {
-  margin-left: 2rem;
-}
 .input-account {
   padding: 0.5rem;
-  width: 80%;
+  width: calc(100% - 4rem);
+  max-width: 400px;
   background-color: var(--white);
   border-radius: 0.5rem;
-  margin: 1rem 2rem 2rem 2rem;
+  margin: 1rem 2rem 2rem;
   color: var(--black);
   border: 1px solid var(--black);
   min-height: 3rem;
@@ -363,7 +363,8 @@ export default {
 .input.invalid-email {
   border-color: var(--black);
 }
-.button-account {
+.button-account,
+.headline-account {
   align-self: center;
 }
 
@@ -379,9 +380,7 @@ export default {
   border: 4px solid var(--black);
   z-index: 9999;
 }
-.headline-account {
-  align-self: center;
-}
+
 .header-buttons {
   display: flex;
   justify-content: center;
