@@ -37,6 +37,7 @@
       v-model="updatedUserData.password"
       @focus="showPasswordConditions = true"
       @input="updatePasswordConditions"
+      @blur="closePasswordConditions"
       :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
     />
   </div>
@@ -305,6 +306,9 @@ export default {
       this.passwordConditions[2].fulfilled = /\d/.test(password)
       this.passwordConditions[3].fulfilled = /[A-Z]/.test(password)
       this.passwordConditions[4].fulfilled = /[a-z]/.test(password)
+    },
+    closePasswordConditions() {
+      this.showPasswordConditions = false
     }
   }
 }
