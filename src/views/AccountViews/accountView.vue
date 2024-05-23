@@ -270,6 +270,9 @@ export default {
       }
       this.showConfirmation = false
     },
+    cancelDelete() {
+      this.showConfirmation = false
+    },
     logout() {
       try {
         localStorage.removeItem('updatedUserData')
@@ -302,6 +305,9 @@ export default {
   padding: 20px;
   border: 4px solid var(--black);
   z-index: 9999;
+}
+.confirmation-message button {
+  margin: 0 10px;
 }
 .label-username {
   margin-top: 2rem;
