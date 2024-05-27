@@ -9,7 +9,8 @@ export default {
   },
   data() {
     return {
-      store: storeData()
+      store: storeData(),
+      tutorialPopup: true
     }
   },
   created() {
@@ -44,6 +45,34 @@ export default {
 </script>
 
 <template>
+  <svg
+    class="tutorial-popup"
+    viewBox="0 0 100 100"
+    width="200px"
+    height="200px"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <defs>
+      <clipPath id="clipPolygon">
+        <path
+          d="
+            M 24.746 20.888 L 34.15 17.725 L 30.277 26.461 L 92.896 90.926 C 95.74 94.96 99.994 99.965 92.833 99.835 H 9.272 C 0.029 99.83 0.272 94.812 0.181 88.457 V 4.849 C 0.23 1.034 3.39 -2.613 8.108 3.633 Z"
+        />
+      </clipPath>
+    </defs>
+    <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: lightblue" />
+  </svg>
+
+  <div class="cloud-popup" v-if="tutorialPopup">
+    <p>
+      Wie wär es, <br />
+      wenn sie sich <br />
+      zunächst die Karte <br />
+      in Ihrer Umgebung <br />
+      ansehen?
+    </p>
+  </div>
+
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
@@ -102,7 +131,7 @@ export default {
 }
 
 .btn-search {
-  width: 21rem;
+  width: 330px;
   grid-area: search;
   grid-row-start: 1;
   _grid-row-end: span 1;
@@ -137,6 +166,24 @@ export default {
   cursor: pointer;
 }
 .search-button-width {
-  width: 21rem;
+  width: 330px;
+}
+.tutorial-popup {
+  position: absolute;
+  font-size: 5px;
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  top: 55%;
+  left: 20%;
+}
+.cloud-popup {
+  top: 68%;
+  left: 21%;
+  position: absolute;
+}
+
+#app {
+  position: relative;
 }
 </style>
