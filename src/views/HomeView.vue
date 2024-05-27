@@ -45,26 +45,40 @@ export default {
 </script>
 
 <template>
-  <svg
-    class="tutorial-popup"
-    viewBox="0 0 100 100"
-    width="200px"
-    height="200px"
-    preserveAspectRatio="xMidYMid meet"
-  >
-    <defs>
-      <clipPath id="clipPolygon">
-        <path
-          d="
+  <div class="popup-container" v-if="tutorialPopup">
+    <svg
+      class="svg-popup"
+      viewBox="0 0 100 100"
+      width="200px"
+      height="200px"
+      style="filter: url(#f1)"
+    >
+      <defs>
+        <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
+          <feColorMatrix
+            in="blur"
+            type="matrix"
+            values="0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0"
+            result="coloredBlur"
+          />
+          <feOffset in="coloredBlur" dx="7" dy="7" result="offsetBlur" />
+          <feMerge>
+            <feMergeNode in="offsetBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <clipPath id="clipPolygon">
+          <path
+            d="
             M 24.746 20.888 L 34.15 17.725 L 30.277 26.461 L 92.896 90.926 C 95.74 94.96 99.994 99.965 92.833 99.835 H 9.272 C 0.029 99.83 0.272 94.812 0.181 88.457 V 4.849 C 0.23 1.034 3.39 -2.613 8.108 3.633 Z"
-        />
-      </clipPath>
-    </defs>
-    <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: lightblue" />
-  </svg>
-
-  <div class="cloud-popup" v-if="tutorialPopup">
-    <p>
+          />
+        </clipPath>
+      </defs>
+      <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
+    </svg>
+    <button class="popup-button">OK</button>
+    <p class="popup-text">
       Wie wär es, <br />
       wenn sie sich <br />
       zunächst die Karte <br />
@@ -168,19 +182,31 @@ export default {
 .search-button-width {
   width: 330px;
 }
-.tutorial-popup {
+.svg-popup {
   position: absolute;
-  font-size: 5px;
   background-color: transparent;
   width: 300px;
   height: 300px;
-  top: 55%;
-  left: 20%;
 }
-.cloud-popup {
-  top: 68%;
-  left: 21%;
+.popup-container {
+  top: 380px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.popup-text {
   position: absolute;
+  color: var(--white);
+  z-index: 10;
+  top: 120px;
+  margin-right: 140px;
+}
+.popup-button {
+  position: absolute;
+  background-color: var(--white);
+  right: 55%;
+  top: 250px;
+  color: var(--black);
 }
 
 #app {
