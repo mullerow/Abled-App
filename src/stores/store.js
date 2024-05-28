@@ -285,7 +285,6 @@ export const storeData = defineStore('poiStore', {
     },
 
     getIconOfCategory(poi) {
-      console.log('poi', poi)
       const name = poi.poiName.trim()
 
       switch (name) {

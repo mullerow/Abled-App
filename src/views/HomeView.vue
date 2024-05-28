@@ -13,6 +13,11 @@ export default {
       tutorialPopup: true
     }
   },
+  methods: {
+    closePopup() {
+      this.tutorialPopup = false
+    }
+  },
   created() {
     const currentUserID = localStorage.getItem('currentUserID')
     if (!currentUserID) {
@@ -77,7 +82,7 @@ export default {
       </defs>
       <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
     </svg>
-    <button class="popup-button">OK</button>
+    <button class="popup-button" @click="closePopup">OK</button>
     <p class="popup-text">
       Wie wär es, <br />
       wenn sie sich <br />
@@ -204,9 +209,11 @@ export default {
 .popup-button {
   position: absolute;
   background-color: var(--white);
-  right: 55%;
+  margin-right: 140px;
   top: 250px;
   color: var(--black);
+  font-weight: bold;
+  border: 2px solid var(--red);
 }
 
 #app {
