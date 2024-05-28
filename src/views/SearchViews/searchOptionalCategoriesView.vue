@@ -54,7 +54,6 @@ export default {
 
   methods: {
     saveClick(detailCategorie) {
-      console.log('choosenDetailCategories DAVOR', this.store.temporaryData.choosenDetailCategories)
       if (
         this.store.temporaryData.choosenDetailCategories.some((category) => {
           return category === detailCategorie

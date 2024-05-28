@@ -35,9 +35,15 @@ export default {
       isPressed: null
     }
   },
-  mounted() {
+  created() {
+    let currentUserID = localStorage.getItem('currentUserID').replace(/"/g, '')
+    console.log('currentUserID', currentUserID)
     this.store.temporaryData.ownPoisList = this.store.temporaryData.currentPois.filter(
-      (poi) => poi.createdBy === this.currentUser
+      (poi) => poi.createdBy === currentUserID
+    )
+    console.log(
+      'this.store.temporaryData.ownPoisList.length',
+      this.store.temporaryData.ownPoisList.length
     )
     if (this.store.temporaryData.ownPoisList.length < 6) {
       this.store.createDummyPois()

@@ -1,49 +1,108 @@
-<script>
-import { storeData } from '@/stores/store.js'
-import router from '@/router'
-import LandingPageTitle from '@/components/LandingPageTitle.vue'
-
-export default {
-  components: {
-    LandingPageTitle
-  },
-  data() {
-    return {
-      store: storeData()
-    }
-  },
-  created() {
-    const currentUserID = localStorage.getItem('currentUserID')
-    if (!currentUserID) {
-      router.push({ name: 'register' })
-    } else {
-      this.store.getPoiDataFromAPI()
-      this.store.getUserDataFromAPI().then(() => {
-        if (this.store.temporaryData.currentUserData.length > 0) {
-          this.store.currentUserName = this.store.getUserName()
-        }
-      })
-      this.store.resetTemporaryLists()
-      this.store.temporaryData.currentUserId = JSON.parse(currentUserID)
-    }
-  },
-  updated() {
-    // DELETE the Dummydata
-    // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
-    /*
-    if (this.store.temporaryData.currentPois) {
-      this.store.temporaryData.currentPois.forEach(async (element) => {
-        if (element.creationDate === 'Dummys bekommen kein Datum') {
-          this.store.deletePoifromAPI(element.id)
-        }
-      })
-    }
-    */
-  }
-}
-</script>
-
 <template>
+  <!--  Popup zur Vorstellung der APP  -->
+  <div class="app-popup-container" v-if="appPopup">
+    <svg
+      class="app-svg-popup"
+      viewBox="0 0 100 100"
+      width="200px"
+      height="200px"
+      style="filter: url(#f1)"
+    >
+      <defs>
+        <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
+          <feColorMatrix
+            in="blur"
+            type="matrix"
+            values="0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0"
+            result="coloredBlur"
+          />
+          <feOffset in="coloredBlur" dx="7" dy="7" result="offsetBlur" />
+          <feMerge>
+            <feMergeNode in="offsetBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <clipPath id="clipPolygon">
+          <path
+            d="
+            M 26.937 15.811 H 49.945 V 7.883 H 45.91 L 52.165 0.518 L 57.512 7.883 H 53.577 V 15.853 H 92.213 C 99.077 15.97 99.009 15.994 99.035 23.033 V 89.995 C 98.964 92.982 98.935 92.982 95.977 92.953 C 92.033 92.982 96.023 100.001 91.979 99.921 H 7.04 C 3.167 99.949 6.953 93.025 2.972 92.967 C 0.072 93.025 0.043 92.996 0.111 89.682 V 22.989 C 0.19 16.087 0.219 16.058 7.034 16 Z"
+          />
+        </clipPath>
+      </defs>
+      <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
+    </svg>
+
+    <p class="app-popup-text">
+      Diese App richtet sich an Menschen mit <br />
+      Mobilitätseinschränkungen. <br />
+      Oft bestehen erhöhte Anforderungen an die Umgebung, wie z. B. barrierefreie Toiletten oder
+      extra breite Zugänge. <br />
+      Auch ist die Information, ob Fahrstühle funktionieren für sie essentiell. Diese App soll daher
+      Informationen über öffentliche Orte sammeln und dem Nutzer leicht verständlich zur Verfügung
+      stellen.
+    </p>
+    <popupButtonTutorial
+      class="app-popup-button"
+      :buttonLabel="'Verstanden!'"
+      @click="appClosePopup"
+    />
+  </div>
+
+  <!--  Popup zur Empfehlung der Suchfunktion  
+   
+  -->
+  <div class="searchfunction-popup-container" v-if="searchFunctionPopup">
+    <svg
+      class="searchfunction-svg-popup"
+      viewBox="0 0 100 100"
+      width="200px"
+      height="200px"
+      style="filter: url(#f1)"
+    >
+      <defs>
+        <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
+          <feColorMatrix
+            in="blur"
+            type="matrix"
+            values="0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0"
+            result="coloredBlur"
+          />
+          <feOffset in="coloredBlur" dx="7" dy="7" result="offsetBlur" />
+          <feMerge>
+            <feMergeNode in="offsetBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <clipPath id="clipPolygon">
+          <path
+            d="
+            M 26.937 15.811 L 35.813 12.224 L 33.13 20.417 L 95.397 67.558 C 96.752 68.574 97.712 69.986 97.825 73.262 V 94.761 C 97.729 98.062 95.831 99.799 92.833 99.835 H 9.272 C 0.029 99.83 0.272 94.812 0.181 88.457 V 4.849 C 0.23 1.034 6.232 -0.971 8.842 1.857 Z"
+          />
+        </clipPath>
+      </defs>
+      <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
+    </svg>
+    <button class="searchfunction-popup-button" @click="searchfunctionClosePopup">
+      Alles Klar!
+    </button>
+    <popupButtonTutorial
+      class="searchfunction-popup-button"
+      :buttonLabel="'Verstanden!'"
+      @click="searchfunctionClosePopup"
+    />
+    <p class="searchfunction-popup-text">
+      Wir <br />
+      empfehlen <br />
+      Ihnen, sich <br />
+      zunächst die <br />
+      Suchfunktion anzusehen, <br />
+      um die wesentlichen <br />
+      Funktionen dieser App <br />kennenzulernen. <br />
+    </p>
+  </div>
+
   <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
@@ -81,7 +140,63 @@ export default {
     </RouterLink>
   </div>
 </template>
+<script>
+import { storeData } from '@/stores/store.js'
+import router from '@/router'
+import LandingPageTitle from '@/components/LandingPageTitle.vue'
+import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 
+export default {
+  components: {
+    LandingPageTitle,
+    popupButtonTutorial
+  },
+  data() {
+    return {
+      store: storeData(),
+      searchFunctionPopup: false,
+      appPopup: true
+    }
+  },
+  methods: {
+    searchfunctionClosePopup() {
+      this.searchFunctionPopup = false
+    },
+    appClosePopup() {
+      this.appPopup = false
+      this.searchFunctionPopup = true
+    }
+  },
+  created() {
+    const currentUserID = localStorage.getItem('currentUserID')
+    if (!currentUserID) {
+      router.push({ name: 'register' })
+    } else {
+      this.store.getPoiDataFromAPI()
+      this.store.getUserDataFromAPI().then(() => {
+        if (this.store.temporaryData.currentUserData.length > 0) {
+          this.store.currentUserName = this.store.getUserName()
+        }
+      })
+      this.store.resetTemporaryLists()
+      this.store.temporaryData.currentUserId = JSON.parse(currentUserID)
+    }
+  },
+  updated() {
+    // DELETE the Dummydata
+    // sollte immer auskommentiert sein, nur zum gezielten löschen einmalig ausführen
+    /*
+    if (this.store.temporaryData.currentPois) {
+      this.store.temporaryData.currentPois.forEach(async (element) => {
+        if (element.creationDate === 'Dummys bekommen kein Datum') {
+          this.store.deletePoifromAPI(element.id)
+        }
+      })
+    }
+    */
+  }
+}
+</script>
 <style scoped>
 .welcome-text {
   margin-bottom: 20px;
@@ -102,7 +217,7 @@ export default {
 }
 
 .btn-search {
-  width: 21rem;
+  width: 330px;
   grid-area: search;
   grid-row-start: 1;
   _grid-row-end: span 1;
@@ -137,6 +252,84 @@ export default {
   cursor: pointer;
 }
 .search-button-width {
-  width: 21rem;
+  width: 330px;
+}
+.searchfunction-svg-popup {
+  position: absolute;
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+}
+.searchfunction-popup-container {
+  top: 375px;
+  width: 350px;
+  position: relative;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+.searchfunction-popup-text {
+  position: absolute;
+  color: var(--white);
+  z-index: 10;
+  top: 60px;
+  left: 40px;
+  width: 400px;
+}
+.searchfunction-popup-button {
+  position: absolute;
+  background-color: var(--white);
+  margin-right: 150px;
+  top: 250px;
+  color: var(--black);
+  font-weight: bold;
+  border: 2px solid var(--red);
+  border-radius: 5px;
+}
+.app-svg-popup {
+  position: absolute;
+  background-color: transparent;
+  width: 320px;
+  height: auto;
+}
+.app-popup-container {
+  top: 180px;
+  width: 300px;
+  position: relative;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+}
+.app-popup-text {
+  position: absolute;
+  color: var(--white);
+  z-index: 10;
+  top: 50px;
+  left: 10px;
+  width: 290px;
+}
+.app-popup-button {
+  position: absolute;
+  background-color: var(--white);
+  margin-right: 150px;
+  top: 250px;
+  color: var(--black);
+  font-weight: bold;
+  border: 2px solid var(--red);
+  margin-top: 20px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
+}
+
+#app {
+  position: relative;
+}
+
+@media screen and (min-width: 600px) {
+  .searchfunction-popup-container {
+    top: 390px;
+  }
 }
 </style>
