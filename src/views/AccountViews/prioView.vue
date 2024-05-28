@@ -22,7 +22,7 @@
   <div v-if="showPopup" class="popup">
     <div class="popup-content">
       <p>Dein Account wird angelegt.</p>
-      <button @click="addUserAndNavigate">OK</button>
+      <button class="prio-popup-button" @click="addUserAndNavigate">OK</button>
       <RouterLink :to="{ name: 'home' }"></RouterLink>
     </div>
   </div>
@@ -145,8 +145,22 @@ export default {
 .popup-content {
   background-color: var(--white);
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px var(--black);
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+}
+.prio-popup-button {
+  color: var(--white);
+  background-color: var(--black);
+  border: 0.1rem solid var(--black);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  align-self: center;
+  margin: 0 10px;
+  width: 3rem;
+}
+.prio-popup-button:hover {
+  transform: scale(1.1);
 }
 .button-prio {
   align-self: center;

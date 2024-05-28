@@ -2,60 +2,92 @@
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
+
   <HeadLine class="headline-account" :Headline="'Verwalte deine Account-Daten'" />
+  <div class="form-group">
+    <label class="label-username label-account" for="username">Benutzername</label>
+    <input
+      class="input-account"
+      type="text"
+      id="username"
+      v-model="updatedUserData.username"
+      :placeholder="updatedUserData.username ? updatedUserData.username : 'username'"
+      :disabled="!editMode"
+    />
+  </div>
 
-  <label class="label-username label-account" for="username">Benutzername</label>
-  <input
-    class="input-account"
-    type="text"
-    id="username"
-    v-model="updatedUserData.username"
-    :placeholder="updatedUserData.username ? updatedUserData.username : 'username'"
-    :disabled="!editMode"
-  />
+  <div class="form-group">
+    <label class="label-account" for="email">E-mail</label>
+    <input
+      class="input-account"
+      type="email"
+      id="email"
+      v-model="updatedUserData.email"
+      :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
+      :class="{ 'invalid-email': !emailValid }"
+    />
+  </div>
 
-  <label class="label-account" for="email">E-mail</label>
-  <input
-    class="input-account"
-    type="email"
-    id="email"
-    v-model="updatedUserData.email"
-    :placeholder="updatedUserData.email ? updatedUserData.email : 'Email'"
-    :class="{ 'invalid-email': !emailValid }"
-  />
+  <div class="form-group">
+    <label class="label-account" for="password">Passwort</label>
+    <input
+      class="input-account"
+      type="password"
+      id="password"
+      v-model="updatedUserData.password"
+      @focus="showPasswordConditions = true"
+      @input="updatePasswordConditions"
+      @blur="closePasswordConditions"
+      :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
+    />
+  </div>
 
-  <label class="label-account" for="password">Passwort</label>
-  <input
-    class="input-account"
-    type="password"
-    id="password"
-    v-model="updatedUserData.password"
-    :placeholder="updatedUserData.password ? updatedUserData.password : 'Passwort'"
-  />
-  <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
-  <input
-    class="input-account"
-    type="text"
-    id="mobilityAssistance"
-    v-model="updatedUserData.mobilityAssistance"
-    :placeholder="
-      updatedUserData.mobilityAssistance
-        ? updatedUserData.mobilityAssistance
-        : 'mobility assistance'
-    "
-  />
-  <label class="label-account" for="mobilityAssistanceWidth">Mobilitätshilfe Breite (in cm)</label>
-  <input
-    class="input-account"
-    type="text"
-    id="mobilityAssistanceWidth"
-    v-model="updatedUserData.mobilityAssistanceWidth"
-    :placeholder="
-      updatedUserData.mobilityAssistanceWidth
-        ? updatedUserData.mobilityAssistanceWidth
-        : 'mobilityAssistance width'
-    "
-  />
+  <div v-show="showPasswordConditions" class="password-conditions form-group">
+    <ul class="password-conditions-list">
+      <li v-for="condition in passwordConditions" :key="condition.condition">
+        <span
+          :class="{
+            condition: condition.fulfilled,
+            'condition-unfulfilled': !condition.fulfilled
+          }"
+          >{{ condition.condition }}</span
+        >: <span v-if="condition.fulfilled">&#10004;</span
+        ><span v-if="!condition.fulfilled" class="cross">&#10006;</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <label class="label-account" for="mobilityAssistance">Mobilitätshilfe</label>
+    <input
+      class="input-account"
+      type="text"
+      id="mobilityAssistance"
+      v-model="updatedUserData.mobilityAssistance"
+      :placeholder="
+        updatedUserData.mobilityAssistance
+          ? updatedUserData.mobilityAssistance
+          : 'mobility assistance'
+      "
+    />
+  </div>
+
+  <div class="form-group">
+    <label class="label-account" for="mobilityAssistanceWidth"
+      >Mobilitätshilfe Breite (in cm)</label
+    >
+    <input
+      class="input-account"
+      type="text"
+      id="mobilityAssistanceWidth"
+      v-model="updatedUserData.mobilityAssistanceWidth"
+      :placeholder="
+        updatedUserData.mobilityAssistanceWidth
+          ? updatedUserData.mobilityAssistanceWidth
+          : 'mobilityAssistance width'
+      "
+    />
+  </div>
 
   <NavButton
     class="button-account"
@@ -73,14 +105,16 @@
   <div v-if="showConfirmation" class="confirmation-popup">
     <div class="confirmation-message">
       <p>Sind Sie sicher, dass Sie den Account dauerhaft löschen möchten?</p>
-      <button @click="deleteUser">Ja</button>
-      <button @click="cancelDelete">Nein</button>
+      <div class="confirmation-buttons">
+        <button class="button-confirmation button-delete" @click="deleteUser">Ja</button>
+        <button class="button-confirmation button-cancel" @click="cancelDelete">Nein</button>
+      </div>
     </div>
   </div>
 
   <div v-if="showEmailErrorPopup" class="email-popup">
     <p>Ungültige E-Mail-Adresse. Bitte geben Sie eine gültige E-Mail-Adresse ein.</p>
-    <button @click="closeEmailErrorPopup">OK</button>
+    <button class="button-confirmation popup-mail-button" @click="closeEmailErrorPopup">OK</button>
   </div>
 </template>
 
@@ -115,7 +149,15 @@ export default {
       currentUserID: localStorage.getItem('currentUserID').replace(/"/g, ''),
       showConfirmation: false,
       emailValid: true,
-      showEmailErrorPopup: false
+      showEmailErrorPopup: false,
+      showPasswordConditions: false,
+      passwordConditions: [
+        { condition: 'Mindestens 8 Zeichen lang', fulfilled: false },
+        { condition: 'Mindestens ein Sonderzeichen', fulfilled: false },
+        { condition: 'Mindestens eine Zahl', fulfilled: false },
+        { condition: 'Mindestens ein Großbuchstabe', fulfilled: false },
+        { condition: 'Mindestens ein Kleinbuchstabe', fulfilled: false }
+      ]
     }
   },
 
@@ -245,6 +287,9 @@ export default {
       }
       this.showConfirmation = false
     },
+    cancelDelete() {
+      this.showConfirmation = false
+    },
     logout() {
       try {
         localStorage.removeItem('updatedUserData')
@@ -253,6 +298,17 @@ export default {
       } catch (error) {
         console.error('Fehler beim Ausloggen:', error)
       }
+    },
+    updatePasswordConditions() {
+      const password = this.updatedUserData.password
+      this.passwordConditions[0].fulfilled = password.length >= 8
+      this.passwordConditions[1].fulfilled = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+      this.passwordConditions[2].fulfilled = /\d/.test(password)
+      this.passwordConditions[3].fulfilled = /[A-Z]/.test(password)
+      this.passwordConditions[4].fulfilled = /[a-z]/.test(password)
+    },
+    closePasswordConditions() {
+      this.showPasswordConditions = false
     }
   }
 }
@@ -260,42 +316,91 @@ export default {
 
 <style>
 .confirmation-popup {
+  display: flex;
+  justify-content: center;
   position: fixed;
-  width: 300px;
+  width: 90%;
+  max-width: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--white);
   padding: 20px;
   border: 4px solid var(--black);
+  border-radius: 0.25rem;
   z-index: 9999;
+  align-items: center;
 }
-.label-username {
+.confirmation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.confirmation-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-delete {
+  background-color: var(--red);
+  color: var(--white);
+  width: 1rem;
+}
+.button-cancel {
+  color: var(--black);
+  background: var(--white);
+}
+
+.button-confirmation {
+  border: 0.1rem solid var(--black);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  align-self: center;
+  margin: 0 10px;
+  width: 3rem;
+}
+.button-confirmation:hover {
+  transform: scale(1.1);
+}
+
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.label-username,
+.label-account {
+  flex: 1;
   margin-top: 2rem;
 }
 
-.label-account {
-  margin-left: 2rem;
-}
 .input-account {
   padding: 0.5rem;
+  flex: 2;
   width: 80%;
   background-color: var(--white);
   border-radius: 0.5rem;
-  margin: 1rem 2rem 2rem 2rem;
+  margin: 1rem 2rem 2rem;
   color: var(--black);
   border: 1px solid var(--black);
   min-height: 3rem;
+  align-self: center;
 }
 .input.invalid-email {
   border-color: var(--black);
 }
-.button-account {
+.button-account,
+.headline-account {
   align-self: center;
 }
 
 .email-popup {
   color: var(--red);
+  display: flex;
+  flex-direction: column;
   position: fixed;
   width: 300px;
   top: 50%;
@@ -306,9 +411,7 @@ export default {
   border: 4px solid var(--black);
   z-index: 9999;
 }
-.headline-account {
-  align-self: center;
-}
+
 .header-buttons {
   display: flex;
   justify-content: center;
