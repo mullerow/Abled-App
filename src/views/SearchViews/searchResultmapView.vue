@@ -60,7 +60,7 @@ export default {
             <img src="${gastroIcon}" style="width: 30px;" id="gastro">
             <label for="gastro"" >&nbsp;Gastronomie</label>
             <img src="${babyChangingTableIcon}" style="width: 30px;" id="baby-changing">
-            <label for="baby-changing" >&nbsp;Wickleplatz</label>
+            <label for="baby-changing" >&nbsp;Wickelplatz</label>
             <img src="${entranceIcon}" style="width: 30px;" id="entrance">
             <label for="entrance" >&nbsp;Zugang&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <img src="${liftIcon}" style="width: 30px;" id="lift">

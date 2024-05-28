@@ -32,11 +32,26 @@
       </defs>
       <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
     </svg>
-    <button class="app-popup-button" @click="appClosePopup">OK</button>
-    <p class="app-popup-text">UNSERE APPPPPPP</p>
+
+    <p class="app-popup-text">
+      Diese App richtet sich an Menschen mit <br />
+      Mobilitätseinschränkungen. <br />
+      Oft bestehen erhöhte Anforderungen an die Umgebung, wie z. B. barrierefreie Toiletten oder
+      extra breite Zugänge. <br />
+      Auch ist die Information, ob Fahrstühle funktionieren für sie essentiell. Diese App soll daher
+      Informationen über öffentliche Orte sammeln und dem Nutzer leicht verständlich zur Verfügung
+      stellen.
+    </p>
+    <popupButtonTutorial
+      class="app-popup-button"
+      :buttonLabel="'Verstanden!'"
+      @click="appClosePopup"
+    />
   </div>
 
-  <!--  Popup zur Empfehlung der Suchfunktion  -->
+  <!--  Popup zur Empfehlung der Suchfunktion  
+   
+  -->
   <div class="searchfunction-popup-container" v-if="searchFunctionPopup">
     <svg
       class="searchfunction-svg-popup"
@@ -69,15 +84,22 @@
       </defs>
       <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
     </svg>
-    <button class="searchfunction-popup-button" @click="searchfunctionClosePopup">OK</button>
+    <button class="searchfunction-popup-button" @click="searchfunctionClosePopup">
+      Alles Klar!
+    </button>
+    <popupButtonTutorial
+      class="searchfunction-popup-button"
+      :buttonLabel="'Verstanden!'"
+      @click="searchfunctionClosePopup"
+    />
     <p class="searchfunction-popup-text">
       Wir <br />
       empfehlen <br />
-      ihnen, sich <br />
+      Ihnen, sich <br />
       zunächst die <br />
       Suchfunktion anzusehen, <br />
       um die wesentlichen <br />
-      Funktionen dieser App <br />kennenzulernen <br />
+      Funktionen dieser App <br />kennenzulernen. <br />
     </p>
   </div>
 
@@ -122,10 +144,12 @@
 import { storeData } from '@/stores/store.js'
 import router from '@/router'
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
+import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 
 export default {
   components: {
-    LandingPageTitle
+    LandingPageTitle,
+    popupButtonTutorial
   },
   data() {
     return {
@@ -237,7 +261,7 @@ export default {
   height: 300px;
 }
 .searchfunction-popup-container {
-  top: 380px;
+  top: 375px;
   width: 350px;
   position: relative;
   align-self: center;
@@ -249,7 +273,8 @@ export default {
   color: var(--white);
   z-index: 10;
   top: 60px;
-  right: 125px;
+  left: 40px;
+  width: 400px;
 }
 .searchfunction-popup-button {
   position: absolute;
@@ -259,16 +284,17 @@ export default {
   color: var(--black);
   font-weight: bold;
   border: 2px solid var(--red);
+  border-radius: 5px;
 }
 .app-svg-popup {
   position: absolute;
   background-color: transparent;
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: auto;
 }
 .app-popup-container {
   top: 180px;
-  width: 350px;
+  width: 300px;
   position: relative;
   align-self: center;
   display: flex;
@@ -278,8 +304,9 @@ export default {
   position: absolute;
   color: var(--white);
   z-index: 10;
-  top: 160px;
-  right: 125px;
+  top: 50px;
+  left: 10px;
+  width: 290px;
 }
 .app-popup-button {
   position: absolute;
@@ -289,6 +316,11 @@ export default {
   color: var(--black);
   font-weight: bold;
   border: 2px solid var(--red);
+  margin-top: 20px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 20px;
 }
 
 #app {
@@ -296,8 +328,8 @@ export default {
 }
 
 @media screen and (min-width: 600px) {
-  .popup-container {
-    top: 395px;
+  .searchfunction-popup-container {
+    top: 390px;
   }
 }
 </style>

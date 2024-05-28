@@ -46,7 +46,7 @@
   </div>
 
   <p v-show="!store.temporaryData.street" class="searchpoiview-info">
-    Bitte bestimmen Sie ihren Standort, bevor Sie fortfahren
+    Bitte bestimmen Sie Ihren Standort, bevor Sie fortfahren
   </p>
 
   <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
