@@ -271,7 +271,7 @@ export default {
 .searchfunction-popup-text {
   position: absolute;
   color: var(--white);
-  z-index: 10;
+
   top: 60px;
   left: 40px;
   width: 400px;

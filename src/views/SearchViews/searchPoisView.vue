@@ -5,6 +5,50 @@
       <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
     </div>
   </header>
+  <!--  INFO POPUP -->
+  <div class="searchpoi-popup-container" v-if="searchPoiPopup">
+    <svg
+      class="searchpoi-svg-popup"
+      viewBox="0 0 100 100"
+      width="200px"
+      height="200px"
+      style="filter: url(#f1)"
+    >
+      <defs>
+        <filter id="f1" x="-10%" y="-10%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" result="blur" />
+          <feColorMatrix
+            in="blur"
+            type="matrix"
+            values="0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0"
+            result="coloredBlur"
+          />
+          <feOffset in="coloredBlur" dx="3" dy="3" result="offsetBlur" />
+          <feMerge>
+            <feMergeNode in="offsetBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <clipPath id="clipPolygon">
+          <path
+            d="
+            M 82.004 38.891 C 91.22 34.704 91.451 23.504 85.741 14.014 C 82.204 6.959 78.02 8.645 72.502 14.77 L 75.513 14.77 L 70.963 19.321 L 67.081 14.904 L 69.825 14.77 C 71.341 12.106 73.071 10.66 76.728 8.382 C 80.583 6.302 85.822 4.371 90.724 9.675 C 95.418 15.967 98.195 16.76 98.459 28.265 V 85.669 C 98.964 92.982 98.935 92.982 95.977 92.953 C 92.033 92.982 96.023 100.001 91.979 99.921 H 7.04 C 3.167 99.949 6.953 93.025 2.972 92.967 C 0.072 93.025 0.043 92.996 0.429 84.458 V 42.999 C 0.567 39.019 0.567 38.927 5.287 39.019 Z"
+          />
+        </clipPath>
+      </defs>
+      <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
+    </svg>
+    <popupButtonTutorial
+      class="searchpoi-popup-button"
+      :buttonLabel="'Geht klar!'"
+      @click="searchPoiPopup = false"
+    />
+    <p class="searchpoi-popup-text">
+      Bitte stimme der Standortbestimmung zu, damit wir Dir auch interessante Orte in deiner Nähe
+      zeigen können
+    </p>
+  </div>
+
   <HeadLine Headline="Wo möchtest du suchen?" class="headline"></HeadLine>
   <h3 class="search-radius-input-header">SUCHRADIUS</h3>
 
@@ -60,17 +104,20 @@ import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
+import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 
 export default {
   components: {
     headerLogo,
     BackArrow,
     NavButton,
-    HeadLine
+    HeadLine,
+    popupButtonTutorial
   },
   data() {
     return {
-      store: storeData()
+      store: storeData(),
+      searchPoiPopup: true
     }
   },
   mounted() {
@@ -80,6 +127,9 @@ export default {
   methods: {
     saveInputValue(e) {
       this.store.temporaryData.searchDistance = e.target.value
+    },
+    searchPoiClosePopup() {
+      this.searchPoiPopup = false
     }
   }
 }
@@ -133,9 +183,35 @@ label {
   font-size: 20px;
   font-weight: bold;
 }
+.searchpoi-popup-container {
+  position: relative;
+  align-self: center;
+  width: 300px;
+}
+.searchpoi-svg-popup {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  top: 195px;
+  left: 20px;
+}
+.searchpoi-popup-button {
+  position: absolute;
+  top: 410px;
+  left: 110px;
+}
+.searchpoi-popup-text {
+  position: absolute;
+  top: 330px;
+  left: 50px;
+  color: var(--white);
+}
 @media screen and (min-width: 600px) {
   .location-info-container {
     width: 70%;
+  }
+  .searchpoi-popup-container {
+    top: -38px;
   }
 }
 </style>
