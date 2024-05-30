@@ -367,27 +367,32 @@ export default {
 
 .form-group {
   display: flex;
-  align-items: flex-start;
+
   flex-direction: column;
+  width: 90%;
+  align-self: center;
+}
+
+input,
+label {
+  display: block;
 }
 
 .label-username,
 .label-account {
-  flex: 1;
   margin-top: 2rem;
 }
 
 .input-account {
   padding: 0.5rem;
-  flex: 2;
-  width: 80%;
+  width: 100%;
   background-color: var(--white);
   border-radius: 0.5rem;
-  margin: 1rem 2rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   color: var(--black);
   border: 1px solid var(--black);
   min-height: 3rem;
-  align-self: center;
 }
 .input.invalid-email {
   border-color: var(--black);
