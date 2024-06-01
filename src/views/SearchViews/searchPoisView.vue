@@ -95,7 +95,9 @@
   </div>
 
   <p v-show="!store.temporaryData.street" class="searchpoiview-info">
-    Bitte bestimmen Sie Ihren Standort, bevor Sie fortfahren
+    Leider funktioniert der Ortungsservice nicht immer, <br />
+    bitte dann erneut den Standort bestimmen lassen, falls Ihre Adresse nach 10 sec. nicht angezeigt
+    wird
   </p>
 
   <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
