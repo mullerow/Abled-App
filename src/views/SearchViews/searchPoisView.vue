@@ -5,7 +5,7 @@
       <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
     </div>
   </header>
-  <!--  INFO POPUP -->
+  <!--  INFO POPUP für den standort bestimmungsbutton -->
   <div class="searchpoi-popup-container" v-if="searchPoiPopup">
     <svg
       class="searchpoi-svg-popup"
@@ -32,7 +32,7 @@
         <clipPath id="clipPolygon">
           <path
             d="
-            M 82.004 38.891 C 91.22 34.704 91.451 23.504 85.741 14.014 C 82.204 6.959 78.02 8.645 72.502 14.77 L 75.513 14.77 L 70.963 19.321 L 67.081 14.904 L 69.825 14.77 C 71.341 12.106 73.071 10.66 76.728 8.382 C 80.583 6.302 85.822 4.371 90.724 9.675 C 95.418 15.967 98.195 16.76 98.459 28.265 V 85.669 C 98.964 92.982 98.935 92.982 95.977 92.953 C 92.033 92.982 96.023 100.001 91.979 99.921 H 7.04 C 3.167 99.949 6.953 93.025 2.972 92.967 C 0.072 93.025 0.043 92.996 0.429 84.458 V 42.999 C 0.567 39.019 0.567 38.927 5.287 39.019 Z"
+            M 82.004 38.891 C 91.22 34.704 91.451 23.504 85.741 14.014 C 82.204 6.959 78.02 8.645 72.502 14.77 L 75.513 14.77 L 70.963 19.321 L 67.081 14.904 L 69.825 14.77 C 71.341 12.106 73.071 10.66 77.691 7.499 C 74.058 7.935 73.288 7.678 71.066 7.123 L 69.869 8.96 L 67.433 3.661 L 73.117 3.404 L 72.092 5.199 C 80.583 6.302 85.822 4.371 90.724 9.675 C 95.418 15.967 98.195 16.76 98.459 28.265 V 85.669 C 98.964 92.982 98.935 92.982 95.977 92.953 C 92.033 92.982 96.023 100.001 91.979 99.921 H 7.04 C 3.167 99.949 6.953 93.025 2.972 92.967 C 0.072 93.025 0.043 92.996 0.429 84.458 V 42.999 C 0.567 39.019 0.567 38.927 5.287 39.019 Z"
           />
         </clipPath>
       </defs>
@@ -44,10 +44,15 @@
       @click="searchPoiPopup = false"
     />
     <p class="searchpoi-popup-text">
-      Bitte stimme der Standortbestimmung zu, damit wir Dir auch interessante Orte in deiner Nähe
-      zeigen können
+      Lege fest, in welchem Radius du Orte auf der Karte angezeigt bekommen möchtest und bitte
+      stimme der Standortbestimmung zu, damit wir Dir dann auch interessante Orte in deiner Nähe
+      zeigen können.
     </p>
   </div>
+  <!--  INFO POPUP für den Suchradius schiebebalken 
+  
+  M 82.004 38.891 C 91.22 34.704 91.451 23.504 85.741 14.014 C 82.204 6.959 78.02 8.645 72.502 14.77 L 75.513 14.77 L 70.963 19.321 L 67.081 14.904 L 69.825 14.77 C 71.341 12.106 73.071 10.66 76.728 8.382 C 80.583 6.302 85.822 4.371 90.724 9.675 C 95.418 15.967 98.195 16.76 98.459 28.265 V 85.669 C 98.964 92.982 98.935 92.982 95.977 92.953 C 92.033 92.982 96.023 100.001 91.979 99.921 H 7.04 C 3.167 99.949 6.953 93.025 2.972 92.967 C 0.072 93.025 0.043 92.996 0.429 84.458 V 42.999 C 0.567 39.019 0.567 38.927 5.287 39.019 Z
+  -->
 
   <HeadLine Headline="Wo möchtest du suchen?" class="headline"></HeadLine>
   <h3 class="search-radius-input-header">SUCHRADIUS</h3>
@@ -94,7 +99,7 @@
   </p>
 
   <RouterLink :to="{ name: 'searchcategorie' }" class="router-link"
-    ><NavButton :disabled="!store.temporaryData.city" Navigation="Weiter">Weiter</NavButton>
+    ><NavButton :disabled="!store.temporaryData.street" Navigation="Weiter">Weiter</NavButton>
   </RouterLink>
 </template>
 
@@ -191,18 +196,18 @@ label {
 .searchpoi-svg-popup {
   position: absolute;
   width: 300px;
-  height: auto;
+  height: 300px;
   top: 195px;
   left: 20px;
 }
 .searchpoi-popup-button {
   position: absolute;
-  top: 410px;
-  left: 110px;
+  top: 415px;
+  left: 173px;
 }
 .searchpoi-popup-text {
   position: absolute;
-  top: 330px;
+  top: 305px;
   left: 50px;
   color: var(--white);
 }
