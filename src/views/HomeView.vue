@@ -84,7 +84,7 @@
     </svg>
     <popupButtonTutorial
       class="searchfunction-popup-button"
-      :buttonLabel="'Verstanden!'"
+      :buttonLabel="'Mach ich!'"
       @click="searchfunctionClosePopup"
     />
     <p class="searchfunction-popup-text">
