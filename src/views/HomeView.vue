@@ -49,9 +49,7 @@
     />
   </div>
 
-  <!--  Popup zur Empfehlung der Suchfunktion  
-   
-  -->
+  <!--  Popup zur Empfehlung der Suchfunktion  -->
   <div class="searchfunction-popup-container" v-if="searchFunctionPopup">
     <svg
       class="searchfunction-svg-popup"
@@ -84,12 +82,9 @@
       </defs>
       <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
     </svg>
-    <button class="searchfunction-popup-button" @click="searchfunctionClosePopup">
-      Alles Klar!
-    </button>
     <popupButtonTutorial
       class="searchfunction-popup-button"
-      :buttonLabel="'Verstanden!'"
+      :buttonLabel="'Mach ich!'"
       @click="searchfunctionClosePopup"
     />
     <p class="searchfunction-popup-text">
@@ -271,7 +266,7 @@ export default {
 .searchfunction-popup-text {
   position: absolute;
   color: var(--white);
-  z-index: 10;
+
   top: 60px;
   left: 40px;
   width: 400px;
