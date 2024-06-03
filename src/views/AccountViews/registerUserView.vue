@@ -361,10 +361,7 @@ export default {
   padding: 0.5rem;
   align-self: center;
 }
-.popup-mail-button:hover {
-  transform: scale(1.1);
-}
-.password-conditions {
+.popup-mail-button .password-conditions {
   background: var(--white);
   border-radius: 1rem;
   padding: 1rem;

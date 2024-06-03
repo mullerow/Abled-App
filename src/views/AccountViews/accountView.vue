@@ -421,7 +421,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 20px;
   background-color: transparent;
 }
 </style>

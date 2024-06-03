@@ -10,13 +10,15 @@ export default {
 
 <style scoped>
 .Headline {
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem;
   border-radius: 1rem;
-  color: var(--red);
-  background-color: #3d405b;
+  color: var(--black);
+  background-color: var(--red);
   width: 100%;
   text-align: center;
   align-self: center;
   margin-top: 0px;
+  max-height: 79px;
+  font-size: 1.5rem;
 }
 </style>
