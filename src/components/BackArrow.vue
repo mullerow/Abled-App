@@ -7,13 +7,12 @@ button {
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 10px;
-  background-color: var(--red);
 }
 
 button:hover {
   cursor: pointer;
-  background-color: var(--white);
-  box-shadow: 0px 0px 15px white;
+  background: var(--white);
+  box-shadow: 0px 0px 15px var(--white);
 }
 
 img {
