@@ -5,10 +5,7 @@
     src="/src/assets/images/final_logo_comprimized.png"
     alt="Logo der App"
   />
-  <h1 class="heading-register">
-    Willkommen bei <br />
-    Abled
-  </h1>
+  <h1 class="heading-register">Willkommen bei Abled</h1>
   <InputField
     class="input-register"
     :value="username"
@@ -312,8 +309,10 @@ export default {
 }
 .heading-register {
   align-self: center;
-  margin-top: 5rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
   text-align: center;
+  color: var(--red);
 }
 .login-link {
   width: 90%;

@@ -158,7 +158,8 @@ export default {
 }
 .heading-login {
   align-self: flex-end;
-  margin-top: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
   margin-right: 30px;
   text-align: right;
   color: var(--red);
