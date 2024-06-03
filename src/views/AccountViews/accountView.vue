@@ -1,4 +1,5 @@
 <template>
+  <BackgoundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
