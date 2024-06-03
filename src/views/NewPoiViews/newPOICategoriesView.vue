@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
@@ -23,6 +24,7 @@ import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
@@ -33,7 +35,7 @@ export default {
     }
   },
 
-  components: { HeadLine, CategorieButton, NavButton, headerLogo },
+  components: { HeadLine, CategorieButton, NavButton, headerLogo, BackgroundGradient },
 
   computed: {
     filteredCategories() {

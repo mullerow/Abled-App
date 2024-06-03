@@ -1,11 +1,12 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'newpoiaddressinput' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
-  <div class="container">
-    <HeadLine :Headline="'Trage weitere Informationen ein'" />
+  <div class="ctn-headline-newpoi-info">
+    <HeadLine :Headline="'Gib weitere Infos ein'" />
 
     <InputField
       class="input-newpoi"
@@ -40,9 +41,10 @@ import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import InputField from '@/components/InputField.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
-import { storeData } from '@/stores/store.js'
 import HeadLine from '@/components/HeadLine.vue'
+import { storeData } from '@/stores/store.js'
 
 export default {
   components: {
@@ -51,7 +53,8 @@ export default {
     NavButton,
     InputField,
     LöschenButton,
-    HeadLine
+    HeadLine,
+    BackgroundGradient
   },
 
   data() {
@@ -117,7 +120,7 @@ export default {
   padding: 10px 20px;
   background-color: transparent;
 }
-.container {
+.ctn-headline-newpoi-info {
   display: flex;
   align-items: center;
   flex-direction: column;

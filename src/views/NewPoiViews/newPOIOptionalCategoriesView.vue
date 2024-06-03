@@ -1,9 +1,10 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'newpoicategorie' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
-  <HeadLine :Headline="'Wähle deine Zusatzkategorien'" class="headline-text" />
+  <HeadLine :Headline="'Wähle Zusatzkategorien'" class="headline-text" />
   <div class="container">
     <div class="container" v-for="categorie in store.localData.categories" :key="categorie.id">
       <div
@@ -32,10 +33,11 @@ import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import { storeData } from '@/stores/store.js'
 
 export default {
-  components: { HeadLine, CategorieButton, NavButton, headerLogo, BackArrow },
+  components: { HeadLine, CategorieButton, NavButton, headerLogo, BackArrow, BackgroundGradient },
 
   data() {
     return {
