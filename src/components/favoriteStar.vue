@@ -1,9 +1,12 @@
 <template>
   <div class="star-container">
-    <!--  SVG to change background color-->
+    <!--  SVG to change background color      v-if="addedToFavorite"  -->
     <svg
-      :class="['favorite-star-background-svg', { 'animate-star': animateStar }]"
-      v-if="addedToFavorite"
+      :class="[
+        'favorite-star-background-svg',
+        { 'animate-rising-star': animateRisingStar },
+        { 'animate-falling-star': animateFallingStar }
+      ]"
       viewBox="0 0 100 100"
       width="100px"
       height="100px"
@@ -29,7 +32,7 @@
       />
     </svg>
     <svg
-      :class="['favorite-star-svg', { 'animate-star': animateStar }]"
+      :class="['favorite-star-svg', { 'animate-rising-star': animateRisingStar }]"
       class="favorite-star-svg"
       viewBox="0 0 100 100"
       width="100px"
@@ -72,13 +75,20 @@ export default {
   data() {
     return {
       addedToFavorite: false,
-      animateStar: false
+      animateRisingStar: false,
+      animateFallingStar: false
     }
   },
   methods: {
     favoriteStarClicked() {
       this.addedToFavorite = !this.addedToFavorite
-      this.animateStar = true
+      if (this.addedToFavorite) {
+        this.animateRisingStar = true
+        this.animateFallingStar = false
+      } else {
+        this.animateRisingStar = false
+        this.animateFallingStar = true
+      }
     }
   }
 }
@@ -91,9 +101,6 @@ export default {
   width: 60px;
   height: auto;
   background-color: transparent;
-}
-.favorite-star-on {
-  background-color: green;
 }
 .favorite-star-background-svg {
   width: 50px;
@@ -114,7 +121,7 @@ export default {
 }
 @keyframes star-click-animation-color {
   0% {
-    transform: scale(1);
+    transform: scale(0.01);
   }
   50% {
     transform: scale(2.5);
@@ -124,10 +131,30 @@ export default {
     transform: scale(1);
   }
 }
-.favorite-star-svg.animate-star {
+@keyframes star-click-animation-falling {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+    rotate: 360deg;
+  }
+  100% {
+    transform: scale(0.01);
+  }
+}
+.favorite-star-background-svg.animate-falling-star {
+  animation: star-click-animation-falling 2s forwards;
+}
+.favorite-star-svg.animate-rising-star {
   animation: star-click-animation-border 2s forwards;
 }
-.favorite-star-background-svg.animate-star {
+.favorite-star-background-svg.animate-rising-star {
   animation: star-click-animation-color 2s forwards;
+}
+.favorite-star-svg:hover {
+  transform: scale(1.3);
+  transition-duration: 1000ms;
+  cursor: pointer;
 }
 </style>
