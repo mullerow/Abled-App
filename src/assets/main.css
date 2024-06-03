@@ -45,6 +45,8 @@ body {
   min-height: 760px;
   border-radius: 20px;
   overflow: auto;
+  z-index: -2;
+  position: relative;
 }
 
 main {
