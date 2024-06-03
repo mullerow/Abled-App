@@ -1,10 +1,10 @@
 <template>
-  <BackgoundGradient />
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
-  <HeadLine class="headline-account" :Headline="'Verwalte deine Account-Daten'" />
+  <HeadLine class="headline-account" :Headline="'Verwalte deinen Account'" />
   <div class="form-group">
     <label class="label-username label-account" for="username">Benutzername</label>
     <input
@@ -125,9 +125,10 @@ import HeadLine from '@/components/HeadLine.vue'
 import NavButton from '@/components/NavButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 
 export default {
-  components: { NavButton, headerLogo, LöschenButton, HeadLine },
+  components: { NavButton, headerLogo, LöschenButton, HeadLine, BackgroundGradient },
   data() {
     return {
       store: storeData(),
