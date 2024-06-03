@@ -4,10 +4,10 @@
     viewBox="0 0 100 100"
     width="500px"
     height="500px"
+    @click="favoriteStarClicked"
     style="filter: url(#f1)"
   >
     <defs>
-      <!-- Clip-Pfad für den äußeren Stern -->
       <clipPath id="clipPolygon-star">
         <path
           d="
@@ -15,10 +15,8 @@
         "
         />
       </clipPath>
-      <!-- Maske für den inneren Stern (Loch) -->
-      <mask id="hole">
+      <mask id="hole" :class="{ 'favorite-star-on': isStarClicked }">
         <rect width="100%" height="100%" fill="white" />
-        <!-- Innerer Stern -->
         <path
           d="
           M 50.6 14.1 C 58.6 17.3 57.4 37.8 60.5 36.8 C 63.8 40.1 79.6 30.8 89.6 37.6 C 89.9 47.1 67.4 53.2 66.3 57 C 65.7 62.6 76.6 72.5 73.8 83.1 C 60.8 83.5 56 69 50.2 67.7 C 44 69 38.6 82.4 25.9 84.1 C 22.3 71 34.9 63.5 33.9 57.7 C 30.9 53.4 11 48.6 11 39.7 C 17.7 32.8 34.5 40 39.9 37.4 C 43.1 38.1 43.6 16.3 50.4 14.1
@@ -27,7 +25,6 @@
         />
       </mask>
     </defs>
-    <!-- Anwendung des Clip-Pfads und der Maske auf das Rechteck -->
     <rect
       x="0"
       y="0"
@@ -39,13 +36,29 @@
     />
   </svg>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isStarClicked: false
+    }
+  },
+  methods: {
+    favoriteStarClicked() {
+      console.log('klick kommt an!')
+      this.isStarClicked = !this.isStarClicked
+    }
+  }
+}
+</script>
 
 <style scoped>
 .favorite-star-svg {
-  width: 300px;
+  width: 60px;
   height: auto;
-  z-index: 1000;
   background-color: transparent;
-  margin-left: 200px;
+}
+.favorite-star-on {
+  background-color: red;
 }
 </style>
