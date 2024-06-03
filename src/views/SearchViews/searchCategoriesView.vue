@@ -1,6 +1,6 @@
 <template>
+  <blurEffect v-if="searchcategoryPopup"></blurEffect>
   <!--  Popup zur Empfehlung der kategoriewahl  -->
-
   <div class="category-popup-container" v-if="searchcategoryPopup">
     <svg
       class="category-svg-popup"
@@ -75,9 +75,18 @@ import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import { storeData } from '@/stores/store.js'
+import blurEffect from '@/components/blurEffect.vue'
 
 export default {
-  components: { CategorieButton, NavButton, headerLogo, BackArrow, HeadLine, popupButtonTutorial },
+  components: {
+    CategorieButton,
+    NavButton,
+    headerLogo,
+    BackArrow,
+    HeadLine,
+    popupButtonTutorial,
+    blurEffect
+  },
   data() {
     return {
       store: storeData(),
@@ -143,6 +152,7 @@ export default {
   position: relative;
   align-self: center;
   width: 300px;
+  z-index: 101;
 }
 .category-svg-popup {
   position: absolute;

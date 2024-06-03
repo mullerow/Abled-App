@@ -1,4 +1,5 @@
 <template>
+  <blurEffect v-if="searchPoiPopup"></blurEffect>
   <header>
     <div class="header-buttons">
       <RouterLink :to="{ name: 'home' }"> <BackArrow /></RouterLink>
@@ -112,6 +113,7 @@ import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
+import blurEffect from '@/components/blurEffect.vue'
 
 export default {
   components: {
@@ -119,7 +121,8 @@ export default {
     BackArrow,
     NavButton,
     HeadLine,
-    popupButtonTutorial
+    popupButtonTutorial,
+    blurEffect
   },
   data() {
     return {
@@ -194,6 +197,7 @@ label {
   position: relative;
   align-self: center;
   width: 300px;
+  z-index: 101;
 }
 .searchpoi-svg-popup {
   position: absolute;

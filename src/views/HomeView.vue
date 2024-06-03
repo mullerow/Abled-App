@@ -1,4 +1,5 @@
 <template>
+  <blurEffect v-if="appPopup || searchFunctionPopup"></blurEffect>
   <!--  Popup zur Vorstellung der APP  -->
   <div class="app-popup-container" v-if="appPopup">
     <svg
@@ -140,11 +141,13 @@ import { storeData } from '@/stores/store.js'
 import router from '@/router'
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
+import blurEffect from '@/components/blurEffect.vue'
 
 export default {
   components: {
     LandingPageTitle,
-    popupButtonTutorial
+    popupButtonTutorial,
+    blurEffect
   },
   data() {
     return {
@@ -262,11 +265,11 @@ export default {
   align-self: center;
   display: flex;
   justify-content: center;
+  z-index: 101;
 }
 .searchfunction-popup-text {
   position: absolute;
   color: var(--white);
-
   top: 60px;
   left: 40px;
   width: 400px;
@@ -294,6 +297,7 @@ export default {
   align-self: center;
   display: flex;
   justify-content: center;
+  z-index: 101;
 }
 .app-popup-text {
   position: absolute;
