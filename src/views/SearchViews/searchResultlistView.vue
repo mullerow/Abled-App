@@ -166,7 +166,7 @@ b {
   align-self: flex-end;
   width: 300px;
   margin-right: 28px;
-  z-index: 10;
+  z-index: 101;
 }
 .resultlist-svg-popup {
   position: absolute;
