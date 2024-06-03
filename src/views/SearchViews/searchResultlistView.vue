@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchoptionalcategorie' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -34,13 +35,14 @@ import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import HeadLine from '@/components/HeadLine.vue'
-
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 export default {
   components: {
     headerLogo,
     EarthMap,
     BackArrow,
-    HeadLine
+    HeadLine,
+    BackgroundGradient
   },
   data() {
     return {
@@ -59,6 +61,7 @@ export default {
   width: 100%;
   background-color: var(--white);
   color: var(--red);
+
   margin-bottom: 10px;
   border-radius: 16px;
   border: 1px solid var(--black);
@@ -95,6 +98,7 @@ b {
 }
 .headline-text {
   width: 100%;
+  margin-bottom: 3rem;
 }
 .search-list-container {
   display: flex;

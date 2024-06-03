@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <header>
     <div class="header-buttons">
       <RouterLink :to="{ name: 'home' }"> <BackArrow /></RouterLink>
@@ -60,13 +61,14 @@ import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
-
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 export default {
   components: {
     headerLogo,
     BackArrow,
     NavButton,
-    HeadLine
+    HeadLine,
+    BackgroundGradient
   },
   data() {
     return {
