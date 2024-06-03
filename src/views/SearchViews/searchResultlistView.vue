@@ -1,4 +1,5 @@
 <template>
+  <blurEffect v-if="resultlistPopup"></blurEffect>
   <!--  INFO POPUP für die resultlistview -->
   <div class="resultlist-popup-container" v-if="resultlistPopup">
     <svg
@@ -79,6 +80,7 @@ import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
+import blurEffect from '@/components/blurEffect.vue'
 
 export default {
   components: {
@@ -86,7 +88,8 @@ export default {
     EarthMap,
     BackArrow,
     HeadLine,
-    popupButtonTutorial
+    popupButtonTutorial,
+    blurEffect
   },
   data() {
     return {
