@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'ownpoimap' }"><EarthMap /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -7,7 +8,7 @@
   <!--hier ggf
   <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
   <div class="container">
-    <HeadLine :Headline="'Hier findest du alle Orte die du erstellt hast'" />
+    <HeadLine :Headline="'Deine erstellten Orte'" />
     <router-link
       v-for="element of this.store.temporaryData.ownPoisList"
       :key="element.id"
@@ -23,8 +24,10 @@ import headerLogo from '@/components/headerLogo.vue'
 import EarthMap from '@/components/EarthMap.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
+
 export default {
-  components: { headerLogo, EarthMap, CategorieButton, HeadLine },
+  components: { headerLogo, EarthMap, CategorieButton, HeadLine, BackgroundGradient },
   data() {
     return {
       store: storeData(),
