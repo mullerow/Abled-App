@@ -1,6 +1,6 @@
 <template>
   <div class="star-container">
-    <!--  SVG to change background color      v-if="addedToFavorite"  -->
+    <!-- SVG to change background color -->
     <svg
       :class="[
         'favorite-star-background-svg',
@@ -10,7 +10,7 @@
       viewBox="0 0 100 100"
       width="100px"
       height="100px"
-      style="filter: url(#f1)"
+      :style="{ filter: 'url(#f1)', opacity: addedToFavorite ? 1 : 0 }"
     >
       <defs>
         <clipPath id="clipPolygon-star-background">
@@ -32,7 +32,6 @@
       />
     </svg>
     <svg
-      :class="['favorite-star-svg', { 'animate-rising-star': animateRisingStar }]"
       class="favorite-star-svg"
       viewBox="0 0 100 100"
       width="100px"
@@ -48,7 +47,7 @@
         "
           />
         </clipPath>
-        <mask id="hole" :class="{ 'favorite-star-on': isStarClicked }">
+        <mask id="hole">
           <rect width="100%" height="100%" fill="white" />
           <path
             d="
@@ -70,6 +69,7 @@
     </svg>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -81,13 +81,18 @@ export default {
   },
   methods: {
     favoriteStarClicked() {
-      this.addedToFavorite = !this.addedToFavorite
       if (this.addedToFavorite) {
-        this.animateRisingStar = true
-        this.animateFallingStar = false
-      } else {
-        this.animateRisingStar = false
         this.animateFallingStar = true
+        setTimeout(() => {
+          this.addedToFavorite = false
+          this.animateFallingStar = false
+        }, 2000)
+      } else {
+        this.addedToFavorite = true
+        this.animateRisingStar = true
+        setTimeout(() => {
+          this.animateRisingStar = false
+        }, 2000)
       }
     }
   }
@@ -95,6 +100,10 @@ export default {
 </script>
 
 <style scoped>
+.star-container {
+  position: relative;
+}
+
 .favorite-star-svg {
   position: absolute;
   right: 0px;
@@ -102,23 +111,25 @@ export default {
   height: auto;
   background-color: transparent;
 }
+
 .favorite-star-background-svg {
   width: 50px;
   height: auto;
   margin-right: 3px;
   margin-top: 8px;
+  opacity: 0;
 }
-@keyframes star-click-animation-border {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
+
+.favorite-star-background-svg.animate-rising-star {
+  animation: star-click-animation-color 2s forwards;
+  opacity: 1;
 }
+
+.favorite-star-background-svg.animate-falling-star {
+  animation: star-click-animation-falling 2s forwards;
+  opacity: 0;
+}
+
 @keyframes star-click-animation-color {
   0% {
     transform: scale(0.01);
@@ -131,6 +142,7 @@ export default {
     transform: scale(1);
   }
 }
+
 @keyframes star-click-animation-falling {
   0% {
     transform: scale(1);
@@ -143,18 +155,21 @@ export default {
     transform: scale(0.01);
   }
 }
-.favorite-star-background-svg.animate-falling-star {
-  animation: star-click-animation-falling 2s forwards;
+@keyframes hover-star-heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-.favorite-star-svg.animate-rising-star {
-  animation: star-click-animation-border 2s forwards;
-}
-.favorite-star-background-svg.animate-rising-star {
-  animation: star-click-animation-color 2s forwards;
-}
+
 .favorite-star-svg:hover {
-  transform: scale(1.3);
-  transition-duration: 1000ms;
+  animation: hover-star-heartbeat 3s forwards;
+  animation-iteration-count: infinite;
   cursor: pointer;
 }
 </style>
