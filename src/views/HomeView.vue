@@ -1,4 +1,5 @@
 <template>
+  <favoriteStarSvg></favoriteStarSvg>
   <blurEffect v-if="appPopup || searchFunctionPopup"></blurEffect>
   <!--  Popup zur Vorstellung der APP  -->
   <div class="app-popup-container" v-if="appPopup">
@@ -142,12 +143,14 @@ import router from '@/router'
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
+import favoriteStarSvg from '@/components/favoriteStar.vue'
 
 export default {
   components: {
     LandingPageTitle,
     popupButtonTutorial,
-    blurEffect
+    blurEffect,
+    favoriteStarSvg
   },
   data() {
     return {
