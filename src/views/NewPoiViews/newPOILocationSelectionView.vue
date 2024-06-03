@@ -6,7 +6,7 @@
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Wo befindet sich der Ort?'" />
+    <HeadLine class="headline-locationselection" :Headline="'Wo befindet sich der Ort?'" />
     <categorie-button :Kategorie="'Mein Standort'" @click="store.getOwnPosition" />
     <p>
       <b>Dein Standort:</b> {{ store.temporaryData.city }}, {{ store.temporaryData.street }},
@@ -64,5 +64,8 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.headline-locationselection {
+  margin-bottom: 3rem;
 }
 </style>
