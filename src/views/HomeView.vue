@@ -136,7 +136,7 @@
     <RouterLink :to="{ name: 'account' }" class="account">
       <button class="btn-account btn-style">
         <div class="icon"><img src="@/assets/icons/user-account.svg" alt="account Icon" /></div>
-        Deinen Account
+        Dein Account
       </button>
     </RouterLink>
   </div>
