@@ -73,7 +73,8 @@ export default {
           email: localUserData.email || '',
           mobilityAssistance: localUserData.mobilityAssistance || '',
           mobilityAssistanceWidth: localUserData.mobilityAssistanceWidth || '',
-          password: localUserData.password || ''
+          password: localUserData.password || '',
+          favoritePois: []
         }
       }
 

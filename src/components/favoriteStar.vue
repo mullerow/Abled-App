@@ -168,8 +168,8 @@ export default {
 }
 
 .favorite-star-svg:hover {
-  animation: hover-star-heartbeat 3s forwards;
-  animation-iteration-count: infinite;
+  animation: hover-star-heartbeat 2s forwards;
+  animation-iteration-count: 3;
   cursor: pointer;
 }
 </style>

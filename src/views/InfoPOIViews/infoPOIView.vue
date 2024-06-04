@@ -94,7 +94,8 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      store: storeData()
+      store: storeData(),
+      StatusfavoritePoi: false
     }
   },
   methods: {
@@ -105,15 +106,20 @@ export default {
   computed: {
     findChoosenPoi() {
       return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
-    },
-    isStarClicked() {
-      return {
-        'favorite-star-on': this.isStarClicked
-      }
     }
   },
   mounted() {
     this.store.getPoiDataFromAPI()
+
+    this.store.getUserDataFromAPI().then(() => {
+      console.log(
+        'this.store.temporaryData.currentUserData',
+        this.store.temporaryData.currentUserData
+      )
+      this.StatusfavoritePoi = this.store.temporaryData.currentUserData.favoritePois.includes(
+        this.findChoosenPoi.id
+      )
+    })
   }
 }
 </script>
