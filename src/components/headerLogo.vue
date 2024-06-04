@@ -1,6 +1,6 @@
 <template>
   <div class="container-hover-text-headerlogo">
-    <img src="../assets/images/final logo with background small (2).jpeg" alt="App-logo" />
+    <img src="../assets/images/final_logo_button.png" alt="App-logo" />
     <p class="hover-text-headerlogo">Zurück zur Startseite</p>
   </div>
 </template>
