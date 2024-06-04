@@ -1,9 +1,9 @@
 <template>
-  <button><img src="@/assets/icons/Home.png" alt="go to homepage" /></button>
+  <button class="homebutton"><img src="@/assets/icons/Home.png" alt="go to homepage" /></button>
 </template>
 
 <style scoped>
-button {
+.homebutton {
   background-color: transparent;
   border: none;
 }
