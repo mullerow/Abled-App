@@ -1,4 +1,5 @@
 <template>
+  <div class="background-home"></div>
   <!--  Popup zur Vorstellung der APP  -->
   <div class="app-popup-container" v-if="appPopup">
     <svg
@@ -201,6 +202,43 @@ export default {
 .welcome-text {
   margin-bottom: 20px;
   margin-top: 10px;
+}
+
+.background-home {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient(
+      180deg,
+      transparent 138.8px,
+      var(--red) 140px,
+      var(--white) 144px,
+      transparent 145px
+    ),
+    linear-gradient(
+      180deg,
+      transparent 146px,
+      var(--red) 148px,
+      var(--red) 153px,
+      transparent 155px
+    ),
+    linear-gradient(
+      180deg,
+      transparent 156px,
+      var(--white) 157px,
+      var(--red) 161px,
+      transparent 162px
+    ),
+    linear-gradient(
+      180deg,
+      var(--black) 167px,
+      var(--black) 299.4px,
+      /* Anpassen der Höhe des schwarzen Streifens */ transparent 300px
+    );
+  border-radius: 20px 20px 0 0;
 }
 
 .grid-container {

@@ -1,7 +1,7 @@
 <template>
   <div class="imgcover">
     <img
-      src="../assets/images/ABledApp-Logo-reduced.png"
+      src="../assets/images/final logo with background small (2).jpeg"
       alt="Logo: Abled App"
       id="landing-page-logo"
     />
@@ -26,9 +26,9 @@ h3 {
   font-size: large;
   text-align: center;
   font-size: 22px;
-  margin-top: 50px;
+  margin-bottom: 13px;
 }
 #landing-page-logo {
-  border-radius: 40% 0px 0px 10px;
+  border-radius: 70% 0px 0px 0px;
 }
 </style>

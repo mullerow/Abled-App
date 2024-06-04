@@ -80,7 +80,8 @@ li {
   }
   #landing-page-logo {
     width: 400px;
-    margin-top: 50px;
+
+    margin-bottom: 0px;
   }
   .location-info-container {
     width: 50%;
