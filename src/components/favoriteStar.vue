@@ -88,7 +88,6 @@ export default {
       console.log('hab dich!')
     }
   },
-  props: ['favoritePoiId'],
   methods: {
     changeFavoriteStateOfPoi() {
       ///////// wenn bereits als Favorit gewählt
@@ -116,8 +115,8 @@ export default {
           }
           // speichere die daten aus dem localstorage in die temporären daten für das api update
           console.log(
-            'this.store.temporaryData.DataFromCurrentUser',
-            this.store.temporaryData.DataFromCurrentUser.id
+            'DataFromCurrentUser componente',
+            this.store.temporaryData.DataFromCurrentUser
           )
           this.store.temporaryData.changedUserData = {
             id: this.store.temporaryData.DataFromCurrentUser.id,
@@ -128,7 +127,7 @@ export default {
             password: updatedUserData.password,
             favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
           }
-          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.favoritePoiId)
+          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.poiId)
           console.log(
             'this.store.temporaryData.changedUserData',
             this.store.temporaryData.changedUserData

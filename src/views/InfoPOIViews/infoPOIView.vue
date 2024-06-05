@@ -94,8 +94,7 @@ export default {
   data() {
     return {
       poiId: this.$route.params.id,
-      store: storeData(),
-      StatusfavoritePoi: false
+      store: storeData()
     }
   },
   methods: {
@@ -121,7 +120,7 @@ export default {
           // speichere die daten aus dem localstorage in die temporären daten für das api update
           console.log(
             'this.store.temporaryData.DataFromCurrentUser',
-            this.store.temporaryData.DataFromCurrentUser.id
+            this.store.temporaryData.DataFromCurrentUser
           )
           this.store.temporaryData.changedUserData = {
             id: this.store.temporaryData.DataFromCurrentUser.id,
@@ -132,7 +131,7 @@ export default {
             password: updatedUserData.password,
             favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
           }
-          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.findChoosenPoi.id)
+          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.poiId)
           console.log(
             'this.store.temporaryData.changedUserData',
             this.store.temporaryData.changedUserData
@@ -155,13 +154,6 @@ export default {
   },
   mounted() {
     this.store.getPoiDataFromAPI()
-
-    this.store.getUserDataFromAPI().then(() => {
-      this.store.getDataFromCurrentUser()
-    })
-    if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
-      this.StatusfavoritePoi = true
-    }
   }
 }
 </script>
