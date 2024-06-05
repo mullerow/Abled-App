@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchresultlist' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -12,6 +13,7 @@ import L from 'leaflet' // npm install leaflet@latest notwendig
 import 'leaflet/dist/leaflet.css'
 import { storeData } from '@/stores/store.js'
 import { toRaw } from 'vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import babyChangingTableIcon from '@/assets/icons/map-icons/Baby-Changing-Table.svg'
@@ -22,7 +24,7 @@ import gastroIcon from '@/assets/icons/map-icons/Gastro.svg'
 import liftIcon from '@/assets/icons/map-icons/Lift.svg'
 import locationIcon from '@/assets/icons/map-icons/Location.svg'
 export default {
-  components: { BackArrow, headerLogo },
+  components: { BackArrow, headerLogo, BackgroundGradient },
   data() {
     return {
       store: storeData(),
@@ -165,6 +167,7 @@ export default {
 
 <style>
 /* scoped muss weggelassen werden, damit die styles auf leaflet angwendet werden können */
+
 .header-buttons {
   display: flex;
   justify-content: space-between;
