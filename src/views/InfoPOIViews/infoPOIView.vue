@@ -10,7 +10,10 @@
       :src="this.store.getIconOfCategory(findChoosenPoi)"
       alt="Kategorie Icon"
     />
-    <favoriteStarSvg class="favorite-star-infopoi"></favoriteStarSvg>
+    <favoriteStarSvg
+      class="favorite-star-infopoi"
+      @click="changeFavoriteStateOfPoi"
+    ></favoriteStarSvg>
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
@@ -101,6 +104,52 @@ export default {
   methods: {
     removePoi() {
       this.$router.push({ name: 'searchresultlist' })
+    },
+    async changeFavoriteStateOfPoi() {
+      if (
+        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(
+          this.findChoosenPoi.id
+        )
+      ) {
+        let indexOfPoi = this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.findIndex(
+          (item) => item.id === this.findChoosenPoi.id
+        )
+        if (indexOfPoi !== -1) {
+          this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.splice(
+            1,
+            this.findChoosenPoi.id
+          )
+        }
+      } else {
+        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.push(this.findChoosenPoi.id)
+      }
+      console.log(
+        'this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser',
+        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
+      )
+      try {
+        const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
+        if (!updatedUserData) {
+          console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
+          return
+        }
+        this.store.temporaryData.changedUserData = {
+          id: updatedUserData.id,
+          username: updatedUserData.username || '',
+          email: updatedUserData.email || '',
+          mobilityAssistance: updatedUserData.mobilityAssistance || '',
+          mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth) || 0,
+          password: updatedUserData.password || '',
+          favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser || []
+        }
+
+        await this.store.updateUserAtAPI(this.store.temporaryData.changedUserData.id)
+      } catch (error) {
+        console.error(
+          'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
+          error
+        )
+      }
     }
   },
   computed: {
@@ -112,14 +161,20 @@ export default {
     this.store.getPoiDataFromAPI()
 
     this.store.getUserDataFromAPI().then(() => {
-      console.log(
-        'this.store.temporaryData.currentUserData',
-        this.store.temporaryData.currentUserData
-      )
-      this.StatusfavoritePoi = this.store.temporaryData.currentUserData.favoritePois.includes(
+      this.store.getDataFromCurrentUser()
+    })
+    console.log(
+      'this.temporaryData.DataFromCurrentUser',
+      this.store.temporaryData.DataFromCurrentUser
+    )
+
+    if (
+      this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(
         this.findChoosenPoi.id
       )
-    })
+    ) {
+      this.StatusfavoritePoi = true
+    }
   }
 }
 </script>

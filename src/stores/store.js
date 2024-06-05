@@ -58,7 +58,8 @@ export const storeData = defineStore('poiStore', {
         },
         mobilityAssistance: '',
         mobilityAssistanceWidth: '',
-        ownPois: []
+        ownPois: [],
+        favoritePoisOfUser: []
       },
       newPoiData: {
         poiName: 'Rampe',
@@ -77,7 +78,7 @@ export const storeData = defineStore('poiStore', {
         userName: 'frischer Username'
       },
       changedPoiData: {
-        poiName: 'Schweinchen'
+        poiName: ''
       },
       poiListforMap: []
     }),
@@ -268,7 +269,10 @@ export const storeData = defineStore('poiStore', {
       link.target = '_blank'
       link.click()
     },
+
     getDataFromCurrentUser() {
+      const currentUserID = localStorage.getItem('currentUserID')
+      this.temporaryData.currentUserId = JSON.parse(currentUserID)
       this.temporaryData.DataFromCurrentUser = this.temporaryData.currentUserData.find((user) => {
         return user.id === this.temporaryData.currentUserId
       })
