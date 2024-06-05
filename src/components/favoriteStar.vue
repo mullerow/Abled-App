@@ -74,11 +74,12 @@
 export default {
   data() {
     return {
-      addedToFavorite: false,
+      addedToFavorite: this.isFavorite,
       animateRisingStar: false,
       animateFallingStar: false
     }
   },
+  props: ['isFavorite'],
   methods: {
     favoriteStarClicked() {
       if (this.addedToFavorite) {

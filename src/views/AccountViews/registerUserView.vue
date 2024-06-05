@@ -201,7 +201,7 @@ export default {
         username: this.username,
         email: this.email,
         password: this.password,
-        favoritePoisOfUser: ['TESTregister']
+        favoritePoisOfUser: []
       }
 
       localStorage.setItem('userData', JSON.stringify(userData))

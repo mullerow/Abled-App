@@ -13,6 +13,7 @@
     <favoriteStarSvg
       class="favorite-star-infopoi"
       @click="changeFavoriteStateOfPoi"
+      :isFavorite="StatusfavoritePoi"
     ></favoriteStarSvg>
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
@@ -106,49 +107,48 @@ export default {
       this.$router.push({ name: 'searchresultlist' })
     },
     async changeFavoriteStateOfPoi() {
-      if (
-        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(
-          this.findChoosenPoi.id
-        )
-      ) {
-        let indexOfPoi = this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.findIndex(
-          (item) => item.id === this.findChoosenPoi.id
-        )
-        if (indexOfPoi !== -1) {
-          this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.splice(
-            1,
-            this.findChoosenPoi.id
+      // frage ob der poi schon favorite ist zum zeitpunkt des klicks
+      if (this.StatusfavoritePoi) {
+        // Wenn ja, dann lösche den poi aus die API und dem local storeage
+      }
+      // wenn nicht, speichere den poi in der api und im localstorage
+      else {
+        // lade die Daten des Users in die temporären daten
+        this.store.getDataFromCurrentUser()
+        try {
+          // lade die userdaten aus dem local storage
+          const updatedUserData = JSON.parse(localStorage.getItem('userData'))
+          if (!updatedUserData) {
+            console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
+            return
+          }
+          // speichere die daten aus dem localstorage in die temporären daten für das api update
+          console.log(
+            'this.store.temporaryData.DataFromCurrentUser',
+            this.store.temporaryData.DataFromCurrentUser.id
+          )
+          this.store.temporaryData.changedUserData = {
+            id: this.store.temporaryData.DataFromCurrentUser.id,
+            username: updatedUserData.username,
+            email: updatedUserData.email,
+            mobilityAssistance: updatedUserData.mobilityAssistance,
+            mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth),
+            password: updatedUserData.password,
+            favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
+          }
+          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.findChoosenPoi.id)
+          console.log(
+            'this.store.temporaryData.changedUserData',
+            this.store.temporaryData.changedUserData
+          )
+          localStorage.setItem('userData', JSON.stringify(this.store.temporaryData.changedUserData))
+          await this.store.updateUserAtAPI(this.store.temporaryData.DataFromCurrentUser.id)
+        } catch (error) {
+          console.error(
+            'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
+            error
           )
         }
-      } else {
-        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.push(this.findChoosenPoi.id)
-      }
-      console.log(
-        'this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser',
-        this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
-      )
-      try {
-        const updatedUserData = JSON.parse(localStorage.getItem('updatedUserData'))
-        if (!updatedUserData) {
-          console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
-          return
-        }
-        this.store.temporaryData.changedUserData = {
-          id: updatedUserData.id,
-          username: updatedUserData.username || '',
-          email: updatedUserData.email || '',
-          mobilityAssistance: updatedUserData.mobilityAssistance || '',
-          mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth) || 0,
-          password: updatedUserData.password || '',
-          favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser || []
-        }
-
-        await this.store.updateUserAtAPI(this.store.temporaryData.changedUserData.id)
-      } catch (error) {
-        console.error(
-          'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
-          error
-        )
       }
     }
   },
@@ -163,11 +163,6 @@ export default {
     this.store.getUserDataFromAPI().then(() => {
       this.store.getDataFromCurrentUser()
     })
-    console.log(
-      'this.temporaryData.DataFromCurrentUser',
-      this.store.temporaryData.DataFromCurrentUser
-    )
-
     if (
       this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(
         this.findChoosenPoi.id

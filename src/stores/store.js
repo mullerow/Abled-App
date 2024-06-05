@@ -45,7 +45,7 @@ export const storeData = defineStore('poiStore', {
       currentUserData: [],
       currentPois: [],
       currentPoi: {},
-      currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
+      currentUserId: '', // Hier muss dynamisch die ID welche die API erzeugt zugewiesen werden
       DataFromCurrentUser: {},
       currentPoiId: '',
       newUserData: {
@@ -62,7 +62,7 @@ export const storeData = defineStore('poiStore', {
         favoritePoisOfUser: []
       },
       newPoiData: {
-        poiName: 'Rampe',
+        poiName: '',
         detailCategories: [],
         xCoordinates: null,
         yCoordinates: null,
