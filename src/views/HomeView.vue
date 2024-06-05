@@ -1,5 +1,9 @@
 <template>
+
   <div class="background-home"></div>
+
+  <blurEffect v-if="appPopup || searchFunctionPopup"></blurEffect>
+
   <!--  Popup zur Vorstellung der APP  -->
   <div class="app-popup-container" v-if="appPopup">
     <svg
@@ -50,9 +54,7 @@
     />
   </div>
 
-  <!--  Popup zur Empfehlung der Suchfunktion  
-   
-  -->
+  <!--  Popup zur Empfehlung der Suchfunktion  -->
   <div class="searchfunction-popup-container" v-if="searchFunctionPopup">
     <svg
       class="searchfunction-svg-popup"
@@ -85,12 +87,9 @@
       </defs>
       <rect width="200px" height="200px" clip-path="url(#clipPolygon)" style="fill: var(--black)" />
     </svg>
-    <button class="searchfunction-popup-button" @click="searchfunctionClosePopup">
-      Alles Klar!
-    </button>
     <popupButtonTutorial
       class="searchfunction-popup-button"
-      :buttonLabel="'Verstanden!'"
+      :buttonLabel="'Mach ich!'"
       @click="searchfunctionClosePopup"
     />
     <p class="searchfunction-popup-text">
@@ -146,11 +145,13 @@ import { storeData } from '@/stores/store.js'
 import router from '@/router'
 import LandingPageTitle from '@/components/LandingPageTitle.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
+import blurEffect from '@/components/blurEffect.vue'
 
 export default {
   components: {
     LandingPageTitle,
-    popupButtonTutorial
+    popupButtonTutorial,
+    blurEffect
   },
   data() {
     return {
@@ -305,11 +306,11 @@ export default {
   align-self: center;
   display: flex;
   justify-content: center;
+  z-index: 101;
 }
 .searchfunction-popup-text {
   position: absolute;
   color: var(--white);
-  z-index: 10;
   top: 60px;
   left: 40px;
   width: 400px;
@@ -337,6 +338,7 @@ export default {
   align-self: center;
   display: flex;
   justify-content: center;
+  z-index: 101;
 }
 .app-popup-text {
   position: absolute;
