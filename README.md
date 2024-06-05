@@ -6,28 +6,22 @@
   </a>
 </p>
 
-> Web application whose use case is to help people with mobility limitations move around our cities more easily.
+
+Our mission is to make everyday life and moving around in cities easier for people with reduced mobility. From strollers to wheelchairs, there are many reasons why people need places that are easily accessible. 
+
+Need an accessible toilet or want to know if the lift on the train platform works? No problem, our app finds places near your current location and navigates you there or gives you more information about the place.
+
+Our app is still in development and we are currently working on it to improve it day by day.
 
 ### ✨ [Demo](https://abledapp.netlify.app/ )
 
-## Install
-
-```sh
-npm install
-```
-
-## Usage
-
-```sh
-npm run start
-```
 
 ## Author
 
 👤 **Maximilian Kohler, Eric Rump, Vanessa Pfohmann & Mariana Astamadze**
 
 - Github: [@mullerow](https://github.com/mullerow), [@EricRump](https://github.com/EricRump), [@alpenkind](https://github.com/alpenkind), [@Mariana-x-1](https://github.com/Mariana-x1)
-- LinkedIn: [Maximilian Kohler] (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/) [Vanessa Pfohmann](https://www.linkedin.com/in/vanessa-p-476157239/)
+- LinkedIn: [Maximilian Kohler] (https://linkedin.com/in/https://www.linkedin.com/in/maximilian-kohler-8132092a4/) [Vanessa Pfohmann] (https://www.linkedin.com/in/vanessa-p-476157239/)
 
 ## 🤝 Contributing
 
