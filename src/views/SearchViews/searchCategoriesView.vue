@@ -1,5 +1,4 @@
 <template>
-
   <BackgroundGradient />
 
   <blurEffect v-if="searchcategoryPopup"></blurEffect>
@@ -86,9 +85,6 @@ import { storeData } from '@/stores/store.js'
 import blurEffect from '@/components/blurEffect.vue'
 
 export default {
-
-  components: { CategorieButton, NavButton, headerLogo, BackArrow, HeadLine, BackgroundGradient },
-
   components: {
     CategorieButton,
     NavButton,
@@ -96,7 +92,8 @@ export default {
     BackArrow,
     HeadLine,
     popupButtonTutorial,
-    blurEffect
+    blurEffect,
+    BackgroundGradient
   },
 
   data() {

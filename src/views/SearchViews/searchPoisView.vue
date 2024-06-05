@@ -127,7 +127,6 @@ export default {
     BackArrow,
     NavButton,
     HeadLine,
-
     BackgroundGradient,
     popupButtonTutorial,
     blurEffect

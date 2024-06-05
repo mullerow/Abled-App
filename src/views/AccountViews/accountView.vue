@@ -1,6 +1,6 @@
 <template>
   <BackgroundGradient />
-  <div class="header-buttons">
+  <div class="header-buttons header-buttons-account">
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
@@ -317,6 +317,9 @@ export default {
 </script>
 
 <style>
+.header-buttons-account {
+  align-self: center;
+}
 .confirmation-popup {
   display: flex;
   justify-content: center;
