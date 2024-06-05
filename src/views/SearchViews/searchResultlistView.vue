@@ -94,9 +94,7 @@ export default {
     EarthMap,
     BackArrow,
     HeadLine,
-
     BackgroundGradient,
-
     popupButtonTutorial,
     blurEffect
   },
