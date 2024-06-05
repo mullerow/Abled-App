@@ -36,7 +36,7 @@
       viewBox="0 0 100 100"
       width="100px"
       height="100px"
-      @click="favoriteStarClicked"
+      @click="changeFavoriteStateOfPoi"
       style="filter: url(#f1)"
     >
       <defs>
@@ -71,29 +71,76 @@
 </template>
 
 <script>
+import { storeData } from '@/stores/store.js'
 export default {
   data() {
     return {
-      addedToFavorite: this.isFavorite,
+      store: storeData(),
+      poiId: this.$route.params.id,
+      addedToFavorite: false,
       animateRisingStar: false,
       animateFallingStar: false
     }
   },
-  props: ['isFavorite'],
+  created() {
+    if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
+      this.addedToFavorite = true
+      console.log('hab dich!')
+    }
+  },
+  props: ['favoritePoiId'],
   methods: {
-    favoriteStarClicked() {
+    changeFavoriteStateOfPoi() {
+      ///////// wenn bereits als Favorit gewählt
       if (this.addedToFavorite) {
         this.animateFallingStar = true
         setTimeout(() => {
           this.addedToFavorite = false
           this.animateFallingStar = false
         }, 2000)
+        ///////// wenn nicht als Favorit gewählt
       } else {
         this.addedToFavorite = true
         this.animateRisingStar = true
         setTimeout(() => {
           this.animateRisingStar = false
         }, 2000)
+        // lade die Daten des Users in die temporären daten
+        this.store.getDataFromCurrentUser()
+        try {
+          // lade die userdaten aus dem local storage
+          const updatedUserData = JSON.parse(localStorage.getItem('userData'))
+          if (!updatedUserData) {
+            console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
+            return
+          }
+          // speichere die daten aus dem localstorage in die temporären daten für das api update
+          console.log(
+            'this.store.temporaryData.DataFromCurrentUser',
+            this.store.temporaryData.DataFromCurrentUser.id
+          )
+          this.store.temporaryData.changedUserData = {
+            id: this.store.temporaryData.DataFromCurrentUser.id,
+            username: updatedUserData.username,
+            email: updatedUserData.email,
+            mobilityAssistance: updatedUserData.mobilityAssistance,
+            mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth),
+            password: updatedUserData.password,
+            favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
+          }
+          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.favoritePoiId)
+          console.log(
+            'this.store.temporaryData.changedUserData',
+            this.store.temporaryData.changedUserData
+          )
+          localStorage.setItem('userData', JSON.stringify(this.store.temporaryData.changedUserData))
+          this.store.updateUserAtAPI(this.store.temporaryData.DataFromCurrentUser.id)
+        } catch (error) {
+          console.error(
+            'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
+            error
+          )
+        }
       }
     }
   }

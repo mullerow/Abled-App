@@ -10,11 +10,7 @@
       :src="this.store.getIconOfCategory(findChoosenPoi)"
       alt="Kategorie Icon"
     />
-    <favoriteStarSvg
-      class="favorite-star-infopoi"
-      @click="changeFavoriteStateOfPoi"
-      :isFavorite="StatusfavoritePoi"
-    ></favoriteStarSvg>
+    <favoriteStarSvg class="favorite-star-infopoi"></favoriteStarSvg>
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
@@ -97,7 +93,7 @@ export default {
   },
   data() {
     return {
-      id: this.$route.params.id,
+      poiId: this.$route.params.id,
       store: storeData(),
       StatusfavoritePoi: false
     }
@@ -154,7 +150,7 @@ export default {
   },
   computed: {
     findChoosenPoi() {
-      return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
+      return this.store.temporaryData.currentPois.find((el) => el.id == this.poiId)
     }
   },
   mounted() {
@@ -163,11 +159,7 @@ export default {
     this.store.getUserDataFromAPI().then(() => {
       this.store.getDataFromCurrentUser()
     })
-    if (
-      this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(
-        this.findChoosenPoi.id
-      )
-    ) {
+    if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
       this.StatusfavoritePoi = true
     }
   }
