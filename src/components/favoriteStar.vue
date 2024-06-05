@@ -85,62 +85,72 @@ export default {
   created() {
     if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
       this.addedToFavorite = true
-      console.log('hab dich!')
     }
   },
   methods: {
     changeFavoriteStateOfPoi() {
-      ///////// wenn bereits als Favorit gewählt
+      ///////// vorbereiten der Userdaten für das update der API-daten   //////////////////////////////////////////
+      // lade die Daten des Users in die temporären daten
+      this.store.getDataFromCurrentUser()
+      try {
+        // lade die userdaten aus dem local storage
+        const updatedUserData = JSON.parse(localStorage.getItem('userData'))
+        if (!updatedUserData) {
+          console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
+          return
+        }
+        // speichere die daten aus dem localstorage in die temporären daten für das api update
+        console.log('DataFromCurrentUser componente', this.store.temporaryData.DataFromCurrentUser)
+        this.store.temporaryData.changedUserData = {
+          id: this.store.temporaryData.DataFromCurrentUser.id,
+          username: updatedUserData.username,
+          email: updatedUserData.email,
+          mobilityAssistance: updatedUserData.mobilityAssistance,
+          mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth),
+          password: updatedUserData.password,
+          favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
+        }
+      } catch (error) {
+        console.error(
+          'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
+          error
+        )
+      }
+      ///////// löschen des Pois aus der Favoritenliste //////////////////////////////////////////
       if (this.addedToFavorite) {
         this.animateFallingStar = true
         setTimeout(() => {
           this.addedToFavorite = false
           this.animateFallingStar = false
         }, 2000)
-        ///////// wenn nicht als Favorit gewählt
-      } else {
+        let indexOfPoi = this.store.temporaryData.changedUserData.favoritePoisOfUser.findIndex(
+          (item) => item === this.poiId
+        )
+        console.log('indexOfPoi', indexOfPoi)
+        console.log(
+          'favoritePoisOfUser davor',
+          this.store.temporaryData.changedUserData.favoritePoisOfUser
+        )
+        if (indexOfPoi !== -1) {
+          this.store.temporaryData.changedUserData.favoritePoisOfUser.splice(indexOfPoi, 1)
+        }
+        console.log(
+          'favoritePoisOfUser ddanach',
+          this.store.temporaryData.changedUserData.favoritePoisOfUser
+        )
+      }
+      ///////// hinzufügen des Pois aus der Favoritenliste //////////////////////////////////////////
+      else {
         this.addedToFavorite = true
         this.animateRisingStar = true
         setTimeout(() => {
           this.animateRisingStar = false
         }, 2000)
-        // lade die Daten des Users in die temporären daten
-        this.store.getDataFromCurrentUser()
-        try {
-          // lade die userdaten aus dem local storage
-          const updatedUserData = JSON.parse(localStorage.getItem('userData'))
-          if (!updatedUserData) {
-            console.error('Keine aktualisierten Benutzerdaten im lokalen Speicher gefunden.')
-            return
-          }
-          // speichere die daten aus dem localstorage in die temporären daten für das api update
-          console.log(
-            'DataFromCurrentUser componente',
-            this.store.temporaryData.DataFromCurrentUser
-          )
-          this.store.temporaryData.changedUserData = {
-            id: this.store.temporaryData.DataFromCurrentUser.id,
-            username: updatedUserData.username,
-            email: updatedUserData.email,
-            mobilityAssistance: updatedUserData.mobilityAssistance,
-            mobilityAssistanceWidth: parseInt(updatedUserData.mobilityAssistanceWidth),
-            password: updatedUserData.password,
-            favoritePoisOfUser: this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser
-          }
-          this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.poiId)
-          console.log(
-            'this.store.temporaryData.changedUserData',
-            this.store.temporaryData.changedUserData
-          )
-          localStorage.setItem('userData', JSON.stringify(this.store.temporaryData.changedUserData))
-          this.store.updateUserAtAPI(this.store.temporaryData.DataFromCurrentUser.id)
-        } catch (error) {
-          console.error(
-            'Fehler beim Speichern der aktualisierten Benutzerdaten im temporären Speicher:',
-            error
-          )
-        }
+
+        this.store.temporaryData.changedUserData.favoritePoisOfUser.push(this.poiId)
       }
+      localStorage.setItem('userData', JSON.stringify(this.store.temporaryData.changedUserData))
+      this.store.updateUserAtAPI(this.store.temporaryData.DataFromCurrentUser.id)
     }
   }
 }
@@ -182,7 +192,7 @@ export default {
     transform: scale(0.01);
   }
   50% {
-    transform: scale(2.5);
+    transform: scale(2);
     rotate: 360deg;
   }
   100% {
