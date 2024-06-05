@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'ownpoi' }"><BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -7,7 +8,7 @@
   <!--hier ggf
     <RouterLink :to="{ name: 'ownpoimap' }">ICON Erde</RouterLink> -->
 
-  <HeadLine class="headline-ownpoiinfo" :Headline="'Informationen zum Poi'" />
+  <HeadLine class="headline-ownpoiinfo" :Headline="'Infos zu deinem Ort'" />
   <div class="container" v-if="!editing">
     <div class="info-ownpoi">
       <h2 class="categorie-heading-ownpoiinfo">{{ poi.poiName }}</h2>
@@ -16,7 +17,7 @@
       <h3>Öffnungszeiten</h3>
       <p>{{ poi.openingTimes }}</p>
       <div v-if="poi.detailCategories.length > 0">
-        <h3>Optional Categories</h3>
+        <h3>Optionale Infos</h3>
         <ul>
           <li v-for="category in poi.detailCategories" :key="category">{{ category }}</li>
         </ul>
@@ -64,6 +65,7 @@ import InputField from '@/components/InputField.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import BackArrow from '@/components/BackArrow.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 
 export default {
   components: {
@@ -73,7 +75,8 @@ export default {
     InputField,
     CategorieButton,
     HeadLine,
-    BackArrow
+    BackArrow,
+    BackgroundGradient
   },
   data() {
     return {

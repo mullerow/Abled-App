@@ -1,11 +1,12 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'newpoioptionalcategorie' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
   </div>
 
   <div class="container">
-    <HeadLine :Headline="'Wo befindet sich der Ort?'" />
+    <HeadLine class="headline-locationselection" :Headline="'Wo befindet sich der Ort?'" />
     <categorie-button :Kategorie="'Mein Standort'" @click="store.getOwnPosition" />
     <p>
       <b>Dein Standort:</b> {{ store.temporaryData.city }}, {{ store.temporaryData.street }},
@@ -24,9 +25,10 @@
 import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import CategorieButton from '@/components/CategorieButton.vue'
-import { storeData } from '@/stores/store.js'
 import NavButton from '@/components/NavButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
+import { storeData } from '@/stores/store.js'
 
 export default {
   components: {
@@ -34,7 +36,8 @@ export default {
     BackArrow,
     CategorieButton,
     NavButton,
-    HeadLine
+    HeadLine,
+    BackgroundGradient
   },
   data() {
     return {
@@ -61,5 +64,8 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.headline-locationselection {
+  margin-bottom: 3rem;
 }
 </style>

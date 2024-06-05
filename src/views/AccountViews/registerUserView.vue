@@ -1,14 +1,11 @@
 <template>
+  <BackgroundGradient />
   <img
     class="logo-img-register"
     src="/src/assets/images/final_logo_comprimized.png"
     alt="Logo der App"
   />
-  <h1 class="heading-register">
-    Willkommen <br />
-    bei <br />
-    Abled
-  </h1>
+  <h1 class="heading-register">Willkommen bei Abled</h1>
   <InputField
     class="input-register"
     :value="username"
@@ -86,11 +83,13 @@ import { storeData } from '@/stores/store.js'
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 
 export default {
   components: {
     InputField,
-    NavButton
+    NavButton,
+    BackgroundGradient
   },
   data() {
     return {
@@ -306,13 +305,14 @@ export default {
   margin-top: 2rem;
   margin-right: 10px;
   border-radius: 40% 0px 0px 10px;
-  align-self: flex-end;
+  align-self: center;
 }
 .heading-register {
-  align-self: flex-end;
-  margin-top: 3rem;
-  margin-right: 30px;
-  text-align: right;
+  align-self: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: var(--red);
 }
 .login-link {
   width: 90%;
@@ -361,10 +361,7 @@ export default {
   padding: 0.5rem;
   align-self: center;
 }
-.popup-mail-button:hover {
-  transform: scale(1.1);
-}
-.password-conditions {
+.popup-mail-button .password-conditions {
   background: var(--white);
   border-radius: 1rem;
   padding: 1rem;

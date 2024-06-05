@@ -1,4 +1,6 @@
 <template>
+  <div class="background-info"></div>
+
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchresultlist' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -111,13 +113,46 @@ export default {
 </script>
 
 <style scoped>
+.background-info {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background-image: linear-gradient(
+      180deg,
+      transparent 138.8px,
+      var(--red) 140px,
+      var(--white) 144px,
+      transparent 145px
+    ),
+    linear-gradient(
+      180deg,
+      transparent 146px,
+      var(--red) 148px,
+      var(--red) 153px,
+      transparent 155px
+    ),
+    linear-gradient(
+      180deg,
+      transparent 156px,
+      var(--white) 157px,
+      var(--red) 161px,
+      transparent 162px
+    ),
+    linear-gradient(180deg, var(--black) 167px, var(--black) 199.6px, transparent 200px);
+  border-radius: 20px 20px 0 0;
+  border-radius: 20px 20px 0 0;
+}
+
 .info {
   padding-left: 0.5rem;
   background-color: var(--white);
   color: var(--black);
   border-radius: 1rem;
   width: 75%;
-  margin-top: 0;
+  margin-top: 1rem;
   margin-bottom: 0px;
   margin-left: 5px;
 

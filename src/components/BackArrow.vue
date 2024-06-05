@@ -1,19 +1,21 @@
 <template>
-  <button><img src="@/assets/icons/Arrow48.svg" alt="go back" class="rotate-right" /></button>
+  <button class="backarrow">
+    <img src="@/assets/icons/Arrow48.svg" alt="go back" class="rotate-right" />
+  </button>
 </template>
 
 <style scoped>
-button {
+.backarrow {
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 10px;
-  background-color: var(--red);
+  margin-top: 0px;
 }
 
-button:hover {
+.backarrow:hover {
   cursor: pointer;
-  background-color: var(--white);
-  box-shadow: 0px 0px 15px white;
+  background: var(--white);
+  box-shadow: 0px 0px 15px var(--white);
 }
 
 img {

@@ -1,5 +1,8 @@
 <template>
+  <BackgroundGradient />
+
   <blurEffect v-if="searchPoiPopup"></blurEffect>
+
   <header>
     <div class="header-buttons">
       <RouterLink :to="{ name: 'home' }"> <BackArrow /></RouterLink>
@@ -112,6 +115,9 @@ import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import HeadLine from '@/components/HeadLine.vue'
+
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
+
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
 
@@ -121,6 +127,8 @@ export default {
     BackArrow,
     NavButton,
     HeadLine,
+
+    BackgroundGradient,
     popupButtonTutorial,
     blurEffect
   },

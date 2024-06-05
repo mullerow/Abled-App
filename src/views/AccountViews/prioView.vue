@@ -1,4 +1,6 @@
 <template>
+  <div class="background-prio"></div>
+  <div class="header-buttons header-buttons-prio"></div>
   <HeadLine class="headline-account" :Headline="'Wähle deine Mobilitätshilfe'" />
 
   <PriorityButton
@@ -115,6 +117,35 @@ export default {
 </script>
 
 <style>
+.header-buttons-prio {
+  height: 1rem;
+}
+.background-prio {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background-image: linear-gradient(
+      180deg,
+      transparent 57px,
+      var(--red) 58.9px,
+      var(--white) 63.4px,
+      transparent 65px
+    ),
+    linear-gradient(180deg, transparent 66px, var(--red) 67px, var(--red) 73.8px, transparent 74px),
+    linear-gradient(
+      180deg,
+      transparent 75px,
+      var(--white) 76.9px,
+      var(--red) 81.4px,
+      transparent 83px
+    ),
+    linear-gradient(180deg, var(--black) 84.4px, var(--black) 119.76px, transparent 120px);
+  border-radius: 20px 20px 0 0;
+}
+
 .input-prio {
   align-self: center;
   padding: 0.5rem;

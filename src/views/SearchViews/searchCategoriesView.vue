@@ -1,4 +1,7 @@
 <template>
+
+  <BackgroundGradient />
+
   <blurEffect v-if="searchcategoryPopup"></blurEffect>
   <!--  Popup zur Empfehlung der kategoriewahl  -->
   <div class="category-popup-container" v-if="searchcategoryPopup">
@@ -47,6 +50,7 @@
       Kategorien auswählen
     </p>
   </div>
+
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchpoi' }"> <BackArrow /></RouterLink>
     <RouterLink :to="{ name: 'home' }"> <headerLogo /></RouterLink>
@@ -73,11 +77,18 @@ import NavButton from '@/components/NavButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import HeadLine from '@/components/HeadLine.vue'
+
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
+
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
+
 import { storeData } from '@/stores/store.js'
 import blurEffect from '@/components/blurEffect.vue'
 
 export default {
+
+  components: { CategorieButton, NavButton, headerLogo, BackArrow, HeadLine, BackgroundGradient },
+
   components: {
     CategorieButton,
     NavButton,
@@ -87,6 +98,7 @@ export default {
     popupButtonTutorial,
     blurEffect
   },
+
   data() {
     return {
       store: storeData(),

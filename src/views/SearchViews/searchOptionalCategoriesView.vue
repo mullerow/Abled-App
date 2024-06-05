@@ -1,4 +1,5 @@
 <template>
+  <BackgroundGradient />
   <div class="header-buttons">
     <RouterLink :to="{ name: 'searchcategorie' }" @click="this.store.resetDetailcategory()">
       <BackArrow
@@ -34,14 +35,15 @@ import CategorieButton from '@/components/CategorieButton.vue'
 import NavButton from '@/components/NavButton.vue'
 import { storeData } from '@/stores/store.js'
 import headerLogo from '@/components/headerLogo.vue'
-
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 export default {
   components: {
     BackArrow,
     HeadLine,
     CategorieButton,
     NavButton,
-    headerLogo
+    headerLogo,
+    BackgroundGradient
   },
 
   data() {

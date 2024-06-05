@@ -1,4 +1,10 @@
 <template>
+  <BackgroundGradient />
+  <img
+    class="logo-img-login"
+    src="/src/assets/images/final_logo_comprimized.png"
+    alt="Logo der App"
+  />
   <h1 class="heading-login">Willkommen zurück</h1>
   <InputField
     class="input-login"
@@ -36,9 +42,10 @@ import { storeData } from '@/stores/store.js'
 import InputField from '@/components/InputField.vue'
 
 import NavButton from '@/components/NavButton.vue'
+import BackgroundGradient from '@/components/BackgroundGradient.vue'
 
 export default {
-  components: { InputField, NavButton },
+  components: { InputField, NavButton, BackgroundGradient },
 
   data() {
     return {
@@ -141,11 +148,21 @@ export default {
 </script>
 
 <style>
+.logo-img-login {
+  width: 50%;
+  max-width: 300px;
+  margin-top: 1.5rem;
+  margin-right: 10px;
+  border-radius: 40% 0px 0px 10px;
+  align-self: center;
+}
 .heading-login {
   align-self: flex-end;
-  margin-top: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
   margin-right: 30px;
   text-align: right;
+  color: var(--red);
 }
 .input-login {
   background-color: var(--white);
