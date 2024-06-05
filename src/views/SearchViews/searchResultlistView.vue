@@ -1,5 +1,4 @@
 <template>
-
   <BackgroundGradient />
 
   <blurEffect v-if="resultlistPopup"></blurEffect>
@@ -89,7 +88,6 @@ import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
 
-
 export default {
   components: {
     headerLogo,
@@ -97,11 +95,10 @@ export default {
     BackArrow,
     HeadLine,
 
-    BackgroundGradient
+    BackgroundGradient,
 
     popupButtonTutorial,
     blurEffect
-
   },
   data() {
     return {

@@ -1,5 +1,4 @@
 <template>
-
   <BackgroundGradient />
 
   <blurEffect v-if="searchPoiPopup"></blurEffect>
@@ -122,7 +121,6 @@ import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
 
-
 export default {
   components: {
     headerLogo,
@@ -130,11 +128,9 @@ export default {
     NavButton,
     HeadLine,
 
-    BackgroundGradient
-
+    BackgroundGradient,
     popupButtonTutorial,
     blurEffect
-
   },
   data() {
     return {
