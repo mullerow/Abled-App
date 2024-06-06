@@ -88,9 +88,7 @@ import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import HeadLine from '@/components/HeadLine.vue'
-
 import BackgroundGradient from '@/components/BackgroundGradient.vue'
-
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
 import favoriteStarSvg from '@/components/favoriteStar.vue'
@@ -113,7 +111,8 @@ export default {
     }
   },
   created() {
-    this.store.checkForFilterOptions(), this.store.getPoiDataFromAPI()
+    this.store.checkForFilterOptions()
+    console.log('store.temporaryData.currentPois', this.store.temporaryData.currentPois)
   }
 }
 </script>

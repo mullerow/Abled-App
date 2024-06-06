@@ -200,7 +200,7 @@ h2 {
   color: var(--black);
   border-radius: 1rem;
   width: 95%;
-  margin-top: 2rem;
+  margin-top: 3.5rem;
   margin-bottom: 1rem;
   align-self: center;
   position: relative;

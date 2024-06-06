@@ -139,18 +139,9 @@ export default {
         let indexOfPoi = this.store.temporaryData.changedUserData.favoritePoisOfUser.findIndex(
           (item) => item === this.poiId
         )
-        console.log('indexOfPoi', indexOfPoi)
-        console.log(
-          'favoritePoisOfUser davor',
-          this.store.temporaryData.changedUserData.favoritePoisOfUser
-        )
         if (indexOfPoi !== -1) {
           this.store.temporaryData.changedUserData.favoritePoisOfUser.splice(indexOfPoi, 1)
         }
-        console.log(
-          'favoritePoisOfUser danach',
-          this.store.temporaryData.changedUserData.favoritePoisOfUser
-        )
       }
       ///////// hinzufügen des Pois aus der Favoritenliste //////////////////////////////////////////
       else {
