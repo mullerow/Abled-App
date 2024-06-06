@@ -8,8 +8,8 @@
         { 'animate-falling-star': animateFallingStar }
       ]"
       viewBox="0 0 100 100"
-      width="100px"
-      height="100px"
+      :width="svgWidth"
+      :height="svgHeight"
       :style="{ filter: 'url(#f1)', opacity: addedToFavorite ? 1 : 0 }"
     >
       <defs>
@@ -31,11 +31,12 @@
         style="fill: goldenrod"
       />
     </svg>
+    <!-- SVG for the star frame -->
     <svg
       class="favorite-star-svg"
       viewBox="0 0 100 100"
-      width="100px"
-      height="100px"
+      :width="svgWidth"
+      :height="svgHeight"
       @click="changeFavoriteStateOfPoi"
       style="filter: url(#f1)"
     >
@@ -80,6 +81,16 @@ export default {
       addedToFavorite: false,
       animateRisingStar: false,
       animateFallingStar: false
+    }
+  },
+  props: {
+    svgWidth: {
+      type: String,
+      default: '50px'
+    },
+    svgheight: {
+      type: String,
+      default: '50px'
     }
   },
   created() {
@@ -163,17 +174,11 @@ export default {
 
 .favorite-star-svg {
   position: absolute;
-  right: 0px;
-  width: 60px;
-  height: auto;
+  right: 2px;
   background-color: transparent;
 }
 
 .favorite-star-background-svg {
-  width: 50px;
-  height: auto;
-  margin-right: 3px;
-  margin-top: 8px;
   opacity: 0;
 }
 

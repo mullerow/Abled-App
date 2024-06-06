@@ -54,17 +54,22 @@
   <div class="search-list-container" v-for="poi of store.temporaryData.currentPois" :key="poi.id">
     <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
       <img class="categorie-icon" :src="this.store.getIconOfCategory(poi)" alt="Kategorie Icon" />
+      <favoriteStarSvg
+        :svgWidth="'30px'"
+        :svgheight="'30px'"
+        class="favorite-star-resultlist"
+      ></favoriteStarSvg>
       <router-link :to="'/infopoi/' + poi.id">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>
-
-        <div
-          class="searchlist-detailcategories"
-          v-for="detailcategorie of poi.detailCategories"
-          :key="'detail-' + poi.id + '-' + detailcategorie"
-        >
-          ✅ {{ detailcategorie }}
+        <div class="detailcategories-container">
+          <div
+            class="searchlist-detailcategories"
+            v-for="detailcategorie of poi.detailCategories"
+            :key="'detail-' + poi.id + '-' + detailcategorie"
+          >
+            ✅ {{ detailcategorie }}
+          </div>
         </div>
-
         <div class="searchlist-distance">
           Entfernung: <b>{{ poi.currentSearchDistance }}</b> Meter
         </div>
@@ -81,6 +86,7 @@ import headerLogo from '@/components/headerLogo.vue'
 import HeadLine from '@/components/HeadLine.vue'
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
+import favoriteStarSvg from '@/components/favoriteStar.vue'
 
 export default {
   components: {
@@ -89,7 +95,8 @@ export default {
     BackArrow,
     HeadLine,
     popupButtonTutorial,
-    blurEffect
+    blurEffect,
+    favoriteStarSvg
   },
   data() {
     return {
@@ -98,7 +105,7 @@ export default {
     }
   },
   created() {
-    this.store.checkForFilterOptions()
+    this.store.checkForFilterOptions(), this.store.getPoiDataFromAPI()
   }
 }
 </script>
@@ -107,6 +114,7 @@ export default {
 .searchlist-button {
   position: relative;
   width: 100%;
+  min-height: 100px;
   background-color: var(--white);
   color: var(--red);
   margin-bottom: 10px;
@@ -127,11 +135,18 @@ b {
   font-size: 20px;
   font-weight: bold;
   color: var(--red);
+  align-self: flex-start;
 }
 .searchlist-detailcategories {
   text-align: start;
   font-size: 14px;
   width: 70%;
+}
+.detailcategories-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 50px;
+  justify-content: flex-start;
 }
 .searchlist-distance {
   text-align: end;
@@ -184,6 +199,11 @@ b {
   top: 220px;
   left: 20px;
   color: var(--white);
+}
+.favorite-star-resultlist {
+  position: absolute;
+  top: 44px;
+  right: 8px;
 }
 
 @media screen and (min-width: 600px) {
