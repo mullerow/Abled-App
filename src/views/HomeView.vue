@@ -103,7 +103,10 @@
     </p>
   </div>
 
-  <LandingPageTitle :username="store.temporaryData.currentUserName" class="welcome-text" />
+  <LandingPageTitle
+    :username="this.store.temporaryData.DataFromCurrentUser.username"
+    class="welcome-text"
+  />
   <div class="grid-container">
     <RouterLink :to="{ name: 'searchpoi' }" class="search btn-search">
       <button class="btn-style search-button-width">
@@ -177,7 +180,7 @@ export default {
       this.store.getPoiDataFromAPI()
       this.store.getUserDataFromAPI().then(() => {
         if (this.store.temporaryData.currentUserData.length > 0) {
-          this.store.currentUserName = this.store.getUserName()
+          this.store.getDataFromCurrentUser()
         }
       })
       this.store.resetTemporaryLists()

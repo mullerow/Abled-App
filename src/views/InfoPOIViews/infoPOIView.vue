@@ -12,6 +12,7 @@
       :src="this.store.getIconOfCategory(findChoosenPoi)"
       alt="Kategorie Icon"
     />
+    <favoriteStarSvg :poiId="poiId" class="favorite-star-infopoi"></favoriteStarSvg>
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
@@ -82,17 +83,19 @@ import BackArrow from '@/components/BackArrow.vue'
 import NavButton from '@/components/NavButton.vue'
 import LöschenButton from '@/components/LöschenButton.vue'
 import headerLogo from '@/components/headerLogo.vue'
+import favoriteStarSvg from '@/components/favoriteStar.vue'
 
 export default {
   components: {
     headerLogo,
     BackArrow,
     NavButton,
-    LöschenButton
+    LöschenButton,
+    favoriteStarSvg
   },
   data() {
     return {
-      id: this.$route.params.id,
+      poiId: this.$route.params.id,
       store: storeData()
     }
   },
@@ -103,7 +106,7 @@ export default {
   },
   computed: {
     findChoosenPoi() {
-      return this.store.temporaryData.currentPois.find((el) => el.id == this.id)
+      return this.store.temporaryData.currentPois.find((el) => el.id == this.poiId)
     }
   },
   mounted() {
@@ -208,5 +211,10 @@ h2 {
   right: 12px;
   width: 60px;
   border-radius: 10px;
+}
+.favorite-star-infopoi {
+  position: absolute;
+  top: 70px;
+  right: 15px;
 }
 </style>
