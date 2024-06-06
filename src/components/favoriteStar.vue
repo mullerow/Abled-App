@@ -77,13 +77,13 @@ export default {
   data() {
     return {
       store: storeData(),
-      poiId: this.$route.params.id,
       addedToFavorite: false,
       animateRisingStar: false,
       animateFallingStar: false
     }
   },
   props: {
+    poiId: { type: String },
     svgWidth: {
       type: String,
       default: '50px'

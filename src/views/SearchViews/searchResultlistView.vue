@@ -58,6 +58,7 @@
         :svgWidth="'30px'"
         :svgheight="'30px'"
         class="favorite-star-resultlist"
+        :poiId="poi.id"
       ></favoriteStarSvg>
       <router-link :to="'/infopoi/' + poi.id">
         <div class="searchlist-poiname">{{ poi.poiName }}</div>

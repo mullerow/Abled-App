@@ -10,7 +10,7 @@
       :src="this.store.getIconOfCategory(findChoosenPoi)"
       alt="Kategorie Icon"
     />
-    <favoriteStarSvg class="favorite-star-infopoi"></favoriteStarSvg>
+    <favoriteStarSvg :poiId="poiId" class="favorite-star-infopoi"></favoriteStarSvg>
     <h2>
       {{ findChoosenPoi.poiName ? findChoosenPoi.poiName : 'Poi konnte nicht geladen werden' }}
     </h2>
