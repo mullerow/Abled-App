@@ -45,8 +45,8 @@ export const storeData = defineStore('poiStore', {
       currentUserData: [],
       currentPois: [],
       currentPoi: {},
-      currentUserId: '', // Hier muss dynamisch die ID zugewiesen werden
-      currentUserName: '',
+      currentUserId: '', // Hier muss dynamisch die ID welche die API erzeugt zugewiesen werden
+      DataFromCurrentUser: {},
       currentPoiId: '',
       newUserData: {
         userName: '',
@@ -58,10 +58,11 @@ export const storeData = defineStore('poiStore', {
         },
         mobilityAssistance: '',
         mobilityAssistanceWidth: '',
-        ownPois: []
+        ownPois: [],
+        favoritePoisOfUser: []
       },
       newPoiData: {
-        poiName: 'Rampe',
+        poiName: '',
         detailCategories: [],
         xCoordinates: null,
         yCoordinates: null,
@@ -77,19 +78,10 @@ export const storeData = defineStore('poiStore', {
         userName: 'frischer Username'
       },
       changedPoiData: {
-        poiName: 'Schweinchen'
+        poiName: ''
       },
       poiListforMap: []
     }),
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////// DATEN VON DEN USERN //////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    userData: [],
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////// DATEN von den POIs //////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    poiData: [],
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) /////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,11 +269,13 @@ export const storeData = defineStore('poiStore', {
       link.target = '_blank'
       link.click()
     },
-    getUserName() {
-      const nameOfUser = this.temporaryData.currentUserData.find((user) => {
+
+    getDataFromCurrentUser() {
+      const currentUserID = localStorage.getItem('currentUserID')
+      this.temporaryData.currentUserId = JSON.parse(currentUserID)
+      this.temporaryData.DataFromCurrentUser = this.temporaryData.currentUserData.find((user) => {
         return user.id === this.temporaryData.currentUserId
       })
-      this.temporaryData.currentUserName = nameOfUser.username
     },
 
     getIconOfCategory(poi) {

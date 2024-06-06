@@ -94,6 +94,8 @@ export default {
     }
   },
   created() {
+    this.store.getDataFromCurrentUser()
+
     if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
       this.addedToFavorite = true
     }
