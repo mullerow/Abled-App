@@ -134,7 +134,7 @@ export default {
             .bindPopup(
               `
             <div class="custom-popup">
-              <h3>${element.poiName}</h3>
+              <h2>${element.poiName}</h2>
               <b>Details: </b> <span>${element.detailCategories}</span> <br>
               <b>Mindestbreite Tür: </b> <span>${element.minWidth} cm</span> <br>
               <b>Öffungszeiten: </b><span>${element.openingTimes}</span> <br>
@@ -208,6 +208,7 @@ label {
   background-color: var(--white);
   border-radius: 8px;
   padding-bottom: 50px;
+  padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
   margin: -16px -24px -58px -20px;
@@ -225,5 +226,10 @@ label {
   border: 1px solid var(--black);
   background-color: var(--red);
   cursor: pointer;
+}
+.favorite-star-container {
+  margin-left: 250px;
+  top: 10px;
+  position: absolute;
 }
 </style>
