@@ -142,7 +142,7 @@ export default {
               <b>Kommentar: </b><span>${element.comment}</span> 
               </div>
               <br>
-              <button id="navigateButton-${element.id}">Zeig mir den Weg</button>`
+              <button class="navigate-button" id="navigateButton-${element.id}">Zeig mir den Weg</button>`
             )
             .on('popupopen', () => {
               document
@@ -167,14 +167,6 @@ export default {
 
 <style>
 /* scoped muss weggelassen werden, damit die styles auf leaflet angwendet werden können */
-
-.header-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: transparent;
-}
 .legend {
   background-color: var(--white);
   height: 260px;
@@ -203,7 +195,27 @@ label {
 .custom-popup {
   word-wrap: break-word;
   word-break: break-word;
-  white-space: normal;
-  min-width: 195px;
+  min-width: 140px;
+  min-height: 200px;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding-bottom: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: -16px -24px -58px -20px;
+  color: var(--black);
+}
+.navigate-button {
+  background-color: var(--black);
+  color: var(--red);
+  border-radius: 10px;
+  border: 1px solid var(--red);
+  padding: 5px 10px;
+}
+.navigate-button:hover {
+  color: var(--black);
+  border: 1px solid var(--black);
+  background-color: var(--red);
+  cursor: pointer;
 }
 </style>
