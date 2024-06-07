@@ -12,7 +12,7 @@
 import L from 'leaflet' // npm install leaflet@latest notwendig
 import 'leaflet/dist/leaflet.css'
 import { storeData } from '@/stores/store.js'
-import { toRaw } from 'vue'
+import { toRaw, createApp } from 'vue'
 import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
@@ -23,6 +23,7 @@ import rampIcon from '@/assets/icons/map-icons/Ramp-Up.svg'
 import gastroIcon from '@/assets/icons/map-icons/Gastro.svg'
 import liftIcon from '@/assets/icons/map-icons/Lift.svg'
 import locationIcon from '@/assets/icons/map-icons/Location.svg'
+import favoriteStarSvg from '@/components/favoriteStar.vue'
 export default {
   components: { BackArrow, headerLogo, BackgroundGradient },
   data() {
@@ -133,7 +134,7 @@ export default {
             .bindPopup(
               `
             <div class="custom-popup">
-              <h3>${element.poiName}</h3>
+              <h2>${element.poiName}</h2>
               <b>Details: </b> <span>${element.detailCategories}</span> <br>
               <b>Mindestbreite Tür: </b> <span>${element.minWidth} cm</span> <br>
               <b>Öffungszeiten: </b><span>${element.openingTimes}</span> <br>
@@ -142,7 +143,9 @@ export default {
               <b>Kommentar: </b><span>${element.comment}</span> 
               </div>
               <br>
-              <button id="navigateButton-${element.id}">Zeig mir den Weg</button>`
+              <div id="favorite-star-${element.id}" class="favorite-star-container"></div>
+              <button class="navigate-button" id="navigateButton-${element.id}">Zeig mir den Weg</button>
+              `
             )
             .on('popupopen', () => {
               document
@@ -150,6 +153,11 @@ export default {
                 .addEventListener('click', () => {
                   this.store.openExternMapToNavigate(element.xCoordinates, element.yCoordinates)
                 })
+              const favoriteStarContainer = document.getElementById(`favorite-star-${element.id}`)
+              if (favoriteStarContainer) {
+                const favoriteStarApp = createApp(favoriteStarSvg, { poiId: element.id })
+                favoriteStarApp.mount(favoriteStarContainer)
+              }
             })
           /*.bindTooltip(element.poiName, {
               permanent: true,
@@ -167,14 +175,6 @@ export default {
 
 <style>
 /* scoped muss weggelassen werden, damit die styles auf leaflet angwendet werden können */
-
-.header-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: transparent;
-}
 .legend {
   background-color: var(--white);
   height: 260px;
@@ -203,7 +203,33 @@ label {
 .custom-popup {
   word-wrap: break-word;
   word-break: break-word;
-  white-space: normal;
-  min-width: 195px;
+  min-width: 140px;
+  min-height: 200px;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding-bottom: 50px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: -16px -24px -58px -20px;
+  color: var(--black);
+}
+.navigate-button {
+  background-color: var(--black);
+  color: var(--red);
+  border-radius: 10px;
+  border: 1px solid var(--red);
+  padding: 5px 10px;
+}
+.navigate-button:hover {
+  color: var(--black);
+  border: 1px solid var(--black);
+  background-color: var(--red);
+  cursor: pointer;
+}
+.favorite-star-container {
+  margin-left: 250px;
+  top: 10px;
+  position: absolute;
 }
 </style>
