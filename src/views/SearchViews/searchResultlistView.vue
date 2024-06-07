@@ -88,9 +88,7 @@ import EarthMap from '@/components/EarthMap.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
 import HeadLine from '@/components/HeadLine.vue'
-
 import BackgroundGradient from '@/components/BackgroundGradient.vue'
-
 import popupButtonTutorial from '@/components/popupButtonTutorial.vue'
 import blurEffect from '@/components/blurEffect.vue'
 import favoriteStarSvg from '@/components/favoriteStar.vue'
@@ -112,8 +110,8 @@ export default {
       resultlistPopup: true
     }
   },
-  created() {
-    this.store.checkForFilterOptions(), this.store.getPoiDataFromAPI()
+  mounted() {
+    this.store.checkForFilterOptions()
   }
 }
 </script>
@@ -135,9 +133,6 @@ export default {
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
   cursor: pointer;
-}
-b {
-  color: var(--black);
 }
 
 .searchlist-poiname {

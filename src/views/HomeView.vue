@@ -1,5 +1,4 @@
 <template>
-
   <div class="background-home"></div>
 
   <blurEffect v-if="appPopup || searchFunctionPopup"></blurEffect>
