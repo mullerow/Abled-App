@@ -12,7 +12,7 @@
 import L from 'leaflet' // npm install leaflet@latest notwendig
 import 'leaflet/dist/leaflet.css'
 import { storeData } from '@/stores/store.js'
-import { toRaw } from 'vue'
+import { toRaw, createApp } from 'vue'
 import BackgroundGradient from '@/components/BackgroundGradient.vue'
 import BackArrow from '@/components/BackArrow.vue'
 import headerLogo from '@/components/headerLogo.vue'
@@ -23,6 +23,7 @@ import rampIcon from '@/assets/icons/map-icons/Ramp-Up.svg'
 import gastroIcon from '@/assets/icons/map-icons/Gastro.svg'
 import liftIcon from '@/assets/icons/map-icons/Lift.svg'
 import locationIcon from '@/assets/icons/map-icons/Location.svg'
+import favoriteStarSvg from '@/components/favoriteStar.vue'
 export default {
   components: { BackArrow, headerLogo, BackgroundGradient },
   data() {
@@ -142,7 +143,9 @@ export default {
               <b>Kommentar: </b><span>${element.comment}</span> 
               </div>
               <br>
-              <button class="navigate-button" id="navigateButton-${element.id}">Zeig mir den Weg</button>`
+              <div id="favorite-star-${element.id}" class="favorite-star-container"></div>
+              <button class="navigate-button" id="navigateButton-${element.id}">Zeig mir den Weg</button>
+              `
             )
             .on('popupopen', () => {
               document
@@ -150,6 +153,11 @@ export default {
                 .addEventListener('click', () => {
                   this.store.openExternMapToNavigate(element.xCoordinates, element.yCoordinates)
                 })
+              const favoriteStarContainer = document.getElementById(`favorite-star-${element.id}`)
+              if (favoriteStarContainer) {
+                const favoriteStarApp = createApp(favoriteStarSvg, { poiId: element.id })
+                favoriteStarApp.mount(favoriteStarContainer)
+              }
             })
           /*.bindTooltip(element.poiName, {
               permanent: true,
