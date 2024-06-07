@@ -94,8 +94,12 @@ export default {
     }
   },
   created() {
+    this.store.checkForFilterOptions()
     this.store.getDataFromCurrentUser()
-
+    console.log(
+      'currentPois nach favoritestar created',
+      this.store.temporaryData.currentPois[0].currentSearchDistance
+    )
     if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
       this.addedToFavorite = true
     }

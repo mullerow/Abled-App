@@ -110,9 +110,8 @@ export default {
       resultlistPopup: true
     }
   },
-  created() {
+  mounted() {
     this.store.checkForFilterOptions()
-    console.log('store.temporaryData.currentPois', this.store.temporaryData.currentPois)
   }
 }
 </script>
@@ -134,9 +133,6 @@ export default {
 .searchlist-button:hover {
   background-color: rgb(252, 220, 180);
   cursor: pointer;
-}
-b {
-  color: var(--black);
 }
 
 .searchlist-poiname {
