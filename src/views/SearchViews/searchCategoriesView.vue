@@ -109,6 +109,7 @@ export default {
       (poi) => poi.createdBy === currentUserID
     )
     if (this.store.temporaryData.ownPoisList.length < 6) {
+      // es werden mit createDummyPois() 6 dummyeinträge erstellt, sodass es nur einmalig pro account durchgeführt wird
       this.store.createDummyPois()
     }
   },
