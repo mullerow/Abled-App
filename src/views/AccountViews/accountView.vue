@@ -284,6 +284,7 @@ export default {
         await this.store.deleteUserfromAPI(userId)
         localStorage.removeItem('updatedUserData')
         localStorage.removeItem('currentUserID')
+        this.$router.push({ name: 'register' })
       } catch (error) {
         console.error('Fehler beim Löschen des Benutzers:', error)
       }
