@@ -2,7 +2,7 @@
   <BackgroundGradient />
   <img
     class="logo-img-register"
-    src="/src/assets/images/final_logo_comprimized.png"
+    src="/src/assets/images/final logo with background small (2).jpeg"
     alt="Logo der App"
   />
   <h1 class="heading-register">Willkommen bei Abled</h1>
@@ -302,16 +302,17 @@ export default {
 
 .logo-img-register {
   width: 50%;
-  max-width: 300px;
-  margin-top: 2rem;
+  max-width: 400px;
+  margin-top: 0.9rem;
+  margin-bottom: 2rem;
   margin-right: 10px;
   border-radius: 40% 0px 0px 10px;
   align-self: center;
 }
 .heading-register {
   align-self: center;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-top: 0;
+  margin-bottom: 4rem;
   text-align: center;
   color: var(--red);
 }
@@ -407,6 +408,24 @@ export default {
 @media screen and (max-width: 600px) {
   .popup-mail {
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .heading-register {
+    margin-top: 2.5rem;
+  }
+  .logo-img-register {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .logo-img-register {
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 280px;
   }
 }
 </style>
