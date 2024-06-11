@@ -2,7 +2,7 @@
   <BackgroundGradient />
   <img
     class="logo-img-login"
-    src="/src/assets/images/final_logo_comprimized.png"
+    src="/src/assets/images/final logo with background small (2).jpeg"
     alt="Logo der App"
   />
   <h1 class="heading-login">Willkommen zurück</h1>
@@ -150,18 +150,18 @@ export default {
 <style>
 .logo-img-login {
   width: 50%;
-  max-width: 300px;
-  margin-top: 1.5rem;
+  max-width: 400px;
+  margin-top: 0.9rem;
+  margin-bottom: 2rem;
   margin-right: 10px;
   border-radius: 40% 0px 0px 10px;
   align-self: center;
 }
 .heading-login {
-  align-self: flex-end;
-  margin-top: 1rem;
+  align-self: center;
+  margin-top: 0;
   margin-bottom: 4rem;
-  margin-right: 30px;
-  text-align: right;
+  text-align: center;
   color: var(--red);
 }
 .input-login {
@@ -211,5 +211,22 @@ export default {
 }
 .login-popup-button:hover {
   transform: scale(1.1);
+}
+@media screen and (max-width: 600px) {
+  .heading-login {
+    margin-top: 2.5rem;
+  }
+  .logo-img-login {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .logo-img-login {
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 280px;
+  }
 }
 </style>
