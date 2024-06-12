@@ -96,10 +96,6 @@ export default {
   created() {
     this.store.checkForFilterOptions()
     this.store.getDataFromCurrentUser()
-    console.log(
-      'currentPois nach favoritestar created',
-      this.store.temporaryData.currentPois[0].currentSearchDistance
-    )
     if (this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(this.poiId)) {
       this.addedToFavorite = true
     }
@@ -117,7 +113,6 @@ export default {
           return
         }
         // speichere die daten aus dem localstorage in die temporären daten für das api update
-        console.log('DataFromCurrentUser componente', this.store.temporaryData.DataFromCurrentUser)
         this.store.temporaryData.changedUserData = {
           id: this.store.temporaryData.DataFromCurrentUser.id,
           username: updatedUserData.username,

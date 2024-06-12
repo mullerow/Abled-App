@@ -54,6 +54,7 @@
   </div>
 
   <HeadLine Headline="Ergebnisliste" class="headline-text"></HeadLine>
+
   <div class="search-list-container" v-for="poi of store.temporaryData.currentPois" :key="poi.id">
     <button class="searchlist-button" v-if="store.renderFilteredPois(poi)">
       <img class="categorie-icon" :src="this.store.getIconOfCategory(poi)" alt="Kategorie Icon" />
@@ -123,7 +124,6 @@ export default {
   min-height: 100px;
   background-color: var(--white);
   color: var(--red);
-
   margin-bottom: 10px;
   border-radius: 16px;
   border: 1px solid var(--black);
@@ -151,6 +151,8 @@ export default {
   flex-direction: column;
   min-height: 50px;
   justify-content: flex-start;
+  min-width: 370px;
+  padding-bottom: 5px;
 }
 .searchlist-distance {
   text-align: end;

@@ -80,7 +80,8 @@ export const storeData = defineStore('poiStore', {
       changedPoiData: {
         poiName: ''
       },
-      poiListforMap: []
+      poiListforMap: [],
+      dataFromFavoritePois: []
     }),
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////// LOKALE DATEN (WERDEN NICHT AUF DER API GESPEICHERT) /////////////////////////////////////////////////
@@ -276,6 +277,21 @@ export const storeData = defineStore('poiStore', {
       this.temporaryData.DataFromCurrentUser = this.temporaryData.currentUserData.find((user) => {
         return user.id === this.temporaryData.currentUserId
       })
+    },
+    getDataFromFavoritePois() {
+      console.log('this.temporaryData.currentPois', this.temporaryData.currentPois)
+      console.log(
+        'this.store.temporaryData.DataFromCurrentUser.favoritePoisOfUser',
+        this.temporaryData.DataFromCurrentUser.favoritePoisOfUser
+      )
+      this.temporaryData.dataFromFavoritePois = this.temporaryData.currentPois.filter((poi) => {
+        return this.temporaryData.DataFromCurrentUser.favoritePoisOfUser.includes(poi.id)
+      })
+
+      console.log(
+        'this.temporaryData.dataFromFavoritePois',
+        this.temporaryData.dataFromFavoritePois
+      )
     },
 
     getIconOfCategory(poi) {
