@@ -73,10 +73,12 @@ export default {
 </script>
 <style scoped>
 .favorite-poi-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  width: 100%;
 }
 
 .categorie-icon {
@@ -111,8 +113,9 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 50px;
-  width: 300px;
+  min-width: 370px;
   justify-content: flex-start;
+  padding-bottom: 5px;
 }
 
 .favoritelist-poiname {
