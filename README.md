@@ -1,3 +1,6 @@
+<h1 align="center">This is just a clone. You can find the original repository here: <a href="https://github.com/coding-bootcamps-eu/final-project-2024-01-accessibility" target="_blank">Repository</a> </h1>
+
+
 <h1 align="center">Welcome to the Abled-App 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
